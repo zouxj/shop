@@ -1,13 +1,15 @@
 package com.shenyu.laikaword.http.api;
 
-import com.shenyu.laikaword.bean.BaseReponse;
+import com.shenyu.laikaword.bean.BaseResponse;
 import com.shenyu.laikaword.bean.reponse.DidiFuResponse;
 import com.shenyu.laikaword.bean.reponse.HeadReponse;
+import com.shenyu.laikaword.bean.reponse.UserReponse;
 
-import java.util.List;
 import java.util.Map;
 
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
@@ -15,7 +17,6 @@ import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
-import retrofit2.http.Part;
 import retrofit2.http.PartMap;
 import retrofit2.http.Query;
 import rx.Observable;
@@ -36,12 +37,12 @@ public interface NetApi {
     //POST请求
     @FormUrlEncoded
     @POST("bjws/app.user/login")
-    Observable<BaseReponse> getVerfcationCodePost(@Field("tel") String tel, @Field("password") String pass);
+    Observable<BaseResponse> getVerfcationCodePost(@Field("tel") String tel, @Field("password") String pass);
 
     //POST请求
     @FormUrlEncoded
     @POST("bjws/app.user/login")
-    Observable<BaseReponse> getVerfcationCodePostMap(@FieldMap Map<String, String> map);
+    Observable<BaseResponse> getVerfcationCodePostMap(@FieldMap Map<String, String> map);
 
     //GET请求
     @GET("router?v=1.0.0&app_key=48e5e13229b82c1b4e6e8c96151f0637&sessio" +
@@ -53,7 +54,7 @@ public interface NetApi {
     //GET请求，设置缓存
     @Headers("Cache-Control: public," + CACHE_CONTROL_CACHE)
     @GET("bjws/app.user/login")
-    Observable<BaseReponse> getVerfcationGetCache(@Query("tel") String tel, @Query("password") String pass);
+    Observable<BaseResponse> getVerfcationGetCache(@Query("tel") String tel, @Query("password") String pass);
 
 
     @Headers("Cache-Control: public," + CACHE_CONTROL_NETWORK)
@@ -62,13 +63,37 @@ public interface NetApi {
             "estamp=2017-08-01+11%3A05%3A39&softVersion=5.7.1.1&channel=android&format=json&sign=ef11655d85265ae6dab6d1d0d014aabe")
     Observable<DidiFuResponse> getMainMenu();
 
+    @Multipart
+    @POST("appapi/v5_3/image/upload/userHeadPic")
+    Observable<HeadReponse> uploadMultipleTypeFile
+    (
+            @Query("platform") String platform,
+            @Query("sign") String sign,
+            @Query("access_token") String access_token,
+            @Query("userId") String userId,
+            @Query("dataSource") String dataSource,
+            @Query("version") String version,
+            @Query("accountLinkId") String accountLinkId,
+            @Query("timestamp") String timestamp,
+            @Query("devModel") String devModel,
+            @Query("user_token") String user_token,
+            @Query("devId") String devId,
+            @PartMap   Map<String,RequestBody> paramText);
+
     /**
-     * 上传文字和头像
-     * @param des
-     * @param params
+     * 文件下载
      * @return
      */
-    @Multipart
-    @POST("v1/public/core/?service=user.updateAvatar")
-    Observable<HeadReponse> uploadMultipleTypeFile(@PartMap Map<String,String> paramText, @PartMap Map<String, RequestBody> params);
+    @GET("/youyuLive/un/youyulive_V1.2.8_1_28.apk?t=1499398218")
+    Call<ResponseBody> loadFile();
+
+    /**
+     * 用户登录
+     * @param
+     * @return
+     */
+    @POST("appapi/login")
+    Observable<UserReponse> loginUser(@Query("usename") String usename,@Query("password")String password);
+
+
 }

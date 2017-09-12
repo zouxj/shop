@@ -120,16 +120,22 @@ public class UIUtil {
     /**
      * dip转换为px
      */
-    public static float dip2px(float dip) {
+    public static float dp2px(float dip) {
+        if (dip <= 0) return 0;
         final float scale = getContext().getResources().getDisplayMetrics().density;
         return dip * scale + 0.5f;
     }
-
     /**
      * px转换为dip
      */
     public static float px2dip(float px) {
+        if (px <= 0) return 0;
         final float scale = getContext().getResources().getDisplayMetrics().density;
         return px / scale + 0.5f;
+    }
+    public static float sp2px(Context context, float spValue) {
+        if (spValue <= 0) return 0;
+        final float scale = context.getResources().getDisplayMetrics().scaledDensity;
+        return spValue * scale;
     }
 }

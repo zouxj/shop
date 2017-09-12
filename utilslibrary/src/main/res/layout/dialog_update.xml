@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:divider="@drawable/light_grey_horizontal_divider"
+    android:orientation="vertical"
+    android:showDividers="middle">
+    <TextView android:id="@+id/tv_title"
+            android:layout_width="match_parent" android:background="@drawable/dialog_top_bg"
+        android:text="提示" android:textSize="16dp" android:gravity="center"
+        android:layout_height="wrap_content" android:padding="15dp"  />
+    <TextView
+        android:id="@+id/tv_msg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="15dp"
+        android:text="哈哈哈哈哈"
+        android:textColor="@color/textDark"
+        android:textSize="14dp" />
+
+    <include layout="@layout/dialog_bottom_layout"/>
+    </LinearLayout>

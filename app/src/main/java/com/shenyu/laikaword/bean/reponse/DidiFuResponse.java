@@ -1,6 +1,6 @@
 package com.shenyu.laikaword.bean.reponse;
 
-import com.shenyu.laikaword.bean.BaseReponse;
+import com.shenyu.laikaword.bean.BaseResponse;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import java.util.List;
  * Created by Administrator on 2017/8/3 0003.
  */
 
-public class DidiFuResponse extends BaseReponse {
+public class DidiFuResponse extends BaseResponse {
 
     private int code;
     private String message;

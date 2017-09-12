@@ -1,10 +1,16 @@
 package com.shenyu.laikaword.http;
 
-import com.shenyu.laikaword.bean.BaseReponse;
+import com.shenyu.laikaword.bean.BaseResponse;
 import com.shenyu.laikaword.bean.reponse.DidiFuResponse;
 import com.shenyu.laikaword.bean.reponse.HeadReponse;
+import com.shenyu.laikaword.bean.reponse.UserReponse;
 import com.shenyu.laikaword.http.api.NetApi;
+import com.shenyu.laikaword.http.downloadmanager.FileCallback;
+import com.shenyu.laikaword.http.uitls.BaseResponseFunc;
+import com.shenyu.laikaword.http.uitls.ExceptionSubscriber;
 import com.shenyu.laikaword.http.uitls.RetrofitUtils;
+import com.shenyu.laikaword.http.uitls.SimpleCallback;
+import com.zxj.utilslibrary.utils.UIUtil;
 
 import java.util.Map;
 
@@ -12,6 +18,7 @@ import okhttp3.RequestBody;
 import rx.Observable;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 
@@ -24,56 +31,81 @@ public class NetWorks extends RetrofitUtils {
 
     protected static final NetApi service = getmRetrofit().create(NetApi.class);
     //POST请求
-    public static void verfacationCodePost(String tel, String pass, Observer<BaseReponse> observer){
+    public static void verfacationCodePost(String tel, String pass, SimpleCallback<BaseResponse> observer){
         setSubscribe(service.getVerfcationCodePost(tel, pass),observer);
     }
 
 
     //POST请求参数以map传入
-    public static void verfacationCodePostMap(Map<String, String> map, Observer<BaseReponse> observer) {
+    public static void verfacationCodePostMap(Map<String, String> map, SimpleCallback<BaseResponse> observer) {
         setSubscribe(service.getVerfcationCodePostMap(map),observer);
     }
 
     //Get请求设置缓存
-    public static void verfacationCodeGetCache(String tel, String pass,Observer<BaseReponse> observer) {
+    public static void verfacationCodeGetCache(String tel, String pass,SimpleCallback<BaseResponse> observer) {
         setSubscribe(service.getVerfcationGetCache(tel, pass),observer);
     }
 
     //Get请求
-    public static void verfacationCodeGet(Observer<DidiFuResponse> observer) {
+    public static void verfacationCodeGet(SimpleCallback<DidiFuResponse> observer) {
         setSubscribe(service.getVerfcationGet(),observer);
     }
 
     //Get请求
-    public static void verfacationCodeGetsub(String tel, String pass, Observer<BaseReponse> observer) {
+    public static void verfacationCodeGetsub(String tel, String pass, Observer<BaseResponse> observer) {
 //        setSubscribe(service.getVerfcationGet(tel, pass),observer);
     }
 
     //Get请求
-    public static void Getcache( Observer<DidiFuResponse> observer) {
+    public static void Getcache( SimpleCallback<DidiFuResponse> observer) {
         setSubscribe(service.getMainMenu(),observer);
     }
 
     /**
      * 上传头像
-     * @param des
      * @param params
-     * @param observe
+     * @param simpleCallback
      */
-    public static  void  uploadMultipleTypeFile(Map<String, String> paramsText, Map<String, RequestBody> params,Observer<HeadReponse> observe) {
-        setSubscribe(service.uploadMultipleTypeFile(paramsText,params),observe);
+    public static  void  uploadMultipleTypeFile(String platform, String sign,
+                                                String access_token, String userId, String dataSource,
+                                                String version, String accountLinkId, String timestamp,
+                                                String devModel, String user_token, String devId
+                                                ,Map<String, RequestBody> params,SimpleCallback<HeadReponse> simpleCallback) {
+        setSubscribe(service.uploadMultipleTypeFile(platform,sign,access_token,userId,dataSource,version,accountLinkId,timestamp,devModel,user_token,devId,params),simpleCallback);
+    }
+
+    /**
+     * 下载文件
+     * @param fileCallbacks
+     */
+    public static void downLoadFile(final FileCallback fileCallbacks){
+        service.loadFile().enqueue(fileCallbacks);
     }
     /**
      * 插入观察者
      * @param observable
-     * @param observer
+     * @param simpleCallback
      * @param <T>
      */
-    public static <T> void setSubscribe(Observable<T> observable, Observer<T> observer) {
-        observable.subscribeOn(Schedulers.io())
-                .subscribeOn(Schedulers.newThread())//子线程访问网络
+    public static <T> void setSubscribe(Observable<T> observable, SimpleCallback<T> simpleCallback) {
+        observable
+                .flatMap((Func1<? super T, ? extends Observable<? extends T>>) new BaseResponseFunc<T>())
+                .subscribeOn(Schedulers.io())//子线程访问网络
+                .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())//回调到主线程
-                .subscribe(observer);
+                .subscribe(new ExceptionSubscriber<T>(simpleCallback));
     }
+
+    /**
+     * 登陸
+     * @param user
+     * @param password
+     * @param observe
+     */
+    public static void loginUser( String user,String password,SimpleCallback<UserReponse> observe){
+        setSubscribe(service.loginUser(user,password),observe);
+    }
+
+
 
 }

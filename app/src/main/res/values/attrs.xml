@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="circleTextView">
+        <attr name="ct_backgroundColor" format="color" />
+        <attr name="ct_border_width" format="dimension" />
+        <attr name="ct_border_color" format="color" />
+        <attr name="ct_border_alpha" format="float" />
+        <attr name="ct_text_color" format="color"/>
+        <attr name="ct_type" format="enum">
+            <enum name="shadow_gradual" value="1"/>
+            <enum name="shadow_alpha" value="2"/>
+        </attr>
+
+    </declare-styleable>
+        <declare-styleable name="CircleImageView">
+            <attr name="civ_border_width" format="dimension" />
+            <attr name="civ_border_color" format="color" />
+            <attr name="civ_border_overlay" format="boolean" />
+            <attr name="civ_fill_color" format="color" />
+        </declare-styleable>
+        <declare-styleable name="IdentityImageView">
+            <attr name="iciv_bigimage" format="reference"></attr><!--大图片-->
+            <attr name="iciv_smallimage" format="reference"></attr><!--小图片-->
+            <attr name="iciv_angle" format="float"></attr><!--标识角度-->
+            <attr name="iciv_radiusscale" format="float"></attr><!--大小图片比例-->
+            <attr name="iciv_isprogress" format="boolean"></attr><!--是否有进度条-->
+            <attr name="iciv_progress_collor" format="color|reference"></attr><!--进度条颜色-->
+            <attr name="iciv_border_color" format="color|reference"></attr><!--边框颜色-->
+            <attr name="iciv_border_width" format="integer"></attr><!--边框宽度-->
+            <attr name="iciv_hint_smallimageview" format="boolean"></attr><!--是否隐藏小图片-->
+        </declare-styleable>
+
+    <declare-styleable name="RoundImageView">
+        <!-- 描边宽度-->
+        <attr name="border_width" format="dimension"/>
+        <!-- 描边颜色-->
+        <attr name="border_color" format="color"/>
+        <!--圆角大小-->
+        <attr name="corner_radius" format="dimension"/>
+        <!--左上圆角大小-->
+        <attr name="leftTop_corner_radius" format="dimension"/>
+        <!--右上圆角大小-->
+        <attr name="rightTop_corner_radius" format="dimension"/>
+        <!--左下圆角大小-->
+        <attr name="leftBottom_corner_radius" format="dimension"/>
+        <!--右下圆角大小-->
+        <attr name="rightBottom_corner_radius" format="dimension"/>
+        <!--图片类型：圆角或者圆形-->
+        <attr name="type" format="enum">
+            <enum name="oval" value="2"/>
+            <enum name="round" value="1"/>
+            <enum name="circle" value="0"/>
+        </attr>
+    </declare-styleable>
+    <!-- 输入框定义-->
+    <declare-styleable name="PayPsdInputView">
+
+        <attr name="maxCount" format="integer" />
+        <attr name="circleColor" format="color" />
+        <attr name="bottomLineColor" format="color" />
+        <attr name="radius" format="dimension" />
+        <attr name="divideLineWidth" format="dimension" />
+        <attr name="divideLineColor" format="color" />
+        <attr name="rectAngle" format="dimension" />
+        <attr name="focusedColor" format="color"/>
+        <attr name="psdType" format="enum">
+            <enum name="weChat" value="0" />
+            <enum name="bottomLine" value="1" />
+        </attr>
+    </declare-styleable>
+</resources>

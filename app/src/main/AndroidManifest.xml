@@ -1,21 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.shenyu.laikaword">
-<uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <permission
+        android:name="com.shenyu.laikaword.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <!-- Required -->
+    <uses-permission android:name="com.shenyu.laikaword.permission.JPUSH_MESSAGE" />
+
     <application
+        android:name=".LaiKaApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:name=".LaiKaApplication"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".main.activity.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service android:name=".http.downloadmanager.DownLoadService" />
+
+        <activity android:name=".module.login.LoginActivity" />
+        <activity
+            android:name=".main.activity.MainActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".main.activity.WelcomePageActivity" />
+
+        <receiver
+            android:name=".jpushreceiver.TalkReceiver"
+            android:enabled="true">
+            <intent-filter>
+
+                <!-- Required 用户注册SDK的intent -->
+                <action android:name="cn.jpush.android.intent.REGISTRATION" />
+                <!-- Required 用户接收SDK消息的intent -->
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
+                <!-- Required 用户接收SDK通知栏信息的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />
+                <!-- Required 用户打开自定义通知栏的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
+                <!-- 接收网络变化 连接/断开 since 1.6.3 -->
+                <action android:name="cn.jpush.android.intent.CONNECTION" />
+
+                <category android:name="com.shenyu.laikaword" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".jpushreceiver.AppJPushMessageReceiver"
+            android:enabled="true"
+            android:exported="true" />
+        <!-- hotfix配置 -->
+        <meta-data
+            android:name="com.taobao.android.hotfix.IDSECRET"
+            android:value="App ID" />
+        <meta-data
+            android:name="com.taobao.android.hotfix.APPSECRET"
+            android:value="App Secret" />
+        <meta-data
+            android:name="com.taobao.android.hotfix.RSASECRET"
+            android:value="RSA密钥" />
+
+        <activity android:name=".module.login.address.EditeAddressActivity"></activity>
     </application>
 
 </manifest>

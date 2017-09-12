@@ -74,4 +74,38 @@ public class StringUtil {
     public static Spanned colorTextString(String prefixString, int colorForTarget, String targetString) {
         return Html.fromHtml(prefixString + "<font color='" + colorForTarget + "'>" + targetString + "</font>");
     }
+
+    /**
+     * 判断空字符
+     * @param password
+     * @return
+     */
+    public static boolean validText(String password) {
+        return !TextUtils.isEmpty(password);
+    }
+
+    /**
+     * int转strign
+     * @param time
+     * @return
+     */
+    public static String formatNum(int time) {
+        return time < 10 ? "0" + time : String.valueOf(time);
+    }
+
+    /*
+    毫秒转字符
+     */
+    public static String formatMillisecond(int millisecond) {
+        String retMillisecondStr;
+        if (millisecond > 99) {
+            retMillisecondStr = String.valueOf(millisecond / 10);
+        } else if (millisecond <= 9) {
+            retMillisecondStr = "0" + millisecond;
+        } else {
+            retMillisecondStr = String.valueOf(millisecond);
+        }
+
+        return retMillisecondStr;
+    }
 }

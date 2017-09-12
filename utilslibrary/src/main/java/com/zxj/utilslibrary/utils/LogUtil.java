@@ -1,5 +1,7 @@
 package com.zxj.utilslibrary.utils;
 
+import android.util.Log;
+
 /**
  * Created by Administrator on 2017/8/2 0002.
  * 日志输出
@@ -7,6 +9,7 @@ package com.zxj.utilslibrary.utils;
 
 public class LogUtil {
     private static boolean DEBUG = true;
+    private static final String TAG = "shenyu";
 
     /**
      * 配置调试模式
@@ -93,5 +96,30 @@ public class LogUtil {
     public static void sysErr(Object msg) {
         if (!DEBUG) return;
         System.err.println(msg);
+    }
+
+    // 下面四个是默认tag的函数
+    public static void i(String msg)
+    {
+        if (DEBUG)
+            Log.i(TAG, msg);
+    }
+
+    public static void d(String msg)
+    {
+        if (DEBUG)
+            Log.d(TAG, msg);
+    }
+
+    public static void e(String msg)
+    {
+        if (DEBUG)
+            Log.e(TAG, msg);
+    }
+
+    public static void v(String msg)
+    {
+        if (DEBUG)
+            Log.v(TAG, msg);
     }
 }

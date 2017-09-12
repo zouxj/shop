@@ -17,6 +17,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
@@ -758,5 +759,24 @@ public class FileStorageUtil {
             }
         }
         dir.delete();
+    }
+
+    /**
+     * 创建图片新文件
+     *
+     * @return
+     * @throws IOException
+     */
+    public static File createImageFile() throws IOException {
+
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* 文件名 */
+                ".jpg",         /* 后缀 */
+                storageDir      /* 路径 */
+        );
+        return image;
     }
 }

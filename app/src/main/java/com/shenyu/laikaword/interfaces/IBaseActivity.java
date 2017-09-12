@@ -13,14 +13,15 @@ public interface  IBaseActivity {
      *
      * @return 布局文件资源id
      */
-    public int bindLayout();
+     int bindLayout();
 
     /**
      * 业务处理操作（onCreate方法中被调用）<br/>
      * 数据逻辑及业务操作在此方法中<br/>
      *
-     * @param mContext
      *            当前Activity对象上下文
      */
-    public void doBusiness(Context context);
+     void doBusiness(Context context);
+
+    void setupActivityComponent();
 }

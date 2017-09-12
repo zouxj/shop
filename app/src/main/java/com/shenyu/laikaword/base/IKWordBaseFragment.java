@@ -10,26 +10,22 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.shenyu.laikaword.interfaces.IBaseFragment;
+import com.trello.rxlifecycle2.components.RxFragment;
 import com.zxj.utilslibrary.utils.LogUtil;
+
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * Created by Administrator on 2017/8/3 0003.
  */
 
-public class IKWordBaseFragment extends Fragment implements IBaseFragment {
+public abstract class IKWordBaseFragment extends Fragment implements IBaseFragment {
     protected final String TAG = this.getClass().getSimpleName();
-    private View mContentView = null;
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        LogUtil.d(TAG, TAG + "-->onAttach()");
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        LogUtil.d(TAG, TAG + "-->onCreate()");
-    }
+    protected View mContentView = null;
+    private Unbinder unbinder;
+    protected boolean isViewInitiated;
+    protected boolean isDataLoaded;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,74 +37,47 @@ public class IKWordBaseFragment extends Fragment implements IBaseFragment {
                 parent.removeView(mContentView);
             }
         } else {
-            mContentView = inflater.inflate(bindLayout(), container);
+            mContentView = inflater.inflate(bindLayout(), container,false);
         }
+        unbinder = ButterKnife.bind(this, mContentView);
         return mContentView;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         LogUtil.d(TAG, TAG + "-->onViewCreated()");
+        isViewInitiated = true;
+        prepareRequestData();
         super.onViewCreated(view, savedInstanceState);
-        doBusiness(getActivity());// 业务处理
-    }
+        setupFragmentComponent();
+        doBusiness();// 业务处理
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        LogUtil.d(TAG, TAG + "-->onActivityCreated()");
-        super.onActivityCreated(savedInstanceState);
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        LogUtil.d(TAG, TAG + "-->onSaveInstanceState()");
-        super.onSaveInstanceState(outState);
-    }
-
-    @Override
-    public void onStart() {
-        LogUtil.d(TAG, TAG + "-->onStart()");
-        super.onStart();
-    }
-
-    @Override
-    public void onResume() {
-        LogUtil.d(TAG, TAG + "-->onResume()");
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        LogUtil.d(TAG, TAG + "-->onPause()");
-        super.onPause();
-    }
-
-    @Override
-    public void onStop() {
-        LogUtil.d(TAG, TAG + "-->onStop()");
-        super.onStop();
     }
 
     @Override
     public void onDestroy() {
-        LogUtil.d(TAG, TAG + "-->onDestroy()");
         super.onDestroy();
+        unbinder.unbind();
     }
 
     @Override
-    public void onDetach() {
-        LogUtil.d(TAG, TAG + "-->onDetach()");
-        super.onDetach();
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        prepareRequestData();
     }
 
+    public abstract void requestData();
 
-    @Override
-    public int bindLayout() {
-        return 0;
+    public boolean prepareRequestData() {
+        return prepareRequestData(false);
     }
 
-    @Override
-    public void doBusiness(Context context) {
-
+    public boolean prepareRequestData(boolean forceUpdate) {
+        if (getUserVisibleHint() && isViewInitiated && (!isDataLoaded || forceUpdate)) {
+            requestData();
+            isDataLoaded = true;
+            return true;
+        }
+        return false;
     }
 }

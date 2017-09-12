@@ -2,7 +2,6 @@ package com.zxj.utilslibrary.utils;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import java.util.Stack;
 
 /**

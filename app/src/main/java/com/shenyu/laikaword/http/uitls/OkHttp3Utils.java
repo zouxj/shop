@@ -1,5 +1,6 @@
 package com.shenyu.laikaword.http.uitls;
 
+import com.shenyu.laikaword.http.downloadmanager.FileResponseBody;
 import com.zxj.utilslibrary.utils.FileStorageUtil;
 import com.zxj.utilslibrary.utils.NetworkUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
@@ -7,7 +8,10 @@ import com.zxj.utilslibrary.utils.UIUtil;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
@@ -37,23 +41,56 @@ public class OkHttp3Utils {
      */
     public static OkHttpClient getmOkHttpClient(){
         if (null==mOkHttpClient){
-            mOkHttpClient=new OkHttpClient.Builder().cookieJar(new CookiesManager()) //添加拦截器
-                    //.addInterceptor(new MyIntercepter())
-                    //添加网络连接器
-                    //.addNetworkInterceptor(new CookiesInterceptor(MyApplication.getInstance().getApplicationContext()))
-                    //设置请求读写的超时时间
-                    .connectTimeout(30, TimeUnit.SECONDS)
-                    .writeTimeout(30, TimeUnit.SECONDS)
-                    .readTimeout(30, TimeUnit.SECONDS)
-                    .cache(cache)
-                    .build();
+            synchronized (OkHttp3Utils.class) {
+                if (null==mOkHttpClient) {
+                    OkHttpClient.Builder builder = new OkHttpClient.Builder();
+                    builder.connectTimeout(30, TimeUnit.SECONDS)
+                            .writeTimeout(30, TimeUnit.SECONDS)
+                            .readTimeout(30, TimeUnit.SECONDS)
+                            .cache(cache);
+                    builder.cookieJar(new CookiesManager());
+                    builder.addInterceptor(new LaiIntercepter());
+                    builder.networkInterceptors().add(new DownIntercepter());
+                    mOkHttpClient = builder.build();
+//            mOkHttpClient=new OkHttpClient.Builder().cookieJar(new CookiesManager()) //添加拦截器
+//                    .addInterceptor(new LaiIntercepter())
+//                    //添加网络连接器
+//                    //.addNetworkInterceptor(new CookiesInterceptor(MyApplication.getInstance().getApplicationContext()))
+//                    //设置请求读写的超时时间
+//                    .connectTimeout(30, TimeUnit.SECONDS)
+//                    .writeTimeout(30, TimeUnit.SECONDS)
+//                    .readTimeout(30, TimeUnit.SECONDS)
+//                    .cache(cache)
+//                    .build();
+                }
+            }
         }
         return  mOkHttpClient;
     }
+
     /**
-     * 拦截器
+     * 下载网络下载连拦截器
      */
-    private static class MyIntercepter implements Interceptor {
+    private static class DownIntercepter implements Interceptor{
+
+        @Override
+        public Response intercept(Chain chain) throws IOException {
+            Response originalResponse = chain.proceed(chain.request());
+            return originalResponse
+                    .newBuilder()
+                    .body(new FileResponseBody(originalResponse))
+                    .build();
+        }
+    }
+    /**
+     * 请求错误拦截器
+     */
+    private static class LaiIntercepter implements Interceptor {
+        private Map<String, String> headers;
+        public LaiIntercepter(){
+            headers = new HashMap<>();
+            headers.put("token","user_token");
+        }
         @Override
         public Response intercept(Chain chain) throws IOException {
             Request request = chain.request();
@@ -71,7 +108,14 @@ public class OkHttp3Utils {
                         .removeHeader("Pragma")
                         .header("Cache-Control", "public, max-age=" + maxAge)
                         .build();
-            } else {
+
+            }else {
+                if (headers != null && headers.size() > 0) {
+                    Set<String> keys = headers.keySet();
+                    for (String headerKey : keys) {
+                        request.newBuilder().addHeader(headerKey, headers.get(headerKey)).build();
+                    }
+                }
                 int maxStale = 60 * 60 * 24 * 28; // 无网络时，设置超时为4周
                 response.newBuilder()
                         .removeHeader("Pragma")

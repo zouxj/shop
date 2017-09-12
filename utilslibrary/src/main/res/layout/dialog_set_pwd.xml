@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@drawable/dialog_setpwd_background"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <EditText
+    android:layout_gravity="center_horizontal"
+    android:layout_width="180dp"
+        android:background="@drawable/edits_bg"
+    android:layout_marginTop="@dimen/dp_15dp"
+    android:hint="请设置交易密码"
+    android:layout_height="35dp" />
+
+
+
+
+    <EditText
+        android:layout_width="180dp"
+        android:layout_height="35dp"
+        android:background="@drawable/edits_bg"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:hint="再次输入" />
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:layout_width="180dp"
+        android:layout_height="35dp">
+        <EditText
+            android:background="@drawable/edits_bg"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="120dp"
+            android:layout_marginTop="20dp"
+            android:hint="请输入短信验证码"
+            android:layout_height="35dp" />
+        <com.zxj.utilslibrary.widget.countdownview.CountdownView
+            android:id="@+id/cv_code"
+            android:layout_gravity="center_vertical"
+            android:layout_width="60dp"
+            android:background="@drawable/selector_time_btn"
+            android:layout_height="35dp"
+            app:suffixGravity="center"
+            app:suffixTextColor="#000000"
+            app:suffixTextSize="12sp"
+            app:timeTextColor="#000000"
+            app:timeTextSize="12sp" />
+    </LinearLayout>
+    <include layout="@layout/dialog_bottom_layout" />
+</LinearLayout>

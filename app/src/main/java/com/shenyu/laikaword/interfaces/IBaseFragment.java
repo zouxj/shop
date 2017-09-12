@@ -13,12 +13,17 @@ public interface IBaseFragment {
      *
      * @return 布局文件资源id
      */
-    public int bindLayout();
+     int bindLayout();
     /**
      * 业务处理操作（onViewCreated方法中调用）
      *
      * @param mContext
      *            当前Activity对象上下文
      */
-    public void doBusiness(Context context);
+     void doBusiness();
+
+    /**
+     * 用来注解链接
+     */
+    void setupFragmentComponent();
 }
