@@ -4,6 +4,8 @@ import com.shenyu.laikaword.main.MainComponent;
 import com.shenyu.laikaword.main.MainModule;
 import com.shenyu.laikaword.module.login.LoginComponent;
 import com.shenyu.laikaword.module.login.LoginModule;
+import com.shenyu.laikaword.module.mine.MineComponent;
+import com.shenyu.laikaword.module.mine.MineModule;
 
 import javax.inject.Singleton;
 
@@ -18,4 +20,5 @@ import dagger.Component;
 public interface AppComponent {
     LoginComponent plus(LoginModule loginModule);
     MainComponent plus(MainModule mainModule);
+    MineComponent plus(MineModule mineModule);
 }

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context="com.shenyu.laikaword.module.mine.systemsetting.AccountBindActivity">
+
+    <include layout="@layout/toolbar_layout"/>
+    <RelativeLayout
+        android:id="@+id/bind_rl_phone"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="55dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/textView"
+        android:layout_alignEnd="@+id/textView">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="手机号"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:padding="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:text=">"
+            android:layout_height="wrap_content" />
+
+        <include layout="@layout/line_bottom_view"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/bind_rl_weixin"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="55dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="微信账号"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:padding="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:text=">"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView" />
+
+        <include layout="@layout/line_bottom_view"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/bind_rl_qq"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="55dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="QQ账号"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:padding="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:text=">"
+            android:layout_height="wrap_content" />
+
+        <include layout="@layout/line_bottom_view"/>
+    </RelativeLayout>
+</LinearLayout>

@@ -17,9 +17,8 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 /**
- * Created by Administrator on 2017/8/3 0003.
+ * Fragment基类
  */
-
 public abstract class IKWordBaseFragment extends Fragment implements IBaseFragment {
     protected final String TAG = this.getClass().getSimpleName();
     protected View mContentView = null;
@@ -29,7 +28,7 @@ public abstract class IKWordBaseFragment extends Fragment implements IBaseFragme
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        LogUtil.d(TAG, TAG + "-->onCreateView()");
+        LogUtil.i(TAG, TAG + "-->onCreateView()");
         // 渲染视图View(防止切换时重绘View)
         if (null != mContentView) {
             ViewGroup parent = (ViewGroup) mContentView.getParent();
@@ -40,6 +39,7 @@ public abstract class IKWordBaseFragment extends Fragment implements IBaseFragme
             mContentView = inflater.inflate(bindLayout(), container,false);
         }
         unbinder = ButterKnife.bind(this, mContentView);
+        initView(mContentView);
         return mContentView;
     }
 
@@ -80,4 +80,11 @@ public abstract class IKWordBaseFragment extends Fragment implements IBaseFragme
         }
         return false;
     }
+
+    /**
+     * 初始化布局
+     */
+    public void initView(View view){}
+
+
 }

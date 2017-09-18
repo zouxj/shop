@@ -1,7 +1,6 @@
 package com.shenyu.laikaword.main.fragment;
 
 
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,21 +9,34 @@ import android.support.v4.view.ViewPager;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.shenyu.laikaword.LaiKaApplication;
 import com.shenyu.laikaword.R;
+import com.shenyu.laikaword.adapter.MainViewPagerAdapter;
 import com.shenyu.laikaword.base.IKWordBaseFragment;
+import com.shenyu.laikaword.bean.reponse.ShopBeanReponse;
 import com.shenyu.laikaword.helper.BannerBean;
 import com.shenyu.laikaword.helper.BannerHelper;
+import com.shenyu.laikaword.main.MainModule;
+import com.shenyu.laikaword.main.MainPresenter;
+import com.shenyu.laikaword.main.MainView;
+import com.shenyu.laikaword.main.activity.MainActivity;
 import com.shenyu.laikaword.rxbus.EventType;
 import com.shenyu.laikaword.rxbus.RxBus;
 import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
-import com.zxj.utilslibrary.utils.UIUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -33,22 +45,48 @@ import butterknife.OnClick;
 /**
  * 首页Fragment
  */
-public class MainFragment extends IKWordBaseFragment {
+public class MainFragment extends IKWordBaseFragment implements MainView{
 
     @BindView(R.id.tabs)
     TabLayout tabs;
     @BindView(R.id.viewpager_bottom)
     ViewPager viewpager;
-    @BindView(R.id.main_content)
-    CoordinatorLayout mainContent;
-    String[] mTitles = new String[]{
-            "主页", "微博", "相册"
-    };
+    @BindView(R.id.refreshLayout)
+    SmartRefreshLayout smartRefreshLayout;
+    @Inject
+    MainViewPagerAdapter mainViewPagerAdapter;
+    @Inject
+    MainPresenter mainPresenter;
     @Override
     public int bindLayout() {
         return R.layout.fragment_main;
     }
 
+    @Override
+    public void initView(View view){
+        smartRefreshLayout.setEnableRefresh(true);
+        smartRefreshLayout.setEnableLoadmore(true);
+        smartRefreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
+        smartRefreshLayout.setRefreshFooter(new ClassicsFooter(getActivity()));
+        smartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                refreshlayout.finishRefresh(2000);
+                mainPresenter.loadRefresh();
+//                ToastUtil.showToastShort("正在刷新...");
+            }
+        });
+        smartRefreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                refreshlayout.finishLoadmore(2000);
+                mainPresenter.onLoadMore();
+//                ToastUtil.showToastShort("正在加载...");
+            }
+        });
+
+
+    }
     @Override
     public void doBusiness() {
         initViewpagerTop();
@@ -84,7 +122,7 @@ public void onClick(View v){
 }
     @Override
     public void setupFragmentComponent() {
-
+        LaiKaApplication.get(getActivity()).getAppComponent().plus(new MainModule(this,getFragmentManager())).inject(this);
     }
 
     @Override
@@ -92,41 +130,41 @@ public void onClick(View v){
 
     }
     private void setupViewPager() {
-
-        for (int i = 0; i < mTitles.length; i++) {
-
-        }
         // 第二步：为ViewPager设置适配器
-        BaseFragmentAdapter adapter = new BaseFragmentAdapter(getFragmentManager());
-
-        viewpager.setAdapter(adapter);
+        viewpager.setAdapter(mainViewPagerAdapter);
         //  第三步：将ViewPager与TableLayout 绑定在一起
         tabs.setupWithViewPager(viewpager);
     }
-    class BaseFragmentAdapter extends FragmentPagerAdapter {
 
-        public BaseFragmentAdapter(FragmentManager fm) {
-            super(fm);
-        }
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mTitles[position];
-        }
-        @Override
-        public Fragment getItem(int position) {
-            return new ListFragment();
-        }
 
-        @Override
-        public int getCount() {
-            return mTitles.length;
-        }
+    @Override
+    public void isLoading() {
 
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            LogUtil.i(position+"_____fragment");
-            return super.instantiateItem(container, position);
-        }
+    }
+
+    @Override
+    public void dataCountChanged(int count) {
+
+    }
+
+    @Override
+    public void loadFinished() {
+
+    }
+
+    @Override
+    public void showShop(ShopBeanReponse shopBeanReponse) {
+
+    }
+
+    @Override
+    public void loadMore(List list) {
+        RxBus.getDefault().post(new EventType(EventType.ACTION_LODE_MORE,list));
+    }
+
+    @Override
+    public void refreshPull(List list) {
+        RxBus.getDefault().post(new EventType(EventType.ACTION_PULL_REFRESH,list));
     }
 
 }

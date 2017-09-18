@@ -26,4 +26,5 @@ public interface IBaseFragment {
      * 用来注解链接
      */
     void setupFragmentComponent();
+
 }

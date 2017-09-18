@@ -1,7 +1,8 @@
 package com.shenyu.laikaword.main;
 
 import com.shenyu.laikaword.main.activity.MainActivity;
-import com.shenyu.laikaword.main.activity.TestMainActivity;
+import com.shenyu.laikaword.main.activity.WelcomePageActivity;
+import com.shenyu.laikaword.main.fragment.MainFragment;
 
 import dagger.Subcomponent;
 
@@ -11,4 +12,6 @@ import dagger.Subcomponent;
 @Subcomponent(modules = {MainModule.class})
 public interface MainComponent {
      MainActivity inject(MainActivity loginActivity);
+     MainFragment inject(MainFragment mainFragment);
+     WelcomePageActivity inject(WelcomePageActivity welcomePageActivity);
 }

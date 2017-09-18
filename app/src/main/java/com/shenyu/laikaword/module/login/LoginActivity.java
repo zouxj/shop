@@ -3,16 +3,16 @@ package com.shenyu.laikaword.module.login;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.jakewharton.rxbinding.widget.RxTextView;
 import com.shenyu.laikaword.LaiKaApplication;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.bean.reponse.UserReponse;
-import com.shenyu.laikaword.main.activity.MainActivity;
-import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.ToastUtil;
 
 import javax.inject.Inject;
@@ -22,18 +22,22 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import rx.functions.Action1;
 
+/**
+ * 用户登录页面
+ */
 public class LoginActivity extends LKWordBaseActivity implements LoginView {
+
+
+    @BindView(R.id.et_use_phone)
+    EditText etUsePhone;
+    @BindView(R.id.et_user_msg_code)
+    EditText etUserMsgCode;
+    @BindView(R.id.tv_send_msg_code)
+    TextView tvSendMsgCode;
+    @BindView(R.id.bt_login)
+    Button btLogin;
     @Inject
     LoginPresenter loginPresenter;
-    @BindView(R.id.editText)
-    EditText editText;
-    @BindView(R.id.editText2)
-    EditText editText2;
-    @BindView(R.id.button)
-    Button button;
-    private String password;
-    private String usename;
-
     @Override
     public int bindLayout() {
         return R.layout.activity_login;
@@ -41,19 +45,16 @@ public class LoginActivity extends LKWordBaseActivity implements LoginView {
 
     @Override
     public void doBusiness(Context context) {
-        editText.setText(loginPresenter.getUserNameFromLocal());
-        editText2.setText(loginPresenter.getPasswordFromLocal());
-        IntentLauncher.with(this).launch(MainActivity.class);
-        RxTextView.textChanges(editText).subscribe(new Action1<CharSequence>() {
+        RxTextView.textChanges(etUsePhone).subscribe(new Action1<CharSequence>() {
             @Override
             public void call(CharSequence charSequence) {
-                loginPresenter.checkInput(charSequence.toString(), editText.getText().toString());
+                loginPresenter.checkInput(charSequence.toString(), etUserMsgCode.getText().toString());
             }
         });
-        RxTextView.textChanges(editText2).subscribe(new Action1<CharSequence>() {
+        RxTextView.textChanges(etUserMsgCode).subscribe(new Action1<CharSequence>() {
             @Override
             public void call(CharSequence charSequence) {
-                loginPresenter.checkInput(editText2.getText().toString(), charSequence.toString());
+                loginPresenter.checkInput(etUsePhone.getText().toString(), charSequence.toString());
             }
         });
     }
@@ -80,12 +81,11 @@ public class LoginActivity extends LKWordBaseActivity implements LoginView {
 
     @Override
     public void canLogin(boolean canLogin) {
-
         if (canLogin) {
-            button.setEnabled(true);
-            button.setBackgroundColor(Color.GREEN);
+            btLogin.setEnabled(true);
+            btLogin.setBackgroundColor(Color.GREEN);
         } else {
-            button.setBackgroundColor(Color.GRAY);
+            btLogin.setBackgroundColor(Color.GRAY);
         }
     }
 
@@ -94,16 +94,25 @@ public class LoginActivity extends LKWordBaseActivity implements LoginView {
         ToastUtil.showToastShort(user.getPassword());
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+
+    @OnClick({R.id.bt_login, R.id.tv_send_msg_code,R.id.tv_qq_login,R.id.tv_weixin_login})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.bt_login:
+                loginPresenter.login(etUsePhone.getText().toString().trim(), tvSendMsgCode.getText().toString().trim());
+                break;
+            case R.id.tv_send_msg_code:
+                String phone = etUsePhone.getText().toString().trim();
+                loginPresenter.sendMsg(phone, tvSendMsgCode);
+                break;
+            case R.id.tv_qq_login:
+                loginPresenter.loginQQ();
+                break;
+            case R.id.tv_weixin_login:
+                loginPresenter.loginWx();
+                break;
+        }
+
     }
 
-    @OnClick(R.id.button)
-    public void onViewClicked() {
-        loginPresenter.login(usename,password);
-
-    }
 }

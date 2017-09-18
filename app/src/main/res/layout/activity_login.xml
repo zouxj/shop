@@ -9,33 +9,80 @@
 
     <include layout="@layout/toolbar_layout"/>
 
-    <EditText
-        android:id="@+id/editText"
+    <LinearLayout
+        android:layout_marginTop="25dp"
+        android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+    <EditText
+        android:id="@+id/et_use_phone"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPassword"
+        android:maxLength="11"
+        android:inputType="phone"
         tools:layout_editor_absoluteX="85dp"
         tools:layout_editor_absoluteY="97dp"
         tools:ignore="MissingConstraints" />
-
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:orientation="horizontal"
+    android:layout_height="wrap_content">
     <EditText
-        android:id="@+id/editText2"
-        android:layout_width="wrap_content"
+        android:id="@+id/et_user_msg_code"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
+        android:maxLength="6"
+        android:inputType="number"
         tools:layout_editor_absoluteX="85dp"
         tools:layout_editor_absoluteY="34dp"
         tools:ignore="MissingConstraints" />
+    <TextView
+        android:id="@+id/tv_send_msg_code"
+        android:layout_width="wrap_content"
+        android:text="输入验证码"
+        android:layout_height="wrap_content" />
+</LinearLayout>
+
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/bt_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="登陸"
+        android:text="进入商城"
+        android:layout_gravity="center"
         tools:layout_editor_absoluteX="131dp"
         tools:layout_editor_absoluteY="202dp"
         tools:ignore="MissingConstraints" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+        <TextView
+            android:gravity="center"
+            android:text="---------- 社交账户一键登录 -----"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+<LinearLayout
+    android:orientation="horizontal"
+    android:layout_centerHorizontal="true"
+    android:layout_alignParentBottom="true"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+<TextView
+    android:id="@+id/tv_qq_login"
+    android:layout_width="wrap_content"
+    android:text="QQ登录"
+    android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tv_weixin_login"
+        android:text="微信登录"
+        android:layout_marginLeft="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>
+    </RelativeLayout>
 </LinearLayout>

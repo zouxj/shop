@@ -66,7 +66,6 @@ public class VerificationCodeView extends CountdownView {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-//        mCountdown.onDraw(canvas);
     }
 
     @Override

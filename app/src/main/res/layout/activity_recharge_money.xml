@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.shenyu.laikaword.module.mine.remaining.RechargeMoneyActivity">
+
+    <include layout="@layout/toolbar_layout"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content">
+   <TextView
+       android:layout_width="wrap_content"
+       android:text="充值金额"
+       android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/recharge_rb_num"
+        android:layout_width="160dp"
+        android:layout_height="35dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="支付方式"
+        android:layout_height="wrap_content" />
+    <RadioGroup
+        android:id="@+id/recharge_rg"
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+<RadioButton
+    android:id="@+id/recharge_rb_alipay"
+    android:text="支付宝"
+    android:checked="true"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+        <RadioButton
+            android:id="@+id/recharge_rb_qqpay"
+            android:text="QQ钱包"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RadioGroup>
+    <TextView
+        android:id="@+id/recharge_tv_next"
+        android:layout_width="180dp"
+        android:text="下一步"
+        android:background="@color/yellow"
+        android:gravity="center"
+        android:layout_height="45dp" />
+    </LinearLayout>
+</RelativeLayout>

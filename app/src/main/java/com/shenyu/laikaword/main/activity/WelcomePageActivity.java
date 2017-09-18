@@ -1,23 +1,32 @@
 package com.shenyu.laikaword.main.activity;
 
+import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 
+import com.shenyu.laikaword.LaiKaApplication;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.helper.BannerBean;
 import com.shenyu.laikaword.helper.BannerHelper;
+import com.shenyu.laikaword.main.MainModule;
+import com.zxj.utilslibrary.utils.IntentLauncher;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class WelcomePageActivity extends LKWordBaseActivity {
 
-    private BannerHelper mBannerHelper;
+    @Inject
+     BannerHelper mBannerHelper;
 
     @Override
     public int bindLayout() {
@@ -46,25 +55,16 @@ public class WelcomePageActivity extends LKWordBaseActivity {
 
     @Override
     public void doBusiness(Context context) {
-//        IntentLauncher.with(this).launch(LoginActivity.class);
-//        IntentLauncher.with(this).launch(TestMainActivity.class);
         //设置banner样式
-        mBannerHelper = BannerHelper.getInstance().init(findViewById(R.id.banner_rootlayout));
+        mBannerHelper.init(findViewById(R.id.banner_rootlayout));
         mBannerHelper.setIsAuto(true);
-        //delay post for simulate net access
         initData();
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                initData();
-//            }
-//        }, 3000);
     }
 
 
     @Override
     public void setupActivityComponent() {
-
+        LaiKaApplication.get(this).getAppComponent().plus(new MainModule()).inject(this);
     }
     private void initData() {
         //test data
@@ -81,6 +81,14 @@ public class WelcomePageActivity extends LKWordBaseActivity {
             }
         });
     }
-
+@OnClick({R.id.wl_tv_tiao})
+    public void onClick(View view){
+        switch (view.getId()){
+            case R.id.wl_tv_tiao:
+                IntentLauncher.with(this).launch(MainActivity.class);
+                finish();
+                break;
+        }
+}
 
 }

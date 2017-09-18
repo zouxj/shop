@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.shenyu.laikaword">
 
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -31,6 +32,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.shenyu.laikaword.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
 
         <service android:name=".http.downloadmanager.DownLoadService" />
 
@@ -74,7 +85,26 @@
             android:name="com.taobao.android.hotfix.RSASECRET"
             android:value="RSA密钥" />
 
-        <activity android:name=".module.login.address.EditeAddressActivity"></activity>
+        <activity android:name=".module.mine.address.activity.AddAdressActivity" />
+        <activity android:name=".module.mine.remaining.UserRemainingActivity" />
+        <activity android:name=".module.mine.remaining.DetailMoneyActivity" />
+        <activity android:name=".module.mine.remaining.WthdrawMoneyActivity" />
+        <activity android:name=".module.mine.remaining.RechargeMoneyActivity" />
+        <activity android:name=".module.mine.PurchaseCardActivity" />
+        <activity android:name=".module.shop.BuyGoodsActivity" />
+        <activity android:name=".module.mine.cards.CardPackageActivity" />
+        <activity android:name=".module.mine.cards.CardBankActivity" />
+        <activity android:name=".module.mine.systemsetting.SettingSystemActivity" />
+        <activity android:name=".module.mine.systemsetting.AboutAppActivity" />
+        <activity android:name=".module.mine.systemsetting.AccountBindActivity" />
+        <activity android:name=".module.mine.systemsetting.ChangePhoneActivity" />
+        <activity android:name=".module.mine.systemsetting.UserInfoActivity" />
+        <activity
+            android:name="com.leo618.mpermission.AppSettingsDialogHolderActivity"
+            android:exported="false"
+            android:theme="@style/MPermissions.Transparent" />
+        <activity android:name=".module.mine.systemsetting.UpdateUserNameActivity" />
+        <activity android:name=".module.mine.cards.fragment.AddBankCardActivity"></activity>
     </application>
 
 </manifest>

@@ -37,7 +37,7 @@ public class ToastUtil {
     }
 
     public static void showToastShort(final String msg, final int gravity) {
-        showToastShort(msg, Toast.LENGTH_SHORT, "#e0000000", 10, UIUtil.dp2px(10f), gravity);
+        showToastShort(msg, Toast.LENGTH_SHORT, "#e0000000", 14, UIUtil.dp2px(5f), gravity);
     }
 
     public static void showToastLong(final String msg) {
@@ -89,7 +89,6 @@ public class ToastUtil {
     private static Toast buildToast(String msg, int duration, String bgColor, int textSp, float cornerRadius, int gravity,int y) {
         mToast = new Toast(AndroidUtilsCore.getContext());
         mToast.setDuration(duration);
-//        mToast.setGravity(gravity, -500, -500);
         mToast.setGravity(gravity, 0, Gravity.BOTTOM == gravity ? 150 : 0);
         // 设置Toast文字
         TextView tv = new TextView(AndroidUtilsCore.getContext());

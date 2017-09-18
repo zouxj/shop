@@ -3,8 +3,10 @@ package com.shenyu.laikaword.main;
 import com.shenyu.laikaword.base.BaseLoadView;
 import com.shenyu.laikaword.bean.reponse.ShopBeanReponse;
 
+import java.util.List;
+
 /**
- * Created by Administrator on 2017/9/7 0007.
+ * 首页View
  */
 
 public interface MainView extends BaseLoadView {
@@ -14,5 +16,15 @@ public interface MainView extends BaseLoadView {
      */
     void showShop(ShopBeanReponse shopBeanReponse);
 
+    /**
+     * 下拉加载更多
+     */
+    void loadMore(List list);
+
+    /**
+     * 上拉刷新
+     * @param list
+     */
+    void refreshPull(List list);
 
 }

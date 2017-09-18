@@ -36,7 +36,7 @@ public abstract class LKWordBaseActivity extends AppCompatActivity implements IB
     protected final String TAG = getClass().getSimpleName();
     protected Activity mActivity;
     private TextView mToolbarTitle;
-    private TextView mToolbarSubTitle;
+    protected TextView mToolbarSubTitle;
     private Toolbar mToolbar;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,6 +48,7 @@ public abstract class LKWordBaseActivity extends AppCompatActivity implements IB
         setupActivityComponent();
         ActivityManageUtil.getAppManager().addActivity(this);
         initToolBar();
+        initView();
         doBusiness(this);
     }
 
@@ -76,6 +77,13 @@ public abstract class LKWordBaseActivity extends AppCompatActivity implements IB
           //设置默认的标题不显示
           getSupportActionBar().setDisplayShowTitleEnabled(false);
       }
+  }
+
+    /**
+     * 右边Title
+     */
+  public void setToolBarRight(String rightTitle){
+      mToolbarSubTitle.setText(rightTitle);
   }
     /**
      * 设置头部标题
@@ -307,5 +315,8 @@ public abstract class LKWordBaseActivity extends AppCompatActivity implements IB
      @OnNeverAskAgain		注解在当用户选中了授权窗口中的不再询问复选框后并拒绝了权限请求时需要调用的方法，一般可以向用户解释为何申请此权限，
      并根据实际需求决定是否再次弹出权限请求对话框
      */
-
+    /**
+     * 初始化View
+     */
+    public void initView(){}
 }

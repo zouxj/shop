@@ -78,4 +78,6 @@ dependencies {
     implementation project(':paylibrary')
     implementation project(':utilslibrary')
     compile 'com.contrarywind:Android-PickerView:3.2.6'
+    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
+    compile 'com.leo618:MPermission:0.0.2'
 }

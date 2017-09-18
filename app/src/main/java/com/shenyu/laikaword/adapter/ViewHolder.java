@@ -117,6 +117,13 @@ public class ViewHolder extends RecyclerView.ViewHolder {
         view.setBackgroundResource(backgroundRes);
         return this;
     }
+    @SuppressLint("NewApi")
+    public ViewHolder setBackground(int viewId, Drawable background)
+    {
+        View view = getView(viewId);
+        view.setBackground(background);
+        return this;
+    }
 
     public ViewHolder setTextColor(int viewId, int textColor)
     {

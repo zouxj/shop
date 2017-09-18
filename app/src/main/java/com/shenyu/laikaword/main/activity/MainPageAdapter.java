@@ -5,9 +5,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
 
-import com.shenyu.laikaword.main.fragment.OwnFragment;
-import com.shenyu.laikaword.main.fragment.ShopFragment;
-import com.shenyu.laikaword.main.fragment.SnatchFragment;
 import com.zxj.utilslibrary.utils.LogUtil;
 
 /**

@@ -123,3 +123,6 @@
 -keepclassmembers class * extends android.webkit.WebViewClient {
     public void *(android.webkit.WebView, jav.lang.String);
 }
+#-----------------权限-------------------------
+-dontwarn com.leo618.mpermission**
+-keep class com.leo618.mpermission.** {*;}

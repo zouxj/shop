@@ -7,6 +7,7 @@ import android.view.View;
 import com.bigkoo.pickerview.OptionsPickerView;
 import com.google.gson.Gson;
 import com.shenyu.laikaword.bean.JsonBean;
+import com.shenyu.laikaword.interfaces.IOptionPickerVierCallBack;
 import com.zxj.utilslibrary.utils.JsonUtils;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
@@ -125,7 +126,7 @@ private Thread thread;
         return detail;
     }
 
-    public void ShowPickerView() {// 弹出选择器
+    public void ShowPickerView(final IOptionPickerVierCallBack iOptionPickerVierCallBack) {// 弹出选择器
 
         OptionsPickerView  pvOptions = new OptionsPickerView.Builder(mContext, new OptionsPickerView.OnOptionsSelectListener() {
             @Override
@@ -134,7 +135,11 @@ private Thread thread;
                 String tx = options1Items.get(options1).getPickerViewText()+
                         options2Items.get(options1).get(options2)+
                         options3Items.get(options1).get(options2).get(options3);
-            ToastUtil.showToastShort(tx);
+                if (null!=iOptionPickerVierCallBack){
+                    iOptionPickerVierCallBack.callBack(options1Items.get(options1).getPickerViewText(),options2Items.get(options1).get(options2),
+                            options3Items.get(options1).get(options2).get(options3),tx);
+                }
+
             }
         })
 
@@ -149,4 +154,5 @@ private Thread thread;
         pvOptions.setPicker(options1Items, options2Items,options3Items);//三级选择器
         pvOptions.show();
     }
+
 }

@@ -12,6 +12,11 @@ public class EventType {
      * 打开左边菜单的页面
      */
     public static final int ACTION_OPONE_LEFT=0x01;
+    /**
+     * 上拉加载更多
+     */
+    public static final int ACTION_LODE_MORE=0x02;
+    public static final int ACTION_PULL_REFRESH=0x03;
     public int action;
     public Object object;
     public View view;

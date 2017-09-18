@@ -16,6 +16,7 @@ import com.shenyu.laikaword.main.fragment.MainFragment;
 import com.shenyu.laikaword.rxbus.EventType;
 import com.shenyu.laikaword.rxbus.RxBus;
 import com.shenyu.laikaword.rxbus.RxBusSubscriber;
+import com.zxj.utilslibrary.utils.ActivityManageUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
@@ -39,7 +40,7 @@ public class MainActivity extends LKWordBaseActivity {
     MainFragment mainFragment;
     @BindView(R.id.drawer_main)
     DrawerLayout drawerLayout;
-
+    private long exitTime = 0;
     @Override
     public int bindLayout() {
         return R.layout.activity_main2;
@@ -76,7 +77,7 @@ public class MainActivity extends LKWordBaseActivity {
         fragmentTransaction.replace(R.id.content_frame, mainFragment);
         //添加LeftFragment
         fragmentTransaction.replace(R.id.left_drawer, leftFragment);
-        fragmentTransaction.addToBackStack(null);
+//        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 
@@ -84,5 +85,16 @@ public class MainActivity extends LKWordBaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         RxBus.getDefault().removeAllStickyEvents();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (System.currentTimeMillis()-exitTime>2000){
+            ToastUtil.showToastShort("在按一次退出应用");
+            exitTime=System.currentTimeMillis();
+        }else {
+            ActivityManageUtil.getAppManager().finishAllActivity();
+            System.exit(0);
+        }
     }
 }
