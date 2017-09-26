@@ -9,6 +9,8 @@ import android.support.v4.view.ViewPager;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -30,8 +32,10 @@ import com.shenyu.laikaword.main.MainView;
 import com.shenyu.laikaword.main.activity.MainActivity;
 import com.shenyu.laikaword.rxbus.EventType;
 import com.shenyu.laikaword.rxbus.RxBus;
+import com.shenyu.laikaword.widget.UPMarqueeView;
 import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
+import com.zxj.utilslibrary.utils.UIUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +61,11 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
     MainViewPagerAdapter mainViewPagerAdapter;
     @Inject
     MainPresenter mainPresenter;
+    @BindView(R.id.umt_main_gonggao)
+    UPMarqueeView upMarqueeTextView;
+    List<String> data = new ArrayList<>();
+    List<View> views = new ArrayList<>();
+    BannerHelper bannerHelper;
     @Override
     public int bindLayout() {
         return R.layout.fragment_main;
@@ -84,27 +93,27 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
 //                ToastUtil.showToastShort("正在加载...");
             }
         });
-
+        initViewpagerTop(view);
 
     }
     @Override
     public void doBusiness() {
-        initViewpagerTop();
         setupViewPager();
+        for(int i=0;i<2;i++){
+            data.add("版本更新啦,新会员更多福利"+i);
+        }
+        setNoticeView();
     }
 
     /**
      * 初始化头部效果
      */
-    private void initViewpagerTop() {
+    private void initViewpagerTop(View view) {
         List<BannerBean> dataList = new ArrayList<>();
-        dataList.add(new BannerBean(R.mipmap.ic_launcher, "http://img-ws.doupai.cc/Ie548c2459f324e6f79180d6eb61d78be.jpg!avatar", null, null));
-        dataList.add(new BannerBean(R.mipmap.ic_launcher, "http://img-ws.doupai.cc/I2a776ee24c2b3adfa62288bb252bb68a.jpg!avatar", null, null));
-        dataList.add(new BannerBean(R.mipmap.ic_launcher, "http://img-ws.doupai.cc/Ia0003e4a1ac7d9c8e1d48bca6235f599.jpg?imageView2/1/w/200", null, null));
-        dataList.add(new BannerBean(R.mipmap.ic_launcher, "http://img-ws.doupai.cc/Ia0003e4a1ac7d9c8e1d48bca6235f599.jpg!origin", null, null));
-        BannerHelper bannerHelper  = BannerHelper.getInstance().init(mContentView.findViewById(R.id.banner_rootlayout));
+        dataList.add(new BannerBean(R.mipmap.pager_one, "url", "desc", "datailurl"));
+        bannerHelper  = BannerHelper.getInstance();
+        bannerHelper.init(view.findViewById(R.id.banner_rootlayout));
         bannerHelper.setmPointersLayout(Gravity.RIGHT|Gravity.BOTTOM);
-        bannerHelper.setIsAuto(true);
         bannerHelper.startBanner(dataList, new BannerHelper.OnItemClickListener() {
             @Override
             public void onItemClick(BannerBean bean) {
@@ -166,5 +175,62 @@ public void onClick(View v){
     public void refreshPull(List list) {
         RxBus.getDefault().post(new EventType(EventType.ACTION_PULL_REFRESH,list));
     }
+    private void setNoticeView() {
+        for (int i = 0; i < data.size(); i = i + 2) {
+            final int position = i;
+            //设置滚动的单个布局
+            LinearLayout moreView = (LinearLayout) UIUtil.inflate(R.layout.marquen_item);
+            //初始化布局的控件
+            TextView tv1 = (TextView) moreView.findViewById(R.id.tv1);
+            tv1.setText(data.get(i));
+//            TextView tv2 = (TextView) moreView.findViewById(R.id.tv2);
+            /**
+             * 设置监听
+             */
+            tv1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                 ToastUtil.showToastShort("你点击了" + data.get(position).toString());
+                }
+            });
+            /**
+             * 设置监听
+             */
+//            moreView.findViewById(R.id.rl2).setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    ToastUtil.showToastShort("你点击了" + data.get(position).toString());
+//                }
+//            });
+//            //进行对控件赋值
+//            tv1.setText(data.get(i).toString());
+//            if (data.size() > i + 1) {
+//                //因为淘宝那儿是两条数据，但是当数据是奇数时就不需要赋值第二个，所以加了一个判断，还应该把第二个布局给隐藏掉
+//                tv2.setText(data.get(i + 1).toString());
+//            } else {
+//                moreView.findViewById(R.id.rl2).setVisibility(View.GONE);
+//            }
+            //添加到循环滚动数组里面去
+            views.add(moreView);
+            upMarqueeTextView.setViews(views);
+        }
+    }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        bannerHelper.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        bannerHelper.onResume();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        bannerHelper.onDestroy();
+    }
 }

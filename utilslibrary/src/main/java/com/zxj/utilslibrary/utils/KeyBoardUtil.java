@@ -4,6 +4,9 @@ import android.content.Context;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * Created by Administrator on 2017/8/3 0003.
  * 软键盘隐藏和打开工具
@@ -12,16 +15,20 @@ import android.view.inputmethod.InputMethodManager;
 public class KeyBoardUtil {
 
     public static void showSoftInput(final View view) {
-        view.postDelayed(new Runnable() {
+
+        UIUtil.getHandler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 view.setFocusable(true);
                 view.setFocusableInTouchMode(true);
                 view.requestFocus();
+                view.requestFocusFromTouch();
                 InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.showSoftInput(view, 0);
             }
-        }, 100);
+        },200);
+
+
     }
 
     public static boolean hideSoftInput(View view) {

@@ -1,6 +1,7 @@
 package com.shenyu.laikaword.http;
 
 import com.shenyu.laikaword.bean.BaseResponse;
+import com.shenyu.laikaword.bean.ReRequest;
 import com.shenyu.laikaword.bean.reponse.DidiFuResponse;
 import com.shenyu.laikaword.bean.reponse.HeadReponse;
 import com.shenyu.laikaword.bean.reponse.UserReponse;
@@ -10,6 +11,8 @@ import com.shenyu.laikaword.http.uitls.BaseResponseFunc;
 import com.shenyu.laikaword.http.uitls.ExceptionSubscriber;
 import com.shenyu.laikaword.http.uitls.RetrofitUtils;
 import com.shenyu.laikaword.http.uitls.SimpleCallback;
+import com.zxj.utilslibrary.utils.LogUtil;
+import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
 import java.util.Map;
@@ -17,6 +20,7 @@ import java.util.Map;
 import okhttp3.RequestBody;
 import rx.Observable;
 import rx.Observer;
+import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
@@ -87,13 +91,26 @@ public class NetWorks extends RetrofitUtils {
      * @param simpleCallback
      * @param <T>
      */
-    public static <T> void setSubscribe(Observable<T> observable, SimpleCallback<T> simpleCallback) {
+    public static <T> void setSubscribe(Observable<T> observable, final SimpleCallback<T> simpleCallback) {
         observable
-                .flatMap((Func1<? super T, ? extends Observable<? extends T>>) new BaseResponseFunc<T>())
                 .subscribeOn(Schedulers.io())//子线程访问网络
-                .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())//回调到主线程
-                .subscribe(new ExceptionSubscriber<T>(simpleCallback));
+                .subscribe(new Observer<T>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        LogUtil.i(e.toString());
+                    }
+
+                    @Override
+                    public void onNext(T t) {
+
+                    }
+                });
     }
 
     /**
@@ -106,6 +123,12 @@ public class NetWorks extends RetrofitUtils {
         setSubscribe(service.loginUser(user,password),observe);
     }
 
-
+    /**
+     * Test
+     * @param observe
+     */
+    public static void test(SimpleCallback<ReRequest> observe){
+        setSubscribe(service.test(),observe);
+    }
 
 }

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@drawable/dialog_setpwd_background"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+
+        android:layout_marginTop="18dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+<ImageView
+    android:id="@+id/iv_close"
+    android:layout_marginLeft="19dp"
+    android:layout_width="13dp"
+    android:layout_height="13dp"
+    android:background="@drawable/login_close_icon"
+  />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:text="请输入支付密码"
+            android:layout_centerHorizontal="true"
+            />
+    </RelativeLayout>
+
+    <include
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="19dp"
+        android:layout_width="288dp"
+        android:layout_height="1dp"
+        layout="@layout/line_view"/>
+    <TextView
+        android:layout_marginTop="35dp"
+        android:layout_width="wrap_content"
+        android:textSize="29sp"
+        android:layout_gravity="center_horizontal"
+        android:text="0.00"
+        android:textColor="@color/black"
+        android:layout_height="wrap_content" />
+
+
+    <com.zxj.utilslibrary.widget.countdownview.PayPsdInputView
+        android:id="@+id/psd_view_password"
+        android:layout_width="304dp"
+        android:layout_height="52dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="35dp"
+        android:inputType="number"
+        app:maxCount="6"
+        app:psdType="weChat"
+        app:rectAngle="1dp" />
+    <TextView
+        android:id="@+id/tv_forgert_pwd"
+        android:layout_width="wrap_content"
+        android:layout_gravity="right"
+        android:paddingTop="2dp"
+        android:layout_marginRight="12dp"
+        android:textColor="@color/color_999"
+        android:layout_height="wrap_content"
+        android:text="忘记密码"
+        android:paddingBottom="14dp"
+        />
+</LinearLayout>

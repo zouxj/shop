@@ -153,4 +153,15 @@
     <color name="darkblue">#00008B</color> <!--暗蓝色 -->
     <color name="navy">#000080</color> <!--海军色 -->
     <color name="black">#000000</color> <!--黑色 -->
+    <color name="login_bg">#e5e5e5</color>
+    <color name="color_ccc">#cccccc</color>
+    <color name="color_333">#333333</color>
+    <color name="color_666">#666666</color>
+    <color name="app_theme_red">#E03226</color>
+    <color name="color_999">#999999</color>
+    <color name="main_item_orange">#d8a55c</color>
+    <color name="main_bg_gray">#f3f3f3</color>
+    <color name="color_ddd">#dddddd</color>
+<color name="colorAccent">#FF4081</color>
+<color name="divider">#ffd2d2d2</color>
 </resources>

@@ -1,6 +1,7 @@
 package com.shenyu.laikaword.http.api;
 
 import com.shenyu.laikaword.bean.BaseResponse;
+import com.shenyu.laikaword.bean.ReRequest;
 import com.shenyu.laikaword.bean.reponse.DidiFuResponse;
 import com.shenyu.laikaword.bean.reponse.HeadReponse;
 import com.shenyu.laikaword.bean.reponse.UserReponse;
@@ -94,6 +95,8 @@ public interface NetApi {
      */
     @POST("appapi/login")
     Observable<UserReponse> loginUser(@Query("usename") String usename,@Query("password")String password);
-
+//测试接口
+    @GET("MApi/test/test")
+    Observable<ReRequest> test();
 
 }

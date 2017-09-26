@@ -1,56 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.shenyu.laikaword.module.mine.remaining.WthdrawMoneyActivity">
     <include layout="@layout/toolbar_layout"/>
+
+
 <LinearLayout
-    android:layout_width="wrap_content"
+    android:layout_marginTop="14dp"
+    android:background="@drawable/bg_chongzhi_write"
+    android:layout_width="341dp"
+    android:layout_gravity="center_horizontal"
     android:orientation="vertical"
-    android:layout_centerInParent="true"
-    android:layout_height="wrap_content">
+    android:layout_height="101dp">
     <TextView
+        android:layout_marginLeft="19dp"
+        android:layout_marginTop="14dp"
+        android:textSize="@dimen/text_size_14sp"
+        android:textColor="@color/color_333"
         android:layout_width="wrap_content"
         android:text="到账银行"
         android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/tv_wthdraw_add_bank"
-        android:layout_width="300dp"
-        android:text="添加银行卡"
-        android:gravity="center_vertical"
-        android:layout_height="50dp" />
-    <TextView
-        android:text="提现金额"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <EditText
-        android:id="@+id/et_wthdraw_num"
-        android:layout_width="240dp"
-        android:layout_height="40dp" />
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="wrap_content"
-            android:text="账户余额 ￥2000.0"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:text="全部提现"
-            android:layout_marginLeft="30dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_next"
-        android:gravity="center"
-        android:layout_width="180dp"
-        android:background="@color/yellow"
-        android:text="提现"
-        android:layout_gravity="center_horizontal"
-        android:layout_height="40dp" />
+    <RelativeLayout
+        android:layout_marginTop="37dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="298dp"
+        android:layout_height="15dp">
+        <TextView
+            android:id="@+id/tv_bank_type"
+            android:textColor="@color/color_999"
+            android:textSize="@dimen/text_size_13sp"
+            android:layout_width="wrap_content"
+            android:text="工商银行(5812)"
+            android:layout_height="wrap_content" />
+<TextView
+    android:id="@+id/tv_select_bank"
+    android:layout_width="wrap_content"
+    android:layout_alignParentRight="true"
+    android:text=">"
+    android:layout_height="wrap_content" />
+    </RelativeLayout>
 </LinearLayout>
-</RelativeLayout>
+
+
+    <LinearLayout
+        android:paddingRight="14dp"
+        android:paddingLeft="29dp"
+        android:orientation="vertical"
+        android:layout_marginTop="25dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="341dp"
+        android:layout_height="118dp">
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:textSize="@dimen/text_size_14sp"
+            android:textColor="@color/color_333"
+            android:text="提款金额"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:textSize="35sp"
+                android:text="￥"
+                android:textColor="@color/color_333"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/et_tixian_num"
+                android:layout_width="160dp"
+                android:background="@null"
+                android:layout_height="38dp" />
+        </LinearLayout>
+        <include
+            android:layout_marginTop="20dp"
+            layout="@layout/line_view"
+            tools:ignore="IncludeLayoutParam" />
+        <LinearLayout
+            android:layout_marginTop="13dp"
+            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_account_yue"
+                android:layout_width="wrap_content"
+                android:textSize="@dimen/text_size_13sp"
+                android:textColor="@color/color_333"
+                android:text="账户余额 ￥2000.0"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_all_tixian"
+                android:text="全部提现"
+                android:textSize="@dimen/text_size_13sp"
+                android:textColor="@color/app_theme_red"
+                android:layout_marginLeft="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_tixianing"
+        android:layout_width="307dp"
+        android:text="提现"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_17sp"
+        android:layout_marginTop="32dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/bg_gray_icon"
+        android:gravity="center"
+        android:layout_height="43dp" />
+</LinearLayout>

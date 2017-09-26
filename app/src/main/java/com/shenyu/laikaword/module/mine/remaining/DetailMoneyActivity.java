@@ -10,6 +10,8 @@ import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.adapter.CommonAdapter;
 import com.shenyu.laikaword.adapter.ViewHolder;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
+import com.shenyu.laikaword.helper.RecycleViewDivider;
+import com.zxj.utilslibrary.utils.UIUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,11 +32,12 @@ public class DetailMoneyActivity extends LKWordBaseActivity {
 
     @Override
     public void initView() {
-        setToolBarTitle("余额明细");
+        setToolBarTitle("资金明细");
         List<String> datil=new ArrayList<>();
         for (int i=0;i<10;i++){
             datil.add("item");
         }
+        recyclerView.addItemDecoration(new RecycleViewDivider(this,LinearLayoutManager.HORIZONTAL,2,UIUtil.getColor(R.color.main_bg_gray) ));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new CommonAdapter(R.layout.item_daile_money,datil) {
             @Override

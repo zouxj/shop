@@ -29,7 +29,7 @@ import java.util.List;
 
 public class BannerHelper {
     /** 帮助类实例 */
-    private static volatile BannerHelper instance = new BannerHelper();
+    private  static BannerHelper instance ;
     /** 是否需要显示banner描述信息 */
     private static volatile boolean needShowDesc = false;
     /** banner视图根布局 */
@@ -59,6 +59,7 @@ public class BannerHelper {
     }
 
     public static BannerHelper getInstance() {
+        instance = new BannerHelper();
         return instance;
     }
 
@@ -91,7 +92,6 @@ public class BannerHelper {
         mBannerList.clear();
         mBannerList.addAll(bannerList);
         mOnItemClickListener = onItemClickListener;
-
         mBannerViewpager.setAdapter(new BannerPicturePagerAdapter());
         mBannerViewpager.removeOnPageChangeListener(mBannerPageChangeListener);
         mBannerViewpager.addOnPageChangeListener(mBannerPageChangeListener);
@@ -162,9 +162,11 @@ public class BannerHelper {
      * call in current activity  onDestroy()
      */
     public void onDestroy() {
-        mLoopShowTask.stop();
-        mLoopShowTask.removeCallbacksAndMessages(null);
-        mLoopShowTask = null;
+        if (mLoopShowTask != null){
+            mLoopShowTask.stop();
+            mLoopShowTask.removeCallbacksAndMessages(null);
+            mLoopShowTask = null;
+        }
         mPointersLayout.removeAllViews();
         mBannerViewpager.removeOnPageChangeListener(mBannerPageChangeListener);
         mBannerViewpager.removeAllViews();
@@ -207,12 +209,14 @@ public class BannerHelper {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     mIsTouchDown = true;
+                    if (mLoopShowTask != null)
                     mLoopShowTask.stop();
                     break;
                 case MotionEvent.ACTION_MOVE:
                     break;
                 case MotionEvent.ACTION_UP:
                     mIsTouchDown = false;
+                    if (mLoopShowTask != null)
                     mLoopShowTask.start();
                     break;
             }
@@ -281,14 +285,13 @@ public class BannerHelper {
             iv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
             BannerBean item = mBannerList.get(position % mBannerList.size());
-
             //TODO use img loader here to load net img
 //            iv.setImageResource(item.getTestImgResId());
             Picasso
                     .with(UIUtil.getContext())
                     .load(item.getImgurl())
-                    .resize(1080, 1920)
-                    .centerCrop()
+                    .placeholder(item.getTestImgResId())
+                    .error(item.getTestImgResId())
                     .into(iv);
 
             iv.setTag(R.id.banner_rootlayout, item);

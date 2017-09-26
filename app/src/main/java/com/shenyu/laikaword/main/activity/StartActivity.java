@@ -7,12 +7,11 @@ import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.bean.reponse.UserReponse;
 import com.shenyu.laikaword.http.NetWorks;
 import com.shenyu.laikaword.http.uitls.SimpleCallback;
-import com.shenyu.laikaword.module.login.LoginActivity;
+import com.shenyu.laikaword.module.login.activity.LoginActivity;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
 
-import java.sql.Time;
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
@@ -48,7 +47,7 @@ public class StartActivity extends LKWordBaseActivity {
                 Observable.timer(2, TimeUnit.SECONDS).subscribe(new Action1<Long>() {
                     @Override
                     public void call(Long aLong) {
-                        IntentLauncher.with(StartActivity.this).launch(LoginActivity.class);
+                        IntentLauncher.with(StartActivity.this).launch(MainActivity.class);
                         finish();
                     }
                 });

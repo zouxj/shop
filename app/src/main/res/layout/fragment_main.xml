@@ -13,40 +13,71 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:background="@color/white"
-        android:layout_height="355dp">
+        android:layout_height="wrap_content">
         <include
             layout="@layout/include_top_title"
             app:layout_scrollFlags="scroll|enterAlways"
             android:layout_height="55dp"
             android:layout_width="match_parent"
             tools:ignore="IncludeLayoutParam" />
-        <include
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="180dp"
+            android:layout_height="145dp"
+            android:visibility="gone"
+            app:layout_scrollFlags="scroll|enterAlways"
+            android:background="@mipmap/pager_one"
+            />
+        <include
             layout="@layout/layout_banner"
+            android:layout_width="match_parent"
+            android:layout_height="145dp"
             app:layout_scrollFlags="scroll|enterAlways"
             tools:ignore="IncludeLayoutParam" />
 
-
-        <TextView
-            android:text="广告栏"
-            android:textColor="@color/black"
-            android:background="@color/white"
-            android:gravity="center"
-            app:layout_scrollFlags="scroll|enterAlways"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp" />
+            android:layout_height="33dp"
+            android:orientation="horizontal"
+            app:layout_scrollFlags="scroll|enterAlways">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="12dp"
+                android:gravity="center"
+                android:text="来卡公告"
+                android:textColor="@color/app_theme_red" />
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="18dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="9dp"
+                android:background="@color/color_999" />
+
+            <com.shenyu.laikaword.widget.UPMarqueeView
+                android:id="@+id/umt_main_gonggao"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="9dp">
+
+            </com.shenyu.laikaword.widget.UPMarqueeView>
+
+        </LinearLayout>
+        <include layout="@layout/line_view"/>
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:paddingBottom="0dp"
-            android:layout_height="55dp"
+            android:layout_height="50dp"
             android:layout_alignParentBottom="true"
-            android:background="?attr/colorPrimary"
-            app:tabIndicatorColor="@color/colorAccent"
+            app:tabIndicatorColor="@color/app_theme_red"
             app:tabIndicatorHeight="4dp"
-            app:tabSelectedTextColor="#000"
-            app:tabTextColor="#fff"/>
+            app:tabSelectedTextColor="@color/app_theme_red"
+            app:tabTextColor="@color/color_333"/>
+
 
     </android.support.design.widget.AppBarLayout>
 

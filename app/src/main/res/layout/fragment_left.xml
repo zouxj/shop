@@ -6,17 +6,31 @@
     tools:context="com.shenyu.laikaword.main.fragment.LeftFragment">
 
     <!-- TODO: Update blank fragment layout -->
-
-    <TextView
+<LinearLayout
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:background="@mipmap/left_bg_icon"
+    android:layout_height="100dp">
+    <ImageView
         android:id="@+id/tv_user_head"
-        android:drawableTop="@mipmap/ic_launcher"
+        android:layout_gravity="center_vertical"
+        android:src="@mipmap/left_user_icon"
+        android:layout_marginLeft="9dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp" />
+    <TextView
+        android:id="@+id/tv_user_name"
+        android:layout_gravity="center_vertical"
+        android:text="来卡小猪"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_14sp"
+        android:layout_marginLeft="7dp"
         android:layout_width="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="来卡商城"
         android:layout_height="wrap_content" />
+</LinearLayout>
+
 <android.support.v7.widget.RecyclerView
     android:id="@+id/rc_left_view"
-    android:layout_marginTop="35dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 </android.support.v7.widget.RecyclerView>

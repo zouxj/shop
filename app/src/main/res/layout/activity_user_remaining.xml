@@ -7,23 +7,43 @@
     tools:context="com.shenyu.laikaword.module.mine.remaining.UserRemainingActivity">
 <include layout="@layout/toolbar_layout"/>
 
+    <TextView
+        android:text="账户名额"
+        android:layout_marginTop="42dp"
+        android:layout_marginLeft="26dp"
+        android:textSize="@dimen/text_size_15sp"
+        android:textColor="@color/color_999"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 <TextView
     android:id="@+id/re_tv_sum"
-    android:textColor="@color/black"
+    android:textColor="@color/color_333"
     android:text="￥900.00"
+    android:layout_marginTop="40dp"
+    android:textSize="43sp"
     android:layout_gravity="center"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" />
     <Button
         android:id="@+id/re_bt_pay"
         android:text="充值"
+        android:textSize="@dimen/text_size_18sp"
+        android:textColor="@color/white"
+        android:layout_marginTop="97dp"
+        android:background="@drawable/bg_bt_login_rectangle_light"
         android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="307dp"
+        android:layout_height="44dp" />
+
+
     <Button
         android:id="@+id/re_bt_withdraw"
         android:text="提现"
+        android:textSize="@dimen/text_size_18sp"
+        android:textColor="@color/app_theme_red"
+        android:layout_marginTop="14dp"
+        android:background="@drawable/bg_paysuccess_border_rectangle"
         android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="307dp"
+        android:layout_height="44dp" />
 </LinearLayout>

@@ -1,88 +1,178 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.shenyu.laikaword.module.login.LoginActivity">
+    tools:context="com.shenyu.laikaword.module.login.activity.LoginActivity">
+<RelativeLayout
+    android:layout_marginTop="36dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/iv_login_close"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_width="wrap_content"
+        android:background="@mipmap/login_close_icon"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="登录"
+        android:textColor="@color/color_333"
+        android:layout_centerInParent="true"
+        android:textSize="18sp"
+        android:layout_height="wrap_content" />
 
-    <include layout="@layout/toolbar_layout"/>
-
+</RelativeLayout>
     <LinearLayout
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="93dp"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
         android:orientation="vertical"
         android:layout_height="wrap_content">
-    <EditText
-        android:id="@+id/et_use_phone"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:maxLength="11"
-        android:inputType="phone"
-        tools:layout_editor_absoluteX="85dp"
-        tools:layout_editor_absoluteY="97dp"
-        tools:ignore="MissingConstraints" />
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:orientation="horizontal"
-    android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="310dp"
+            android:layout_height="45dp"
+            android:background="@drawable/bg_login_rectangle"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_marginLeft="@dimen/x6"
+                android:layout_width="wrap_content"
+                android:text="+ 86"
+                android:textColor="@color/color_666"
+                android:textSize="@dimen/text_size_14sp"
+                android:drawablePadding="@dimen/x5"
+                android:layout_gravity="center_vertical"
+                android:drawableRight="@mipmap/login_phone"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_marginLeft="@dimen/x5"
+                android:layout_gravity="center_vertical"
+                android:background="@color/login_bg"
+                android:layout_height="@dimen/y25" />
+            <EditText
+                android:layout_marginLeft="@dimen/x5"
+                android:id="@+id/et_use_phone"
+                android:hint="请输入手机号"
+                android:textSize="@dimen/text_size_14sp"
+                android:textColorHint="@color/color_ccc"
+                android:layout_gravity="center_vertical"
+                android:layout_width="@dimen/x180"
+                android:layout_height="@dimen/x35"
+                android:maxLength="11"
+               android:background="@null"
+                android:inputType="phone"
+                tools:layout_editor_absoluteX="85dp"
+                tools:layout_editor_absoluteY="97dp"
+                tools:ignore="MissingConstraints" />
+
+        </LinearLayout>
+
+<RelativeLayout
+    android:layout_height="45dp"
+    android:layout_width="310dp"
+    android:layout_marginTop="@dimen/y10"
+    android:background="@drawable/bg_login_rectangle"
+    >
     <EditText
         android:id="@+id/et_user_msg_code"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/x180"
+        android:layout_height="@dimen/x35"
+        android:layout_centerVertical="true"
         android:maxLength="6"
+        android:textSize="@dimen/text_size_14sp"
+        android:hint="请输入短信验证码"
+        android:gravity="center_vertical"
+        android:textColor="@color/color_ccc"
+        android:layout_marginLeft="25dp"
         android:inputType="number"
-        tools:layout_editor_absoluteX="85dp"
-        tools:layout_editor_absoluteY="34dp"
+        android:background="@null"
         tools:ignore="MissingConstraints" />
     <TextView
         android:id="@+id/tv_send_msg_code"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+
+        android:layout_marginRight="8dp"
         android:layout_width="wrap_content"
+        android:textSize="@dimen/text_size_14sp"
+        android:textColor="@color/app_theme_red"
+        android:layout_marginLeft="@dimen/x10"
+        android:layout_gravity="center"
         android:text="输入验证码"
         android:layout_height="wrap_content" />
-</LinearLayout>
+</RelativeLayout>
 
 
-    <Button
+    <TextView
+        android:layout_marginTop="@dimen/x35"
         android:id="@+id/bt_login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
+        android:layout_width="310dp"
+        android:gravity="center"
         android:text="进入商城"
-        android:layout_gravity="center"
-        tools:layout_editor_absoluteX="131dp"
-        tools:layout_editor_absoluteY="202dp"
-        tools:ignore="MissingConstraints" />
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:background="@drawable/bg_bt_login_rectangle_light"
+        android:layout_gravity="center" />
 
     </LinearLayout>
 
-    <RelativeLayout
-        android:layout_marginTop="30dp"
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
-        <TextView
-            android:gravity="center"
-            android:text="---------- 社交账户一键登录 -----"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_marginBottom="35dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_marginRight="5dp"
+                android:layout_width="75dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/login_bg"
+                android:layout_height="1dp" />
+            <TextView
+                android:text="社交账户一键登录"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:layout_width="75dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/login_bg"
+                android:layout_height="1dp"/>
+        </LinearLayout>
+
+
+
+
 <LinearLayout
+    android:layout_marginBottom="35dp"
     android:orientation="horizontal"
-    android:layout_centerHorizontal="true"
-    android:layout_alignParentBottom="true"
     android:layout_width="wrap_content"
+    android:layout_gravity="center_horizontal"
     android:layout_height="wrap_content">
-<TextView
-    android:id="@+id/tv_qq_login"
+<ImageView
+    android:id="@+id/tv_wechat_login"
     android:layout_width="wrap_content"
-    android:text="QQ登录"
+    android:background="@mipmap/login_wechat_icon"
     android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/tv_weixin_login"
-        android:text="微信登录"
-        android:layout_marginLeft="5dp"
+    <ImageView
+        android:id="@+id/tv_qq_login"
+        android:background="@mipmap/login_qq_icon"
+        android:layout_marginLeft="@dimen/x55"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 </LinearLayout>
-    </RelativeLayout>
-</LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

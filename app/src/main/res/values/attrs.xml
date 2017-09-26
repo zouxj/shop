@@ -52,20 +52,23 @@
             <enum name="circle" value="0"/>
         </attr>
     </declare-styleable>
-    <!-- 输入框定义-->
-    <declare-styleable name="PayPsdInputView">
 
-        <attr name="maxCount" format="integer" />
-        <attr name="circleColor" format="color" />
-        <attr name="bottomLineColor" format="color" />
-        <attr name="radius" format="dimension" />
-        <attr name="divideLineWidth" format="dimension" />
-        <attr name="divideLineColor" format="color" />
-        <attr name="rectAngle" format="dimension" />
-        <attr name="focusedColor" format="color"/>
-        <attr name="psdType" format="enum">
-            <enum name="weChat" value="0" />
-            <enum name="bottomLine" value="1" />
-        </attr>
+
+    <declare-styleable name="AmountView">
+        <!-- 左右2边+-按钮的宽度 -->
+
+        <attr name="btnWidth" format="dimension" />
+
+        <!-- 中间TextView的宽度 -->
+
+        <attr name="tvWidth" format="dimension" />
+
+        <!--<attr name="tvColor" format="color"/>-->
+
+        <attr name="tvTextSize" format="dimension"/>
+
+        <attr name="btnTextSize" format="dimension"/>
+        <attr name="btnHeight" format="dimension"/>
+
     </declare-styleable>
 </resources>

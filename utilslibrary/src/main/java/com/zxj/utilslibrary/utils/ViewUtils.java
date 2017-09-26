@@ -3,15 +3,20 @@ package com.zxj.utilslibrary.utils;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Paint;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.zxj.utilslibrary.R;
+import com.zxj.utilslibrary.widget.countdownview.PayPsdInputView;
+
+import org.w3c.dom.Text;
 
 /**
  * Created by Administrator on 2017/8/4 0004.
@@ -167,5 +172,56 @@ public  final  class ViewUtils {
         windowParams.width = width;
         window.setAttributes(windowParams);
         return dialog;
+    }
+
+    public  static  Dialog setInputDialog(Context context, boolean is_must, final LinstenrText linstenrText){
+        final Dialog dialog = new Dialog(context,R.style.Dialog);
+        if(!is_must) {
+            dialog.setCanceledOnTouchOutside(true);
+        }else{
+            dialog.setCanceledOnTouchOutside(false);
+        }
+        View view = View.inflate(context,R.layout.dialog_input_passwprd,null);
+        final PayPsdInputView textPassWord = view.findViewById(R.id.psd_view_password);
+        TextView forpasword = view.findViewById(R.id.tv_forgert_pwd);
+        view.findViewById(R.id.iv_close).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        forpasword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO 忘记密码
+            }
+        });
+        //设置忘记密码下划线
+        forpasword.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG); //下划线
+        forpasword.getPaint().setAntiAlias(true);//抗锯齿
+        textPassWord.setOnInputPasswordListener(new PayPsdInputView.onInputPasswordListener() {
+            @Override
+            public void onInputListner(String str) {
+                linstenrText.onLintenerText(str);
+                dialog.dismiss();
+
+            }
+        });
+        dialog.setContentView(view);
+        Window window = dialog.getWindow();
+        //弹出对话框后直接弹出键盘
+        KeyBoardUtil.showSoftInput(textPassWord);
+        WindowManager.LayoutParams windowParams = window.getAttributes();
+        int width = (int)(window.getWindowManager().getDefaultDisplay().getWidth()*0.9);
+        windowParams.x = 0;
+        windowParams.width = width;
+        window.setAttributes(windowParams);
+
+        return dialog;
+    }
+    //监听输入框密码
+    public interface LinstenrText{
+        //回调返回密码
+        void onLintenerText(String passWord);
     }
 }

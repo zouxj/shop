@@ -1,5 +1,7 @@
 package com.shenyu.laikaword.module.login;
 
+import com.shenyu.laikaword.module.login.activity.LoginActivity;
+
 import dagger.Subcomponent;
 
 /**

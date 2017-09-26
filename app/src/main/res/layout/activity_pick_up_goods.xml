@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.shenyu.laikaword.module.shop.BuyGoodsActivity">
+    tools:context="com.shenyu.laikaword.module.shop.activity.BuyGoodsActivity">
 
     <include layout="@layout/toolbar_layout"/>
    <android.support.v7.widget.RecyclerView

@@ -7,6 +7,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.widget.FrameLayout;
 
+import com.githang.statusbar.StatusBarCompat;
 import com.shenyu.laikaword.LaiKaApplication;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
@@ -44,6 +45,13 @@ public class MainActivity extends LKWordBaseActivity {
     @Override
     public int bindLayout() {
         return R.layout.activity_main2;
+    }
+
+    @Override
+    public void initView() {
+////        ActionBarDrawerToggle actionBarDrawerToggle=new ActionBarDrawerToggle(this,drawerLayout,mToolbar,0,1);
+//        actionBarDrawerToggle.syncState(); drawerLayout.setDrawerListener(actionBarDrawerToggle);
+
     }
 
     @Override

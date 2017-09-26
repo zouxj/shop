@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<item android:drawable="@drawable/bg_paysuccess_border_rectangle"  android:state_checked="true"></item>
+    <item  android:drawable="@drawable/bg_chongzhi_write" android:state_checked="false"></item>
+</selector>

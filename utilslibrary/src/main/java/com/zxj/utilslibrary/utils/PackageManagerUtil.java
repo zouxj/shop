@@ -93,7 +93,20 @@ public class PackageManagerUtil {
         }
         return verCode;
     }
-
+    public static int getVersionCode(Context context) {
+        int verCode = -1;
+        PackageManager pm = context.getPackageManager();
+        PackageInfo pi;
+        try {
+            pi = pm.getPackageInfo(context.getPackageName(), 0);
+            if (null != pi.versionName) {
+                verCode = pi.versionCode;
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            LogUtil.e(TAG, "", e);
+        }
+        return verCode;
+    }
     /**
      * 获取AndroidManifest中指定的版本号名字符串
      *

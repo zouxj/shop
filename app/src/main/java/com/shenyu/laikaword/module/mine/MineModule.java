@@ -11,10 +11,8 @@ import com.shenyu.laikaword.module.mine.address.AddPresenter;
 import com.shenyu.laikaword.module.mine.address.AddressView;
 import com.shenyu.laikaword.module.mine.cards.AddBankPresenter;
 import com.shenyu.laikaword.module.mine.cards.AddBankView;
-import com.shenyu.laikaword.module.mine.systemsetting.UserInfoActivity;
 import com.shenyu.laikaword.module.mine.systemsetting.UserInfoPresenter;
 import com.shenyu.laikaword.module.mine.systemsetting.UserInfoView;
-import com.zxj.utilslibrary.utils.UIUtil;
 
 import dagger.Module;
 import dagger.Provides;

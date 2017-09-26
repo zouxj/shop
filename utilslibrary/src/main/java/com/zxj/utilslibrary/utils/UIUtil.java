@@ -1,15 +1,20 @@
 package com.zxj.utilslibrary.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.zxj.utilslibrary.AndroidUtilsCore;
 
@@ -137,5 +142,12 @@ public class UIUtil {
         if (spValue <= 0) return 0;
         final float scale = context.getResources().getDisplayMetrics().scaledDensity;
         return spValue * scale;
+    }
+    public static void setWindwoStatusBarColor(Activity activity,int colorResId){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            Window window = activity.getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(activity.getResources().getColor(colorResId));
+        }
     }
 }

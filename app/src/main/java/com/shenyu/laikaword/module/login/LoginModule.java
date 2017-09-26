@@ -1,5 +1,9 @@
 package com.shenyu.laikaword.module.login;
 
+import android.app.Activity;
+
+import com.shenyu.laikaword.interfaces.BaseUiListener;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -10,8 +14,10 @@ import dagger.Provides;
 @Module
 public class LoginModule {
     private final  LoginView loginView;
-    public LoginModule(LoginView loginView){
+    private Activity activity;
+    public LoginModule(Activity activity,LoginView loginView ,BaseUiListener loginListener){
         this.loginView = loginView;
+        this.activity=activity;
     }
     @Provides
     LoginView provideLoginView() {
@@ -19,6 +25,7 @@ public class LoginModule {
     }
     @Provides
     LoginPresenter provideLoginPresenter() {
-        return new LoginPresenter(loginView);
+        return new LoginPresenter(activity,loginView);
     }
+
 }

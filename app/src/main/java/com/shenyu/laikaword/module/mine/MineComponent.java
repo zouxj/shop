@@ -1,9 +1,10 @@
 package com.shenyu.laikaword.module.mine;
 
 import com.shenyu.laikaword.module.mine.address.activity.AddAdressActivity;
-import com.shenyu.laikaword.module.mine.cards.CardPackageActivity;
+import com.shenyu.laikaword.module.mine.cards.activity.CardPackageActivity;
 import com.shenyu.laikaword.module.mine.cards.fragment.AddBankCardActivity;
-import com.shenyu.laikaword.module.mine.systemsetting.UserInfoActivity;
+import com.shenyu.laikaword.module.mine.remaining.PurchaseCardActivity;
+import com.shenyu.laikaword.module.mine.systemsetting.activity.UserInfoActivity;
 
 import dagger.Subcomponent;
 

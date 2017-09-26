@@ -1,30 +1,29 @@
 package com.shenyu.laikaword.main.fragment;
 
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.adapter.CommonAdapter;
-import com.shenyu.laikaword.adapter.MultiItemTypeAdapter;
 import com.shenyu.laikaword.adapter.ViewHolder;
 import com.shenyu.laikaword.base.IKWordBaseFragment;
-import com.shenyu.laikaword.module.mine.address.activity.AddAdressActivity;
+import com.shenyu.laikaword.helper.MainItemSpaceItemDecoration;
+import com.shenyu.laikaword.module.shop.activity.ConfirmOrderActivity;
 import com.shenyu.laikaword.rxbus.EventType;
 import com.shenyu.laikaword.rxbus.RxBus;
+import com.squareup.picasso.Picasso;
 import com.zxj.utilslibrary.utils.IntentLauncher;
+import com.zxj.utilslibrary.utils.ToastUtil;
+import com.zxj.utilslibrary.utils.UIUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import rx.functions.Action1;
 
 /**
@@ -49,17 +48,35 @@ public class ListFragment extends IKWordBaseFragment {
         for (int i=0;i<60;i++){
             list.add("item"+i);
         }
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        recycleView.setLayoutManager(linearLayoutManager);
+        MainItemSpaceItemDecoration spaceItemDecoration = new MainItemSpaceItemDecoration((int) UIUtil.dp2px(8));
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),2);
+        recycleView.setLayoutManager(gridLayoutManager);
+        recycleView.addItemDecoration(spaceItemDecoration);
         commonAdapter=new CommonAdapter<String>(R.layout.item_home_shop,list) {
             @Override
             protected void convert(ViewHolder holder, String o, int position) {
-                holder.setText(R.id.tv_text, o);
-            }
+                Picasso.with(UIUtil.getContext()).load("url").placeholder(R.mipmap.yidong_icon)
+                 .resize(50, 50)
+                   .centerCrop().into((ImageView) holder.getView(R.id.iv_main_shop_img));
+                holder.setText(R.id.tv_main_shop_name, "100元移动充值卡");
+                holder.setText(R.id.tv_main_shop_original_price, "￥100");
+                holder.setText(R.id.tv_main_shop_price, "￥94");
+                holder.setText(R.id.tv_main_shop_surplus, "还剩十张");
+                holder.setText(R.id.tv_main_shop_seller,"带刺的玫瑰 出售");
+                holder.setText(R.id.tv_mian_shop_discount,"9.3折");
+                holder.setOnClickListener(R.id.tv_main_shop_purchase, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                      IntentLauncher.with(getActivity()).launch(ConfirmOrderActivity.class);
+                    }
+                });
+                holder.setOnClickListener(R.id.lv_main_shop, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ToastUtil.showToastShort("进入详情");
+                    }
+                });
 
-            @Override
-            public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-                super.setOnItemClickListener(onItemClickListener);
 
             }
         };

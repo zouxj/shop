@@ -19,7 +19,7 @@
         android:text="密码输入框"
         android:layout_height="wrap_content" />
 
-    <com.shenyu.laikaword.widget.PayPsdInputView
+    <com.zxj.utilslibrary.widget.countdownview.PayPsdInputView
         android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
         psd:psdType="weChat"
         psd:rectAngle="4dp" />
 
-    <com.shenyu.laikaword.widget.PayPsdInputView
+    <com.zxj.utilslibrary.widget.countdownview.PayPsdInputView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"

@@ -3,8 +3,10 @@ package com.shenyu.laikaword.helper;
 import android.graphics.Color;
 import android.widget.TextView;
 
+import com.shenyu.laikaword.R;
 import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
+import com.zxj.utilslibrary.utils.UIUtil;
 
 import java.util.concurrent.TimeUnit;
 
@@ -40,7 +42,6 @@ public class SendMsgHelper {
                         //TODO 发送请求
                         ToastUtil.showToastShort("发送消息了");
                         mSend.setEnabled(false);//在发送数据的时候设置为不能点击
-                        mSend.setBackgroundColor(Color.GRAY);//背景色设为灰色
                     }
                 })
 
@@ -51,8 +52,7 @@ public class SendMsgHelper {
                         LogUtil.d("onCompleted: ");
                         mSend.setEnabled(true);
                         mSend.setText("获取验证码");//数据发送完后设置为原来的文字
-                        mSend.setTextColor(Color.BLACK);
-                        mSend.setBackgroundColor(Color.parseColor("#f97e7e"));//数据发送完后设置为原来背景色
+                        mSend.setTextColor(UIUtil.getColor(R.color.app_theme_red));
                     }
 
                     @Override
@@ -63,8 +63,8 @@ public class SendMsgHelper {
                     @Override
                     public void onNext(Long aLong) { //接受到一条就是会操作一次UI
                         LogUtil.d("onNext: "+aLong);
-                        mSend.setText("剩余时间"+aLong+"秒");
-                        mSend.setTextColor(Color.WHITE);
+                        mSend.setText(aLong+"秒");
+                        mSend.setTextColor(UIUtil.getColor(R.color.gray));
                     }
                 });
     }

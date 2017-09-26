@@ -19,4 +19,7 @@
     <style name="notitle">
         <item name="android:windowNoTitle">true</item>
     </style>
+    <style name="Main_AppTheme" parent="NoActionBarAppTheme">
+
+    </style>
 </resources>
