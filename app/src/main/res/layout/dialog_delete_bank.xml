@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/main_bg_gray"
+    android:layout_height="wrap_content">
+<TextView
+    android:layout_width="360dp"
+    android:text="解除绑定后银行卡服务将不可使用,包括快捷支付"
+    android:textSize="13sp"
+    android:textColor="@color/color_999"
+    android:layout_gravity="center_horizontal"
+    android:gravity="center"
+    android:background="@color/white"
+    android:layout_height="48dp" />
+    <include layout="@layout/line_view"/>
+    <TextView
+        android:id="@+id/tv_delete"
+        android:layout_width="360dp"
+        android:text="解除绑定"
+        android:background="@color/white"
+        android:textSize="17sp"
+        android:textColor="@color/app_theme_red"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:layout_height="48dp" />
+    <TextView
+        android:id="@+id/tv_cancel_dialog"
+        android:layout_marginTop="5dp"
+        android:layout_width="360dp"
+        android:text="取消"
+        android:background="@color/white"
+        android:textSize="17sp"
+        android:textColor="@color/color_333"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:layout_height="48dp" />
+</LinearLayout>

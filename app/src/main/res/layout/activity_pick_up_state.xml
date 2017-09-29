@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/main_bg_gray"
+    android:layout_height="match_parent"
+    tools:context="com.shenyu.laikaword.module.shop.activity.PickUpStateActivity">
+
+    <include layout="@layout/toolbar_layout"/>
+    <FrameLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="117dp">
+        <com.zxj.utilslibrary.widget.countdownview.step.StepView
+            android:id="@+id/step_view"
+            android:layout_width="280dp"
+            android:layout_gravity="center"
+            android:layout_height="80dp"
+            app:totalstep="3"
+            app:completestep="1"
+            />
+
+    </FrameLayout>
+    <LinearLayout
+        android:layout_marginTop="9dp"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="117dp">
+
+        <ImageView
+            android:id="@+id/iv_tihuo_img"
+            android:layout_marginLeft="15dp"
+            android:layout_width="121dp"
+            android:layout_gravity="center_vertical"
+            android:background="@mipmap/yidong_icon"
+            android:layout_height="80dp" />
+        <RelativeLayout
+            android:layout_marginLeft="18dp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="80dp">
+            <TextView
+                android:id="@+id/tv_tihuo_name"
+                android:text="100元移动充值卡"
+                android:layout_marginTop="12dp"
+                android:textSize="@dimen/text_size_13sp"
+                android:textColor="@color/color_333"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_tihuo_count"
+                android:layout_width="wrap_content"
+                android:textSize="@dimen/text_size_12sp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="12dp"
+                android:textColor="@color/color_333"
+                android:text="数量:50张"
+                android:layout_height="wrap_content"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="9dp"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="92dp">
+        <TextView
+            android:layout_gravity="top"
+            android:layout_marginTop="17dp"
+            android:text="收货地址"
+            style="@style/bank_add_one"/>
+        <RelativeLayout
+            android:layout_marginLeft="23dp"
+            android:layout_marginTop="17dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_name_tel"
+            android:layout_marginLeft="0dp"
+            android:text="张三 13266834121"
+            style="@style/bank_add_one"/>
+            <TextView
+                android:layout_below="@+id/tv_name_tel"
+                android:id="@+id/tv_address"
+                android:layout_width="250dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginLeft="0dp"
+                android:text="广东省XXXXXXXXXXXXXXXXXXX"
+                style="@style/bank_add_one"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="9dp"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+
+        <TextView
+            android:id="@+id/tv_dan_no"
+            android:text="快递单号"
+            android:layout_centerVertical="true"
+            style="@style/bank_add_one"/>
+
+        <TextView
+            android:layout_toRightOf="@id/tv_dan_no"
+            android:id="@+id/tv_tihuo_tianxia"
+            android:layout_marginLeft="14dp"
+            android:text="张三 13266834121"
+            style="@style/bank_add_one"
+            android:layout_centerVertical="true"
+
+          />
+
+    </RelativeLayout>
+</LinearLayout>

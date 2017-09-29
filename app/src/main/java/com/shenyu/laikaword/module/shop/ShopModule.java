@@ -6,7 +6,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.helper.RecycleViewDivider;
 import com.shenyu.laikaword.module.shop.activity.ConfirmOrderPresenter;
-import com.shenyu.laikaword.module.shop.activity.ConfirmOrderView;
 
 import dagger.Module;
 import dagger.Provides;

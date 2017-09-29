@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:minHeight="77dp"
+    android:background="@color/white"
+    android:layout_height="77dp"
+    >
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:minHeight="77dp"
+    android:layout_height="77dp"
+  >
+    <CheckBox
+        style="@style/check_box"
+        android:id="@+id/ck_select_address"
+        android:enabled="false"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="9dp"
+        />
+    <LinearLayout
+        android:layout_toRightOf="@+id/ck_select_address"
+        android:id="@+id/ly_name"
+        android:layout_marginLeft="7dp"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            style="@style/bank_add_one"
+            android:text="张山" />
+        <TextView
+            style="@style/bank_add_one"
+            android:text="13266834341" />
+    </LinearLayout>
+    <TextView
+        style="@style/bank_add_one"
+        android:text="广东省南山区高新园六道泰邦科技大厦"
+        android:layout_below="@+id/ck_select_address"
+        android:layout_alignLeft="@+id/ly_name"
+        android:layout_alignStart="@+id/ly_name" />
+</RelativeLayout>
+</RelativeLayout>

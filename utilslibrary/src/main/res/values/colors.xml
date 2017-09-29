@@ -158,10 +158,15 @@
     <color name="color_333">#333333</color>
     <color name="color_666">#666666</color>
     <color name="app_theme_red">#E03226</color>
+    <color name="app_theme_red_40">#66E03226</color>
     <color name="color_999">#999999</color>
     <color name="main_item_orange">#d8a55c</color>
     <color name="main_bg_gray">#f3f3f3</color>
     <color name="color_ddd">#dddddd</color>
 <color name="colorAccent">#FF4081</color>
 <color name="divider">#ffd2d2d2</color>
+    <color name="origin_text">#d8935c</color>
+    <color name="color_b0b0">#b0b0b0</color>
+    <color name="color_fafa">#fafafa</color>
+
 </resources>

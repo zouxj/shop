@@ -2,6 +2,7 @@ package com.shenyu.laikaword.module.mine.remaining;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -56,35 +57,62 @@ public class WthdrawMoneyActivity extends LKWordBaseActivity {
             @SuppressLint("NewApi")
             @Override
             public void call(CharSequence charSequence) {
-                String bankName = etTixianNum.getText().toString().trim();
-                String yue = etTixianNum.toString().trim();
-                if (!StringUtil.isText(yue)&&!StringUtil.isText(bankName)) {
-                    tvTixianing.setEnabled(true);
-                    tvTixianing.setBackground(UIUtil.getDrawable(R.drawable.bg_bt_login_rectangle_light));
-                }
-                else {
-                    tvTixianing.setEnabled(false);
-                    tvTixianing.setBackground(UIUtil.getDrawable(R.drawable.bg_gray_icon));
-
-                }
+                isJyan();
+            }
+        });
+        RxTextView.textChanges(tvBankType).subscribe(new Action1<CharSequence>() {
+            @SuppressLint("NewApi")
+            @Override
+            public void call(CharSequence charSequence) {
+                isJyan();
             }
         });
     }
 
+    /**
+     * 判断空值
+     */
+    @SuppressLint("NewApi")
+    public void isJyan(){
+        String bankName = etTixianNum.getText().toString().trim();
+        String yue = tvBankType.getText().toString().trim();;
+        if (StringUtil.validText(yue)&&StringUtil.validText(bankName)) {
+            tvTixianing.setEnabled(true);
+            tvTixianing.setBackground(UIUtil.getDrawable(R.drawable.bg_bt_login_rectangle_light));
+        } else {
+            tvTixianing.setEnabled(false);
+            tvTixianing.setBackground(UIUtil.getDrawable(R.drawable.bg_gray_icon));
+        }
+    }
     @Override
     public void setupActivityComponent() {
 
     }
 
-    @OnClick({R.id.tv_tixianing, R.id.tv_select_bank})
+    @OnClick({R.id.tv_tixianing, R.id.tv_select_bank,R.id.tv_all_tixian})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_tixianing:
                 ToastUtil.showToastShort("next");
                 break;
             case R.id.tv_select_bank:
-                IntentLauncher.with(this).launch(CardBankActivity.class);
+                Intent intent = new Intent(this,CardBankActivity.class);
+                startActivityForResult(intent,0);
                 break;
+            case R.id.tv_all_tixian:
+                etTixianNum.setText("3000.0");
+                break;
+        }
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==0 && resultCode==RESULT_OK){
+            Bundle bundle = data.getExtras();
+            String text =null;
+            if(bundle!=null)
+                text=bundle.getString("bankName");
+                tvBankType.setText(text);
         }
     }
 

@@ -14,7 +14,10 @@ import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.adapter.CommonAdapter;
 import com.shenyu.laikaword.adapter.ViewHolder;
 import com.shenyu.laikaword.base.IKWordBaseFragment;
+import com.shenyu.laikaword.helper.RecycleViewDivider;
 import com.shenyu.laikaword.helper.SpaceItemDecoration;
+import com.shenyu.laikaword.module.shop.activity.PickUpStateActivity;
+import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.UIUtil;
 
 import java.util.ArrayList;
@@ -36,7 +39,7 @@ public class PurchaseListFragment extends IKWordBaseFragment {
 
     @Override
     public void initView(View view) {
-        recyclerView.addItemDecoration(new SpaceItemDecoration((int) UIUtil.dp2px(5)));
+        recyclerView.addItemDecoration(new RecycleViewDivider(getActivity(),LinearLayoutManager.HORIZONTAL,(int) UIUtil.dp2px(9),UIUtil.getColor(R.color.main_bg_gray)));
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         List<String> arry = new ArrayList<>();
         for (int i=0;i<10;i++){
@@ -45,13 +48,15 @@ public class PurchaseListFragment extends IKWordBaseFragment {
         recyclerView.setAdapter(new CommonAdapter(R.layout.item_purchase,arry) {
             @Override
             protected void convert(ViewHolder holder, Object o, int position) {
-
+                    holder.itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            //查看提货状态
+                            IntentLauncher.with(getActivity()).launch(PickUpStateActivity.class);
+                        }
+                    });
             }
 
-            @Override
-            public void onBindViewHolder(ViewHolder holder, int position) {
-
-            }
         });
     }
 
@@ -69,4 +74,6 @@ public class PurchaseListFragment extends IKWordBaseFragment {
     public void requestData() {
 
     }
+
+
 }

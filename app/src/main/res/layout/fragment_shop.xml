@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.shenyu.laikaword.main.fragment.ShopFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <!-- TODO: Update blank fragmitem_cardinfo_listyout -->
     <TextView
         android:visibility="gone"
         android:layout_width="match_parent"

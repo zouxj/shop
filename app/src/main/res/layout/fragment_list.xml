@@ -7,7 +7,7 @@
     android:paddingRight="4dp"
     tools:context="com.shenyu.laikaword.main.fragment.ListFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <!-- TODO: Update blank fragmitem_cardinfo_listyout -->
 <android.support.v7.widget.RecyclerView
     android:id="@+id/recycle_view"
     android:layout_width="match_parent"

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg_gray"
+    android:orientation="vertical"
+    tools:context="com.shenyu.laikaword.module.shop.activity.PickUpActivity">
+    <include layout="@layout/toolbar_layout"/>
+    <include layout="@layout/include_tihuo_layout"/>
+
+    <LinearLayout
+        android:layout_marginTop="9dp"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="112dp">
+
+        <TextView
+            android:layout_marginTop="23dp"
+            android:text="充值手机号"
+            style="@style/bank_add_one"/>
+
+        <EditText
+            android:layout_marginTop="27dp"
+            android:background="@null"
+            android:layout_marginLeft="9dp"
+            android:id="@+id/tv_tihuo_tianxia"
+            android:textSize="@dimen/text_size_17sp"
+            android:layout_width="150dp"
+            android:hint="13266834341"
+            android:layout_height="25dp" />
+
+    </LinearLayout>
+
+    <include layout="@layout/include_tihuo_bottom_layout"/>
+</LinearLayout>

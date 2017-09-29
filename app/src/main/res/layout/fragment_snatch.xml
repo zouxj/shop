@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     tools:context="com.shenyu.laikaword.main.fragment.SnatchFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <!-- TODO: Update blank fragmitem_cardinfo_listyout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

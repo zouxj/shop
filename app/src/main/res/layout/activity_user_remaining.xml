@@ -24,9 +24,10 @@
     android:layout_gravity="center"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" />
-    <Button
+    <TextView
         android:id="@+id/re_bt_pay"
         android:text="充值"
+        android:gravity="center"
         android:textSize="@dimen/text_size_18sp"
         android:textColor="@color/white"
         android:layout_marginTop="97dp"
@@ -36,10 +37,11 @@
         android:layout_height="44dp" />
 
 
-    <Button
+    <TextView
         android:id="@+id/re_bt_withdraw"
         android:text="提现"
         android:textSize="@dimen/text_size_18sp"
+        android:gravity="center"
         android:textColor="@color/app_theme_red"
         android:layout_marginTop="14dp"
         android:background="@drawable/bg_paysuccess_border_rectangle"

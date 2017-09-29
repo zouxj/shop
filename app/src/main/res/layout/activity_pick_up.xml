@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg_gray"
+    android:orientation="vertical"
+    tools:context="com.shenyu.laikaword.module.shop.activity.PickUpActivity">
+<include layout="@layout/toolbar_layout"/>
+<include layout="@layout/include_tihuo_layout"/>
+
+    <RelativeLayout
+        android:layout_marginTop="9dp"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+
+        <TextView
+
+            android:text="收货地址"
+            android:layout_centerVertical="true"
+           style="@style/bank_add_one"/>
+
+        <TextView
+            android:id="@+id/tv_tihuo_tianxia"
+            android:drawableRight="@mipmap/right_back"
+            android:drawablePadding="19dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="9dp"
+            android:textSize="@dimen/text_size_13sp"
+            android:textColor="@color/color_999"
+            android:layout_width="wrap_content"
+            android:hint="请填写收货地址"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+<include layout="@layout/include_tihuo_bottom_layout"/>
+</LinearLayout>

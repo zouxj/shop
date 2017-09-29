@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -22,4 +22,89 @@
     <style name="Main_AppTheme" parent="NoActionBarAppTheme">
 
     </style>
+
+    <style name="bank_add_one">
+        <item name="android:textSize">@dimen/text_size_13sp</item>
+        <item name="android:textColor">@color/color_333</item>
+        <item name="android:layout_marginLeft">9dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+    <style name="bank_add_edite">
+        <item name="android:textSize">@dimen/text_size_13sp</item>
+        <item name="android:textColor">@color/color_999</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_height">@dimen/dp_15dp</item>
+        <item name="android:layout_width">106dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@null</item>
+        <item name="android:layout_marginLeft">25dp</item>
+    </style>
+    <style name="check_box">
+        <item name="android:button">@null</item>
+        <item name="android:background">@drawable/seletor_appy_type</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_height">22dp</item>
+        <item name="android:layout_width">22dp</item>
+    </style>
+    <style name="ly_layout">
+        <item name="android:background">@color/white</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="ly_bottom_red">
+        <item name="android:background">@color/app_theme_red</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="tv_car_goumai">
+        <item name="android:textSize">@dimen/text_size_12sp</item>
+        <item name="android:textColor">@color/color_999</item>
+        <item name="android:layout_marginLeft">9dp</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="tv_car_jiaoyi">
+        <item name="android:textSize">@dimen/text_size_12sp</item>
+        <item name="android:textColor">@color/app_theme_red</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_alignParentRight">true</item>
+    </style>
+    <style name="tv_operation_finsh">
+        <item name="android:background">@drawable/bg_paysuccess_border_rectangle</item>
+        <item name="android:textColor">@color/app_theme_red</item>
+        <item name="android:textSize">@dimen/text_size_18sp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_width">140dp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="DialogBottom">
+        <item name="android:windowAnimationStyle">@style/AnimBottom</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+    <style name="AnimBottom" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/push_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/push_bottom_out</item>
+    </style>
+
+    <style name="Dialog">
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:backgroundDimEnabled" tools:ignore="NewApi">true</item>
+        <item name="android:backgroundDimAmount">0.4</item>
+    </style>
+
 </resources>

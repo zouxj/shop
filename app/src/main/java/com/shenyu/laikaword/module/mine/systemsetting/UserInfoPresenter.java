@@ -15,16 +15,14 @@ import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.common.Constants;
 import com.zxj.utilslibrary.utils.FileStorageUtil;
 import com.zxj.utilslibrary.utils.ImageUtil;
-import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
-import com.zxj.utilslibrary.utils.ViewUtils;
+import com.shenyu.laikaword.helper.ViewUtils;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 import static com.shenyu.laikaword.common.Constants.REQUEST_IMAGE_CAPTURE;
 

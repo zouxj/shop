@@ -3,9 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/main_bg_gray"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.shenyu.laikaword.module.mine.cards.fragment.AddBankCardActivity">
+    tools:context="com.shenyu.laikaword.module.mine.cards.activity.AddBankCardActivity">
     <include layout="@layout/toolbar_layout"/>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -17,48 +18,57 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
-        android:layout_marginTop="5dp"
+        android:background="@color/white"
         android:layout_height="45dp">
+
         <TextView
-            android:layout_width="wrap_content"
-            android:text="持卡人:"
-            android:layout_height="wrap_content" />
+            style="@style/bank_add_one"
+            android:text="持 卡 人 :"
+           />
         <EditText
-            android:id="@+id/et_add_bank_name"
-            android:layout_width="180dp"
-            android:hint="请输入持卡人姓名"
-            android:layout_height="45dp" />
+            style="@style/bank_add_edite"
+            android:hint="请输入持卡人姓名" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
-        android:layout_marginTop="5dp"
-        android:layout_height="45dp">
+        android:background="@color/white"
+        android:layout_height="48dp">
         <TextView
-            android:layout_width="wrap_content"
-            android:text="卡号:"
-            android:layout_height="wrap_content" />
+            style="@style/bank_add_one"
+            android:text="卡      号:" />
         <EditText
             android:id="@+id/et_add_bank_card_num"
-            android:layout_width="300dp"
-            android:hint="请输入16位或者19位的银行卡好"
-            android:layout_height="45dp" />
+            style="@style/bank_add_edite"
+            android:hint="请输入银行卡号"
+            />
     </LinearLayout>
-    <TextView
-        android:layout_width="100dp"
-        android:text="银行:"
-        android:id="@+id/et_add_bank_yinhang"
-        android:gravity="center_vertical"
-        android:layout_height="45dp" />
+            <include layout="@layout/line_view"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:background="@color/white"
+                android:layout_height="48dp">
+                <TextView
+
+                    style="@style/bank_add_one"
+                    android:text="银      行:" />
+                <EditText
+                    android:id="@+id/et_add_bank_yinhang"
+                    android:layout_height="match_parent"
+                    style="@style/bank_add_edite"
+                    />
+            </LinearLayout>
+            <include layout="@layout/line_view"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
-        android:layout_marginTop="5dp"
-        android:layout_height="45dp">
+        android:background="@color/white"
+        android:layout_height="48dp">
         <TextView
-            android:layout_width="wrap_content"
-            android:text="开户地址:"
-            android:layout_height="wrap_content" />
+            style="@style/bank_add_one"
+            android:text="开户地址:" />
         <TextView
             android:id="@+id/et_add_bank_address"
             android:layout_width="180dp"
@@ -66,81 +76,89 @@
             android:gravity="center"
             android:layout_height="45dp" />
     </LinearLayout>
+            <include layout="@layout/line_view"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
-        android:layout_marginTop="5dp"
-        android:layout_height="45dp">
+        android:background="@color/white"
+        android:layout_height="48dp">
         <TextView
-            android:layout_width="wrap_content"
-            android:text="开户行:"
-            android:layout_height="wrap_content" />
+           style="@style/bank_add_one"
+            android:text="开 户行 :"
+             />
         <EditText
-            android:id="@+id/et_add_bank_zhihang"
-            android:layout_width="180dp"
+           style="@style/bank_add_edite"
             android:hint="如:科技园支行"
-            android:gravity="center"
-            android:layout_height="45dp" />
+            />
     </LinearLayout>
     <TextView
         android:padding="5dp"
         android:textColor="@color/orange"
         android:layout_width="match_parent"
-        android:text="*请准确填写银行卡号开户地址和开户信息,若你填写的信息不准确,将可能导致资金提现不成功,请慎重"
-        android:layout_height="wrap_content" />
+        android:text="@string/bank_delete_miaosu"
+        android:layout_height="48dp" />
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
-        android:layout_marginTop="5dp"
-        android:layout_height="45dp">
+        android:background="@color/white"
+        android:layout_height="48dp">
         <TextView
-            android:layout_width="wrap_content"
-            android:text="手机号:"
-            android:layout_height="wrap_content" />
+            style="@style/bank_add_one"
+            android:text="手 机 号:"
+            />
         <TextView
-            android:layout_width="180dp"
+            style="@style/bank_add_edite"
             android:text="132****4341"
             android:id="@+id/et_add_bank_phone"
-            android:gravity="center"
-            android:layout_height="45dp" />
+        />
     </LinearLayout>
+            <include layout="@layout/line_view"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
-        android:layout_marginTop="5dp"
-        android:layout_height="45dp">
+        android:background="@color/white"
+        android:layout_height="48dp">
         <TextView
-            android:layout_width="wrap_content"
-            android:text="验证码:"
-            android:layout_height="wrap_content" />
+           style="@style/bank_add_one"
+            android:text="验 证 码:"
+           />
         <EditText
-            android:layout_width="180dp"
+         style="@style/bank_add_edite"
             android:hint="请输入短信验证码"
-            android:gravity="center"
-            android:id="@+id/et_add_bank_code"
-            android:layout_height="45dp" />
+          />
 
         <TextView
+            android:layout_weight="1"
             android:id="@+id/tv_get_msg_code"
             android:layout_width="wrap_content"
+            android:textColor="@color/app_theme_red"
+            android:layout_gravity="center_vertical"
+            android:gravity="right"
+            android:paddingRight="9dp"
+            android:textSize="@dimen/text_size_13sp"
             android:text="获取验证码"
             android:layout_height="wrap_content" />
     </LinearLayout>
     <TextView
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:text="信息已加密处理,保障您的信息安全"
         android:layout_height="wrap_content" />
     <TextView
         android:layout_width="wrap_content"
         android:text="仅支持借记卡"
+        android:visibility="gone"
         android:layout_height="wrap_content" />
         </LinearLayout>
-        <Button
+        <TextView
             android:id="@+id/bt_add_bank"
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
+            android:background="@color/app_theme_red"
             android:text="保存"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_15sp"
             android:gravity="center"
-            android:layout_height="45dp" />
+            android:layout_height="48dp" />
     </RelativeLayout>
 </LinearLayout>

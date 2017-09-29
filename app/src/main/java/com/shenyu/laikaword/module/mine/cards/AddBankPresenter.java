@@ -5,9 +5,7 @@ import android.widget.TextView;
 
 import com.jakewharton.rxbinding.widget.RxTextView;
 import com.shenyu.laikaword.helper.SendMsgHelper;
-import com.shenyu.laikaword.module.mine.cards.fragment.AddBankCardActivity;
 import com.zxj.utilslibrary.utils.StringUtil;
-import com.zxj.utilslibrary.utils.ToastUtil;
 
 import rx.Observable;
 import rx.Subscriber;

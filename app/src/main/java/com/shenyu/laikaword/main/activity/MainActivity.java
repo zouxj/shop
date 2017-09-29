@@ -2,10 +2,15 @@ package com.shenyu.laikaword.main.activity;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.res.Resources;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.util.TypedValue;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 import com.githang.statusbar.StatusBarCompat;
 import com.shenyu.laikaword.LaiKaApplication;
@@ -20,6 +25,8 @@ import com.shenyu.laikaword.rxbus.RxBusSubscriber;
 import com.zxj.utilslibrary.utils.ActivityManageUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
+
+import java.lang.reflect.Field;
 
 import javax.inject.Inject;
 
@@ -49,6 +56,7 @@ public class MainActivity extends LKWordBaseActivity {
 
     @Override
     public void initView() {
+
 ////        ActionBarDrawerToggle actionBarDrawerToggle=new ActionBarDrawerToggle(this,drawerLayout,mToolbar,0,1);
 //        actionBarDrawerToggle.syncState(); drawerLayout.setDrawerListener(actionBarDrawerToggle);
 
@@ -105,4 +113,6 @@ public class MainActivity extends LKWordBaseActivity {
             System.exit(0);
         }
     }
+
+
 }

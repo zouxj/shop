@@ -2,13 +2,10 @@ package com.shenyu.laikaword.http.uitls;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 
-import com.shenyu.laikaword.http.downloadmanager.DownLoadService;
-import com.zxj.utilslibrary.utils.DeviceInfo;
 import com.zxj.utilslibrary.utils.PackageManagerUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
-import com.zxj.utilslibrary.utils.ViewUtils;
+import com.shenyu.laikaword.helper.ViewUtils;
 
 /**
  * Created by Administrator on 2017/8/6 0006.

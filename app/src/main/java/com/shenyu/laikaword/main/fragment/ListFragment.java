@@ -13,6 +13,7 @@ import com.shenyu.laikaword.adapter.ViewHolder;
 import com.shenyu.laikaword.base.IKWordBaseFragment;
 import com.shenyu.laikaword.helper.MainItemSpaceItemDecoration;
 import com.shenyu.laikaword.module.shop.activity.ConfirmOrderActivity;
+import com.shenyu.laikaword.module.shop.activity.ShopDateilActivity;
 import com.shenyu.laikaword.rxbus.EventType;
 import com.shenyu.laikaword.rxbus.RxBus;
 import com.squareup.picasso.Picasso;
@@ -73,7 +74,7 @@ public class ListFragment extends IKWordBaseFragment {
                 holder.setOnClickListener(R.id.lv_main_shop, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        ToastUtil.showToastShort("进入详情");
+                    IntentLauncher.with(getActivity()).launch(ShopDateilActivity.class);
                     }
                 });
 

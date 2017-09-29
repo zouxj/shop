@@ -1,16 +1,10 @@
 package com.shenyu.laikaword.module.shop.activity;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 
 import com.shenyu.laikaword.LaiKaApplication;
 import com.shenyu.laikaword.R;
@@ -18,12 +12,10 @@ import com.shenyu.laikaword.adapter.CommonAdapter;
 import com.shenyu.laikaword.adapter.ViewHolder;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.helper.RecycleViewDivider;
+import com.shenyu.laikaword.module.shop.ConfirmOrderView;
 import com.shenyu.laikaword.module.shop.ShopModule;
 import com.shenyu.laikaword.widget.AmountView;
-import com.zxj.utilslibrary.utils.KeyBoardUtil;
-import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
-import com.zxj.utilslibrary.utils.ViewUtils;
 
 import java.util.ArrayList;
 import java.util.List;

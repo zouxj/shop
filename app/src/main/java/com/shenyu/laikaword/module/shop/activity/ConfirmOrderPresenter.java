@@ -4,18 +4,13 @@ import android.app.Activity;
 
 import com.shenyu.laikaword.base.BasePresenter;
 import com.shenyu.laikaword.helper.PayHelper;
-import com.zxj.parlibary.alipay.AliPayAPI;
-import com.zxj.parlibary.alipay.AliPayReq2;
-import com.zxj.parlibary.qqpay.QQPayAPI;
-import com.zxj.parlibary.qqpay.QQPayReq;
+import com.shenyu.laikaword.module.shop.ConfirmOrderView;
 import com.zxj.parlibary.resultlistener.OnAliPayListener;
 import com.zxj.parlibary.resultlistener.OnWechatPayListener;
 import com.zxj.parlibary.resultlistener.QqPayListener;
-import com.zxj.parlibary.wechatpay.WechatPayAPI;
-import com.zxj.parlibary.wechatpay.WechatPayReq;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.ToastUtil;
-import com.zxj.utilslibrary.utils.ViewUtils;
+import com.shenyu.laikaword.helper.ViewUtils;
 
 /**
  * Created by shenyu_zxjCode on 2017/9/25 0025.

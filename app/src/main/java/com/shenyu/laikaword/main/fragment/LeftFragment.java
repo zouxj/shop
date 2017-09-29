@@ -11,10 +11,10 @@ import com.shenyu.laikaword.adapter.CommonAdapter;
 import com.shenyu.laikaword.adapter.ViewHolder;
 import com.shenyu.laikaword.base.IKWordBaseFragment;
 import com.shenyu.laikaword.module.login.activity.LoginActivity;
+import com.shenyu.laikaword.module.mine.address.activity.AddressInfoActivity;
+import com.shenyu.laikaword.module.mine.cards.activity.CardBankInfoActivity;
 import com.shenyu.laikaword.module.shop.activity.BuyGoodsActivity;
-import com.shenyu.laikaword.module.mine.address.activity.AddAdressActivity;
 import com.shenyu.laikaword.module.mine.remaining.PurchaseCardActivity;
-import com.shenyu.laikaword.module.mine.cards.activity.CardBankActivity;
 import com.shenyu.laikaword.module.mine.cards.activity.CardPackageActivity;
 import com.shenyu.laikaword.module.mine.remaining.UserRemainingActivity;
 import com.shenyu.laikaword.module.mine.systemsetting.activity.SettingSystemActivity;
@@ -94,7 +94,7 @@ public class LeftFragment extends IKWordBaseFragment {
                                IntentLauncher.with(getActivity()).launch(UserRemainingActivity.class);
                                 break;
                             case 1:
-                                //TODO
+                                //TODO 我的购买
                                 IntentLauncher.with(getActivity()).launch(BuyGoodsActivity.class);
                                 break;
                             case 2:
@@ -107,12 +107,12 @@ public class LeftFragment extends IKWordBaseFragment {
                                 break;
                             case 4:
                                 //TODO 我的银行卡
-                                IntentLauncher.with(getActivity()).launch(CardBankActivity.class);
+                                IntentLauncher.with(getActivity()).launch(CardBankInfoActivity.class);
 
                                 break;
                             case 5:
                                 //TODO 我的地址
-                                IntentLauncher.with(getActivity()).launch(AddAdressActivity.class);
+                                IntentLauncher.with(getActivity()).launch(AddressInfoActivity.class);
                                 break;
                             case 6:
                                 //TODO 我的设置

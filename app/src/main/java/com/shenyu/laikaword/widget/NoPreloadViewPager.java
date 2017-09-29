@@ -291,7 +291,7 @@ public class NoPreloadViewPager extends ViewPager {
 
     /**
      * Set the currently selected page. If the ViewPager has already been through its first
-     * layout there will be a smooth animated transition between the current item and the
+     * item_cardinfo_list there will be a smooth animated transition between the current item and the
      * specified item.
      *
      * @param item Item index to select
@@ -386,7 +386,7 @@ public class NoPreloadViewPager extends ViewPager {
      * of pages you will need to support or have lazy-loading mechanisms in place
      * on your pages, tweaking this setting can have benefits in perceived smoothness
      * of paging animations and interaction. If you have a small number of pages (3-4)
-     * that you can keep active all at once, less time will be spent in layout for
+     * that you can keep active all at once, less time will be spent in item_cardinfo_list for
      * newly created view subtrees as the user pages back and forth.</p>
      *
      * <p>You should keep this limit low, especially if your pages have complex layouts.
@@ -823,10 +823,10 @@ public class NoPreloadViewPager extends ViewPager {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         // For simple implementation, or internal size is always 0.
-        // We depend on the container to specify the layout size of
+        // We depend on the container to specify the item_cardinfo_list size of
         // our view.  We can't really know what it is since we will be
         // adding and removing different arbitrary views and do not
-        // want the layout to change as this happens.
+        // want the item_cardinfo_list to change as this happens.
         setMeasuredDimension(getDefaultSize(0, widthMeasureSpec),
                 getDefaultSize(0, heightMeasureSpec));
 

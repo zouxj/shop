@@ -1,4 +1,4 @@
-package com.shenyu.laikaword.module.shop.activity;
+package com.shenyu.laikaword.module.shop;
 
 import com.shenyu.laikaword.base.BaseLoadView;
 

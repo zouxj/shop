@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context="com.shenyu.laikaword.module.shop.activity.ShopDateilActivity">
+<include layout="@layout/toolbar_layout"/>
+    <com.shenyu.laikaword.widget.ProgressWebView
+        android:id="@+id/wb_load"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></com.shenyu.laikaword.widget.ProgressWebView>
+</LinearLayout>

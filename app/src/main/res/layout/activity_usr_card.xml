@@ -3,16 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-
+    android:background="@color/main_bg_gray"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.shenyu.laikaword.module.mine.cards.activity.CardBankActivity">
 <include layout="@layout/toolbar_layout"/>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/card_cy_list"
-        android:background="@color/lightgrey"
+        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </android.support.v7.widget.RecyclerView>
-
+<TextView
+    android:id="@+id/tv_commit_selector"
+    android:background="@color/app_theme_red"
+    android:layout_width="match_parent"
+    android:text="确认"
+    android:gravity="center"
+    android:textSize="@dimen/text_size_18sp"
+    android:textColor="@color/white"
+    android:layout_height="47dp" />
 </LinearLayout>

@@ -10,6 +10,7 @@ import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.adapter.CommonAdapter;
 import com.shenyu.laikaword.adapter.ViewHolder;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
+import com.shenyu.laikaword.helper.RecycleViewDivider;
 import com.shenyu.laikaword.helper.SpaceItemDecoration;
 import com.zxj.utilslibrary.utils.UIUtil;
 
@@ -38,12 +39,17 @@ public class BuyGoodsActivity extends LKWordBaseActivity {
             dataList.add("item");
         }
 
-        recyclerView.addItemDecoration(new SpaceItemDecoration((int) UIUtil.dp2px(5)));
+        recyclerView.addItemDecoration(new RecycleViewDivider(this,LinearLayoutManager.HORIZONTAL,(int) UIUtil.dp2px(9),UIUtil.getColor(R.color.main_bg_gray)));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new CommonAdapter(R.layout.item_goods,dataList) {
             @Override
             protected void convert(ViewHolder holder, Object o, int position) {
-
+//                holder.setText(R.id.tv_goumai_count,"");
+//                holder.setText(R.id.tv_goumai_indent_no,"");
+//                holder.setText(R.id.tv_goumai_shop_name,"");
+//                holder.setText(R.id.tv_goumai_shop_original_price,"");
+//                holder.setText(R.id.tv_goumai_shop_price,"");
+//                holder.setText(R.id.tv_goumai_time,"");
             }
             @Override
             public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {

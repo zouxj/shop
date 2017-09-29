@@ -33,7 +33,7 @@ import rx.Observer;
 /**
  * 添加地址
  */
-public class AddAdressActivity extends LKWordBaseActivity implements AddressView {
+public class AddAddAdressActivity extends LKWordBaseActivity implements AddressView {
 
 
     @BindView(R.id.et_add_address_phone)
@@ -61,12 +61,16 @@ public class AddAdressActivity extends LKWordBaseActivity implements AddressView
 
     @Override
     public void doBusiness(Context context) {
+        String type = getIntent().getStringExtra("Type");
+        if (null!=type&&type.equals("ADD")){
+            setToolBarTitle("地址信息");
+        }
     }
 
     @Override
     public void initView() {
         super.initView();
-        setToolBarTitle("添加新地址");
+        setToolBarTitle("编辑地址");
         setToolBarRight("保存");
 
         RxView.clicks(mToolbarSubTitle).throttleFirst(1, TimeUnit.SECONDS).subscribe(new Observer<Void>() {

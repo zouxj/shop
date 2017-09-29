@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg_gray"
+    android:orientation="vertical"
+    tools:context="com.shenyu.laikaword.module.mine.address.activity.EditAddressActivity">
+<include layout="@layout/toolbar_layout"/>
+    <LinearLayout style="@style/ly_layout">
+    <TextView
+        android:text="收货人"
+        android:layout_marginLeft="14dp"
+        style="@style/bank_add_one"/>
+    <EditText
+        android:hint="张三"
+        android:id="@+id/edit_name"
+        style="@style/bank_add_edite"
+        android:layout_width="100dp"
+        android:layout_height="15dp" />
+</LinearLayout>
+    <include layout="@layout/line_view"/>
+    <LinearLayout
+        style="@style/ly_layout">
+        <TextView
+            android:text="联系方式"
+            android:layout_marginLeft="14dp"
+            style="@style/bank_add_one"/>
+        <EditText
+            android:id="@+id/edit_tel"
+            android:hint="13266834341"
+            style="@style/bank_add_edite"
+            android:layout_width="100dp"
+            android:layout_height="15dp" />
+    </LinearLayout>
+    <include layout="@layout/line_view"/>
+    <RelativeLayout
+        style="@style/ly_layout">
+        <TextView
+            android:id="@+id/tv_biaoti"
+            android:text="所在地区"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="14dp"
+            style="@style/bank_add_one"/>
+        <EditText
+            android:layout_toRightOf="@+id/tv_biaoti"
+            android:id="@+id/edite_address"
+            android:hint="广东深圳南山区"
+            style="@style/bank_add_edite"
+            android:layout_centerVertical="true"
+            android:layout_width="200dp"
+            android:layout_height="15dp" />
+        <TextView
+            android:id="@+id/tv_select_address"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_marginRight="10dp"
+            android:textSize="20sp"
+            android:layout_gravity="center_vertical"
+            android:text=">"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <include layout="@layout/line_view"/>
+    <LinearLayout
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="96dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_13sp"
+            android:textColor="@color/color_333"
+            android:layout_marginTop="17dp"
+            android:text="详细地址"
+            android:layout_marginLeft="14dp"
+          />
+        <EditText
+            android:id="@+id/edit_address_detail"
+            android:background="@null"
+            android:textSize="@dimen/text_size_13sp"
+            android:layout_marginLeft="31dp"
+            android:gravity="top"
+            android:textColor="@color/color_999"
+            android:layout_width="242dp"
+            android:hint="街道地址,请填写整栋楼楼层或房间信息"
+            android:layout_marginTop="17dp"
+            android:layout_height="48dp" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="9dp"
+        style="@style/ly_layout">
+        <TextView
+            android:layout_centerVertical="true"
+            android:text="设置默认"
+            android:layout_marginLeft="14dp"
+            style="@style/bank_add_one"/>
+        <CheckBox
+            android:id="@+id/cb_select_address"
+            style="@style/check_box"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/color_999"
+            android:textSize="@dimen/text_size_13sp"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+        />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_alignParentBottom="true"
+            android:id="@+id/tv_save"
+            style="@style/ly_bottom_red"
+            android:textSize="@dimen/text_size_15sp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:text="保存" />
+    </RelativeLayout>
+
+</LinearLayout>

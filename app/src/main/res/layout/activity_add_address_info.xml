@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context="com.shenyu.laikaword.module.mine.address.activity.AddressInfoActivity">
+<include layout="@layout/toolbar_layout"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rl_address_list"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </android.support.v7.widget.RecyclerView>
+<TextView
+    android:id="@+id/tv_add_address"
+    android:layout_width="match_parent"
+    android:text="添加新地址"
+    android:textColor="@color/white"
+    android:gravity="center"
+    android:textSize="@dimen/text_size_15sp"
+    android:background="@color/app_theme_red"
+    android:layout_alignParentBottom="true"
+    android:layout_height="47dp" />
+</LinearLayout>
