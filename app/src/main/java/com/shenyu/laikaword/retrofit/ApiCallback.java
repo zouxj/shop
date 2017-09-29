@@ -1,6 +1,7 @@
 package com.shenyu.laikaword.retrofit;
 
 import com.zxj.utilslibrary.utils.LogUtil;
+import com.zxj.utilslibrary.utils.ToastUtil;
 
 import retrofit2.HttpException;
 import rx.Subscriber;
@@ -38,12 +39,12 @@ public abstract class ApiCallback<M> extends Subscriber<M> {
 
             }
 
-            if (code == 502 || code == 404) {
+            if (code == 502 || code == 404||code==500) {
 
                 msg = "服务器异常，请稍后再试";
 
             }
-
+            ToastUtil.showToastShort(msg);
             onFailure(msg);
 
         } else {

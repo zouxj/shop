@@ -17,6 +17,7 @@ public class EventType {
      */
     public static final int ACTION_LODE_MORE=0x02;
     public static final int ACTION_PULL_REFRESH=0x03;
+    public static final int ACTION_MAIN_SETDATE=0x04;
     public int action;
     public Object object;
     public View view;

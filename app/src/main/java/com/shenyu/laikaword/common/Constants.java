@@ -28,7 +28,11 @@ public class Constants {
     public static final String WX_APPID="wx72f8cc7bb98bfa4d";
     public static final String KEY_VALUE="124uj13nejk31h4u3faenfiu3h923jalkd";
     public static synchronized String getToken() {
-        return SPUtil.getString("TOKEN","");
+        return SPUtil.getString(TOKEN,"");
     }
     public static String WXSTATE="";
+
+    //SharedPreferences保存信息KEY
+    public static final String LOGININFO_KEY ="USERINFO_LOGIN";
+    public static final String MAIN_SHOP_KEY ="MAIN_SHOP_KEY";
 }

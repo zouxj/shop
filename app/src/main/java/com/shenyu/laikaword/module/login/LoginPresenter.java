@@ -56,6 +56,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
                 if (model.isSuccess()){
                     //TODO 登录成功
                     SPUtil.putString(Constants.TOKEN,model.getPayload().getToken());
+                    SPUtil.saveObject(Constants.LOGININFO_KEY,model);
                     ToastUtil.showToastShort("登录成功");
                     IntentLauncher.with(mActivity).launch(MainActivity.class);
                     mActivity.finish();;
@@ -147,6 +148,8 @@ public class LoginPresenter extends BasePresenter<LoginView> {
                 @Override
                 public void onSuccess(LoginReponse model) {
                     if (model.isSuccess()){
+                        SPUtil.saveObject(Constants.LOGININFO_KEY,model);
+                        SPUtil.putString(Constants.TOKEN,model.getPayload().getToken());
                         IntentLauncher.with(mActivity).launch(MainActivity.class);
                     }else {
                         ToastUtil.showToastShort(model.getError().getMessage());

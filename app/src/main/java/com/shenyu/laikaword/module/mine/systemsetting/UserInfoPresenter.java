@@ -17,7 +17,7 @@ import com.zxj.utilslibrary.utils.FileStorageUtil;
 import com.zxj.utilslibrary.utils.ImageUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
-import com.shenyu.laikaword.helper.ViewUtils;
+import com.shenyu.laikaword.helper.DialogHelper;
 
 import java.io.File;
 import java.io.IOException;
@@ -42,7 +42,7 @@ public class UserInfoPresenter {
     }
     //点击头像
     public void updateImg(){
-        ViewUtils.takePhoto(activity, new ViewUtils.TakePhotoListener() {
+        DialogHelper.takePhoto(activity, new DialogHelper.TakePhotoListener() {
             @Override
             public void takeByPhoto() {
                         cameraTask();

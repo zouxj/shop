@@ -5,7 +5,7 @@ import android.content.Context;
 
 import com.zxj.utilslibrary.utils.PackageManagerUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
-import com.shenyu.laikaword.helper.ViewUtils;
+import com.shenyu.laikaword.helper.DialogHelper;
 
 /**
  * Created by Administrator on 2017/8/6 0006.
@@ -46,7 +46,7 @@ public class UpdateManager {
      */
     private void showNoticeDialog() {
         // 构造对话框
-        ViewUtils.makeUpdate(mContext, "发现新版本", "xxxx", "暂不更新", "更新", false, new ViewUtils.ButtonCallback() {
+        DialogHelper.makeUpdate(mContext, "发现新版本", "xxxx", "暂不更新", "更新", false, new DialogHelper.ButtonCallback() {
             @Override
             public void onNegative(Dialog dialog) {
 

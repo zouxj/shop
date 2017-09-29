@@ -10,6 +10,9 @@ import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.adapter.CommonAdapter;
 import com.shenyu.laikaword.adapter.ViewHolder;
 import com.shenyu.laikaword.base.IKWordBaseFragment;
+import com.shenyu.laikaword.bean.reponse.LoginReponse;
+import com.shenyu.laikaword.common.CircleTransform;
+import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.module.login.activity.LoginActivity;
 import com.shenyu.laikaword.module.mine.address.activity.AddressInfoActivity;
 import com.shenyu.laikaword.module.mine.cards.activity.CardBankInfoActivity;
@@ -18,7 +21,9 @@ import com.shenyu.laikaword.module.mine.remaining.PurchaseCardActivity;
 import com.shenyu.laikaword.module.mine.cards.activity.CardPackageActivity;
 import com.shenyu.laikaword.module.mine.remaining.UserRemainingActivity;
 import com.shenyu.laikaword.module.mine.systemsetting.activity.SettingSystemActivity;
+import com.squareup.picasso.Picasso;
 import com.zxj.utilslibrary.utils.IntentLauncher;
+import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
 import java.util.ArrayList;
@@ -60,6 +65,7 @@ public class LeftFragment extends IKWordBaseFragment {
 
     @Override
     public void doBusiness() {
+
         List<String> dataList = new ArrayList<>();
         dataList.add("我的余额");
         dataList.add("我的购买");
@@ -133,7 +139,12 @@ public class LeftFragment extends IKWordBaseFragment {
 
     @Override
     public void requestData() {
-
+        LoginReponse loginReponse = (LoginReponse) SPUtil.readObject(Constants.LOGININFO_KEY);
+        if (null!=loginReponse){
+            Picasso.with(UIUtil.getContext()).load(loginReponse.getPayload().getAvatar()) .placeholder(R.mipmap.left_user_icon)
+                    .error(R.mipmap.left_user_icon).resize(50, 50).transform(new CircleTransform()).into(tvUserHead);
+       tvUserName.setText(loginReponse.getPayload().getNickname());
+        }
     }
 
 }

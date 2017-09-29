@@ -13,7 +13,7 @@ import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.helper.RecycleViewDivider;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.UIUtil;
-import com.shenyu.laikaword.helper.ViewUtils;
+import com.shenyu.laikaword.helper.DialogHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +44,7 @@ public class CardBankInfoActivity extends LKWordBaseActivity {
                 holder.setOnClickListener(R.id.tv_card_num, new  View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        ViewUtils.deleteBankDialog(CardBankInfoActivity.this, new ViewUtils.ButtonCallback() {
+                        DialogHelper.deleteBankDialog(CardBankInfoActivity.this, new DialogHelper.ButtonCallback() {
                             @Override
                             public void onNegative(Dialog dialog) {
                                 dataBank.remove(position);

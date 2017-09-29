@@ -14,12 +14,7 @@
         android:layout_width="match_parent"
         android:background="@color/white"
         android:layout_height="wrap_content">
-        <include
-            layout="@layout/include_top_title"
-            app:layout_scrollFlags="scroll|enterAlways"
-            android:layout_height="55dp"
-            android:layout_width="match_parent"
-            tools:ignore="IncludeLayoutParam" />
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="145dp"
@@ -27,6 +22,14 @@
             app:layout_scrollFlags="scroll|enterAlways"
             android:background="@mipmap/pager_one"
             />
+
+        <include
+            layout="@layout/include_top_title"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            app:layout_scrollFlags="scroll|enterAlways"
+            tools:ignore="IncludeLayoutParam" />
+
         <include
             layout="@layout/layout_banner"
             android:layout_width="match_parent"
@@ -81,13 +84,11 @@
 
     </android.support.design.widget.AppBarLayout>
 
-
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager_bottom"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-
 
 </android.support.design.widget.CoordinatorLayout>
 </com.scwang.smartrefresh.layout.SmartRefreshLayout>

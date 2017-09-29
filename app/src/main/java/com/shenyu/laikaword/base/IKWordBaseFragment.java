@@ -28,7 +28,6 @@ public abstract class IKWordBaseFragment extends Fragment implements IBaseFragme
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        LogUtil.i(TAG, TAG + "-->onCreateView()");
         // 渲染视图View(防止切换时重绘View)
         if (null != mContentView) {
             ViewGroup parent = (ViewGroup) mContentView.getParent();
@@ -49,7 +48,6 @@ public abstract class IKWordBaseFragment extends Fragment implements IBaseFragme
         isViewInitiated = true;
         prepareRequestData();
         super.onViewCreated(view, savedInstanceState);
-        setupFragmentComponent();
         doBusiness();// 业务处理
 
     }
@@ -74,6 +72,7 @@ public abstract class IKWordBaseFragment extends Fragment implements IBaseFragme
 
     public boolean prepareRequestData(boolean forceUpdate) {
         if (getUserVisibleHint() && isViewInitiated && (!isDataLoaded || forceUpdate)) {
+            setupFragmentComponent();
             requestData();
             isDataLoaded = true;
             return true;

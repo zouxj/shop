@@ -4,6 +4,8 @@ import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.zxj.utilslibrary.utils.LogUtil;
+
 /**
  * Created by shenyu_zxjCode on 2017/9/18 0018.
  */
@@ -29,5 +31,6 @@ public class MainItemSpaceItemDecoration extends RecyclerView.ItemDecoration {
         if (parent.getChildLayoutPosition(view)==parent.getChildCount()){
             outRect.bottom=space;
         }
+        LogUtil.i("space",space+"");
     }
 }

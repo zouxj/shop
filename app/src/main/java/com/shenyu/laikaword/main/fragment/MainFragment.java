@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -23,7 +24,10 @@ import com.shenyu.laikaword.LaiKaApplication;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.adapter.MainViewPagerAdapter;
 import com.shenyu.laikaword.base.IKWordBaseFragment;
+import com.shenyu.laikaword.bean.reponse.LoginReponse;
 import com.shenyu.laikaword.bean.reponse.ShopBeanReponse;
+import com.shenyu.laikaword.bean.reponse.ShopMainReponse;
+import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.helper.BannerBean;
 import com.shenyu.laikaword.helper.BannerHelper;
 import com.shenyu.laikaword.main.MainModule;
@@ -34,6 +38,7 @@ import com.shenyu.laikaword.rxbus.EventType;
 import com.shenyu.laikaword.rxbus.RxBus;
 import com.shenyu.laikaword.widget.UPMarqueeView;
 import com.zxj.utilslibrary.utils.LogUtil;
+import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
@@ -44,6 +49,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import rx.exceptions.OnErrorNotImplementedException;
 
 
 /**
@@ -66,6 +72,8 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
     List<String> data = new ArrayList<>();
     List<View> views = new ArrayList<>();
     BannerHelper bannerHelper;
+    @BindView(R.id.bt_top_img)
+    ImageView headImg;
     @Override
     public int bindLayout() {
         return R.layout.fragment_main;
@@ -99,6 +107,9 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
     @Override
     public void doBusiness() {
         setupViewPager();
+        LoginReponse loginReponse = (LoginReponse) SPUtil.readObject(Constants.LOGININFO_KEY);
+        if (null!=loginReponse)
+        mainPresenter.setImgHead(loginReponse.getPayload().getAvatar(),headImg);
         for(int i=0;i<2;i++){
             data.add("版本更新啦,新会员更多福利"+i);
         }
@@ -109,18 +120,30 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
      * 初始化头部效果
      */
     private void initViewpagerTop(View view) {
-        List<BannerBean> dataList = new ArrayList<>();
-        dataList.add(new BannerBean(R.mipmap.pager_one, "url", "desc", "datailurl"));
         bannerHelper  = BannerHelper.getInstance();
         bannerHelper.init(view.findViewById(R.id.banner_rootlayout));
         bannerHelper.setmPointersLayout(Gravity.RIGHT|Gravity.BOTTOM);
-        bannerHelper.startBanner(dataList, new BannerHelper.OnItemClickListener() {
-            @Override
-            public void onItemClick(BannerBean bean) {
-                ToastUtil.showToastShort(bean.getDesc());
-            }
-        });
+        bannerHelper.setIsAuto(true);
+
     }
+
+    /**
+     * 设置Top banner数据
+     */
+   public void setViewpagerTopData( List<ShopMainReponse.PayloadBean.BannerBean> bannerBeans){
+       List<BannerBean> dataList = new ArrayList<>();
+       if (null!=bannerBeans&&bannerBeans.size()>0) {
+           for (ShopMainReponse.PayloadBean.BannerBean bannerBean:bannerBeans) {
+               dataList.add(new BannerBean(R.mipmap.pager_one,bannerBean.getImageUrl() , "desc", bannerBean.getLink()));
+           }
+           bannerHelper.startBanner(dataList, new BannerHelper.OnItemClickListener() {
+               @Override
+               public void onItemClick(BannerBean bean) {
+                   ToastUtil.showToastShort(bean.getDesc());
+               }
+           });
+       }
+   }
 @OnClick({R.id.bt_top_img})
 public void onClick(View v){
     switch (v.getId()){
@@ -136,7 +159,7 @@ public void onClick(View v){
 
     @Override
     public void requestData() {
-
+        mainPresenter.requestData();
     }
     private void setupViewPager() {
         // 第二步：为ViewPager设置适配器
@@ -161,9 +184,12 @@ public void onClick(View v){
 
     }
 
-    @Override
-    public void showShop(ShopBeanReponse shopBeanReponse) {
 
+    @Override
+    public void showShop(ShopMainReponse shopBeanReponse) {
+        setViewpagerTopData(shopBeanReponse.getPayload().getBanner());
+        SPUtil.saveObject(Constants.MAIN_SHOP_KEY,shopBeanReponse.getPayload().getGoods());
+        RxBus.getDefault().post(new EventType(EventType.ACTION_MAIN_SETDATE,shopBeanReponse.getPayload().getGoods()));
     }
 
     @Override
@@ -232,5 +258,6 @@ public void onClick(View v){
     public void onDestroy() {
         super.onDestroy();
         bannerHelper.onDestroy();
+        mainPresenter.detachView();
     }
 }

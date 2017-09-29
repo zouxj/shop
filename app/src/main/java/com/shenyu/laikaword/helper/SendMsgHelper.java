@@ -4,6 +4,8 @@ import android.graphics.Color;
 import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
+import com.shenyu.laikaword.retrofit.ApiCallback;
+import com.shenyu.laikaword.retrofit.RetrofitUtils;
 import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
@@ -26,7 +28,7 @@ public class SendMsgHelper {
      * 发送短信验证码
      * @param mSend
      */
-    public static  void sendMsg(final TextView mSend,String phone){
+    public static  void sendMsg(final TextView mSend, final String phone){
         final int count = 60;
         Observable.interval(0, 1, TimeUnit.SECONDS)//设置0延迟，每隔一秒发送一条数据
                 .take(count+1) //设置循环11次
@@ -40,7 +42,22 @@ public class SendMsgHelper {
                     @Override
                     public void call() {
                         //TODO 发送请求
-                        ToastUtil.showToastShort("发送消息了");
+                        RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.getSMCode(phone, "phoneLogin"), new ApiCallback() {
+                            @Override
+                            public void onSuccess(Object model) {
+
+                            }
+
+                            @Override
+                            public void onFailure(String msg) {
+
+                            }
+
+                            @Override
+                            public void onFinish() {
+
+                            }
+                        });
                         mSend.setEnabled(false);//在发送数据的时候设置为不能点击
                     }
                 })

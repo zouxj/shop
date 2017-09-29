@@ -2,6 +2,7 @@ package com.shenyu.laikaword.main;
 
 import com.shenyu.laikaword.base.BaseLoadView;
 import com.shenyu.laikaword.bean.reponse.ShopBeanReponse;
+import com.shenyu.laikaword.bean.reponse.ShopMainReponse;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public interface MainView extends BaseLoadView {
      * 显示首页数据
      * @param shopBeanReponse
      */
-    void showShop(ShopBeanReponse shopBeanReponse);
+    void showShop(ShopMainReponse shopBeanReponse);
 
     /**
      * 下拉加载更多

@@ -10,7 +10,7 @@ import android.view.MotionEvent;
  */
 
 public class NoScrollViewPager extends NoPreloadViewPager {
-    private boolean isScroll;
+    private boolean isScroll = false;
     public NoScrollViewPager(Context context, AttributeSet attrs){
         super(context, attrs);
     }

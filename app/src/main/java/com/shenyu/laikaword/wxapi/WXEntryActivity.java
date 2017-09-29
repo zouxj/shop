@@ -20,6 +20,7 @@ import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.LogUtil;
+import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 
 import rx.internal.util.ObserverSubscriber;
@@ -79,6 +80,8 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                             @Override
                             public void onSuccess(LoginReponse model) {
                                 if (model.isSuccess()) {
+                                    SPUtil.saveObject(Constants.LOGININFO_KEY,model);
+                                    SPUtil.putString(Constants.TOKEN,model.getPayload().getToken());
                                     IntentLauncher.with(WXEntryActivity.this).launch(MainActivity.class);
                                 }else {
                                     ToastUtil.showToastShort(model.getError().getMessage());

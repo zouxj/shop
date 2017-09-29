@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="170dp"
+    android:layout_width="176dp"
     android:id="@+id/lv_main_shop"
+    android:padding="5dp"
+    android:background="@color/main_bg_gray"
+    android:orientation="vertical"
+    android:layout_height="217dp">
+<LinearLayout
     android:background="@color/white"
     android:orientation="vertical"
-    android:layout_height="300dp">
-
+    android:layout_width="166dp"
+    android:layout_height="207dp">
 <ImageView
     android:id="@+id/iv_main_shop_img"
     android:layout_gravity="center_horizontal"
     android:layout_width="122dp"
     android:layout_marginTop="15dp"
-    android:background="@mipmap/yidong_icon"
     android:layout_height="80dp" />
     <RelativeLayout
         android:layout_marginTop="15dp"
@@ -109,4 +113,5 @@
             android:layout_width="62dp"
             android:layout_height="32dp" />
     </RelativeLayout>
+</LinearLayout>
 </LinearLayout>

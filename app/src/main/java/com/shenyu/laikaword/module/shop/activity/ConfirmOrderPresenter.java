@@ -10,7 +10,7 @@ import com.zxj.parlibary.resultlistener.OnWechatPayListener;
 import com.zxj.parlibary.resultlistener.QqPayListener;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.ToastUtil;
-import com.shenyu.laikaword.helper.ViewUtils;
+import com.shenyu.laikaword.helper.DialogHelper;
 
 /**
  * Created by shenyu_zxjCode on 2017/9/25 0025.
@@ -30,7 +30,7 @@ public class ConfirmOrderPresenter extends BasePresenter<ConfirmOrderView> {
         switch (Type){
             case 0:
                 //TODO 余额支付看有没有设置面，没有就去设置,相反就输密码支付
-                ViewUtils.setInputDialog(mActivity, true, new ViewUtils.LinstenrText() {
+                DialogHelper.setInputDialog(mActivity, true, new DialogHelper.LinstenrText() {
                     @Override
                     public void onLintenerText(String passWord) {
                         ToastUtil.showToastShort("请求密码:===>"+passWord);

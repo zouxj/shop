@@ -23,7 +23,7 @@ import org.w3c.dom.Text;
  * Created by Administrator on 2017/8/4 0004.
  */
 
-public  final  class ViewUtils {
+public  final  class DialogHelper {
     /**
      * 拍照调起来
      * @param context

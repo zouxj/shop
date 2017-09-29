@@ -2,15 +2,13 @@ package com.shenyu.laikaword.module.shop.activity;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
-import com.shenyu.laikaword.helper.ViewUtils;
-import com.shenyu.laikaword.module.mine.address.activity.AddressInfoActivity;
+import com.shenyu.laikaword.helper.DialogHelper;
 import com.shenyu.laikaword.module.mine.address.activity.SelectAddressActivity;
 import com.shenyu.laikaword.widget.AmountView;
 import com.zxj.utilslibrary.utils.IntentLauncher;
@@ -21,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class PickUpActivity extends LKWordBaseActivity {
@@ -110,7 +107,7 @@ public class PickUpActivity extends LKWordBaseActivity {
                 if (StringUtil.validText(tvTihuoTianxia.getText().toString().trim()))
                     IntentLauncher.with(this).launch(PickUpSuccessActivity.class);
                 else
-                ViewUtils.tianXAddress(this, new ViewUtils.ButtonCallback() {
+                DialogHelper.tianXAddress(this, new DialogHelper.ButtonCallback() {
                     @Override
                     public void onNegative(Dialog dialog) {
                         IntentLauncher.with(PickUpActivity.this).launch(SelectAddressActivity.class);
