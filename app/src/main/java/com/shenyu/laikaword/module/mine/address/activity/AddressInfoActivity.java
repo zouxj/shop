@@ -11,6 +11,7 @@ import com.shenyu.laikaword.adapter.CommonAdapter;
 import com.shenyu.laikaword.adapter.ViewHolder;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.helper.RecycleViewDivider;
+import com.shenyu.laikaword.retrofit.RetrofitUtils;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.UIUtil;
 
@@ -43,6 +44,7 @@ public class AddressInfoActivity extends LKWordBaseActivity {
 
     @Override
     public void doBusiness(Context context) {
+        RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.);
         final List<String> dataList = new ArrayList<>();
         for (int i=0;i<9;i++){
             dataList.add("item"+i);
@@ -91,6 +93,7 @@ public class AddressInfoActivity extends LKWordBaseActivity {
         };
         rlAddressList.setAdapter(commonAdapter);
     }
+
 
     @Override
     public void setupActivityComponent() {

@@ -48,6 +48,7 @@ public class PickUpTelActivity extends LKWordBaseActivity {
     TextView tvTihuoAll;
     @BindView(R.id.tv_tihuo_commit)
     TextView tvTihuoCommit;
+    private int count;
 
     @Override
     public int bindLayout() {
@@ -56,6 +57,13 @@ public class PickUpTelActivity extends LKWordBaseActivity {
 
     @Override
     public void initView() {
+        avZj.setGoods_storage(50);
+        avZj.setOnAmountChangeListener(new AmountView.OnAmountChangeListener() {
+            @Override
+            public void onAmountChange(View view, int amount) {
+                count = amount;
+            }
+        });
         tvHeji.setText("充值总额:");
         setToolBarTitle("提货申请");
         tvTihuoCommit.setText("确认充值");

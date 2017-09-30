@@ -36,7 +36,7 @@ public class SelectAddressActivity extends LKWordBaseActivity {
     @Override
     public void initView() {
         setToolBarTitle("选择地址");
-        setToolBarRight("管理");
+        setToolBarRight("管理",0);
         reCyView.addItemDecoration(new RecycleViewDivider(this, LinearLayoutManager.HORIZONTAL, (int) UIUtil.dp2px(5),UIUtil.getColor(R.color.main_bg_gray)));
         reCyView.setLayoutManager(new LinearLayoutManager(this));
     }

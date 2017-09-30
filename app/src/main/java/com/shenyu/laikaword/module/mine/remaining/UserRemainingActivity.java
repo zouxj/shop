@@ -37,7 +37,7 @@ public class UserRemainingActivity extends LKWordBaseActivity {
     @Override
     public void initView() {
         setToolBarTitle("我的余额");
-        setToolBarRight("明细");
+        setToolBarRight("明细",0);
 
     }
 

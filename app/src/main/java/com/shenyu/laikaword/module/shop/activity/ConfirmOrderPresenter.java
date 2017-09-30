@@ -33,7 +33,6 @@ public class ConfirmOrderPresenter extends BasePresenter<ConfirmOrderView> {
                 DialogHelper.setInputDialog(mActivity, true, new DialogHelper.LinstenrText() {
                     @Override
                     public void onLintenerText(String passWord) {
-                        ToastUtil.showToastShort("请求密码:===>"+passWord);
                         IntentLauncher.with(mActivity).launch(PaySuccessActivity.class);
                     }
                 }).show();
@@ -41,54 +40,56 @@ public class ConfirmOrderPresenter extends BasePresenter<ConfirmOrderView> {
             case 1:
                 mvpView.paySuccess();
                 //TODO 支付宝支付
-                PayHelper.testAliPaySafely(mActivity, new OnAliPayListener() {
-                    @Override
-                    public void onPaySuccess(String resultInfo) {
-
-                    }
-
-                    @Override
-                    public void onPayFailure(String resultInfo) {
-
-                    }
-
-                    @Override
-                    public void onPayConfirmimg(String resultInfo) {
-
-                    }
-
-                    @Override
-                    public void onPayCheck(String status) {
-
-                    }
-                });
+//                PayHelper.testAliPaySafely(mActivity, new OnAliPayListener() {
+//                    @Override
+//                    public void onPaySuccess(String resultInfo) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onPayFailure(String resultInfo) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onPayConfirmimg(String resultInfo) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onPayCheck(String status) {
+//
+//                    }
+//                });
                 break;
             case 2:
-                PayHelper.testQQPay(mActivity, new QqPayListener() {
-                    @Override
-                    public void onPaySuccess(int successCode) {
-
-                    }
-
-                    @Override
-                    public void onPayFailure(int errorCode) {
-
-                    }
-                });
+                mvpView.paySuccess();
+//                PayHelper.testQQPay(mActivity, new QqPayListener() {
+//                    @Override
+//                    public void onPaySuccess(int successCode) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onPayFailure(int errorCode) {
+//
+//                    }
+//                });
                 //TODO QQ钱包支付
                 break;
             case 3:
-                PayHelper.testWechatPay(mActivity, new OnWechatPayListener() {
-                    @Override
-                    public void onPaySuccess(int errorCode) {
-
-                    }
-
-                    @Override
-                    public void onPayFailure(int errorCode) {
-
-                    }
-                });
+                mvpView.paySuccess();
+//                PayHelper.testWechatPay(mActivity, new OnWechatPayListener() {
+//                    @Override
+//                    public void onPaySuccess(int errorCode) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onPayFailure(int errorCode) {
+//
+//                    }
+//                });
                 //TODO 微信支付
                 break;
         }

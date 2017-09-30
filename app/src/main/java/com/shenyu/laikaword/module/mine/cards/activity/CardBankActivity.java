@@ -37,7 +37,7 @@ public class CardBankActivity extends LKWordBaseActivity {
     @Override
     public void initView() {
         setToolBarTitle("我的银行卡");
-        setToolBarRight("+");
+        setToolBarRight(null,R.mipmap.add_icon);
         mToolbarSubTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

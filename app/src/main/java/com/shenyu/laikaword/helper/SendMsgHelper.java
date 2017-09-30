@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
+import com.shenyu.laikaword.bean.BaseReponse;
 import com.shenyu.laikaword.retrofit.ApiCallback;
 import com.shenyu.laikaword.retrofit.RetrofitUtils;
 import com.zxj.utilslibrary.utils.LogUtil;
@@ -42,10 +43,14 @@ public class SendMsgHelper {
                     @Override
                     public void call() {
                         //TODO 发送请求
-                        RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.getSMCode(phone, "phoneLogin"), new ApiCallback() {
+                        RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.getSMCode(phone, "phoneLogin"), new ApiCallback<BaseReponse>() {
                             @Override
-                            public void onSuccess(Object model) {
-
+                            public void onSuccess(BaseReponse model) {
+                                if (model.isSuccess()){
+                                    ToastUtil.showToastShort("短信发送成功");
+                                }else {
+                                    ToastUtil.showToastShort("短信发送失败");
+                                }
                             }
 
                             @Override

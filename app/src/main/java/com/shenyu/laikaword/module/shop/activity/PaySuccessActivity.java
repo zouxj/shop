@@ -8,6 +8,7 @@ import android.view.View;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.main.activity.MainActivity;
+import com.shenyu.laikaword.module.mine.cards.activity.CardPackageActivity;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.UIUtil;
 
@@ -42,7 +43,7 @@ public class PaySuccessActivity extends LKWordBaseActivity {
         UIUtil.getHandler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                IntentLauncher.with(PaySuccessActivity.this).launch(MainActivity.class);
+                IntentLauncher.with(PaySuccessActivity.this).launch(CardPackageActivity.class);
             }
         },3000);
     }

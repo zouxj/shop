@@ -17,7 +17,7 @@ public class UpdateUserNameActivity extends LKWordBaseActivity {
 
     @Override
     public void initView() {
-        setToolBarRight("修改昵称");
+        setToolBarRight("修改昵称",0);
     }
 
     @Override

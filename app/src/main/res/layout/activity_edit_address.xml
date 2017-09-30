@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,9 +13,10 @@
         android:layout_marginLeft="14dp"
         style="@style/bank_add_one"/>
     <EditText
-        android:hint="张三"
+        android:hint="姓名"
         android:id="@+id/edit_name"
         style="@style/bank_add_edite"
+        android:maxLength="10"
         android:layout_width="100dp"
         android:layout_height="15dp" />
 </LinearLayout>
@@ -29,13 +29,16 @@
             style="@style/bank_add_one"/>
         <EditText
             android:id="@+id/edit_tel"
-            android:hint="13266834341"
+            android:hint="电话号码"
+            android:maxLength="11"
+            android:inputType="number"
             style="@style/bank_add_edite"
             android:layout_width="100dp"
             android:layout_height="15dp" />
     </LinearLayout>
     <include layout="@layout/line_view"/>
     <RelativeLayout
+        android:id="@+id/tv_select_address"
         style="@style/ly_layout">
         <TextView
             android:id="@+id/tv_biaoti"
@@ -43,23 +46,20 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="14dp"
             style="@style/bank_add_one"/>
-        <EditText
+        <TextView
             android:layout_toRightOf="@+id/tv_biaoti"
             android:id="@+id/edite_address"
-            android:hint="广东深圳南山区"
+            android:hint="请选择地址"
             style="@style/bank_add_edite"
             android:layout_centerVertical="true"
             android:layout_width="200dp"
             android:layout_height="15dp" />
-        <TextView
-            android:id="@+id/tv_select_address"
+        <ImageView
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:background="@mipmap/right_back"
             android:layout_width="wrap_content"
             android:layout_marginRight="10dp"
-            android:textSize="20sp"
-            android:layout_gravity="center_vertical"
-            android:text=">"
             android:layout_height="wrap_content" />
     </RelativeLayout>
     <include layout="@layout/line_view"/>
@@ -82,6 +82,7 @@
             android:background="@null"
             android:textSize="@dimen/text_size_13sp"
             android:layout_marginLeft="31dp"
+            android:maxLength="30"
             android:gravity="top"
             android:textColor="@color/color_999"
             android:layout_width="242dp"

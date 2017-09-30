@@ -65,6 +65,7 @@ public class LaiKaApplication extends Application {
         iwxapi.registerApp(Constants.WX_APPID);
         //腾讯登录
         mTencent = Tencent.createInstance(Constants.QQ_APPID, this);
+
     }
 
     /**

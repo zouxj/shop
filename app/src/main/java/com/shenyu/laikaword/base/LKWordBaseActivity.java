@@ -1,6 +1,8 @@
 package com.shenyu.laikaword.base;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -11,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -112,8 +115,12 @@ public abstract class LKWordBaseActivity extends AppCompatActivity implements IB
     /**
      * 右边Title
      */
-  public void setToolBarRight(String rightTitle){
+  @SuppressLint("NewApi")
+  public void setToolBarRight(String rightTitle, int bgDrawable){
+      if (null!=rightTitle)
       mToolbarSubTitle.setText(rightTitle);
+      if (bgDrawable!=0)
+      mToolbarSubTitle.setBackground(UIUtil.getDrawable(bgDrawable));
   }
     /**
      * 设置头部标题
@@ -219,4 +226,14 @@ public abstract class LKWordBaseActivity extends AppCompatActivity implements IB
      */
     public void initView(){}
 
+    /**
+     * 关闭软键盘
+     */
+    public void heideSoftInput(){
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        if(imm != null) {
+            imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(),
+                    0);
+        }
+    }
 }

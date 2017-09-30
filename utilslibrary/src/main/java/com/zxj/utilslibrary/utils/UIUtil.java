@@ -130,6 +130,14 @@ public class UIUtil {
         final float scale = getContext().getResources().getDisplayMetrics().density;
         return dip * scale + 0.5f;
     }
+
+    /**
+     * px转sp
+     */
+    public static int px2sp(Context context, float spValue) {
+        final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
+        return (int) (spValue / fontScale + 0.5f);
+    }
     /**
      * px转换为dip
      */

@@ -115,7 +115,6 @@ public class ListFragment extends IKWordBaseFragment {
                             setData(mType);
                         break;
                 }
-                commonAdapter.notifyDataSetChanged();
             }
         });
     }
@@ -135,6 +134,11 @@ public class ListFragment extends IKWordBaseFragment {
         super.onDestroy();
         LogUtil.i("destory");
     }
+
+    /**
+     * 设置商品数据
+     * @param position
+     */
     private void  setData(int position){
         LogUtil.i("post=>"+position);
         if (null==goods)

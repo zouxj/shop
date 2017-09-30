@@ -71,7 +71,7 @@ public class AddAddAdressActivity extends LKWordBaseActivity implements AddressV
     public void initView() {
         super.initView();
         setToolBarTitle("编辑地址");
-        setToolBarRight("保存");
+        setToolBarRight("保存",0);
 
         RxView.clicks(mToolbarSubTitle).throttleFirst(1, TimeUnit.SECONDS).subscribe(new Observer<Void>() {
             @Override
@@ -87,16 +87,16 @@ public class AddAddAdressActivity extends LKWordBaseActivity implements AddressV
             @Override
             public void onNext(Void aVoid) {
                 addPresenter.requestData();
-//                addressName = etAdAddress.getText().toString().trim();
-//                addressPhone=editAddressPhone.getText().toString().trim();
-//                address=tvAddAddressSheng.getText().toString().trim();
-//                addJieDao= tvAddAddressJie.getText().toString().trim();
-//                if (StringUtil.isText(addressName)||StringUtil.isText(addressPhone)||
-//                        StringUtil.isText(address)||StringUtil.isText(addJieDao)){
-//                    addPresenter.requestData();
-//                }else {
-//                    ToastUtil.showToastShort("请把信息完善...");
-//                }
+                addressName = etAdAddress.getText().toString().trim();
+                addressPhone=editAddressPhone.getText().toString().trim();
+                address=tvAddAddressSheng.getText().toString().trim();
+                addJieDao= tvAddAddressJie.getText().toString().trim();
+                if (StringUtil.isText(addressName)||StringUtil.isText(addressPhone)||
+                        StringUtil.isText(address)||StringUtil.isText(addJieDao)){
+                    addPresenter.requestData();
+                }else {
+                    ToastUtil.showToastShort("请把信息完善");
+                }
             }
         });
 

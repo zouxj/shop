@@ -37,6 +37,8 @@ public class PickUpSuccessActivity extends LKWordBaseActivity {
         switch (view.getId()) {
             case R.id.tv_sq_check_state:
                 //TODO 查看申请状态
+                IntentLauncher.with(this).launch(PickUpStateActivity.class);
+                finish();
                 break;
             case R.id.tv_sq_back_main:
                 //TODO 返回首页

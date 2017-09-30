@@ -35,9 +35,9 @@ public class CardBankInfoActivity extends LKWordBaseActivity {
     @Override
     public void initView() {
         setToolBarTitle("银行卡");
-        setToolBarRight("+");
+        setToolBarRight(null,R.mipmap.add_icon);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addItemDecoration(new RecycleViewDivider(this,LinearLayoutManager.HORIZONTAL,1,UIUtil.getColor(R.color.main_bg_gray)));
+        recyclerView.addItemDecoration(new RecycleViewDivider(this,LinearLayoutManager.HORIZONTAL, (int) UIUtil.dp2px(1),UIUtil.getColor(R.color.main_bg_gray)));
         commonAdapter = new CommonAdapter<String>(R.layout.item_cardinfo_list,dataBank) {
             @Override
             protected void convert(ViewHolder holder, String s, final int position) {

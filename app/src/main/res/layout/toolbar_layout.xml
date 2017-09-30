@@ -32,7 +32,7 @@
         android:enabled="true"
         android:textSize="@dimen/text_size_14sp"
         android:textColor="@color/white"
-        android:paddingRight="10dp"
+        android:layout_marginRight="10dp"
         android:layout_gravity="right" />
 
     <TextView

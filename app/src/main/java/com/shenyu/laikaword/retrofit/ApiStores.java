@@ -1,10 +1,14 @@
 package com.shenyu.laikaword.retrofit;
 
+import com.shenyu.laikaword.bean.BaseReponse;
 import com.shenyu.laikaword.bean.ReRequest;
 import com.shenyu.laikaword.bean.reponse.LoginReponse;
 import com.shenyu.laikaword.bean.reponse.ShopMainReponse;
 
+import java.util.Map;
+
 import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -31,5 +35,12 @@ public interface ApiStores {
     //获取短信验证码
     @GET("common/getSMSCode")
     Observable<ShopMainReponse> getSMCode(@Query("phone")String phone,@Query("codeType")String codeType);
+    @FormUrlEncoded
+    @POST("user/setAddress")
+    Observable<BaseReponse> setAddress(@FieldMap Map<String, String> map);//设置请求地址
+    @FormUrlEncoded
+    @POST("user/setAddress")
+    Observable<BaseReponse> deleteAddress(@Field("addressId")String addressId);//删除地址
+
 
 }
