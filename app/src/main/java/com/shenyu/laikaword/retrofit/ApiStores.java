@@ -2,6 +2,7 @@ package com.shenyu.laikaword.retrofit;
 
 import com.shenyu.laikaword.bean.BaseReponse;
 import com.shenyu.laikaword.bean.ReRequest;
+import com.shenyu.laikaword.bean.reponse.AddressReponse;
 import com.shenyu.laikaword.bean.reponse.LoginReponse;
 import com.shenyu.laikaword.bean.reponse.ShopMainReponse;
 
@@ -39,8 +40,9 @@ public interface ApiStores {
     @POST("user/setAddress")
     Observable<BaseReponse> setAddress(@FieldMap Map<String, String> map);//设置请求地址
     @FormUrlEncoded
-    @POST("user/setAddress")
+    @POST("user/deleteAddress")
     Observable<BaseReponse> deleteAddress(@Field("addressId")String addressId);//删除地址
-
+    @GET ("user/getAddress")//获取收货地址
+    Observable<AddressReponse> getAddress();//删除地址
 
 }

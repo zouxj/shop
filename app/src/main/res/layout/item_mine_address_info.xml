@@ -18,9 +18,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <TextView
+                android:id="@+id/tv_address_name"
                 style="@style/bank_add_one"
                 android:text="张山" />
             <TextView
+                android:id="@+id/tv_address_tel"
                 style="@style/bank_add_one"
                 android:text="13266834341" />
         </LinearLayout>
@@ -30,13 +32,13 @@
             style="@style/bank_add_one"
             android:text="广东省南山区高新园六道泰邦科技大厦"
            />
-<TextView
+<ImageView
     android:id="@+id/tv_to_edite_address"
     android:layout_width="wrap_content"
-    android:textSize="@dimen/text_size_20sp"
     android:layout_alignParentRight="true"
+    android:layout_marginRight="9dp"
+    android:background="@mipmap/right_back"
     android:layout_centerVertical="true"
-    android:text=">"
     android:layout_height="wrap_content" />
     </RelativeLayout>
     <include layout="@layout/line_view"/>

@@ -10,7 +10,10 @@ import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.adapter.CommonAdapter;
 import com.shenyu.laikaword.adapter.ViewHolder;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
+import com.shenyu.laikaword.bean.BaseReponse;
+import com.shenyu.laikaword.bean.reponse.AddressReponse;
 import com.shenyu.laikaword.helper.RecycleViewDivider;
+import com.shenyu.laikaword.retrofit.ApiCallback;
 import com.shenyu.laikaword.retrofit.RetrofitUtils;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.UIUtil;
@@ -26,8 +29,8 @@ public class AddressInfoActivity extends LKWordBaseActivity {
 
     @BindView(R.id.rl_address_list)
     RecyclerView rlAddressList;
-    private CommonAdapter<String> commonAdapter;
-
+    private CommonAdapter<AddressReponse.PayloadBean> commonAdapter;
+    private List<AddressReponse.PayloadBean> payload;
 
     @Override
     public int bindLayout() {
@@ -44,15 +47,33 @@ public class AddressInfoActivity extends LKWordBaseActivity {
 
     @Override
     public void doBusiness(Context context) {
-        RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.);
-        final List<String> dataList = new ArrayList<>();
-        for (int i=0;i<9;i++){
-            dataList.add("item"+i);
-        }
-        commonAdapter = new CommonAdapter<String>(R.layout.item_mine_address_info,dataList) {
+        payload = new ArrayList<>();
+        RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.getAddress(), new ApiCallback<AddressReponse>() {
+            @Override
+            public void onSuccess(AddressReponse model) {
+                    if (model.isSuccess());{
+                    payload.clear();
+                    payload.addAll(model.getPayload());
+                    commonAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onFailure(String msg) {
+
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        });
+        commonAdapter = new CommonAdapter<AddressReponse.PayloadBean>(R.layout.item_mine_address_info,payload) {
             int selectedPosition=-1;
             @Override
-            protected void convert(final ViewHolder holder, String s, final int position) {
+            protected void convert(final ViewHolder holder, final AddressReponse.PayloadBean addressReponse, final int position) {
+                holder.setText(R.id.tv_address_name,addressReponse.getReceiveName());
+                holder.setText(R.id.tv_address_tel,addressReponse.getPhone());
                 holder.setOnClickListener(R.id.tv_to_edite_address, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -64,8 +85,26 @@ public class AddressInfoActivity extends LKWordBaseActivity {
                 holder.setOnClickListener(R.id.tv_delete_address, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        dataList.remove(position);
-                        notifyDataSetChanged();
+                        RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.deleteAddress(addressReponse.getAddressId()), new ApiCallback<BaseReponse>() {
+                            @Override
+                            public void onSuccess(BaseReponse model) {
+                                if (model.isSuccess()){
+                                    payload.remove(position);
+                                    notifyDataSetChanged();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(String msg) {
+
+                            }
+
+                            @Override
+                            public void onFinish() {
+
+                            }
+                        });
+
                     }
                 });
                 checkBox.setOnClickListener(new View.OnClickListener() {
