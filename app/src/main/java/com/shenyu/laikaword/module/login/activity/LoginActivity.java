@@ -104,6 +104,11 @@ public class LoginActivity extends LKWordBaseActivity implements LoginView,MPerm
 
     }
 
+    @Override
+    public void loadFailure() {
+
+    }
+
     @SuppressLint("NewApi")
     @Override
     public void canLogin(boolean canLogin) {

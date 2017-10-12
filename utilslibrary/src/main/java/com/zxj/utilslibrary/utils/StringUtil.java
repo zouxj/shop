@@ -12,6 +12,8 @@ import android.widget.TextView;
 import com.zxj.utilslibrary.AndroidUtilsCore;
 
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by Administrator on 2017/8/2 0002.
@@ -21,14 +23,6 @@ public class StringUtil {
     /** 是否是手号码 */
     public static boolean isTelNumber(String telnum) {
         return telnum.matches("^[1][34578][0-9]{9}$");
-    }
-    public static  boolean isText(String string){
-        if (null==string&&string.length()<=0){
-            return false;
-        }else {
-            return true;
-        }
-
     }
 
     /** 隐藏手号码中间四位 */
@@ -41,7 +35,20 @@ public class StringUtil {
         }
         return telnum.substring(0, 3) + "****" + telnum.substring(7, telnum.length());
     }
-
+    /** 显示银行卡后四位 */
+    public static String formatBankNumber(String telnum) {
+        if (telnum == null || telnum.length() == 0) {
+            return null;
+        }
+        if (!checkBankCard(telnum)) {
+            return telnum;
+        }
+        StringBuffer sy=new StringBuffer();
+        for (int i=0;i<telnum.length()-4;i++){
+            sy.append("*");
+        }
+        return sy.toString()+ telnum.substring(telnum.length()-4, telnum.length());
+    }
 
     /** 格式化字符串 */
     public static String format(int strResId, Object... args) {
@@ -153,4 +160,15 @@ public class StringUtil {
         }
         return (luhmSum % 10 == 0) ? '0' : (char)((10 - luhmSum % 10) + '0');
     }
+
+    //判断字符串是否是数字
+    public static boolean isNumeric(String str){
+        Pattern pattern = Pattern.compile("[0-9]*");
+        Matcher isNum = pattern.matcher(str);
+        if( !isNum.matches() ){
+            return false;
+        }
+        return true;
+    }
+
 }

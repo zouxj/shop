@@ -4,73 +4,93 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main_bg_gray"
     android:orientation="vertical"
     tools:context="com.shenyu.laikaword.module.mine.systemsetting.activity.UserInfoActivity">
 <include layout="@layout/toolbar_layout"/>
-
     <RelativeLayout
         android:id="@+id/set_rl_user_info"
-        android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="55dp">
+        style="@style/ly_layout">
 
         <TextView
-
-            android:layout_width="wrap_content"
-            android:text="个人头像"
+            style="@style/bank_add_one"
             android:layout_centerVertical="true"
-            android:layout_height="wrap_content" />
+            android:text="个人头像"
+            />
         <com.shenyu.laikaword.widget.CircleImageView
             android:id="@+id/set_change_user_head"
-            android:layout_alignParentRight="true"
-            android:layout_width="50dp"
+            android:layout_width="30dp"
+            android:layout_marginRight="14dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/head_user_back"
             android:src="@mipmap/ic_launcher"
-            android:layout_height="50dp" />
+            android:layout_height="30dp" />
+        <ImageView
+            android:id="@+id/head_user_back"
+            android:layout_marginRight="14dp"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:src="@mipmap/right_back"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content" />
 
         <include layout="@layout/line_bottom_view"/>
 
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="55dp">
+        android:id="@+id/set_rl_user_acount_bd"
+        style="@style/ly_layout">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:text="昵称"
+            style="@style/bank_add_one"
             android:layout_centerVertical="true"
-            android:layout_height="wrap_content" />
+            android:text="昵称"
+            />
+
         <TextView
             android:id="@+id/change_tv_name"
-            android:padding="10dp"
-            android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
-            android:text="xxxx"
-            android:layout_height="wrap_content" />
-
-        <include layout="@layout/line_bottom_view"/>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="55dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:text="手机号"
+            android:layout_marginRight="14dp"
+            android:textSize="@dimen/text_size_13sp"
+            android:textColor="@color/color_999"
             android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/head_user_name"
             android:layout_height="wrap_content" />
-        <TextView
-            android:padding="10dp"
+        <ImageView
+            android:id="@+id/head_user_name"
+            android:layout_marginRight="14dp"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
-            android:text="132xxxx4341"
+            android:background="@mipmap/right_back"
             android:layout_height="wrap_content" />
 
         <include layout="@layout/line_bottom_view"/>
 
     </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/set_rl_about"
+        style="@style/ly_layout">
+
+        <TextView
+            style="@style/bank_add_one"
+            android:layout_centerVertical="true"
+            android:text="手机号码"
+            />
+        <TextView
+            android:id="@+id/change_tv_phone"
+            android:layout_width="wrap_content"
+            android:layout_marginRight="14dp"
+            android:textSize="@dimen/text_size_13sp"
+            android:textColor="@color/color_999"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_height="wrap_content" />
+
+
+    </RelativeLayout>
+
+
+
 </LinearLayout>

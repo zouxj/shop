@@ -24,9 +24,11 @@ import com.shenyu.laikaword.LaiKaApplication;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.adapter.MainViewPagerAdapter;
 import com.shenyu.laikaword.base.IKWordBaseFragment;
+import com.shenyu.laikaword.bean.reponse.GoodsBean;
 import com.shenyu.laikaword.bean.reponse.LoginReponse;
 import com.shenyu.laikaword.bean.reponse.ShopBeanReponse;
 import com.shenyu.laikaword.bean.reponse.ShopMainReponse;
+import com.shenyu.laikaword.common.CircleTransform;
 import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.helper.BannerBean;
 import com.shenyu.laikaword.helper.BannerHelper;
@@ -34,9 +36,11 @@ import com.shenyu.laikaword.main.MainModule;
 import com.shenyu.laikaword.main.MainPresenter;
 import com.shenyu.laikaword.main.MainView;
 import com.shenyu.laikaword.main.activity.MainActivity;
+import com.shenyu.laikaword.retrofit.RetrofitUtils;
 import com.shenyu.laikaword.rxbus.EventType;
 import com.shenyu.laikaword.rxbus.RxBus;
 import com.shenyu.laikaword.widget.UPMarqueeView;
+import com.squareup.picasso.Picasso;
 import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
@@ -44,12 +48,19 @@ import com.zxj.utilslibrary.utils.UIUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import rx.Observable;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.exceptions.OnErrorNotImplementedException;
+import rx.functions.Action1;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 
 /**
@@ -74,6 +85,7 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
     BannerHelper bannerHelper;
     @BindView(R.id.bt_top_img)
     ImageView headImg;
+
     @Override
     public int bindLayout() {
         return R.layout.fragment_main;
@@ -102,6 +114,20 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
             }
         });
         initViewpagerTop(view);
+        RxBus.getDefault().toObservable(EventType.class).subscribe(new Action1<EventType>() {
+            @Override
+            public void call(EventType eventType) {
+                switch (eventType.action){
+                    case EventType.ACTION_UPDATA_USER:
+                        LoginReponse loginReponse = Constants.getLoginReponse();
+                        if (null!=loginReponse) {
+                            Picasso.with(UIUtil.getContext()).load(loginReponse.getPayload().getAvatar()).placeholder(R.mipmap.left_user_icon)
+                                    .error(R.mipmap.left_user_icon).resize(50, 50).transform(new CircleTransform()).into(headImg);
+                        }
+                        break;
+                }
+            }
+        });
 
     }
     @Override
@@ -115,7 +141,6 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
         }
         setNoticeView();
     }
-
     /**
      * 初始化头部效果
      */
@@ -184,12 +209,18 @@ public void onClick(View v){
 
     }
 
+    @Override
+    public void loadFailure() {
+
+    }
+
 
     @Override
     public void showShop(ShopMainReponse shopBeanReponse) {
         setViewpagerTopData(shopBeanReponse.getPayload().getBanner());
         SPUtil.saveObject(Constants.MAIN_SHOP_KEY,shopBeanReponse.getPayload().getGoods());
         RxBus.getDefault().post(new EventType(EventType.ACTION_MAIN_SETDATE,shopBeanReponse.getPayload().getGoods()));
+        mainPresenter.timeTask();
     }
 
     @Override
@@ -259,5 +290,6 @@ public void onClick(View v){
         super.onDestroy();
         bannerHelper.onDestroy();
         mainPresenter.detachView();
+        mainPresenter.romveTask();
     }
 }

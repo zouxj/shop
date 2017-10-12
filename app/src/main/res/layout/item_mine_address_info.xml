@@ -34,10 +34,13 @@
            />
 <ImageView
     android:id="@+id/tv_to_edite_address"
+    android:paddingLeft="20dp"
+    android:paddingTop="@dimen/dp_15dp"
+    android:paddingBottom="@dimen/dp_15dp"
     android:layout_width="wrap_content"
     android:layout_alignParentRight="true"
     android:layout_marginRight="9dp"
-    android:background="@mipmap/right_back"
+    android:src="@mipmap/right_back"
     android:layout_centerVertical="true"
     android:layout_height="wrap_content" />
     </RelativeLayout>

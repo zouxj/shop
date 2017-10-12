@@ -8,9 +8,16 @@
     tools:context="com.shenyu.laikaword.module.mine.systemsetting.activity.UpdateUserNameActivity">
 
     <include layout="@layout/toolbar_layout"/>
-    <EditText
-        android:id="@+id/update_et_uer_name"
-        android:layout_width="wrap_content"
-        android:text="修改昵称"
-        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:orientation="horizontal"
+       style="@style/ly_layout"
+        >
+        <EditText
+            android:id="@+id/update_et_uer_name"
+            android:layout_width="100dp"
+            style="@style/bank_add_one"
+            android:background="@null"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
 </LinearLayout>

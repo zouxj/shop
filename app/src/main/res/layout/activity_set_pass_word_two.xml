@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context="com.shenyu.laikaword.module.mine.setpassword.SetPassWordOneActivity">
+    <include layout="@layout/toolbar_layout"/>
+
+    <TextView
+        android:id="@+id/tv_code"
+        android:layout_marginTop="38dp"
+        android:text="请再次输入"
+        style="@style/setpassword_text"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <com.zxj.utilslibrary.widget.countdownview.PayPsdInputView
+        android:id="@+id/psd_view_password"
+        android:layout_width="304dp"
+        android:layout_height="52dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="36dp"
+        android:inputType="number"
+        app:maxCount="6"
+        app:psdType="weChat"
+        app:rectAngle="2dp" />
+
+
+
+</LinearLayout>

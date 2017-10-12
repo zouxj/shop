@@ -27,7 +27,6 @@ public class UpdateManager {
          * 在这里请求后台接口，获取更新的内容和最新的版本号
          */
         // 版本的更新信息
-        String version_info = "更新内容\n" + "    1. 车位分享异常处理\n" + "    2. 发布车位折扣格式统一\n" + "    ";
         int mVersion_code = PackageManagerUtil.getVersionCode();// 当前的版本号
         int nVersion_code = 2;
         if (mVersion_code < nVersion_code) {
@@ -44,7 +43,7 @@ public class UpdateManager {
      * 显示更新对话框
      *
      */
-    private void showNoticeDialog() {
+    public void showNoticeDialog() {
         // 构造对话框
         DialogHelper.makeUpdate(mContext, "发现新版本", "xxxx", "暂不更新", "更新", false, new DialogHelper.ButtonCallback() {
             @Override

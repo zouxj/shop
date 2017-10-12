@@ -3,75 +3,105 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context="com.shenyu.laikaword.module.mine.systemsetting.activity.AccountBindActivity">
-
+    android:background="@color/main_bg_gray"
+    android:orientation="vertical"
+    tools:context="com.shenyu.laikaword.module.mine.systemsetting.activity.UserInfoActivity">
     <include layout="@layout/toolbar_layout"/>
     <RelativeLayout
-        android:id="@+id/bind_rl_phone"
-        android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="55dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/textView"
-        android:layout_alignEnd="@+id/textView">
+        android:id="@+id/rl_bd_phone"
+        style="@style/ly_layout">
 
         <TextView
-            android:layout_width="wrap_content"
+            style="@style/bank_add_one"
+            android:layout_centerVertical="true"
             android:text="手机号"
-            android:layout_centerVertical="true"
-            android:layout_height="wrap_content" />
+            />
         <TextView
-            android:padding="10dp"
+            android:id="@+id/tv_bd_phone"
+            android:layout_width="wrap_content"
+            android:layout_marginRight="14dp"
+            android:text="未绑定"
+            android:textSize="@dimen/text_size_13sp"
+            android:textColor="@color/color_999"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/head_user_back"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/head_user_back"
+            android:layout_marginRight="14dp"
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
-            android:text=">"
+            android:src="@mipmap/right_back"
+            android:layout_centerVertical="true"
             android:layout_height="wrap_content" />
 
         <include layout="@layout/line_bottom_view"/>
+
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/bind_rl_weixin"
-        android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="55dp">
+        android:id="@+id/rl_bd_wechat"
+        style="@style/ly_layout">
 
         <TextView
-            android:layout_width="wrap_content"
+            style="@style/bank_add_one"
+            android:layout_centerVertical="true"
             android:text="微信账号"
-            android:layout_centerVertical="true"
-            android:layout_height="wrap_content" />
+            />
+
         <TextView
-            android:padding="10dp"
-            android:layout_alignParentRight="true"
+            android:id="@+id/tv_bd_wechat"
             android:layout_width="wrap_content"
-            android:text=">"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView" />
+            android:layout_marginRight="14dp"
+            android:textSize="@dimen/text_size_13sp"
+            android:textColor="@color/color_999"
+            android:text="未绑定"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/head_user_name"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/head_user_name"
+            android:layout_marginRight="14dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:background="@mipmap/right_back"
+            android:layout_height="wrap_content" />
 
         <include layout="@layout/line_bottom_view"/>
-    </RelativeLayout>
 
+    </RelativeLayout>
     <RelativeLayout
-        android:id="@+id/bind_rl_qq"
-        android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="55dp">
+        android:id="@+id/rl_bd_qq"
+        style="@style/ly_layout">
 
         <TextView
-            android:layout_width="wrap_content"
+            style="@style/bank_add_one"
+            android:layout_centerVertical="true"
             android:text="QQ账号"
+            />
+        <TextView
+            android:id="@+id/tv_bd_qq"
+            android:layout_width="wrap_content"
+            android:layout_marginRight="14dp"
+            android:text="未绑定"
+            android:textSize="@dimen/text_size_13sp"
+            android:textColor="@color/color_999"
+            android:layout_toLeftOf="@+id/head_user_qq"
             android:layout_centerVertical="true"
             android:layout_height="wrap_content" />
-        <TextView
-            android:padding="10dp"
+        <ImageView
+            android:id="@+id/head_user_qq"
+            android:layout_marginRight="14dp"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
-            android:text=">"
+            android:background="@mipmap/right_back"
             android:layout_height="wrap_content" />
 
-        <include layout="@layout/line_bottom_view"/>
     </RelativeLayout>
+
+
+
 </LinearLayout>

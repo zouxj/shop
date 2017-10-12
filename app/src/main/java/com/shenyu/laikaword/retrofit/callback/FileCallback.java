@@ -1,6 +1,8 @@
-package com.shenyu.laikaword.http.downloadmanager;
+package com.shenyu.laikaword.retrofit.callback;
 
+import com.shenyu.laikaword.http.downloadmanager.FileLoadingBean;
 import com.shenyu.laikaword.rxbus.RxBus;
+import com.zxj.utilslibrary.utils.ToastUtil;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -78,8 +80,11 @@ public abstract class FileCallback implements Callback<ResponseBody> {
             unSubscribe();// 取消订阅
             return file;
         }finally {
-            in.close();
-            out.close();
+            if (null!=out)
+                out.close();
+            if (null!=in)
+                in.close();
+
         }
     }
     /**

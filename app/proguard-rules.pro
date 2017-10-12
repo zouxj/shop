@@ -126,3 +126,6 @@
 #-----------------权限-------------------------
 -dontwarn com.leo618.mpermission**
 -keep class com.leo618.mpermission.** {*;}
+#-----------阿里oss---------------
+-keep class com.alibaba.sdk.android.oss.** { *; }
+-dontwarn org.apache.commons.codec.binary.**

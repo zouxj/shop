@@ -31,7 +31,7 @@ public class RetrofitUtils {
             }
             //Retrofit2后使用build设计模式
             mRetrofit = new Retrofit.Builder()
-                    .baseUrl(UrlConstant.HOST+"/")   //设置服务器路径
+                    .baseUrl(UrlConstant.HOST)   //设置服务器路径
                     .addConverterFactory(new NobodyConverterFactory())
                     .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create())) //添加转化库，默认是Gson
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create()) //添加回调库，采用RxJava

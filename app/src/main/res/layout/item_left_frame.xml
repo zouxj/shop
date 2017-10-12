@@ -1,23 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:id="@+id/tv_left_fragment"
-    android:minHeight="55dp"
-    android:layout_height="55dp">
-<ImageView
-    android:id="@+id/img_left_menu"
-    android:layout_marginLeft="24dp"
-    android:layout_width="wrap_content"
-    android:layout_gravity="center_vertical"
-    android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/tv_left_menu"
-        android:textColor="@color/color_333"
-        android:layout_marginLeft="21dp"
-        android:textSize="@dimen/text_size_14sp"
-        android:layout_gravity="center_vertical"
-        android:layout_width="wrap_content"
-        android:text="item"
-        android:layout_height="wrap_content" />
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/ly_line"
+        android:visibility="gone"
+        android:minWidth="1000dp"
+        android:layout_width="match_parent"
+        android:paddingLeft="24dp"
+        android:layout_height="48dp">
+        <TextView
+            android:layout_height="1dp"
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:background="@color/main_bg_gray"
+           />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:minHeight="48dp">
+        <ImageView
+            android:id="@+id/img_left_menu"
+            android:layout_marginLeft="24dp"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_left_menu"
+            android:textColor="@color/color_333"
+            android:layout_marginLeft="21dp"
+            android:textSize="@dimen/text_size_14sp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:text="item"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 </LinearLayout>

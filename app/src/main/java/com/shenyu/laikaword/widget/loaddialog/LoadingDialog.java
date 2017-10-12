@@ -27,7 +27,7 @@ public class LoadingDialog implements FinishDrawListener {
     private Context mContext;
 
     private LVCircularRing mLoadingView;
-    private Dialog mLoadingDialog;
+    private  Dialog mLoadingDialog;
     private LinearLayout layout;
     private TextView loadingText;
     private RightDiaView mSuccessView;
@@ -163,7 +163,9 @@ public class LoadingDialog implements FinishDrawListener {
     public void show() {
         hideAll();
         mLoadingView.setVisibility(View.VISIBLE);
-        mLoadingDialog.show();
+        if (null!=mLoadingDialog) {
+            mLoadingDialog.show();
+        }
         mLoadingView.startAnim();
     }
 
@@ -247,6 +249,15 @@ public class LoadingDialog implements FinishDrawListener {
         return this;
     }
 
+    /**
+     * 关闭Diolog
+     */
+    public void disMissLoad(){
+        if (mLoadingDialog != null) {
+            mLoadingView.stopAnim();
+            mLoadingDialog.dismiss();
+        }
+    }
     /**
      * 关闭动态绘制
      */

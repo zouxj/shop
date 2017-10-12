@@ -1,6 +1,7 @@
 package com.shenyu.laikaword.http.downloadmanager;
 
 import com.shenyu.laikaword.rxbus.RxBus;
+import com.zxj.utilslibrary.utils.ToastUtil;
 
 import java.io.IOException;
 
@@ -38,7 +39,6 @@ public class FileResponseBody extends ResponseBody {
     public BufferedSource source() {
         return Okio.buffer(new ForwardingSource(originalResponse.body().source()) {
             long bytesReaded = 0;
-
             @Override
             public long read(Buffer sink, long byteCount) throws IOException {
                 long bytesRead = super.read(sink, byteCount);

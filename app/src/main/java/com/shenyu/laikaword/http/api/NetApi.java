@@ -85,7 +85,7 @@ public interface NetApi {
      * 文件下载
      * @return
      */
-    @GET("/youyuLive/un/youyulive_V1.2.8_1_28.apk?t=1499398218")
+    @GET("temp/apk.apk")
     Call<ResponseBody> loadFile();
 
     /**

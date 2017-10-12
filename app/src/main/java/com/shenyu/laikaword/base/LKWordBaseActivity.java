@@ -7,54 +7,21 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.SyncStateContract;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.githang.statusbar.StatusBarCompat;
-import com.shenyu.laikaword.LaiKaApplication;
 import com.shenyu.laikaword.R;
-import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.interfaces.IBaseActivity;
-import com.tencent.connect.UserInfo;
-import com.tencent.connect.auth.QQToken;
-import com.tencent.mm.opensdk.modelmsg.SendAuth;
-import com.tencent.mm.opensdk.openapi.IWXAPI;
-import com.tencent.mm.opensdk.openapi.WXAPIFactory;
-import com.tencent.tauth.IUiListener;
-import com.tencent.tauth.Tencent;
-import com.tencent.tauth.UiError;
-import com.zxj.parlibary.alipay.AliPayAPI;
-import com.zxj.parlibary.alipay.AliPayReq2;
-import com.zxj.parlibary.qqpay.QQPayAPI;
-import com.zxj.parlibary.qqpay.QQPayReq;
-import com.zxj.parlibary.resultlistener.OnAliPayListener;
-import com.zxj.parlibary.resultlistener.OnWechatPayListener;
-import com.zxj.parlibary.resultlistener.QqPayListener;
-import com.zxj.parlibary.wechatpay.WechatPayAPI;
-import com.zxj.parlibary.wechatpay.WechatPayReq;
+import com.shenyu.laikaword.widget.loaddialog.LoadingDialog;
 import com.zxj.utilslibrary.utils.ActivityManageUtil;
-import com.zxj.utilslibrary.utils.LogUtil;
-import com.zxj.utilslibrary.utils.ToastUtil;
+import com.zxj.utilslibrary.utils.KeyBoardUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
-
-import org.json.JSONObject;
-
-import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static com.tencent.connect.common.Constants.REQUEST_API;
-
-
 /**
  * Created by Administrator on 2017/8/2 0002.
  */
@@ -62,11 +29,11 @@ import static com.tencent.connect.common.Constants.REQUEST_API;
 public abstract class LKWordBaseActivity extends AppCompatActivity implements IBaseActivity{
     protected final String TAG = getClass().getSimpleName();
     protected Activity mActivity;
-    protected   TextView mToolbarTitle;
+    protected  TextView mToolbarTitle;
     protected  TextView mToolbarSubTitle;
     protected  Toolbar mToolbar;
     protected  TextView mLeftTitile;
-
+    protected  static  LoadingDialog ld;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -80,8 +47,14 @@ public abstract class LKWordBaseActivity extends AppCompatActivity implements IB
         ActivityManageUtil.getAppManager().addActivity(this);
         initToolBar();
         initView();
+        ld =new LoadingDialog(this);
+        ld.setLoadingText("加载中")
+                .setSuccessText("加载成功")//显示加载成功时的文字
+                .setFailedText("加载失败");
         doBusiness(this);
+        
     }
+
 
     @Override
     protected void onDestroy() {
@@ -192,17 +165,6 @@ public abstract class LKWordBaseActivity extends AppCompatActivity implements IB
     }
 
 
-
-
-//    /**
-//     * 获取签名后的支付宝订单信息  (用商户私钥RSA加密之后的订单信息)
-//     * @param rawAliOrderInfo
-//     * @return
-//     */
-//    private String getSignAliOrderInfoFromServer(String rawAliOrderInfo) {
-//        return null;
-//    }
-
     /**
      * 微信支付Test
      *          payApi = new PayApi();
@@ -230,10 +192,13 @@ public abstract class LKWordBaseActivity extends AppCompatActivity implements IB
      * 关闭软键盘
      */
     public void heideSoftInput(){
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        if(imm != null) {
-            imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(),
-                    0);
+        if (KeyBoardUtil.isActive(this)) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm != null) {
+                imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(),
+                        0);
+            }
         }
     }
+
 }

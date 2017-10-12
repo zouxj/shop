@@ -74,7 +74,7 @@ public   class CommonParamntercepter implements Interceptor {
         Set<String> nameSet = httpUrl.queryParameterNames();
         ArrayList<String> nameList = new ArrayList<>();
         nameList.addAll(nameSet);
-        Collections.sort(nameList, Collator.getInstance(Locale.CANADA));
+        Collections.sort(nameList);
         StringBuilder buffer = new StringBuilder();
         //重新拼接url
 //        HttpUrl.Builder httpUrlBuilder = request.url().newBuilder();
@@ -119,7 +119,7 @@ public   class CommonParamntercepter implements Interceptor {
                 }
             }
             StringBuilder builder = new StringBuilder();
-            Collections.sort(nameList, Collator.getInstance(Locale.CANADA));
+            Collections.sort(nameList);
             for (int i = 0; i < nameList.size(); i++) {
 
                 try {

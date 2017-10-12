@@ -3,10 +3,12 @@ package com.shenyu.laikaword.main.fragment;
 
 import android.annotation.SuppressLint;
 import android.graphics.Paint;
+import android.os.Looper;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,26 +17,33 @@ import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.adapter.CommonAdapter;
 import com.shenyu.laikaword.adapter.ViewHolder;
 import com.shenyu.laikaword.base.IKWordBaseFragment;
+import com.shenyu.laikaword.bean.BaseReponse;
+import com.shenyu.laikaword.bean.reponse.GoodBean;
+import com.shenyu.laikaword.bean.reponse.GoodsBean;
 import com.shenyu.laikaword.bean.reponse.ShopMainReponse;
 import com.shenyu.laikaword.common.Constants;
-import com.shenyu.laikaword.helper.MainItemSpaceItemDecoration;
-import com.shenyu.laikaword.helper.RecycleViewDivider;
 import com.shenyu.laikaword.module.shop.activity.ConfirmOrderActivity;
 import com.shenyu.laikaword.module.shop.activity.ShopDateilActivity;
+import com.shenyu.laikaword.retrofit.RetrofitUtils;
 import com.shenyu.laikaword.rxbus.EventType;
 import com.shenyu.laikaword.rxbus.RxBus;
 import com.squareup.picasso.Picasso;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.SPUtil;
-import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import rx.Observable;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -47,8 +56,9 @@ public class ListFragment extends IKWordBaseFragment {
     RecyclerView recycleView;
     CommonAdapter commonAdapter;
     List<ShopMainReponse.PayloadBean.GoodsBean> goods;
-    List<ShopMainReponse.PayloadBean.GoodsBean.ListBean> listBeans=new ArrayList<>();
+    List<GoodBean> listBeans=new ArrayList<>();
     private int mType=0;
+
 
 
     @SuppressLint("ValidFragment")
@@ -69,9 +79,9 @@ public class ListFragment extends IKWordBaseFragment {
     @Override
     public void doBusiness() {
         goods = (List<ShopMainReponse.PayloadBean.GoodsBean>) SPUtil.readObject(Constants.MAIN_SHOP_KEY);
-        commonAdapter=new CommonAdapter<ShopMainReponse.PayloadBean.GoodsBean.ListBean>(R.layout.item_home_shop,listBeans) {
+        commonAdapter=new CommonAdapter<GoodBean>(R.layout.item_home_shop,listBeans) {
             @Override
-            protected void convert(ViewHolder holder, ShopMainReponse.PayloadBean.GoodsBean.ListBean listBean, int position) {
+            protected void convert(ViewHolder holder, GoodBean listBean, int position) {
                 Picasso.with(UIUtil.getContext()).load(listBean.getGoodsImage()).placeholder(R.mipmap.yidong_icon).error(R.mipmap.yidong_icon).into((ImageView) holder.getView(R.id.iv_main_shop_img));
                 holder.setText(R.id.tv_main_shop_name, listBean.getGoodsName());
                 holder.setText(R.id.tv_main_shop_original_price, "￥"+listBean.getOriginPrice());
@@ -127,6 +137,7 @@ public class ListFragment extends IKWordBaseFragment {
     @Override
     public void requestData() {
         setData(mType);
+
     }
 
     @Override
@@ -181,4 +192,10 @@ public class ListFragment extends IKWordBaseFragment {
         commonAdapter.notifyDataSetChanged();
     }
 
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
 }

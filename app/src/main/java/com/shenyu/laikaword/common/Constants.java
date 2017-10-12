@@ -2,6 +2,7 @@ package com.shenyu.laikaword.common;
 
 import android.net.Uri;
 
+import com.shenyu.laikaword.bean.reponse.LoginReponse;
 import com.zxj.utilslibrary.utils.SPUtil;
 
 /**
@@ -35,4 +36,8 @@ public class Constants {
     //SharedPreferences保存信息KEY
     public static final String LOGININFO_KEY ="USERINFO_LOGIN";
     public static final String MAIN_SHOP_KEY ="MAIN_SHOP_KEY";
+    public static synchronized LoginReponse getLoginReponse(){
+     LoginReponse loginReponse = (LoginReponse) SPUtil.readObject(Constants.LOGININFO_KEY);
+        return loginReponse;
+    }
 }

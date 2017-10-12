@@ -120,7 +120,7 @@ public class ShopMainReponse extends BaseReponse implements Serializable {
             private String type;
             private String name;
             private String weight;
-            private List<ListBean> list;
+            private List<GoodBean> list;
 
             public GoodsBean(String message, Throwable e) {
                 super(message, e);
@@ -155,99 +155,14 @@ public class ShopMainReponse extends BaseReponse implements Serializable {
                 this.weight = weight;
             }
 
-            public List<ListBean> getList() {
+            public List<GoodBean> getList() {
                 return list;
             }
 
-            public void setList(List<ListBean> list) {
+            public void setList(List<GoodBean> list) {
                 this.list = list;
             }
 
-            public  class ListBean implements Serializable{
-                /**
-                 * goodsId : 1
-                 * goodsName : 测试商品
-                 * goodsImage : https://t.comingcard.com/resource/images/yd-100.jpg
-                 * discount : 9.5
-                 * nickName : 卖家昵称
-                 * originPrice : 100
-                 * discountPrice : 95
-                 * stock : 100
-                 */
 
-                private String goodsId;
-                private String goodsName;
-                private String goodsImage;
-                private String discount;
-                private String nickName;
-                private String originPrice;
-                private String discountPrice;
-                private String stock;
-
-                public String getGoodsId() {
-                    return goodsId;
-                }
-
-                public void setGoodsId(String goodsId) {
-                    this.goodsId = goodsId;
-                }
-
-                public String getGoodsName() {
-                    return goodsName;
-                }
-
-                public void setGoodsName(String goodsName) {
-                    this.goodsName = goodsName;
-                }
-
-                public String getGoodsImage() {
-                    return goodsImage;
-                }
-
-                public void setGoodsImage(String goodsImage) {
-                    this.goodsImage = goodsImage;
-                }
-
-                public String getDiscount() {
-                    return discount;
-                }
-
-                public void setDiscount(String discount) {
-                    this.discount = discount;
-                }
-
-                public String getNickName() {
-                    return nickName;
-                }
-
-                public void setNickName(String nickName) {
-                    this.nickName = nickName;
-                }
-
-                public String getOriginPrice() {
-                    return originPrice;
-                }
-
-                public void setOriginPrice(String originPrice) {
-                    this.originPrice = originPrice;
-                }
-
-                public String getDiscountPrice() {
-                    return discountPrice;
-                }
-
-                public void setDiscountPrice(String discountPrice) {
-                    this.discountPrice = discountPrice;
-                }
-
-                public String getStock() {
-                    return stock;
-                }
-
-                public void setStock(String stock) {
-                    this.stock = stock;
-                }
-            }
-        }
-    }
+        }}
 }

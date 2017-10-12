@@ -18,6 +18,14 @@ public class EventType {
     public static final int ACTION_LODE_MORE=0x02;
     public static final int ACTION_PULL_REFRESH=0x03;
     public static final int ACTION_MAIN_SETDATE=0x04;
+    //刷新用户数据
+    public static final int ACTION_UPDATA_USER=0x05;
+    //更新用户地址
+    public static final int ACTION_UPDATA_USER_ADDRESS=0x06;
+    //更新银行卡
+    public static final int ACTION_UPDATA_USER_BANK=0x07;
+    //更新银行卡
+    public static final int ACTION_UPDATA_USER_REQUEST=0x08;
     public int action;
     public Object object;
     public View view;

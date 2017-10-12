@@ -1,6 +1,7 @@
 package com.shenyu.laikaword.http.uitls;
 
 import com.shenyu.laikaword.common.Constants;
+import com.shenyu.laikaword.http.Intercepter.DownIntercepter;
 import com.shenyu.laikaword.http.downloadmanager.FileResponseBody;
 import com.shenyu.laikaword.http.uitls.Interceptor.LogInterceptor;
 import com.zxj.utilslibrary.utils.DeviceInfo;
@@ -55,7 +56,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 
 public class OkHttp3Utils {
     private static OkHttpClient mOkHttpClient;
-    private static SSLSocketFactory sslSocketFactory;
+    //    private static SSLSocketFactory sslSocketFactory;
     //设置缓存目录
     private static File cacheDirectory = new File(FileStorageUtil.getAppCacheDirPath(), "MyCache");
     private static Cache cache = new Cache(cacheDirectory, 10 * 1024 * 1024);
@@ -63,108 +64,101 @@ public class OkHttp3Utils {
     /**
      * ssh
      */
-    static {
-        final TrustManager[] trustAllCerts = new TrustManager[] {
-                new X509TrustManager() {
-                    @Override
-                    public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType) throws CertificateException {
-                    }
+//    static {
+//        final TrustManager[] trustAllCerts = new TrustManager[] {
+//                new X509TrustManager() {
+//                    @Override
+//                    public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType) throws CertificateException {
+//                    }
+//
+//                    @Override
+//                    public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType) throws CertificateException {
+//                    }
+//
+//                    @Override
+//                    public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+//                        return new java.security.cert.X509Certificate[]{};
+//                    }
+//                }
+//        };
+//        // Install the all-trusting trust manager
+//        SSLContext sslContext = null;
+//        try {
+//            try {
+//                sslContext = SSLContext.getInstance("SSL");
+//            } catch (NoSuchAlgorithmException e) {
+//                e.printStackTrace();
+//            }
+//            sslContext.init(null, trustAllCerts, new java.security.SecureRandom());
+//        } catch (KeyManagementException e) {
+//            e.printStackTrace();
+//        }
+//        // Create an ssl socket factory with our all-trusting manager
+//        sslSocketFactory  = sslContext.getSocketFactory();
+//    }
 
-                    @Override
-                    public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType) throws CertificateException {
-                    }
-
-                    @Override
-                    public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-                        return new java.security.cert.X509Certificate[]{};
-                    }
-                }
-        };
-        // Install the all-trusting trust manager
-        SSLContext sslContext = null;
-        try {
-            try {
-                sslContext = SSLContext.getInstance("SSL");
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
-            }
-            sslContext.init(null, trustAllCerts, new java.security.SecureRandom());
-        } catch (KeyManagementException e) {
-            e.printStackTrace();
-        }
-        // Create an ssl socket factory with our all-trusting manager
-        sslSocketFactory  = sslContext.getSocketFactory();
-    }
     /**
      * 获取Okhttp对象
+     *
      * @return
      */
-    public static OkHttpClient getmOkHttpClient(){
-        if (null==mOkHttpClient){
+    public static OkHttpClient getmOkHttpClient() {
+        if (null == mOkHttpClient) {
             synchronized (OkHttp3Utils.class) {
-                if (null==mOkHttpClient) {
+                if (null == mOkHttpClient) {
                     OkHttpClient.Builder builder = new OkHttpClient.Builder();
-                    HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor(new LogInterceptor());
-                    logInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-                    builder.addNetworkInterceptor(logInterceptor);
+                    // Log信息拦截器
+                    HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new LogInterceptor());
+                    loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+                    //设置 Debug Log 模式
+                    builder.addInterceptor(loggingInterceptor);
                     builder.addInterceptor(new CommonParamntercepter());
-                    builder.sslSocketFactory(sslSocketFactory);
-                    builder.hostnameVerifier(new HostnameVerifier() {
-                        @Override
-                        public boolean verify(String s, SSLSession sslSession) {
-                            return true;
-                        }
-                    });
-                    builder.connectTimeout(30, TimeUnit.SECONDS)
-                            .writeTimeout(30, TimeUnit.SECONDS)
-                            .readTimeout(30, TimeUnit.SECONDS);
-                    builder.cookieJar(new CookiesManager());
-                    builder.networkInterceptors().add(new DownIntercepter());
                     mOkHttpClient = builder.build();
                 }
             }
         }
-        return  mOkHttpClient;
+        return mOkHttpClient;
     }
 
+    public static OkHttpClient getmOkHttpClientDwon() {
+                OkHttpClient.Builder builder = new OkHttpClient.Builder();
+                // Log信息拦截器
+                HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new LogInterceptor());
+                loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+                //设置 Debug Log 模式
+                builder.addInterceptor(loggingInterceptor);
+                builder.networkInterceptors().add(new DownIntercepter());
+                  return builder.build();
+
+    }
     /**
      * 下载网络下载连拦截器
      */
-    private static class DownIntercepter implements Interceptor{
 
-        @Override
-        public Response intercept(Chain chain) throws IOException {
-            Response originalResponse = chain.proceed(chain.request());
-            return originalResponse
-                    .newBuilder()
-                    .body(new FileResponseBody(originalResponse))
-                    .build();
-        }
-    }
-    /**
-     * 公共参数拦截
-     */
-
-    /**
-     * 自动管理Cookies
-     */
-    private static class CookiesManager implements CookieJar {
-        private final PersistentCookieStore cookieStore = new PersistentCookieStore(UIUtil.getContext());
-
-        @Override
-        public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
-            if (cookies != null && cookies.size() > 0) {
-                for (Cookie item : cookies) {
-                    cookieStore.add(url, item);
-                }
-            }
-        }
-
-        @Override
-        public List<Cookie> loadForRequest(HttpUrl url) {
-            List<Cookie> cookies = cookieStore.get(url);
-            return cookies;
-        }
-    }
+//    /**
+//     * 公共参数拦截
+//     */
+//
+//    /**
+//     * 自动管理Cookies
+//     */
+//    private static class CookiesManager implements CookieJar {
+//        private final PersistentCookieStore cookieStore = new PersistentCookieStore(UIUtil.getContext());
+//
+//        @Override
+//        public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
+//            if (cookies != null && cookies.size() > 0) {
+//                for (Cookie item : cookies) {
+//                    cookieStore.add(url, item);
+//                }
+//            }
+//        }
+//
+//        @Override
+//        public List<Cookie> loadForRequest(HttpUrl url) {
+//            List<Cookie> cookies = cookieStore.get(url);
+//            return cookies;
+//        }
+//    }
 
 }

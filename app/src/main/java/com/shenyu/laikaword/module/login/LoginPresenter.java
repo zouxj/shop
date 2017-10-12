@@ -59,7 +59,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
                     SPUtil.saveObject(Constants.LOGININFO_KEY,model);
                     ToastUtil.showToastShort("登录成功");
                     IntentLauncher.with(mActivity).launch(MainActivity.class);
-                    mActivity.finish();;
+                    mActivity.finish();
 
                 }else{
                     //TODO 登陆失败
@@ -79,30 +79,14 @@ public class LoginPresenter extends BasePresenter<LoginView> {
         });
     }
 
-    /**
-     * 保存用户名
-     * @param username
-     * @param password
-     */
-    public void saveLoginInfo(String username,String password){
-        SPUtil.putString("usename",username);
-        SPUtil.putString("password",password);
-    }
-
-    public String getUserNameFromLocal(){
-        return SPUtil.getString("usename","admin");
-    }
 
 
-    public String getPasswordFromLocal(){
-        return SPUtil.getString("password","123456");
-    }
 
     //发送短信
     public void sendMsg(String phone, TextView textView){
         //TODO 请求获取到短信后
         if (StringUtil.isTelNumber(phone))
-            SendMsgHelper.sendMsg(textView,phone);
+            SendMsgHelper.sendMsg(textView,phone,"phoneLogin");
         else
             ToastUtil.showToastShort("请输入有效手机号码");
     }

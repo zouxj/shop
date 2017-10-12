@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,7 @@ import butterknife.Unbinder;
 /**
  * Fragment基类
  */
-public abstract class IKWordBaseFragment extends Fragment implements IBaseFragment {
+public abstract class IKWordBaseFragment extends com.trello.rxlifecycle2.components.support.RxFragment implements IBaseFragment {
     protected final String TAG = this.getClass().getSimpleName();
     protected View mContentView = null;
     private Unbinder unbinder;
@@ -61,6 +62,7 @@ public abstract class IKWordBaseFragment extends Fragment implements IBaseFragme
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
+        LogUtil.i("isVisibleToUser=>"+isVisibleToUser);
         prepareRequestData();
     }
 
@@ -77,6 +79,7 @@ public abstract class IKWordBaseFragment extends Fragment implements IBaseFragme
             isDataLoaded = true;
             return true;
         }
+        LogUtil.i("prepareRequestData=>"+(getUserVisibleHint() && isViewInitiated && (!isDataLoaded || forceUpdate)));
         return false;
     }
 
@@ -84,6 +87,5 @@ public abstract class IKWordBaseFragment extends Fragment implements IBaseFragme
      * 初始化布局
      */
     public void initView(View view){}
-
 
 }

@@ -1,10 +1,18 @@
 package com.shenyu.laikaword.module.shop.activity;
 
 import android.app.Activity;
+import android.app.Dialog;
 
 import com.shenyu.laikaword.base.BasePresenter;
+import com.shenyu.laikaword.bean.BaseReponse;
+import com.shenyu.laikaword.bean.reponse.LoginReponse;
+import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.helper.PayHelper;
+import com.shenyu.laikaword.module.mine.setpassword.SetPassWordMsgCodeActivity;
+import com.shenyu.laikaword.module.mine.setpassword.SetPassWordOneActivity;
+import com.shenyu.laikaword.module.mine.setpassword.SetPassWordTwoActivity;
 import com.shenyu.laikaword.module.shop.ConfirmOrderView;
+import com.shenyu.laikaword.retrofit.ApiCallback;
 import com.zxj.parlibary.resultlistener.OnAliPayListener;
 import com.zxj.parlibary.resultlistener.OnWechatPayListener;
 import com.zxj.parlibary.resultlistener.QqPayListener;
@@ -29,13 +37,56 @@ public class ConfirmOrderPresenter extends BasePresenter<ConfirmOrderView> {
         //TODO 根据支付类型去实现支付方式
         switch (Type){
             case 0:
-                //TODO 余额支付看有没有设置面，没有就去设置,相反就输密码支付
-                DialogHelper.setInputDialog(mActivity, true, new DialogHelper.LinstenrText() {
+                LoginReponse loginReponse = Constants.getLoginReponse();
+                if (null!=loginReponse){
+                   if (loginReponse.getPayload().getIsSetTransactionPIN()==0){
+                DialogHelper.makeUpdate(mActivity, "温馨提示", "您尚未设置支付密码", "取消", "去设置", false, new DialogHelper.ButtonCallback() {
                     @Override
-                    public void onLintenerText(String passWord) {
-                        IntentLauncher.with(mActivity).launch(PaySuccessActivity.class);
+                    public void onNegative(Dialog dialog) {
+                        IntentLauncher.with(mActivity).launch(SetPassWordMsgCodeActivity.class);
+                    }
+
+                    @Override
+                    public void onPositive(Dialog dialog) {
+
                     }
                 }).show();
+                   }else{
+                       //TODO 余额支付看有没有设置面，没有就去设置,相反就输密码支付
+                       DialogHelper.setInputDialog(mActivity, true, new DialogHelper.LinstenrText() {
+                           @Override
+                           public void onLintenerText(String passWord) {
+                               addSubscription(apiStores.validateTransactionPIN(passWord), new ApiCallback<BaseReponse>() {
+                                   @Override
+                                   public void onSuccess(BaseReponse model) {
+                                       if (model.isSuccess())
+                                           IntentLauncher.with(mActivity).launch(PaySuccessActivity.class);
+                                       else
+                                           ToastUtil.showToastLong(model.getError().getMessage());
+                                   }
+
+                                   @Override
+                                   public void onFailure(String msg) {
+                                       ToastUtil.showToastLong(msg);
+                                   }
+
+                                   @Override
+                                   public void onFinish() {
+
+                                   }
+                               });
+
+                           }
+
+                           @Override
+                           public void onWjPassword() {
+                               IntentLauncher.with(mActivity).put("RESERT","RESERT").launch(SetPassWordMsgCodeActivity.class);
+                           }
+                       }).show();
+                   }
+                }
+
+
                 break;
             case 1:
                 mvpView.paySuccess();

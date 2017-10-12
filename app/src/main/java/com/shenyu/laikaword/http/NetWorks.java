@@ -6,23 +6,17 @@ import com.shenyu.laikaword.bean.reponse.DidiFuResponse;
 import com.shenyu.laikaword.bean.reponse.HeadReponse;
 import com.shenyu.laikaword.bean.reponse.UserReponse;
 import com.shenyu.laikaword.http.api.NetApi;
-import com.shenyu.laikaword.http.downloadmanager.FileCallback;
-import com.shenyu.laikaword.http.uitls.BaseResponseFunc;
-import com.shenyu.laikaword.http.uitls.ExceptionSubscriber;
+import com.shenyu.laikaword.retrofit.callback.FileCallback;
 import com.shenyu.laikaword.http.uitls.RetrofitUtils;
 import com.shenyu.laikaword.http.uitls.SimpleCallback;
 import com.zxj.utilslibrary.utils.LogUtil;
-import com.zxj.utilslibrary.utils.ToastUtil;
-import com.zxj.utilslibrary.utils.UIUtil;
 
 import java.util.Map;
 
 import okhttp3.RequestBody;
 import rx.Observable;
 import rx.Observer;
-import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 

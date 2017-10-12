@@ -218,6 +218,8 @@ public  final  class DialogHelper {
             @Override
             public void onClick(View view) {
                 //TODO 忘记密码
+                linstenrText.onWjPassword();
+                dialog.dismiss();
             }
         });
         //设置忘记密码下划线
@@ -247,6 +249,7 @@ public  final  class DialogHelper {
     public interface LinstenrText{
         //回调返回密码
         void onLintenerText(String passWord);
+        void onWjPassword();
     }
 
     /**

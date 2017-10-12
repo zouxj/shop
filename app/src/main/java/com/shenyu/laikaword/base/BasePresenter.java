@@ -2,6 +2,7 @@ package com.shenyu.laikaword.base;
 
 import com.shenyu.laikaword.retrofit.ApiClient;
 import com.shenyu.laikaword.retrofit.ApiStores;
+import com.shenyu.laikaword.widget.loaddialog.LoadingDialog;
 
 import rx.Observable;
 import rx.Subscriber;
@@ -16,6 +17,8 @@ import rx.subscriptions.CompositeSubscription;
 public class BasePresenter<V> {
     public V mvpView;
 
+
+
     protected ApiStores apiStores;
 
     private CompositeSubscription mCompositeSubscription;
@@ -25,7 +28,6 @@ public class BasePresenter<V> {
     public void attachView(V mvpView) {
 
         this.mvpView = mvpView;
-
         apiStores = ApiClient.retrofit().create(ApiStores.class);
 
     }

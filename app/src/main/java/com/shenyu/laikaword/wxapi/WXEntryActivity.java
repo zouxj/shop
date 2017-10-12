@@ -10,6 +10,7 @@ import com.shenyu.laikaword.bean.reponse.LoginReponse;
 import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.main.activity.MainActivity;
 import com.shenyu.laikaword.module.login.LoginPresenter;
+import com.shenyu.laikaword.module.mine.systemsetting.activity.AcountBdingSuccessActivity;
 import com.shenyu.laikaword.retrofit.ApiCallback;
 import com.shenyu.laikaword.retrofit.RetrofitUtils;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
@@ -76,30 +77,36 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                         if (response.state == null || !response.state.equals(Constants.WXSTATE)){
                                         return;
                         }
-                        RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.loginWxQQ("WeChat", code, "", ""), new ApiCallback<LoginReponse>() {
-                            @Override
-                            public void onSuccess(LoginReponse model) {
-                                if (model.isSuccess()) {
-                                    SPUtil.saveObject(Constants.LOGININFO_KEY,model);
-                                    SPUtil.putString(Constants.TOKEN,model.getPayload().getToken());
-                                    IntentLauncher.with(WXEntryActivity.this).launch(MainActivity.class);
-                                }else {
-                                    ToastUtil.showToastShort(model.getError().getMessage());
+                        if (response.state.equals("ACOUNT_BD")){
+                            //TODO 绑定用户信息
+                            IntentLauncher.with(this).launch(AcountBdingSuccessActivity.class);
+                        }else {
+                            RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.loginWxQQ("WeChat", code, "", ""), new ApiCallback<LoginReponse>() {
+                                @Override
+                                public void onSuccess(LoginReponse model) {
+                                    if (model.isSuccess()) {
+                                        SPUtil.saveObject(Constants.LOGININFO_KEY, model);
+                                        SPUtil.putString(Constants.TOKEN, model.getPayload().getToken());
+                                        IntentLauncher.with(WXEntryActivity.this).launch(MainActivity.class);
+                                    } else {
+                                        ToastUtil.showToastShort(model.getError().getMessage());
+                                    }
                                 }
-                            }
 
-                            @Override
-                            public void onFailure(String msg) {
-                                finish();
+                                @Override
+                                public void onFailure(String msg) {
+                                    finish();
 
-                            }
+                                }
 
-                            @Override
-                            public void onFinish() {
-                                finish();
+                                @Override
+                                public void onFinish() {
+                                    finish();
 
-                            }
-                        });
+                                }
+
+                            });
+                        }
                         //TODO 发送网络请求
                         //就在这个地方，用网络库什么的或者自己封的网络api，发请求去咯，注意是get请求
                         break;

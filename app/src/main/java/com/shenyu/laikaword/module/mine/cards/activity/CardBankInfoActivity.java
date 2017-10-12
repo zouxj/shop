@@ -10,8 +10,15 @@ import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.adapter.CommonAdapter;
 import com.shenyu.laikaword.adapter.ViewHolder;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
+import com.shenyu.laikaword.bean.BaseReponse;
+import com.shenyu.laikaword.bean.reponse.BankInfoReponse;
 import com.shenyu.laikaword.helper.RecycleViewDivider;
+import com.shenyu.laikaword.retrofit.ApiCallback;
+import com.shenyu.laikaword.retrofit.RetrofitUtils;
+import com.shenyu.laikaword.rxbus.EventType;
+import com.shenyu.laikaword.rxbus.RxBus;
 import com.zxj.utilslibrary.utils.IntentLauncher;
+import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 import com.shenyu.laikaword.helper.DialogHelper;
 
@@ -20,13 +27,14 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import rx.functions.Action1;
 
 public class CardBankInfoActivity extends LKWordBaseActivity {
 
     @BindView(R.id.card_cy_list)
     RecyclerView recyclerView;
-    CommonAdapter<String> commonAdapter;
-    List<String> dataBank=new ArrayList<>();
+    CommonAdapter commonAdapter;
+    private List<BankInfoReponse.PayloadBean> payload=new ArrayList<>();
     @Override
     public int bindLayout() {
         return R.layout.activity_card_bank_info;
@@ -38,17 +46,22 @@ public class CardBankInfoActivity extends LKWordBaseActivity {
         setToolBarRight(null,R.mipmap.add_icon);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new RecycleViewDivider(this,LinearLayoutManager.HORIZONTAL, (int) UIUtil.dp2px(1),UIUtil.getColor(R.color.main_bg_gray)));
-        commonAdapter = new CommonAdapter<String>(R.layout.item_cardinfo_list,dataBank) {
+        commonAdapter = new CommonAdapter<BankInfoReponse.PayloadBean>(R.layout.item_cardinfo_list,payload) {
             @Override
-            protected void convert(ViewHolder holder, String s, final int position) {
+            protected void convert(ViewHolder holder, final BankInfoReponse.PayloadBean payloadBean, final int position) {
+
+                holder.setText(R.id.tv_bank_no,StringUtil.formatBankNumber(payloadBean.getCardNo()));
+                holder.setText(R.id.tv_card_bank,payloadBean.getBankName());
                 holder.setOnClickListener(R.id.tv_card_num, new  View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         DialogHelper.deleteBankDialog(CardBankInfoActivity.this, new DialogHelper.ButtonCallback() {
                             @Override
                             public void onNegative(Dialog dialog) {
-                                dataBank.remove(position);
-                                commonAdapter.notifyDataSetChanged();
+                                if (deleteBank(payloadBean.getCardId())) {
+                                    payload.remove(position);
+                                    commonAdapter.notifyDataSetChanged();
+                                }
                             }
 
                             @Override
@@ -65,13 +78,44 @@ public class CardBankInfoActivity extends LKWordBaseActivity {
 
     @Override
     public void doBusiness(Context context) {
-        for (int i=0;i<10;i++){
-            dataBank.add("item"+i);
-        }
-        commonAdapter.notifyDataSetChanged();
-
-
+        RxBus.getDefault().toObservable(EventType.class).subscribe(new Action1<EventType>() {
+            @Override
+            public void call(EventType eventType) {
+                switch (eventType.action) {
+                    case EventType.ACTION_UPDATA_USER_BANK:
+                        initData();
+                        break;
+                }
+            }
+        });
+        initData();
     }
+
+    protected void initData() {
+        RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.getBankCard(), new ApiCallback<BankInfoReponse>() {
+            @Override
+            public void onSuccess(BankInfoReponse model) {
+                if (model.isSuccess()) {
+                    payload.clear();
+                    payload.addAll(model.getPayload());
+                    commonAdapter.notifyDataSetChanged();
+                }
+
+            }
+
+            @Override
+            public void onFailure(String msg) {
+
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        });
+        commonAdapter.notifyDataSetChanged();
+    }
+
     @OnClick(R.id.toolbar_subtitle)
     public void onClick(View view){
         switch (view.getId()){
@@ -83,5 +127,34 @@ public class CardBankInfoActivity extends LKWordBaseActivity {
     @Override
     public void setupActivityComponent() {
 
+    }
+    Boolean deleteBoolean=true;
+    private boolean deleteBank(String cardID){
+        RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.deleteBankCard(cardID), new ApiCallback<BaseReponse>() {
+            @Override
+            public void onSuccess(BaseReponse model) {
+                if (model.isSuccess())
+                    deleteBoolean = true;
+                else
+                    deleteBoolean=false;
+
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                deleteBoolean = false;
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        });
+        return deleteBoolean;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

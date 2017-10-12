@@ -14,4 +14,6 @@
     <string name="bank_delete_miaosu">*请准确填写银行卡号开户地址和开户信息,若你填写的信息不准确,将可能导致资金提现不成功,请慎重</string>
     <string name="click_to_refresh"><Data><![CDATA[网络连接失败，点击<font color="#2AC2EF">重试</font>]]></Data></string>
     <string name="catg_refreshing">后台小妹儿正在加载&#8230;</string>
+    <string name="text_pay">我们已经发送验证码到您的手机</string>
+
 </resources>

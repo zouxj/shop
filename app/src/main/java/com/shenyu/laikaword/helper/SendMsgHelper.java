@@ -29,7 +29,7 @@ public class SendMsgHelper {
      * 发送短信验证码
      * @param mSend
      */
-    public static  void sendMsg(final TextView mSend, final String phone){
+    public static  void sendMsg(final TextView mSend, final String phone, final String codeTpe){
         final int count = 60;
         Observable.interval(0, 1, TimeUnit.SECONDS)//设置0延迟，每隔一秒发送一条数据
                 .take(count+1) //设置循环11次
@@ -43,7 +43,7 @@ public class SendMsgHelper {
                     @Override
                     public void call() {
                         //TODO 发送请求
-                        RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.getSMCode(phone, "phoneLogin"), new ApiCallback<BaseReponse>() {
+                        RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.getSMCode(phone, codeTpe), new ApiCallback<BaseReponse>() {
                             @Override
                             public void onSuccess(BaseReponse model) {
                                 if (model.isSuccess()){

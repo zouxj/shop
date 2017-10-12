@@ -15,6 +15,8 @@ import com.shenyu.laikaword.bean.reponse.AddressReponse;
 import com.shenyu.laikaword.helper.RecycleViewDivider;
 import com.shenyu.laikaword.retrofit.ApiCallback;
 import com.shenyu.laikaword.retrofit.RetrofitUtils;
+import com.shenyu.laikaword.rxbus.EventType;
+import com.shenyu.laikaword.rxbus.RxBus;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.UIUtil;
 
@@ -23,9 +25,9 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import rx.functions.Action1;
 
 public class AddressInfoActivity extends LKWordBaseActivity {
-
 
     @BindView(R.id.rl_address_list)
     RecyclerView rlAddressList;
@@ -42,32 +44,22 @@ public class AddressInfoActivity extends LKWordBaseActivity {
         setToolBarTitle("我的地址");
         rlAddressList.addItemDecoration(new RecycleViewDivider(this, LinearLayoutManager.HORIZONTAL, (int) UIUtil.dp2px(9),UIUtil.getColor(R.color.main_bg_gray)));
         rlAddressList.setLayoutManager(new LinearLayoutManager(this));
-
     }
 
     @Override
     public void doBusiness(Context context) {
         payload = new ArrayList<>();
-        RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.getAddress(), new ApiCallback<AddressReponse>() {
+        RxBus.getDefault().toObservable(EventType.class).subscribe(new Action1<EventType>() {
             @Override
-            public void onSuccess(AddressReponse model) {
-                    if (model.isSuccess());{
-                    payload.clear();
-                    payload.addAll(model.getPayload());
-                    commonAdapter.notifyDataSetChanged();
+            public void call(EventType eventType) {
+                switch (eventType.action) {
+                    case EventType.ACTION_UPDATA_USER_ADDRESS:
+                        initData();
+                        break;
                 }
             }
-
-            @Override
-            public void onFailure(String msg) {
-
-            }
-
-            @Override
-            public void onFinish() {
-
-            }
         });
+        initData();
         commonAdapter = new CommonAdapter<AddressReponse.PayloadBean>(R.layout.item_mine_address_info,payload) {
             int selectedPosition=-1;
             @Override
@@ -77,11 +69,12 @@ public class AddressInfoActivity extends LKWordBaseActivity {
                 holder.setOnClickListener(R.id.tv_to_edite_address, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        IntentLauncher.with(AddressInfoActivity.this).launch(EditAddressActivity.class);
+
+                        IntentLauncher.with(AddressInfoActivity.this).put("AddressInfo",addressReponse).launch(EditAddressActivity.class);
                     }
                 });
                 CheckBox checkBox = holder.getView(R.id.ck_moren);
-                checkBox.setChecked(selectedPosition==position?true:false);
+                checkBox.setChecked(selectedPosition==position?true:false||addressReponse.getDefaultX()==1);
                 holder.setOnClickListener(R.id.tv_delete_address, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -133,6 +126,28 @@ public class AddressInfoActivity extends LKWordBaseActivity {
         rlAddressList.setAdapter(commonAdapter);
     }
 
+    protected void initData() {
+        RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.getAddress(), new ApiCallback<AddressReponse>() {
+            @Override
+            public void onSuccess(AddressReponse model) {
+                if (model.isSuccess());{
+                    payload.clear();
+                    payload.addAll(model.getPayload());
+                    commonAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onFailure(String msg) {
+
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        });
+    }
 
     @Override
     public void setupActivityComponent() {
@@ -146,5 +161,10 @@ public class AddressInfoActivity extends LKWordBaseActivity {
                 break;
 
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

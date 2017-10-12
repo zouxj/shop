@@ -160,11 +160,11 @@ public class PayPsdInputView extends EditText {
 
         circlePaint = getPaint((int) UIUtil.dp2px(10), Paint.Style.FILL, circleColor);
 
-        bottomLinePaint = getPaint((int) UIUtil.dp2px(20), Paint.Style.FILL, bottomLineColor);
+        bottomLinePaint = getPaint((int) UIUtil.dp2px(2), Paint.Style.FILL, bottomLineColor);
 
-        borderPaint = getPaint((int) UIUtil.dp2px(3), Paint.Style.STROKE, borderColor);
+        borderPaint = getPaint((int) UIUtil.dp2px(2), Paint.Style.STROKE, borderColor);
 
-        divideLinePaint = getPaint(divideLineWidth, Paint.Style.FILL, borderColor);
+        divideLinePaint = getPaint(3, Paint.Style.FILL, borderColor);
 
     }
 

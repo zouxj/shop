@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
+import com.shenyu.laikaword.module.login.activity.LoginActivity;
 import com.zxj.utilslibrary.utils.ActivityManageUtil;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 
@@ -55,7 +56,7 @@ public class SettingSystemActivity extends LKWordBaseActivity {
                 IntentLauncher.with(this).launch(AboutAppActivity.class);
                 break;
             case R.id.set_tv_exit://退出应用
-                ActivityManageUtil.getAppManager().exitApp(this);
+                IntentLauncher.with(this).launch(LoginActivity.class);
 
                 break;
         }

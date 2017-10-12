@@ -3,11 +3,18 @@ package com.shenyu.laikaword.retrofit;
 import com.shenyu.laikaword.bean.BaseReponse;
 import com.shenyu.laikaword.bean.ReRequest;
 import com.shenyu.laikaword.bean.reponse.AddressReponse;
+import com.shenyu.laikaword.bean.reponse.BankInfoReponse;
+import com.shenyu.laikaword.bean.reponse.CheckAppUpdateReponse;
+import com.shenyu.laikaword.bean.reponse.GoodsBean;
+import com.shenyu.laikaword.bean.reponse.ImgSTSReponse;
 import com.shenyu.laikaword.bean.reponse.LoginReponse;
+import com.shenyu.laikaword.bean.reponse.MsgCodeReponse;
 import com.shenyu.laikaword.bean.reponse.ShopMainReponse;
 
 import java.util.Map;
 
+import okhttp3.ResponseBody;
+import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
@@ -44,5 +51,42 @@ public interface ApiStores {
     Observable<BaseReponse> deleteAddress(@Field("addressId")String addressId);//删除地址
     @GET ("user/getAddress")//获取收货地址
     Observable<AddressReponse> getAddress();//删除地址
+    @GET("user/getBankCard")//获取银行卡地址
+    Observable<BankInfoReponse>  getBankCard();
+    @FormUrlEncoded
+    @POST("user/setBankCard")
+    Observable<BaseReponse> setBankCard(@FieldMap Map<String, String> map);
+    @FormUrlEncoded
+    @POST("user/deleteBankCard")
+    Observable<BaseReponse> deleteBankCard(@Field("cardId")String cardId);
+    @FormUrlEncoded
+    @POST("user/editInfo")
+    Observable<BaseReponse> editInfo(@Field("nickname") String nickName,@Field("avatar") String avatar);
+    @FormUrlEncoded
+    @POST("user/bindPhone")//绑定手机号码
+    Observable<BaseReponse> bindPhone(@Field("phone") String phone,@Field("code") String code);
+    @FormUrlEncoded
+    @POST("user/setTransactionPIN")//设置支付密码
+    Observable<BaseReponse> setTransactionPIN(@Field("transactionPIN") String transactionPIN,@Field("SMSToken") String smsToken);
+    //获取主页面数据
+    @GET("user/info")
+    Observable<LoginReponse> getUserInfo();
+    @GET("common/checkUpdate")
+    Observable<CheckAppUpdateReponse> checkUpdate(@Query("t")int i);
+    @GET("temp/apk.apk")//下载apk
+    Call<ResponseBody> downApk();
+    @FormUrlEncoded
+    @POST("common/validateSMSCode")//设置支付密码
+    Observable<MsgCodeReponse> validateSMSCode(@Field("codeType") String codeType, @Field("code") String code);
+    @FormUrlEncoded
+    @POST("user/validateTransactionPIN")//设置支付密码
+    Observable<MsgCodeReponse> validateTransactionPIN(@Field("transactionPIN") String transactionPIN);
+    @GET("goods/list")//请求商品列表
+    Observable<ShopMainReponse> getGoodsList();
+    @GET("common/getSTS")//获取图片上传STS
+    Observable<ImgSTSReponse> getSTS();
+
+
+
 
 }

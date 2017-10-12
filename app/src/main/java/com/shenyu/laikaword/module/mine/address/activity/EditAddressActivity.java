@@ -10,11 +10,14 @@ import android.widget.TextView;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.bean.BaseReponse;
+import com.shenyu.laikaword.bean.reponse.AddressReponse;
 import com.shenyu.laikaword.helper.BannerBean;
 import com.shenyu.laikaword.helper.CityDataHelper;
 import com.shenyu.laikaword.interfaces.IOptionPickerVierCallBack;
 import com.shenyu.laikaword.retrofit.ApiCallback;
 import com.shenyu.laikaword.retrofit.RetrofitUtils;
+import com.shenyu.laikaword.rxbus.EventType;
+import com.shenyu.laikaword.rxbus.RxBus;
 import com.shenyu.laikaword.widget.loaddialog.LoadingDialog;
 import com.zxj.utilslibrary.utils.KeyBoardUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
@@ -28,7 +31,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class EditAddressActivity extends LKWordBaseActivity {
-
 
     @BindView(R.id.edit_name)
     EditText editName;
@@ -48,6 +50,7 @@ public class EditAddressActivity extends LKWordBaseActivity {
     CityDataHelper cityDataHelper;
     Map<String,String> mapParam;
     LoadingDialog ld;
+    AddressReponse.PayloadBean payloadBean;
     @Override
     public int bindLayout() {
         return R.layout.activity_edit_address;
@@ -62,9 +65,17 @@ public class EditAddressActivity extends LKWordBaseActivity {
     public void doBusiness(Context context) {
         mapParam = new HashMap<>();
         String type = getIntent().getStringExtra("Type");
+
         if (null!=type&&type.equals("ADD")){
             setToolBarTitle("地址信息");
         }
+        if (getIntent()!=null)
+            payloadBean = getIntent().getParcelableExtra("AddressInfo");
+
+
+
+
+
         useName= editName.getText().toString().trim();
         tel= editTel.getText().toString().trim();
         address= editeAddress.getText().toString().trim();
@@ -74,7 +85,20 @@ public class EditAddressActivity extends LKWordBaseActivity {
         ld.setLoadingText("添加中")
                 .setSuccessText("添加成功")//显示加载成功时的文字
                 .setFailedText("添加失败");
-
+        if (payloadBean!=null){
+            editName.setText(payloadBean.getReceiveName());
+            editTel.setText(payloadBean.getPhone());
+            editeAddress.setText(payloadBean.getProvince()+payloadBean.getCity());
+            editAddressDetail.setText(payloadBean.getDetail());
+            cbSelectAddress.setChecked(payloadBean.getDefaultX()==1);
+            mapParam.put("addressId",payloadBean.getAddressId());
+            mapParam.put("province",payloadBean.getProvince());
+            mapParam.put("city",payloadBean.getCity());
+            mapParam.put("district",payloadBean.getDetail());
+            ld.setLoadingText("编辑中")
+                    .setSuccessText("编辑成功")//显示加载成功时的文字
+                    .setFailedText("编辑失败");
+        }
 //在你代码中合适的位置调用反馈
 
 
@@ -112,10 +136,13 @@ public class EditAddressActivity extends LKWordBaseActivity {
                 RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.setAddress(mapParam), new ApiCallback<BaseReponse>() {
                     @Override
                     public void onSuccess(BaseReponse model) {
-                        if (model.isSuccess())
+                        if (model.isSuccess()) {
                             ld.loadSuccess();
-                        else
+                            RxBus.getDefault().post(new EventType(EventType.ACTION_UPDATA_USER_ADDRESS,null));
+                        }
+                        else {
                             ld.loadFailed();
+                        }
                     }
 
                     @Override
@@ -151,11 +178,11 @@ public class EditAddressActivity extends LKWordBaseActivity {
         addressDetail= editAddressDetail.getText().toString().trim();
         if (StringUtil.validText(useName)&&StringUtil.validText(tel)&&
                 StringUtil.validText(address)&&StringUtil.validText(addressDetail)){
+
             mapParam.put("phone",tel);
-            mapParam.put("receiveName",tel);
+            mapParam.put("receiveName",useName);
             mapParam.put("detail",addressDetail);
-            mapParam.put("phone",useName);
-            mapParam.put("default",(cbSelectAddress.isChecked()?0:1)+"");
+            mapParam.put("default",(cbSelectAddress.isChecked()?1:0)+"");
 
             return  true;
         }

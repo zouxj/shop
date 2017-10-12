@@ -9,12 +9,37 @@ import android.os.Build;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 
+import com.alibaba.sdk.android.oss.ClientConfiguration;
+import com.alibaba.sdk.android.oss.ClientException;
+import com.alibaba.sdk.android.oss.OSS;
+import com.alibaba.sdk.android.oss.OSSClient;
+import com.alibaba.sdk.android.oss.ServiceException;
+import com.alibaba.sdk.android.oss.callback.OSSCompletedCallback;
+import com.alibaba.sdk.android.oss.callback.OSSProgressCallback;
+import com.alibaba.sdk.android.oss.common.OSSLog;
+import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
+import com.alibaba.sdk.android.oss.common.auth.OSSStsTokenCredentialProvider;
+import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
+import com.alibaba.sdk.android.oss.model.PutObjectRequest;
+import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.leo618.mpermission.AfterPermissionGranted;
 import com.leo618.mpermission.MPermission;
 import com.shenyu.laikaword.R;
+import com.shenyu.laikaword.base.BasePresenter;
+import com.shenyu.laikaword.bean.BaseReponse;
+import com.shenyu.laikaword.bean.PutObjectSamples;
+import com.shenyu.laikaword.bean.reponse.ImgSTSReponse;
+import com.shenyu.laikaword.bean.reponse.LoginReponse;
 import com.shenyu.laikaword.common.Constants;
+import com.shenyu.laikaword.interfaces.ProgressCallback;
+import com.shenyu.laikaword.retrofit.ApiCallback;
+import com.shenyu.laikaword.retrofit.RetrofitUtils;
+import com.shenyu.laikaword.rxbus.EventType;
+import com.shenyu.laikaword.rxbus.RxBus;
 import com.zxj.utilslibrary.utils.FileStorageUtil;
 import com.zxj.utilslibrary.utils.ImageUtil;
+import com.zxj.utilslibrary.utils.LogUtil;
+import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 import com.shenyu.laikaword.helper.DialogHelper;
@@ -23,6 +48,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 
 import static com.shenyu.laikaword.common.Constants.REQUEST_IMAGE_CAPTURE;
 
@@ -30,18 +56,37 @@ import static com.shenyu.laikaword.common.Constants.REQUEST_IMAGE_CAPTURE;
  * Created by shenyu_zxjCode on 2017/9/15 0015.
  */
 
-public class UserInfoPresenter {
+public class UserInfoPresenter extends BasePresenter<UserInfoView> {
     //当前路径
     private String mCurrentPhotoPath;
-    private UserInfoView mUserInfoView;
     private Activity activity;
     private  Uri imageUri;
+    ImgSTSReponse imgSTSReponse;
+     String objectKey;
     public UserInfoPresenter(Activity activity,UserInfoView userInfoView){
         this.activity=activity;
-        this.mUserInfoView=userInfoView;
+        this.mvpView=userInfoView;
     }
+
     //点击头像
     public void updateImg(){
+        addSubscription(RetrofitUtils.getRetrofitUtils().apiStores.getSTS(), new ApiCallback<ImgSTSReponse>() {
+            @Override
+            public void onSuccess(ImgSTSReponse model) {
+                if ( model.isSuccess())
+                    imgSTSReponse = model;
+            }
+
+            @Override
+            public void onFailure(String msg) {
+
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        });
         DialogHelper.takePhoto(activity, new DialogHelper.TakePhotoListener() {
             @Override
             public void takeByPhoto() {
@@ -72,14 +117,63 @@ public class UserInfoPresenter {
         cursor.close();
         return filePath;
     }
-    //上传信息
-    public void upateInfo(String filePath){
+    //上传头像
+    public void upladHeadImg(String filePath){
+        //提示状态开始上传
+        mvpView.upadteHeadImgStart();
+
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String newImageFileName = FileStorageUtil.getAppCacheDirPath() + timeStamp + ".JPG";
         String  imgUrl = ImageUtil.compressImage(filePath, newImageFileName);
-        mUserInfoView.updateImg(imgUrl);
+        if (null!=imgSTSReponse) {
+            final LoginReponse loginReponse = Constants.getLoginReponse();
+            //想将图片上传阿里云服务器
+            objectKey=  "a-"+System.currentTimeMillis()+"-"+((int)(Math.random()*9+1)*100000)+".png";
+            new PutObjectSamples(imgSTSReponse,imgUrl,objectKey).uploadImg(new ProgressCallback() {
+                @Override
+                public void onProgress(Object request, long currentSize, long totalSize) {
+
+                }
+                @Override
+                public void onSuccess(Object request, Object result) {
+                    //上传成功后再讲图片URL上传自己服务器
+                    loadImgUrl(loginReponse);
+                }
+                @Override
+                public void onFailure(Object request, ClientException clientException, ServiceException serviceException) {
+                    mvpView.upadteHeadFinsh(false);
+                }
+            });
+
+        }
+            //TODO 请求阿里STS
 
     }
+
+    private void loadImgUrl(LoginReponse loginReponse) {
+         String imgURL = "http://" + imgSTSReponse.getPayload().getBucketName() + ".oss-cn-shanghai.aliyuncs.com/" + objectKey;
+        LogUtil.i("IMGURL",imgURL);
+        addSubscription(RetrofitUtils.apiStores.editInfo(loginReponse.getPayload().getNickname(), imgURL), new ApiCallback<BaseReponse>() {
+            @Override
+            public void onSuccess(BaseReponse model) {
+                if (model.isSuccess()) {
+                    RxBus.getDefault().post(new EventType(EventType.ACTION_UPDATA_USER_REQUEST, null));
+                    mvpView.upadteHeadFinsh(true);
+                }else {
+                    mvpView.upadteHeadFinsh(false);
+                }
+            }
+            @Override
+            public void onFailure(String msg) {
+                mvpView.upadteHeadFinsh(false);
+            }
+            @Override
+            public void onFinish() {
+
+            }
+        });
+    }
+
     /**
      * 摄像头获取照片
      */
@@ -110,7 +204,7 @@ public class UserInfoPresenter {
             try {
                 photoFile = FileStorageUtil.createImageFile();
                 mCurrentPhotoPath = photoFile.getAbsolutePath();
-                mUserInfoView.setImg(mCurrentPhotoPath);
+                mvpView.setImg(mCurrentPhotoPath);
             } catch (IOException ex) {
                 // 异常处理
                 ToastUtil.showToastShort(ex.getMessage());
@@ -153,4 +247,10 @@ public class UserInfoPresenter {
         }
     }
 
+    public void initUserData(){
+        LoginReponse loginReponse = Constants.getLoginReponse();
+        if (null!=loginReponse){
+            mvpView.setUserInfo(loginReponse);
+        }
+    }
 }

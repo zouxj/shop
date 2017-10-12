@@ -16,13 +16,19 @@ import com.githang.statusbar.StatusBarCompat;
 import com.shenyu.laikaword.LaiKaApplication;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
+import com.shenyu.laikaword.bean.BaseReponse;
+import com.shenyu.laikaword.bean.reponse.LoginReponse;
+import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.main.MainModule;
 import com.shenyu.laikaword.main.fragment.LeftFragment;
 import com.shenyu.laikaword.main.fragment.MainFragment;
+import com.shenyu.laikaword.retrofit.ApiCallback;
+import com.shenyu.laikaword.retrofit.RetrofitUtils;
 import com.shenyu.laikaword.rxbus.EventType;
 import com.shenyu.laikaword.rxbus.RxBus;
 import com.shenyu.laikaword.rxbus.RxBusSubscriber;
 import com.zxj.utilslibrary.utils.ActivityManageUtil;
+import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
@@ -31,7 +37,12 @@ import java.lang.reflect.Field;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import rx.Observable;
+import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 /**
  * 首页Acitivity
@@ -72,6 +83,27 @@ public class MainActivity extends LKWordBaseActivity {
                     case EventType.ACTION_OPONE_LEFT:
                         drawerLayout.openDrawer(frameLeft);
                         break;
+                    case EventType.ACTION_UPDATA_USER_REQUEST:
+                        RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.getUserInfo(), new ApiCallback<BaseReponse>() {
+                            @Override
+                            public void onSuccess(BaseReponse loginReponse) {
+                                if (loginReponse.isSuccess()){
+                                    SPUtil.saveObject(Constants.LOGININFO_KEY,loginReponse);
+                                    RxBus.getDefault().post(new EventType(EventType.ACTION_UPDATA_USER,null));
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(String msg) {
+
+                            }
+
+                            @Override
+                            public void onFinish() {
+
+                            }
+                        });
+                        break;
                 }
 
             }
@@ -100,13 +132,13 @@ public class MainActivity extends LKWordBaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        RxBus.getDefault().removeAllStickyEvents();
     }
 
     @Override
     public void onBackPressed() {
         if (System.currentTimeMillis()-exitTime>2000){
             ToastUtil.showToastShort("在按一次退出应用");
+            RxBus.getDefault().removeAllStickyEvents();
             exitTime=System.currentTimeMillis();
         }else {
             ActivityManageUtil.getAppManager().finishAllActivity();

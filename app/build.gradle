@@ -95,4 +95,7 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.githang:status-bar-compat:0.6'
+    implementation 'com.trello.rxlifecycle2:rxlifecycle:2.2.0'
+    compile 'com.aliyun.dpa:oss-android-sdk:2.4.3'
+    implementation 'com.squareup.okio:okio:1.13.0'
 }

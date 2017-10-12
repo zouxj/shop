@@ -1,5 +1,8 @@
 package com.shenyu.laikaword.bean.reponse;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 import com.shenyu.laikaword.bean.BaseReponse;
 
@@ -21,7 +24,7 @@ public class AddressReponse extends BaseReponse {
         this.payload = payload;
     }
 
-    public static class PayloadBean {
+    public static class PayloadBean implements Parcelable {
         /**
          * addressId : 1
          * userId : 7
@@ -45,7 +48,7 @@ public class AddressReponse extends BaseReponse {
         private String detail;
         private String createTime;
         @SerializedName("default")
-        private String defaultX;
+        private int defaultX;
 
         public String getAddressId() {
             return addressId;
@@ -119,12 +122,59 @@ public class AddressReponse extends BaseReponse {
             this.createTime = createTime;
         }
 
-        public String getDefaultX() {
+        public int getDefaultX() {
             return defaultX;
         }
 
-        public void setDefaultX(String defaultX) {
+        public void setDefaultX(int defaultX) {
             this.defaultX = defaultX;
         }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(this.addressId);
+            dest.writeString(this.userId);
+            dest.writeString(this.receiveName);
+            dest.writeString(this.phone);
+            dest.writeString(this.province);
+            dest.writeString(this.city);
+            dest.writeString(this.district);
+            dest.writeString(this.detail);
+            dest.writeString(this.createTime);
+            dest.writeInt(this.defaultX);
+        }
+
+        public PayloadBean() {
+        }
+
+        protected PayloadBean(Parcel in) {
+            this.addressId = in.readString();
+            this.userId = in.readString();
+            this.receiveName = in.readString();
+            this.phone = in.readString();
+            this.province = in.readString();
+            this.city = in.readString();
+            this.district = in.readString();
+            this.detail = in.readString();
+            this.createTime = in.readString();
+            this.defaultX = in.readInt();
+        }
+
+        public static final Parcelable.Creator<PayloadBean> CREATOR = new Parcelable.Creator<PayloadBean>() {
+            @Override
+            public PayloadBean createFromParcel(Parcel source) {
+                return new PayloadBean(source);
+            }
+
+            @Override
+            public PayloadBean[] newArray(int size) {
+                return new PayloadBean[size];
+            }
+        };
     }
 }

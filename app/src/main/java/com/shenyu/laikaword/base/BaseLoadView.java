@@ -14,5 +14,5 @@ public interface BaseLoadView {
     /** 加载数据完毕 */
     void loadFinished();
 
-
+    void loadFailure();
 }

@@ -156,6 +156,11 @@ public class ConfirmOrderActivity extends LKWordBaseActivity implements ConfirmO
     }
 
     @Override
+    public void loadFailure() {
+
+    }
+
+    @Override
     public void paySuccess() {
 
     }
