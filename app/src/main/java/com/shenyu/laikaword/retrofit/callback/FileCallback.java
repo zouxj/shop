@@ -2,6 +2,7 @@ package com.shenyu.laikaword.retrofit.callback;
 
 import com.shenyu.laikaword.http.downloadmanager.FileLoadingBean;
 import com.shenyu.laikaword.rxbus.RxBus;
+import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 
 import java.io.File;
@@ -70,20 +71,24 @@ public abstract class FileCallback implements Callback<ResponseBody> {
                 dir.mkdirs();
             }
             in = response.body().byteStream();
-            File file = new File(dir,destFileName);
+            File file = new File(dir.toString(),destFileName);
             out = new FileOutputStream(file);
             while ((len = in.read(buf)) != -1){
                 out.write(buf,0,len);
             }
             // 回调成功的接口
-            onSuccess(file);
+            LogUtil.i("file=>"+file.toString()+"===filesize()=>"+file.length());
+            if (file.length()>5000000) {
+                onSuccess(file);
+            }
             unSubscribe();// 取消订阅
-            return file;
-        }finally {
             if (null!=out)
                 out.close();
             if (null!=in)
                 in.close();
+            return file;
+        }finally {
+
 
         }
     }

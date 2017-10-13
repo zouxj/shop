@@ -189,15 +189,14 @@ public class UserInfoActivity extends LKWordBaseActivity  implements UserInfoVie
 
     @Override
     public void upadteHeadImgStart() {
-            ld.setLoadingText("开始上传").setSuccessText("上传成功").setFailedText("上传失败").show();
     }
 
     @Override
     public void upadteHeadFinsh(boolean bool) {
         if (bool)
-            ld.loadSuccess();
+        ToastUtil.showToastShort("上传成功");
         else
-            ld.loadFailed();
+            ToastUtil.showToastShort("上传失败");
     }
 
 

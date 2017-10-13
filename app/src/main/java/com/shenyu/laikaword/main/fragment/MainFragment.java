@@ -36,11 +36,13 @@ import com.shenyu.laikaword.main.MainModule;
 import com.shenyu.laikaword.main.MainPresenter;
 import com.shenyu.laikaword.main.MainView;
 import com.shenyu.laikaword.main.activity.MainActivity;
+import com.shenyu.laikaword.module.mine.message.UserMessageActivity;
 import com.shenyu.laikaword.retrofit.RetrofitUtils;
 import com.shenyu.laikaword.rxbus.EventType;
 import com.shenyu.laikaword.rxbus.RxBus;
 import com.shenyu.laikaword.widget.UPMarqueeView;
 import com.squareup.picasso.Picasso;
+import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
@@ -48,19 +50,12 @@ import com.zxj.utilslibrary.utils.UIUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import rx.Observable;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.exceptions.OnErrorNotImplementedException;
 import rx.functions.Action1;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
 
 
 /**
@@ -93,8 +88,8 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
 
     @Override
     public void initView(View view){
-        smartRefreshLayout.setEnableRefresh(true);
-        smartRefreshLayout.setEnableLoadmore(true);
+        smartRefreshLayout.setEnableRefresh(false);
+        smartRefreshLayout.setEnableLoadmore(false);
         smartRefreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
         smartRefreshLayout.setRefreshFooter(new ClassicsFooter(getActivity()));
         smartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
@@ -169,11 +164,14 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
            });
        }
    }
-@OnClick({R.id.bt_top_img})
+@OnClick({R.id.bt_top_img,R.id.iv_message})
 public void onClick(View v){
     switch (v.getId()){
         case R.id.bt_top_img:
             RxBus.getDefault().post(new EventType(EventType.ACTION_OPONE_LEFT,""));
+            break;
+        case R.id.iv_message:
+            IntentLauncher.with(getActivity()).launch(UserMessageActivity.class);
             break;
     }
 }

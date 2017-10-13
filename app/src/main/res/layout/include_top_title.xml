@@ -41,6 +41,7 @@
 
 
 <ImageView
+    android:id="@+id/iv_message"
     android:layout_marginLeft="13dp"
     android:layout_width="wrap_content"
     android:layout_gravity="right|center_vertical"

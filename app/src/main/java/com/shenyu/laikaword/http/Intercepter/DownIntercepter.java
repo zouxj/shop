@@ -18,7 +18,7 @@ public   class DownIntercepter implements Interceptor {
         Response originalResponse = chain.proceed(chain.request());
         return originalResponse
                 .newBuilder()
-                .body(new FileResponseBody(originalResponse))
+                .body(new FileResponseBody(originalResponse.body()))
                 .build();
     }
 }

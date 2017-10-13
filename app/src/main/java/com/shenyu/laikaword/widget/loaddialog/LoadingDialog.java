@@ -163,9 +163,7 @@ public class LoadingDialog implements FinishDrawListener {
     public void show() {
         hideAll();
         mLoadingView.setVisibility(View.VISIBLE);
-        if (null!=mLoadingDialog) {
             mLoadingDialog.show();
-        }
         mLoadingView.startAnim();
     }
 
@@ -180,7 +178,6 @@ public class LoadingDialog implements FinishDrawListener {
         if (mLoadingDialog != null) {
             mLoadingView.stopAnim();
             mLoadingDialog.dismiss();
-            mLoadingDialog = null;
         }
     }
 

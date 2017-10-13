@@ -42,7 +42,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
+                android:resource="@xml/file_provider_paths" />
         </provider>
 
         <service android:name=".http.downloadmanager.DownLoadService" />
@@ -143,7 +143,14 @@
         <activity android:name=".module.mine.setpassword.SetPassWordOneActivity" />
         <activity android:name=".module.mine.setpassword.SetPassWordTwoActivity" />
         <activity android:name=".module.mine.systemsetting.activity.AcountBdingSuccessActivity" />
-        <activity android:name=".module.mine.setpassword.SetPassWordMsgCodeActivity"></activity>
+        <activity android:name=".module.mine.setpassword.SetPassWordMsgCodeActivity" />
+        <activity android:name=".module.mine.message.UserMessageActivity"></activity>
+        <provider android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.shenyu.laikaword.fileprovider"
+            android:grantUriPermissions="true" android:exported="false">
+            <meta-data android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_provider_paths" /> </provider>
+
     </application>
 
 </manifest>

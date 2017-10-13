@@ -18,6 +18,7 @@ public class Constants {
     //获取相册全向Code
     public static  final int RC_PHOTO_PERM=125;
     public static final int READ_PHONE_STATE=126;
+    public static final int INTALL_APK=127;
     //相册调取
     public static final int REQUEST_IMAGE_GET = 0;
     //相机调取
