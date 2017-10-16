@@ -2,6 +2,7 @@ package com.shenyu.laikaword.main;
 
 
 
+import android.app.Activity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
@@ -22,9 +23,11 @@ import dagger.Provides;
 public class MainModule {
     private  FragmentManager manager;
     private  MainView mainView;
-    public MainModule(MainView mainView,FragmentManager fragmentManager){
+    private Activity activity;
+   private final static  String[] mlist  = new String[]{"移动卡", "京东卡", "联通卡", "电信卡"};
+    public MainModule(MainView mainView, Activity activity){
         this.mainView =mainView;
-        this.manager=fragmentManager;
+        this.activity=activity;
     }
     public MainModule(FragmentManager manager) {
         this.manager = manager;
@@ -48,7 +51,7 @@ public class MainModule {
     }
     @Provides
     MainViewPagerAdapter provideMainViewPagerAdapter(){
-        return new MainViewPagerAdapter(manager);
+        return new MainViewPagerAdapter(activity,mlist);
     }
 
     /**

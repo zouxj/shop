@@ -1,8 +1,6 @@
 package com.shenyu.laikaword.module.mine.setpassword;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
@@ -10,11 +8,11 @@ import com.shenyu.laikaword.bean.BaseReponse;
 import com.shenyu.laikaword.module.shop.activity.ConfirmOrderActivity;
 import com.shenyu.laikaword.retrofit.ApiCallback;
 import com.shenyu.laikaword.retrofit.RetrofitUtils;
-import com.shenyu.laikaword.rxbus.EventType;
+import com.shenyu.laikaword.rxbus.event.Event;
+import com.shenyu.laikaword.rxbus.event.EventType;
 import com.shenyu.laikaword.rxbus.RxBus;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.KeyBoardUtil;
-import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.widget.countdownview.PayPsdInputView;
 
@@ -51,7 +49,7 @@ public class SetPassWordTwoActivity extends LKWordBaseActivity {
                     @Override
                     public void onSuccess(BaseReponse model) {
                         if (model.isSuccess()) {
-                            RxBus.getDefault().post(new EventType(EventType.ACTION_UPDATA_USER_REQUEST, null));
+                            RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_REQUEST, null));
                             IntentLauncher.with(SetPassWordTwoActivity.this).launch(ConfirmOrderActivity.class);
                         }
                         else {

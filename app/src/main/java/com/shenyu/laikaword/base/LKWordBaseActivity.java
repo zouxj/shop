@@ -17,11 +17,15 @@ import android.widget.TextView;
 import com.githang.statusbar.StatusBarCompat;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.interfaces.IBaseActivity;
+import com.shenyu.laikaword.rxbus.RxBusSubscriber;
+import com.shenyu.laikaword.rxbus.RxSubscriptions;
 import com.shenyu.laikaword.widget.loaddialog.LoadingDialog;
 import com.zxj.utilslibrary.utils.ActivityManageUtil;
 import com.zxj.utilslibrary.utils.KeyBoardUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 import butterknife.ButterKnife;
+import rx.Subscription;
+
 /**
  * Created by Administrator on 2017/8/2 0002.
  */
@@ -34,7 +38,7 @@ public abstract class LKWordBaseActivity extends AppCompatActivity implements IB
     protected  Toolbar mToolbar;
     protected  TextView mLeftTitile;
     protected  static  LoadingDialog ld;
-
+    protected Subscription mRxSub;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +63,7 @@ public abstract class LKWordBaseActivity extends AppCompatActivity implements IB
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        RxSubscriptions.remove(mRxSub);
         ActivityManageUtil.getAppManager().finishActivity(this);
     }
 
@@ -200,5 +205,4 @@ public abstract class LKWordBaseActivity extends AppCompatActivity implements IB
             }
         }
     }
-
 }

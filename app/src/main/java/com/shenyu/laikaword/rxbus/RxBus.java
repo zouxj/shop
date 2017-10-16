@@ -15,7 +15,6 @@ import rx.subjects.Subject;
 public class RxBus {
     private static volatile RxBus mDefaultInstance;
     private final Subject<Object, Object> mBus;
-
     private final Map<Class<?>, Object> mStickyEventMap;
 
     public RxBus() {

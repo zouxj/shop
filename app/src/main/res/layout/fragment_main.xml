@@ -30,13 +30,13 @@
         <include
             layout="@layout/include_top_title"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="50dp"
             tools:ignore="IncludeLayoutParam" />
 
         <include
             layout="@layout/layout_banner"
             android:layout_width="match_parent"
-            android:layout_height="145dp"
+            android:layout_height="144dp"
             tools:ignore="IncludeLayoutParam" />
 
         <LinearLayout
@@ -77,7 +77,7 @@
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:paddingBottom="0dp"
-            android:layout_height="50dp"
+            android:layout_height="45dp"
             android:layout_alignParentBottom="true"
             app:tabIndicatorColor="@color/app_theme_red"
             app:tabIndicatorHeight="4dp"

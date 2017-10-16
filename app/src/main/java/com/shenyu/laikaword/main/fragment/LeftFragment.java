@@ -11,6 +11,7 @@ import com.shenyu.laikaword.adapter.CommonAdapter;
 import com.shenyu.laikaword.adapter.ViewHolder;
 import com.shenyu.laikaword.base.IKWordBaseFragment;
 import com.shenyu.laikaword.bean.reponse.LoginReponse;
+import com.shenyu.laikaword.bean.reponse.ShopMainReponse;
 import com.shenyu.laikaword.common.CircleTransform;
 import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.module.login.activity.LoginActivity;
@@ -21,10 +22,14 @@ import com.shenyu.laikaword.module.mine.remaining.PurchaseCardActivity;
 import com.shenyu.laikaword.module.mine.cards.activity.CardPackageActivity;
 import com.shenyu.laikaword.module.mine.remaining.UserRemainingActivity;
 import com.shenyu.laikaword.module.mine.systemsetting.activity.SettingSystemActivity;
-import com.shenyu.laikaword.rxbus.EventType;
+import com.shenyu.laikaword.rxbus.RxBusSubscriber;
+import com.shenyu.laikaword.rxbus.RxSubscriptions;
+import com.shenyu.laikaword.rxbus.event.Event;
+import com.shenyu.laikaword.rxbus.event.EventType;
 import com.shenyu.laikaword.rxbus.RxBus;
 import com.squareup.picasso.Picasso;
 import com.zxj.utilslibrary.utils.IntentLauncher;
+import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
@@ -33,6 +38,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
 
@@ -65,25 +71,41 @@ public class LeftFragment extends IKWordBaseFragment {
         }
 
   }
-
+    private void subscribeEvent() {
+        RxSubscriptions.remove(mRxSub);
+        mRxSub = RxBus.getDefault().toObservable(Event.class)
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(new RxBusSubscriber<Event>() {
+                    @Override
+                    protected void onEvent(Event myEvent) {
+                        switch (myEvent.event) {
+                            case EventType.ACTION_UPDATA_USER:
+                                LoginReponse loginReponse = (LoginReponse) SPUtil.readObject(Constants.LOGININFO_KEY);
+                                if (null!=loginReponse) {
+                                    Picasso.with(UIUtil.getContext()).load(loginReponse.getPayload().getAvatar()).placeholder(R.mipmap.left_user_icon)
+                                            .error(R.mipmap.left_user_icon).resize(50, 50).transform(new CircleTransform()).into(tvUserHead);
+                                    tvUserName.setText(loginReponse.getPayload().getNickname());
+                                }
+                                break;
+                        }
+                        LogUtil.e(TAG, myEvent.event+"____"+"threadType=>"+Thread.currentThread());
+//            }
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        LogUtil.e(TAG, "onError");
+                        /**
+                         * 这里注意: 一旦订阅过程中发生异常,走到onError,则代表此次订阅事件完成,后续将收不到onNext()事件,
+                         * 即 接受不到后续的任何事件,实际环境中,我们需要在onError里 重新订阅事件!
+                         */
+                        subscribeEvent();
+                    }
+                });
+        RxSubscriptions.add(mRxSub);
+    }
 
     @Override
     public void doBusiness() {
-        RxBus.getDefault().toObservable(EventType.class).subscribe(new Action1<EventType>() {
-            @Override
-            public void call(EventType eventType) {
-                switch (eventType.action){
-                    case EventType.ACTION_UPDATA_USER:
-                        LoginReponse loginReponse = (LoginReponse) SPUtil.readObject(Constants.LOGININFO_KEY);
-                        if (null!=loginReponse) {
-                            Picasso.with(UIUtil.getContext()).load(loginReponse.getPayload().getAvatar()).placeholder(R.mipmap.left_user_icon)
-                                    .error(R.mipmap.left_user_icon).resize(50, 50).transform(new CircleTransform()).into(tvUserHead);
-                            tvUserName.setText(loginReponse.getPayload().getNickname());
-                        }
-                        break;
-                }
-            }
-        });
         List<String> dataList = new ArrayList<>();
         dataList.add("我的余额");
         dataList.add("我的购买");
@@ -92,7 +114,7 @@ public class LeftFragment extends IKWordBaseFragment {
         dataList.add("银行卡");
         dataList.add("我的地址");
         dataList.add("系统设置");
-
+        subscribeEvent();
         rcLeftView.setLayoutManager(new LinearLayoutManager(getActivity()));
          commonAdapter=  new CommonAdapter<String>(R.layout.item_left_frame,dataList) {
             @Override

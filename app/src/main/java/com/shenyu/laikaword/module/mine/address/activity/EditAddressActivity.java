@@ -2,7 +2,6 @@ package com.shenyu.laikaword.module.mine.address.activity;
 
 import android.content.Context;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -11,18 +10,17 @@ import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.bean.BaseReponse;
 import com.shenyu.laikaword.bean.reponse.AddressReponse;
-import com.shenyu.laikaword.helper.BannerBean;
 import com.shenyu.laikaword.helper.CityDataHelper;
 import com.shenyu.laikaword.interfaces.IOptionPickerVierCallBack;
 import com.shenyu.laikaword.retrofit.ApiCallback;
 import com.shenyu.laikaword.retrofit.RetrofitUtils;
-import com.shenyu.laikaword.rxbus.EventType;
+import com.shenyu.laikaword.rxbus.event.Event;
+import com.shenyu.laikaword.rxbus.event.EventType;
 import com.shenyu.laikaword.rxbus.RxBus;
 import com.shenyu.laikaword.widget.loaddialog.LoadingDialog;
 import com.zxj.utilslibrary.utils.KeyBoardUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
-import com.zxj.utilslibrary.utils.UIUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -138,7 +136,7 @@ public class EditAddressActivity extends LKWordBaseActivity {
                     public void onSuccess(BaseReponse model) {
                         if (model.isSuccess()) {
                             ld.loadSuccess();
-                            RxBus.getDefault().post(new EventType(EventType.ACTION_UPDATA_USER_ADDRESS,null));
+                            RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_ADDRESS,null));
                         }
                         else {
                             ld.loadFailed();

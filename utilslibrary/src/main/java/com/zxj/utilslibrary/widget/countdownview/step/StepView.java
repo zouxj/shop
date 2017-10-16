@@ -85,9 +85,9 @@ public class StepView extends FrameLayout {
 
         LayoutInflater.from(mContext).inflate(R.layout.step_view,this,true);
 
-        mStepBar=(StepBar)this.findViewById(R.id.step_bar);
+        mStepBar=this.findViewById(R.id.step_bar);
 
-        mTitleGroup=(FrameLayout)this.findViewById(R.id.step_title);
+        mTitleGroup=this.findViewById(R.id.step_title);
 
         TypedArray array = mContext.obtainStyledAttributes(attrs,R.styleable.StepView,defStyleAttr,0);
 

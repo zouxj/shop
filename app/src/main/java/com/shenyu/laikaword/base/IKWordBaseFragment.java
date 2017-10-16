@@ -11,11 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.shenyu.laikaword.interfaces.IBaseFragment;
+import com.shenyu.laikaword.rxbus.RxSubscriptions;
 import com.trello.rxlifecycle2.components.RxFragment;
 import com.zxj.utilslibrary.utils.LogUtil;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import rx.Subscription;
 
 /**
  * Fragment基类
@@ -26,6 +28,7 @@ public abstract class IKWordBaseFragment extends com.trello.rxlifecycle2.compone
     private Unbinder unbinder;
     protected boolean isViewInitiated;
     protected boolean isDataLoaded;
+    protected Subscription mRxSub;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -88,4 +91,10 @@ public abstract class IKWordBaseFragment extends com.trello.rxlifecycle2.compone
      */
     public void initView(View view){}
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (mRxSub!=null)
+        RxSubscriptions.remove(mRxSub);
+    }
 }

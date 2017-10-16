@@ -13,7 +13,8 @@ import com.shenyu.laikaword.interfaces.IOptionPickerVierCallBack;
 import com.shenyu.laikaword.module.mine.MineModule;
 import com.shenyu.laikaword.module.mine.cards.AddBankPresenter;
 import com.shenyu.laikaword.module.mine.cards.AddBankView;
-import com.shenyu.laikaword.rxbus.EventType;
+import com.shenyu.laikaword.rxbus.event.Event;
+import com.shenyu.laikaword.rxbus.event.EventType;
 import com.shenyu.laikaword.rxbus.RxBus;
 import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
@@ -141,7 +142,7 @@ public class AddBankCardActivity extends LKWordBaseActivity implements AddBankVi
 
     @Override
     public void loadFinished() {
-        RxBus.getDefault().post(new EventType(EventType.ACTION_UPDATA_USER_BANK,null));
+        RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_BANK,null));
         ld.loadSuccess();
         ld.disMissLoad();
     }

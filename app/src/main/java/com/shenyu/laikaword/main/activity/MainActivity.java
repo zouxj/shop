@@ -1,48 +1,36 @@
 package com.shenyu.laikaword.main.activity;
 
-import android.app.Fragment;
 import android.content.Context;
-import android.content.res.Resources;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.util.TypedValue;
-import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 
-import com.githang.statusbar.StatusBarCompat;
 import com.shenyu.laikaword.LaiKaApplication;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.bean.BaseReponse;
-import com.shenyu.laikaword.bean.reponse.LoginReponse;
 import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.main.MainModule;
 import com.shenyu.laikaword.main.fragment.LeftFragment;
 import com.shenyu.laikaword.main.fragment.MainFragment;
 import com.shenyu.laikaword.retrofit.ApiCallback;
 import com.shenyu.laikaword.retrofit.RetrofitUtils;
-import com.shenyu.laikaword.rxbus.EventType;
-import com.shenyu.laikaword.rxbus.RxBus;
 import com.shenyu.laikaword.rxbus.RxBusSubscriber;
+import com.shenyu.laikaword.rxbus.RxSubscriptions;
+import com.shenyu.laikaword.rxbus.event.Event;
+import com.shenyu.laikaword.rxbus.event.EventType;
+import com.shenyu.laikaword.rxbus.RxBus;
 import com.zxj.utilslibrary.utils.ActivityManageUtil;
+import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
-import com.zxj.utilslibrary.utils.UIUtil;
 
-import java.lang.reflect.Field;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import rx.Observable;
-import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
 
 /**
  * 首页Acitivity
@@ -75,43 +63,58 @@ public class MainActivity extends LKWordBaseActivity {
 
     @Override
     public void doBusiness(Context context) {
-
-       RxBus.getDefault().toObservable(EventType.class).subscribe(new Action1<EventType>() {
-            @Override
-            public void call(EventType eventType) {
-                switch (eventType.action){
-                    case EventType.ACTION_OPONE_LEFT:
-                        drawerLayout.openDrawer(frameLeft);
-                        break;
-                    case EventType.ACTION_UPDATA_USER_REQUEST:
-                        RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.getUserInfo(), new ApiCallback<BaseReponse>() {
-                            @Override
-                            public void onSuccess(BaseReponse loginReponse) {
-                                if (loginReponse.isSuccess()){
-                                    SPUtil.saveObject(Constants.LOGININFO_KEY,loginReponse);
-                                    RxBus.getDefault().post(new EventType(EventType.ACTION_UPDATA_USER,null));
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(String msg) {
-
-                            }
-
-                            @Override
-                            public void onFinish() {
-
-                            }
-                        });
-                        break;
-                }
-
-            }
-        });
+        subscribeEvent();
         initFragment();
 
     }
+    private void subscribeEvent() {
+        RxSubscriptions.remove(mRxSub);
+        mRxSub = RxBus.getDefault().toObservable(Event.class)
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(new RxBusSubscriber<Event>() {
+                    @Override
+                    protected void onEvent(Event myEvent) {
+                        switch (myEvent.event) {
+                            case EventType.ACTION_OPONE_LEFT:
+                            drawerLayout.openDrawer(frameLeft);
+                            break;
+                            case EventType.ACTION_UPDATA_USER_REQUEST:
+                                RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.getUserInfo(), new ApiCallback<BaseReponse>() {
+                                    @Override
+                                    public void onSuccess(BaseReponse loginReponse) {
+                                        if (loginReponse.isSuccess()){
+                                            SPUtil.saveObject(Constants.LOGININFO_KEY,loginReponse);
+                                            RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER,null));
+                                        }
+                                    }
 
+                                    @Override
+                                    public void onFailure(String msg) {
+
+                                    }
+
+                                    @Override
+                                    public void onFinish() {
+
+                                    }
+                                });
+                                break;
+                        }
+//            }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        LogUtil.e(TAG, "onError");
+                        /**
+                         * 这里注意: 一旦订阅过程中发生异常,走到onError,则代表此次订阅事件完成,后续将收不到onNext()事件,
+                         * 即 接受不到后续的任何事件,实际环境中,我们需要在onError里 重新订阅事件!
+                         */
+                        subscribeEvent();
+                    }
+                });
+        RxSubscriptions.add(mRxSub);
+    }
     @Override
     public void setupActivityComponent() {
         LaiKaApplication.get(this).getAppComponent().plus(new MainModule(getSupportFragmentManager())).inject(this);

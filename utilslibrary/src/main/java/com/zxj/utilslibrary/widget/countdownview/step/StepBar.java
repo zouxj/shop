@@ -1,13 +1,11 @@
 package com.zxj.utilslibrary.widget.countdownview.step;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
-import android.os.Build;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import com.zxj.utilslibrary.R;
@@ -77,14 +75,14 @@ public class StepBar extends View {
     private int mTotalStep;
 
     private int mCompleteStep;
-
+    private Paint textPaint;
+    Paint mCirclePaint;
 
 
     public StepBar(Context context) {
 
-        super(context);
+        super(context,null);
 
-        init(context,null,0);
 
     }
 
@@ -92,7 +90,7 @@ public class StepBar extends View {
 
     public StepBar(Context context, AttributeSet attrs) {
 
-        super(context, attrs);
+        super(context, attrs,0);
 
         init(context, attrs, 0);
 
@@ -108,15 +106,6 @@ public class StepBar extends View {
 
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-
-    public StepBar(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-
-        super(context, attrs, defStyleAttr, defStyleRes);
-
-        init(context, attrs, defStyleAttr);
-
-    }
 
 
 
@@ -136,9 +125,23 @@ public class StepBar extends View {
 
     private void init(Context mContext,AttributeSet attrs,int defStyeAttr){
 
+        initPaint();
 
 
 
+    }
+
+    /**
+     * 初始化笔画
+     */
+    private void initPaint(){
+        mCirclePaint=new Paint();
+        mCirclePaint.setAntiAlias(true);
+        mCirclePaint.setStyle(Paint.Style.FILL);
+
+        textPaint = new Paint();
+        textPaint.setColor(UIUtil.getColor(R.color.white));
+        textPaint.setStyle(Paint.Style.FILL);
 
     }
 
@@ -153,15 +156,11 @@ public class StepBar extends View {
      */
 
     public void setTotalStep(int mTotalStep){
-
         if(mTotalStep<=0){
-
             throw new IllegalArgumentException("步骤总数必须大于0!");
-
         }
 
         this.mTotalStep=mTotalStep;
-
     }
 
 
@@ -223,7 +222,7 @@ public class StepBar extends View {
             throw new IllegalArgumentException("step必须在 1~总步骤数之间!");
 
         }
-
+        invalidate();
         return mLeftX+(step-1)*mDistance;
 
     }
@@ -248,7 +247,6 @@ public class StepBar extends View {
 
         mCompleteStep++;
 
-        invalidate();
 
     }
 
@@ -348,7 +346,6 @@ public class StepBar extends View {
 
         mRightY=mCenterY+mLineHeight/2;
 
-        LogUtil.d(TAG,"onSizeChanged->mLeftX:"+mLeftX);
 
         LogUtil.d(TAG, "onSizeChanged->mRightX:" + mRightX);
 
@@ -359,6 +356,7 @@ public class StepBar extends View {
             LogUtil.d(TAG,"onSizeChanged->mDistance:"+mDistance);
 
         }
+
 
     }
 
@@ -375,46 +373,23 @@ public class StepBar extends View {
     @Override
 
     protected void onDraw(Canvas canvas) {
-
-        super.onDraw(canvas);
+        LogUtil.i("mTotalStep=>"+mTotalStep+"====mCompleteStep=>"+mCompleteStep);
 
         if(mTotalStep<=0 || mCompleteStep<0 || mCompleteStep>mTotalStep){
 
             return;
 
         }
-
-        Paint mCirclePaint=new Paint();
-
-        mCirclePaint.setAntiAlias(true);
-
-        mCirclePaint.setStyle(Paint.Style.FILL);
-
         mCirclePaint.setColor(mUnDoneColor);
-
-
-
         canvas.drawRect(mLeftX,mLeftY,mRightX,mRightY,mCirclePaint);
-
         float xLoc=mLeftX;
 
         //画所有的步骤(圆形)
-
         for(int i=0;i<mTotalStep;i++){
-            canvas.drawCircle(xLoc, mLeftY, mSmallRadius, mCirclePaint);
+
             xLoc=xLoc+mDistance;
-            Paint paint = new Paint();
-            paint.setColor(UIUtil.getColor(R.color.white));
-            paint.setAntiAlias(true);
-            paint.setStyle(Paint.Style.FILL);
-            //设置中间字体的大小
-            String mCircleStr=i+"";
-            float textSize = getTextSize(mCircleStr);
-            paint.setTextSize(textSize);
-            //获取中间文字的宽度
-            int textWidth = getTextWidth(paint, mCircleStr.trim());
-            //绘制中间的文字
-            canvas.drawText(mCircleStr, xLoc - textWidth / 2, mLeftY + textSize / 2 - UIUtil.dp2px( 1), paint);
+
+             canvas.drawCircle(xLoc, mLeftY, mSmallRadius, mCirclePaint);
 
         }
 
@@ -424,40 +399,47 @@ public class StepBar extends View {
 
         xLoc=mLeftX;
 
-        mCirclePaint.setColor(mDoneColor);
-
         for(int i=0;i<mCompleteStep;i++){
-
+            mCirclePaint.setColor(mDoneColor);
             if(i>0){
-
-                canvas.drawRect(xLoc-mDistance,mLeftY,xLoc,mRightY,mCirclePaint);
+                canvas.drawRect(xLoc-mDistance+15,mLeftY,xLoc,mRightY,mCirclePaint);
 
             }
-
             canvas.drawCircle(xLoc, mLeftY, mSmallRadius, mCirclePaint);
-
-
-
 
 
             //画当前步骤(加光晕效果)
 
-            if(i==mCompleteStep-1){
+                String mCircleStr=i+"";
+                float textSize = getTextSize(mCircleStr);
+                //获取中间文字的宽度
+                int textWidth = getTextWidth(mCirclePaint, mCircleStr.trim());
+                textPaint.setTextSize(textSize);
+                //绘制中间的文字
+                canvas.drawText(mCircleStr, xLoc-textWidth*3/2, mLeftY + textSize / 3 , textPaint);
 
-                mCirclePaint.setColor(getTranspartColorByAlpha(mDoneColor,0.2f));
-
-                canvas.drawCircle(xLoc, mLeftY, mLargeRadius, mCirclePaint);
-
-            }else {
-
-                xLoc=xLoc+mDistance;
-
-            }
-
+            xLoc=xLoc+mDistance;
 
 
         }
+        float textLoc=mLeftX;
 
+        //画所有的步骤(圆形)
+
+        for(int i=0;i<mTotalStep;i++){
+
+            textLoc=textLoc+mDistance;
+            //设置中间字体的大小
+            String mCircleStr=i+1+"";
+            float textSize = getTextSize(mCircleStr);
+            //获取中间文字的宽度
+            int textWidth = getTextWidth(mCirclePaint, mCircleStr.trim());
+            textPaint.setTextSize(textSize);
+            //绘制中间的文字
+            canvas.drawText(mCircleStr, textLoc-textWidth*3/2, mLeftY +textSize/3 , textPaint);
+
+        }
+        super.onDraw(canvas);
     }
 
 
@@ -469,7 +451,7 @@ public class StepBar extends View {
      */
     public float getTextSize(String str){
         int strLength = str.length();
-        return mSmallRadius * 2 / strLength;
+        return mSmallRadius / strLength;
     }
 
     /**
@@ -596,5 +578,6 @@ public class StepBar extends View {
         this.mDoneColor = mDoneColor;
 
     }
+
 
 }

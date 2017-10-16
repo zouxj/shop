@@ -48,7 +48,7 @@ public class CardPackageActivity extends LKWordBaseActivity {
 
     @Override
     public void setupActivityComponent() {
-        LaiKaApplication.get(this).getAppComponent().plus(new MineModule(getSupportFragmentManager())).inject(this);
+        LaiKaApplication.get(this).getAppComponent().plus(new MineModule(this)).inject(this);
     }
 
 }

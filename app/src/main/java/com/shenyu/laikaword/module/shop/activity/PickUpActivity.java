@@ -75,9 +75,10 @@ public class PickUpActivity extends LKWordBaseActivity {
         titles.add("提货完成");
 
         setStepTitles.setStepTitles(titles);
+        next();
     }
 
-    public void next(View view) {
+    public void next() {
         setStepTitles.nextStep();
 
     }

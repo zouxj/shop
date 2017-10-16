@@ -85,6 +85,9 @@ public interface ApiStores {
     Observable<ShopMainReponse> getGoodsList();
     @GET("common/getSTS")//获取图片上传STS
     Observable<ImgSTSReponse> getSTS();
+    @GET("order/cardPack")//获取卡包
+    Observable<BaseReponse> cardPack(@Query("type")int type);
+
 
 
 

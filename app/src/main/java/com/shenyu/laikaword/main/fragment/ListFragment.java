@@ -3,12 +3,9 @@ package com.shenyu.laikaword.main.fragment;
 
 import android.annotation.SuppressLint;
 import android.graphics.Paint;
-import android.os.Looper;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,16 +14,16 @@ import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.adapter.CommonAdapter;
 import com.shenyu.laikaword.adapter.ViewHolder;
 import com.shenyu.laikaword.base.IKWordBaseFragment;
-import com.shenyu.laikaword.bean.BaseReponse;
 import com.shenyu.laikaword.bean.reponse.GoodBean;
-import com.shenyu.laikaword.bean.reponse.GoodsBean;
 import com.shenyu.laikaword.bean.reponse.ShopMainReponse;
 import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.module.shop.activity.ConfirmOrderActivity;
 import com.shenyu.laikaword.module.shop.activity.ShopDateilActivity;
-import com.shenyu.laikaword.retrofit.RetrofitUtils;
-import com.shenyu.laikaword.rxbus.EventType;
+import com.shenyu.laikaword.rxbus.event.EventType;
 import com.shenyu.laikaword.rxbus.RxBus;
+import com.shenyu.laikaword.rxbus.RxBusSubscriber;
+import com.shenyu.laikaword.rxbus.RxSubscriptions;
+import com.shenyu.laikaword.rxbus.event.Event;
 import com.squareup.picasso.Picasso;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.LogUtil;
@@ -35,15 +32,10 @@ import com.zxj.utilslibrary.utils.UIUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -58,7 +50,7 @@ public class ListFragment extends IKWordBaseFragment {
     List<ShopMainReponse.PayloadBean.GoodsBean> goods;
     List<GoodBean> listBeans=new ArrayList<>();
     private int mType=0;
-
+    private Subscription mRxSub;
 
 
     @SuppressLint("ValidFragment")
@@ -107,26 +99,11 @@ public class ListFragment extends IKWordBaseFragment {
 
             }
         };
+        subscribeEvent();
         recycleView.setAdapter(commonAdapter);
-        RxBus.getDefault().toObservable(EventType.class).subscribe(new Action1<EventType>() {
-            @Override
-            public void call(EventType eventType) {
-                switch (eventType.action){
-                    case EventType.ACTION_LODE_MORE://上拉加载更多
-//                        listBeans.addAll((List)eventType.object);
-                        break;
-                    case EventType.ACTION_PULL_REFRESH://下拉刷新
-//                        listBeans.clear();
-//                        listBeans.addAll((List)eventType.object);
-                        break;
-                    case EventType.ACTION_MAIN_SETDATE:
-                        goods = (List<ShopMainReponse.PayloadBean.GoodsBean>) eventType.object;
-                        if (null!=goods&&goods.size()>0)
-                            setData(mType);
-                        break;
-                }
-            }
-        });
+
+
+
     }
 
     @Override
@@ -151,7 +128,6 @@ public class ListFragment extends IKWordBaseFragment {
      * @param position
      */
     private void  setData(int position){
-        LogUtil.i("post=>"+position);
         if (null==goods)
             return;
         switch (position){
@@ -192,10 +168,63 @@ public class ListFragment extends IKWordBaseFragment {
         commonAdapter.notifyDataSetChanged();
     }
 
+    private void subscribeEvent() {
+        RxSubscriptions.remove(mRxSub);
+        mRxSub = RxBus.getDefault().toObservable(Event.class)
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(new RxBusSubscriber<Event>() {
+                    @Override
+                    protected void onEvent(Event myEvent) {
+                                        switch (myEvent.event) {
+                                            case EventType.ACTION_LODE_MORE://上拉加载更多
+//                        listBeans.addAll((List)eventType.object);
+                                                break;
+                                            case EventType.ACTION_PULL_REFRESH://下拉刷新
+//                        listBeans.clear();
+//                        listBeans.addAll((List)eventType.object);
+                                                break;
+                                            case EventType.ACTION_MAIN_SETDATE:
+                                                goods = (List<ShopMainReponse.PayloadBean.GoodsBean>) myEvent.object;
+                                                if (null != goods && goods.size() > 0)
+                                                    setData(mType);
+                                                break;
+                                        }
+                        //        RxBus.getDefault().toObservable(EventType.class).subscribe(new Action1<EventType>() {
+//            @Override
+//            public void call(EventType eventType) {
+//                switch (eventType.action){
+//                    case EventType.ACTION_LODE_MORE://上拉加载更多
+////                        listBeans.addAll((List)eventType.object);
+//                        break;
+//                    case EventType.ACTION_PULL_REFRESH://下拉刷新
+////                        listBeans.clear();
+////                        listBeans.addAll((List)eventType.object);
+//                        break;
+//                    case EventType.ACTION_MAIN_SETDATE:
+//                        goods = (List<ShopMainReponse.PayloadBean.GoodsBean>) eventType.object;
+//                        if (null!=goods&&goods.size()>0)
+//                            setData(mType);
+//                        break;
+//                }
+//            }
+//        });
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        LogUtil.e(TAG, "onError");
+                        /**
+                         * 这里注意: 一旦订阅过程中发生异常,走到onError,则代表此次订阅事件完成,后续将收不到onNext()事件,
+                         * 即 接受不到后续的任何事件,实际环境中,我们需要在onError里 重新订阅事件!
+                         */
+                        subscribeEvent();
+                    }
+                });
 
-
+        RxSubscriptions.add(mRxSub);
+    }
     @Override
     public void onDestroyView() {
+        RxSubscriptions.remove(mRxSub);
         super.onDestroyView();
     }
 }

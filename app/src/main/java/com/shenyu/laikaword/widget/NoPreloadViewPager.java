@@ -290,7 +290,7 @@ public class NoPreloadViewPager extends ViewPager {
     }
 
     /**
-     * Set the currently selected page. If the ViewPager has already been through its first
+     * Set the currently selected page. If the MainListViewPager has already been through its first
      * item_cardinfo_list there will be a smooth animated transition between the current item and the
      * specified item.
      *
@@ -1306,13 +1306,13 @@ public class NoPreloadViewPager extends ViewPager {
     /**
      * Start a fake drag of the pager.
      *
-     * <p>A fake drag can be useful if you want to synchronize the motion of the ViewPager
-     * with the touch scrolling of another view, while still letting the ViewPager
+     * <p>A fake drag can be useful if you want to synchronize the motion of the MainListViewPager
+     * with the touch scrolling of another view, while still letting the MainListViewPager
      * control the snapping motion and fling behavior. (e.g. parallax-scrolling tabs.)
      * Call {@link #fakeDragBy(float)} to simulate the actual drag motion. Call
      * {@link #endFakeDrag()} to complete the fake drag and fling as necessary.
      *
-     * <p>During a fake drag the ViewPager will ignore all touch events. If a real drag
+     * <p>During a fake drag the MainListViewPager will ignore all touch events. If a real drag
      * is already in progress, this method will return false.
      *
      * @return true if the fake drag began successfully, false if it could not be started.
@@ -1643,7 +1643,7 @@ public class NoPreloadViewPager extends ViewPager {
     @Override
     public void addTouchables(ArrayList<View> views) {
         // Note that we don't call super.addTouchables(), which means that
-        // we don't call View.addTouchables().  This is okay because a ViewPager
+        // we don't call View.addTouchables().  This is okay because a MainListViewPager
         // is itself not touchable.
         for (int i = 0; i < getChildCount(); i++) {
             final View child = getChildAt(i);

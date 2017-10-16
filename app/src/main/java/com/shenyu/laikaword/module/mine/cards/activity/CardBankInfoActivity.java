@@ -15,9 +15,13 @@ import com.shenyu.laikaword.bean.reponse.BankInfoReponse;
 import com.shenyu.laikaword.helper.RecycleViewDivider;
 import com.shenyu.laikaword.retrofit.ApiCallback;
 import com.shenyu.laikaword.retrofit.RetrofitUtils;
-import com.shenyu.laikaword.rxbus.EventType;
+import com.shenyu.laikaword.rxbus.RxBusSubscriber;
+import com.shenyu.laikaword.rxbus.RxSubscriptions;
+import com.shenyu.laikaword.rxbus.event.Event;
+import com.shenyu.laikaword.rxbus.event.EventType;
 import com.shenyu.laikaword.rxbus.RxBus;
 import com.zxj.utilslibrary.utils.IntentLauncher;
+import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 import com.shenyu.laikaword.helper.DialogHelper;
@@ -27,6 +31,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
 public class CardBankInfoActivity extends LKWordBaseActivity {
@@ -78,19 +83,36 @@ public class CardBankInfoActivity extends LKWordBaseActivity {
 
     @Override
     public void doBusiness(Context context) {
-        RxBus.getDefault().toObservable(EventType.class).subscribe(new Action1<EventType>() {
-            @Override
-            public void call(EventType eventType) {
-                switch (eventType.action) {
-                    case EventType.ACTION_UPDATA_USER_BANK:
-                        initData();
-                        break;
-                }
-            }
-        });
+        subscribeEvent();
         initData();
     }
+    private void subscribeEvent() {
+        RxSubscriptions.remove(mRxSub);
+        mRxSub = RxBus.getDefault().toObservable(Event.class)
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(new RxBusSubscriber<Event>() {
+                    @Override
+                    protected void onEvent(Event myEvent) {
+                        switch (myEvent.event) {
+                            case EventType.ACTION_UPDATA_USER_BANK:
+                                initData();
+                                break;
+                        }
+//            }
+                    }
 
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        LogUtil.e(TAG, "onError");
+                        /**
+                         * 这里注意: 一旦订阅过程中发生异常,走到onError,则代表此次订阅事件完成,后续将收不到onNext()事件,
+                         * 即 接受不到后续的任何事件,实际环境中,我们需要在onError里 重新订阅事件!
+                         */
+                        subscribeEvent();
+                    }
+                });
+        RxSubscriptions.add(mRxSub);
+    }
     protected void initData() {
         RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.getBankCard(), new ApiCallback<BankInfoReponse>() {
             @Override

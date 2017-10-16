@@ -9,19 +9,8 @@ import android.os.Build;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 
-import com.alibaba.sdk.android.oss.ClientConfiguration;
 import com.alibaba.sdk.android.oss.ClientException;
-import com.alibaba.sdk.android.oss.OSS;
-import com.alibaba.sdk.android.oss.OSSClient;
 import com.alibaba.sdk.android.oss.ServiceException;
-import com.alibaba.sdk.android.oss.callback.OSSCompletedCallback;
-import com.alibaba.sdk.android.oss.callback.OSSProgressCallback;
-import com.alibaba.sdk.android.oss.common.OSSLog;
-import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
-import com.alibaba.sdk.android.oss.common.auth.OSSStsTokenCredentialProvider;
-import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
-import com.alibaba.sdk.android.oss.model.PutObjectRequest;
-import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.leo618.mpermission.AfterPermissionGranted;
 import com.leo618.mpermission.MPermission;
 import com.shenyu.laikaword.R;
@@ -34,12 +23,12 @@ import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.interfaces.ProgressCallback;
 import com.shenyu.laikaword.retrofit.ApiCallback;
 import com.shenyu.laikaword.retrofit.RetrofitUtils;
-import com.shenyu.laikaword.rxbus.EventType;
+import com.shenyu.laikaword.rxbus.event.Event;
+import com.shenyu.laikaword.rxbus.event.EventType;
 import com.shenyu.laikaword.rxbus.RxBus;
 import com.zxj.utilslibrary.utils.FileStorageUtil;
 import com.zxj.utilslibrary.utils.ImageUtil;
 import com.zxj.utilslibrary.utils.LogUtil;
-import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 import com.shenyu.laikaword.helper.DialogHelper;
@@ -48,7 +37,6 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Random;
 
 import static com.shenyu.laikaword.common.Constants.REQUEST_IMAGE_CAPTURE;
 
@@ -157,7 +145,7 @@ public class UserInfoPresenter extends BasePresenter<UserInfoView> {
             @Override
             public void onSuccess(BaseReponse model) {
                 if (model.isSuccess()) {
-                    RxBus.getDefault().post(new EventType(EventType.ACTION_UPDATA_USER_REQUEST, null));
+                    RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_REQUEST, null));
                     mvpView.upadteHeadFinsh(true);
                 }else {
                     mvpView.upadteHeadFinsh(false);

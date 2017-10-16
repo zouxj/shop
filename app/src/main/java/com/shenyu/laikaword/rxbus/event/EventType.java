@@ -1,4 +1,4 @@
-package com.shenyu.laikaword.rxbus;
+package com.shenyu.laikaword.rxbus.event;
 
 import android.view.View;
 
@@ -26,15 +26,4 @@ public class EventType {
     public static final int ACTION_UPDATA_USER_BANK=0x07;
     //更新银行卡
     public static final int ACTION_UPDATA_USER_REQUEST=0x08;
-    public int action;
-    public Object object;
-    public View view;
-    public EventType(int i, Object obj) {
-        this.action = i;
-        this.object=obj;
-    }
-    public EventType(int i,View view){
-        this.action=i;
-        this.view=view;
-    }
 }

@@ -6,23 +6,15 @@ import android.widget.EditText;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.bean.BaseReponse;
-import com.shenyu.laikaword.bean.reponse.LoginReponse;
-import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.retrofit.ApiCallback;
 import com.shenyu.laikaword.retrofit.RetrofitUtils;
-import com.shenyu.laikaword.rxbus.EventType;
+import com.shenyu.laikaword.rxbus.event.Event;
+import com.shenyu.laikaword.rxbus.event.EventType;
 import com.shenyu.laikaword.rxbus.RxBus;
-import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import rx.Observable;
-import rx.Observer;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
 
 /**
  * 修改昵称
@@ -65,7 +57,7 @@ public class UpdateUserNameActivity extends LKWordBaseActivity {
             public void onSuccess(BaseReponse model) {
                 if (model.isSuccess()) {
                     ToastUtil.showToastShort("修改成功");
-                    RxBus.getDefault().post(new EventType(EventType.ACTION_UPDATA_USER_REQUEST, null));
+                    RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_REQUEST, null));
                     finish();
                 }else{
                     ToastUtil.showToastShort("修改失败");
