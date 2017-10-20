@@ -49,7 +49,16 @@ public class StringUtil {
         }
         return sy.toString()+ telnum.substring(telnum.length()-4, telnum.length());
     }
-
+    /** 显示银行卡后四位 */
+    public static String getBankNumber(String telnum) {
+        if (telnum == null || telnum.length() == 0) {
+            return null;
+        }
+        if (!checkBankCard(telnum)) {
+            return telnum;
+        }
+        return telnum.substring(telnum.length()-4, telnum.length());
+    }
     /** 格式化字符串 */
     public static String format(int strResId, Object... args) {
         return format(UIUtil.getString(strResId), args);

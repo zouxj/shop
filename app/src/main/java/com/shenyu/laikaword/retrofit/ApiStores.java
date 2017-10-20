@@ -4,11 +4,15 @@ import com.shenyu.laikaword.bean.BaseReponse;
 import com.shenyu.laikaword.bean.ReRequest;
 import com.shenyu.laikaword.bean.reponse.AddressReponse;
 import com.shenyu.laikaword.bean.reponse.BankInfoReponse;
+import com.shenyu.laikaword.bean.reponse.CarPagerReponse;
 import com.shenyu.laikaword.bean.reponse.CheckAppUpdateReponse;
 import com.shenyu.laikaword.bean.reponse.GoodsBean;
 import com.shenyu.laikaword.bean.reponse.ImgSTSReponse;
 import com.shenyu.laikaword.bean.reponse.LoginReponse;
+import com.shenyu.laikaword.bean.reponse.MessageReponse;
 import com.shenyu.laikaword.bean.reponse.MsgCodeReponse;
+import com.shenyu.laikaword.bean.reponse.OrderListReponse;
+import com.shenyu.laikaword.bean.reponse.PayInfoReponse;
 import com.shenyu.laikaword.bean.reponse.ShopMainReponse;
 
 import java.util.Map;
@@ -79,15 +83,35 @@ public interface ApiStores {
     @POST("common/validateSMSCode")//设置支付密码
     Observable<MsgCodeReponse> validateSMSCode(@Field("codeType") String codeType, @Field("code") String code);
     @FormUrlEncoded
-    @POST("user/validateTransactionPIN")//设置支付密码
-    Observable<MsgCodeReponse> validateTransactionPIN(@Field("transactionPIN") String transactionPIN);
+    @POST("user/validateTransactionPIN")//校验支付密码
+    Observable<BaseReponse> validateTransactionPIN(@Field("transactionPIN") String transactionPIN);
     @GET("goods/list")//请求商品列表
     Observable<ShopMainReponse> getGoodsList();
     @GET("common/getSTS")//获取图片上传STS
     Observable<ImgSTSReponse> getSTS();
     @GET("order/cardPack")//获取卡包
     Observable<BaseReponse> cardPack(@Query("type")int type);
-
+    @FormUrlEncoded
+    @POST("account/createRechargeOrder")//余额充值
+    Observable<MsgCodeReponse> createRechargeOrder(@Field("money") String money, @Field("payWay") String payWay);
+    @FormUrlEncoded
+    @POST("user/withDrawMoney")//余额提现
+    Observable<BaseReponse> withdrawMoney(@Field("money") String money,@Field("cardId") String cardId);
+    @GET("user/messageList")//获取消息
+    Observable<MessageReponse> messageList();
+    @GET("transaction/orderList")//购买记录
+    Observable<OrderListReponse> orderList();
+    @FormUrlEncoded
+    @POST("account/rechargemoney")//余额充值
+    Observable<PayInfoReponse> rechargeMoney(@Field("money") String money, @Field("payWay") int payWay);
+    @GET("user/cardPackage")//我的卡包
+    Observable<CarPagerReponse> cardPackage();
+    @FormUrlEncoded
+    @POST("order/create")//下单接口
+    Observable<PayInfoReponse> createOrder(@FieldMap Map<String, String> map);
+    @POST("account/extract")//下单接口
+    @FormUrlEncoded
+    Observable<PayInfoReponse> extractOrder(@FieldMap Map<String, String> map);
 
 
 

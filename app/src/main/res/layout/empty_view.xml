@@ -5,11 +5,14 @@
 
 
     <TextView
+        android:drawableTop="@mipmap/nothing"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textSize="20sp"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:drawablePadding="5dp"
         android:textColor="@color/textDark"
-        android:text="No Data."/>
+        android:text="沒相关数据."/>
 
 </FrameLayout>

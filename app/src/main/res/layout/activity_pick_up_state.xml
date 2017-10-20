@@ -19,7 +19,7 @@
             android:layout_gravity="center"
             android:layout_height="80dp"
             app:totalstep="3"
-            app:completestep="2"
+            app:completestep="1"
             />
 
     </FrameLayout>

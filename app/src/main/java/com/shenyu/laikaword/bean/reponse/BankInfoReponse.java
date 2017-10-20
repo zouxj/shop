@@ -11,8 +11,7 @@ import java.util.List;
 
 public class BankInfoReponse extends BaseReponse{
 
-
-    private List<PayloadBean> payload;
+    public List<BankInfoReponse.PayloadBean> payload;
 
     public List<PayloadBean> getPayload() {
         return payload;
@@ -22,7 +21,7 @@ public class BankInfoReponse extends BaseReponse{
         this.payload = payload;
     }
 
-    public  class PayloadBean {
+    public static class PayloadBean {
         /**
          * cardId : 1
          * cardNo : 6222032104001330634

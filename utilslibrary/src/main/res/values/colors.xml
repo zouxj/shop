@@ -169,5 +169,8 @@
     <color name="color_b0b0">#b0b0b0</color>
     <color name="color_fafa">#fafafa</color>
     <color name="write_40">#66ffffff</color>
+    <color name="red_40">#f4b2ae</color>
+    <color name="color_f5">#f5f5f5</color>
+
 
 </resources>

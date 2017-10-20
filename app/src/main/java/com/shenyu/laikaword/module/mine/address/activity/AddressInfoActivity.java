@@ -9,6 +9,7 @@ import android.widget.CheckBox;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.adapter.CommonAdapter;
 import com.shenyu.laikaword.adapter.ViewHolder;
+import com.shenyu.laikaword.adapter.wrapper.EmptyWrapper;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.bean.BaseReponse;
 import com.shenyu.laikaword.bean.reponse.AddressReponse;
@@ -43,7 +44,7 @@ public class AddressInfoActivity extends LKWordBaseActivity {
     RecyclerView rlAddressList;
     private CommonAdapter<AddressReponse.PayloadBean> commonAdapter;
     private List<AddressReponse.PayloadBean> payload;
-
+    EmptyWrapper emptyWrapper;
     @Override
     public int bindLayout() {
         return R.layout.activity_add_address_info;
@@ -101,6 +102,8 @@ public class AddressInfoActivity extends LKWordBaseActivity {
                         IntentLauncher.with(AddressInfoActivity.this).put("AddressInfo",addressReponse).launch(EditAddressActivity.class);
                     }
                 });
+
+
                 CheckBox checkBox = holder.getView(R.id.ck_moren);
                 checkBox.setChecked(selectedPosition==position?true:false||addressReponse.getDefaultX()==1);
                 holder.setOnClickListener(R.id.tv_delete_address, new View.OnClickListener() {
@@ -140,18 +143,20 @@ public class AddressInfoActivity extends LKWordBaseActivity {
                             //设置新Item的勾选状态
                             selectedPosition = position;
                             holder.itemView.setSelected(true);
-                            notifyItemChanged(selectedPosition);
+                            emptyWrapper.notifyItemChanged(selectedPosition);
 
                         }else if (selectedPosition==position){
                             selectedPosition = -1; //选择的position赋值给参数，
                             holder.itemView.setSelected(false);
-                            notifyItemChanged(position);//刷新当前点击item
+                            emptyWrapper.notifyItemChanged(position);//刷新当前点击item
                         }
                     }
                 });
             }
         };
-        rlAddressList.setAdapter(commonAdapter);
+         emptyWrapper = new EmptyWrapper(commonAdapter);
+        emptyWrapper.setEmptyView(R.layout.empty_view);
+        rlAddressList.setAdapter(emptyWrapper);
     }
 
     protected void initData() {
@@ -161,7 +166,7 @@ public class AddressInfoActivity extends LKWordBaseActivity {
                 if (model.isSuccess());{
                     payload.clear();
                     payload.addAll(model.getPayload());
-                    commonAdapter.notifyDataSetChanged();
+                    emptyWrapper.notifyDataSetChanged();
                 }
             }
 

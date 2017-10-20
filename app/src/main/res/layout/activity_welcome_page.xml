@@ -10,11 +10,29 @@
     <include layout="@layout/layout_banner"/>
     <TextView
         android:id="@+id/wl_tv_tiao"
-        android:padding="10dp"
+        android:layout_marginTop="12dp"
+        android:textSize="10sp"
+        android:layout_marginRight="@dimen/dp_15dp"
         android:layout_alignParentRight="true"
-        android:layout_width="wrap_content"
-        android:textColor="@color/black"
+        android:layout_width="45dp"
+        android:background="@drawable/weclome_rectangle_tiaoguo"
+        android:textColor="@color/white"
         android:text="跳过"
         android:gravity="center"
-        android:layout_height="wrap_content" />
+        android:layout_height="25dp" />
+    
+    
+    <TextView
+        android:id="@+id/tv_into_app"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:text="立即体验"
+        android:textColor="@color/white"
+        android:layout_marginBottom="49dp"
+        android:visibility="gone"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/weclome_rectangle"
+        android:layout_width="163dp"
+        android:layout_height="43dp" />
 </RelativeLayout>

@@ -15,8 +15,10 @@ import com.shenyu.laikaword.adapter.CommonAdapter;
 import com.shenyu.laikaword.adapter.ViewHolder;
 import com.shenyu.laikaword.base.IKWordBaseFragment;
 import com.shenyu.laikaword.bean.reponse.GoodBean;
+import com.shenyu.laikaword.bean.reponse.LoginReponse;
 import com.shenyu.laikaword.bean.reponse.ShopMainReponse;
 import com.shenyu.laikaword.common.Constants;
+import com.shenyu.laikaword.module.login.activity.LoginActivity;
 import com.shenyu.laikaword.module.shop.activity.ConfirmOrderActivity;
 import com.shenyu.laikaword.module.shop.activity.ShopDateilActivity;
 import com.shenyu.laikaword.rxbus.event.EventType;
@@ -86,7 +88,7 @@ public class ListFragment extends IKWordBaseFragment {
                 holder.setOnClickListener(R.id.tv_main_shop_purchase, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                      IntentLauncher.with(getActivity()).launch(ConfirmOrderActivity.class);
+
                     }
                 });
                 holder.setOnClickListener(R.id.lv_main_shop, new View.OnClickListener() {

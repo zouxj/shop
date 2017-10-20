@@ -51,9 +51,6 @@ public class AddBankCardActivity extends LKWordBaseActivity implements AddBankVi
     EditText etGetMsgCode;
     String cardNum;
     String bankName;
-    String bankAddress;
-    String bankPhone;
-    String bankMsgCode;
     String bankZhangName;
     String bankProvince;
     String bankCity;
@@ -68,12 +65,11 @@ public class AddBankCardActivity extends LKWordBaseActivity implements AddBankVi
     @Override
     public void initView() {
         setToolBarTitle("添加银行卡");
-        addBankPresenter.setMonitor(etAddBankYinhang, etAddBankCardNum);
+//        addBankPresenter.setMonitor(etAddBankYinhang, etAddBankCardNum);
     }
 
     @Override
     public void doBusiness(Context context) {
-     ld.setLoadingText("添加中").setSuccessText("添加成功");
     }
 
     @Override
@@ -87,7 +83,7 @@ public class AddBankCardActivity extends LKWordBaseActivity implements AddBankVi
             case R.id.bt_add_bank:
                 //TODO 保存下发
                 if (yzCode())
-                addBankPresenter.setAddRequest(cardNum, bankName, bankAddress, bankPhone, bankMsgCode,bankZhangName,bankUserName,bankProvince,bankCity);
+                addBankPresenter.setAddRequest(cardNum, bankName,bankZhangName,bankUserName,bankProvince,bankCity);
               else
                 ToastUtil.showToastShort("请完善信息");
                 break;
@@ -116,23 +112,11 @@ public class AddBankCardActivity extends LKWordBaseActivity implements AddBankVi
 
         }
     }
-    public void inputObserver(){
-//        InitialValueObservable<CharSequence> etddBankCardNum= RxTextView.textChanges(etAddBankCardNum);
-//        InitialValueObservable<CharSequence> etAddBank= RxTextView.textChanges(etAddBankYinhang);
-//        InitialValueObservable<CharSequence> etBankAddress= RxTextView.textChanges(etAddBankAddress);
-//        InitialValueObservable<CharSequence> etBankPhone= RxTextView.textChanges(etAddBankPhone);
-//        InitialValueObservable<CharSequence> etMsgCode= RxTextView.textChanges(etgetMsgCode);
 
-
-
-
-
-
-    }
 
     @Override
     public void isLoading() {
-        ld.show();
+        loadViewHelper.showLoadingDialog(this);
     }
 
     @Override
@@ -142,37 +126,26 @@ public class AddBankCardActivity extends LKWordBaseActivity implements AddBankVi
 
     @Override
     public void loadFinished() {
+        loadViewHelper.closeLoadingDialog();
         RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_BANK,null));
-        ld.loadSuccess();
-        ld.disMissLoad();
+        ToastUtil.showToastShort("添加成功");
+        finish();
     }
 
     @Override
     public void loadFailure() {
-        ld.disMissLoad();
+        ToastUtil.showToastShort("添加失败");
+        loadViewHelper.closeLoadingDialog();
+
     }
 
-    @Override
-    public void setBankName(String bankName) {
-        //获取手机验证码
-    }
-
-    @Override
-    public void setMsgCode(String code) {
-        ToastUtil.showToastShort(code);
-        //获取到验证码
-    }
     //检验空值
 private Boolean yzCode(){
      cardNum = etAddBankCardNum.getText().toString().trim();
      bankName = etAddBankYinhang.getText().toString().trim();
-     bankAddress = etAddBankAddress.getText().toString().trim();
-     bankPhone = etAddBankPhone.getText().toString().trim();
-     bankMsgCode = etGetMsgCode.getText().toString().trim();
       bankZhangName = editTextZhang.getText().toString().trim();
       bankUserName =etUserName.getText().toString().trim();
-    if (StringUtil.validText(bankZhangName)&&StringUtil.validText(cardNum)&&StringUtil.validText(bankName)&&StringUtil.validText(bankAddress)&&
-            StringUtil.validText(bankPhone)&&StringUtil.validText(bankMsgCode))
+    if (StringUtil.validText(bankZhangName)&&StringUtil.validText(cardNum)&&StringUtil.validText(bankName))
         return true;
          return false;
 }

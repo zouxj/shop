@@ -158,5 +158,8 @@ public class SPUtil {
         return null;
 
     }
-
+    public static void removeSp(String key){
+        if (getSp().getString(key, null)!=null)
+        getSp().edit().remove(key).apply();
+}
 }

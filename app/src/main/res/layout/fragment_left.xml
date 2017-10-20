@@ -21,7 +21,7 @@
     <TextView
         android:id="@+id/tv_user_name"
         android:layout_gravity="center_vertical"
-        android:text="来卡小猪"
+        android:text="未登录"
         android:textColor="@color/white"
         android:textSize="@dimen/text_size_14sp"
         android:layout_marginLeft="7dp"

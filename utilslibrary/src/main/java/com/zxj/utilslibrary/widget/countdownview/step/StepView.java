@@ -42,29 +42,22 @@ public class StepView extends FrameLayout {
 
 
     public StepView(Context context) {
-
-        super(context);
-
-        init(context,null,0);
+        this(context,null);
 
     }
 
 
 
     public StepView(Context context, AttributeSet attrs) {
+        this(context,attrs,0);
 
-        super(context, attrs);
-
-        init(context, attrs, 0);
 
     }
 
 
 
     public StepView(Context context, AttributeSet attrs, int defStyleAttr) {
-
         super(context, attrs, defStyleAttr);
-
         init(context, attrs, defStyleAttr);
 
     }

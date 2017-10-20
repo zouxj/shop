@@ -198,7 +198,7 @@ public  final  class DialogHelper {
      * @param linstenrText
      * @return
      */
-    public  static  Dialog setInputDialog(Context context, boolean is_must, final LinstenrText linstenrText){
+    public  static  Dialog setInputDialog(Context context, boolean is_must, String money,final LinstenrText linstenrText){
         final Dialog dialog = new Dialog(context,R.style.Dialog);
         if(!is_must) {
             dialog.setCanceledOnTouchOutside(true);
@@ -207,6 +207,8 @@ public  final  class DialogHelper {
         }
         View view = View.inflate(context,R.layout.dialog_input_passwprd,null);
         final PayPsdInputView textPassWord = view.findViewById(R.id.psd_view_password);
+        TextView tvMoney = view.findViewById(R.id.tv_money);
+        tvMoney.setText(money);
         TextView forpasword = view.findViewById(R.id.tv_forgert_pwd);
         view.findViewById(R.id.iv_close).setOnClickListener(new View.OnClickListener() {
             @Override

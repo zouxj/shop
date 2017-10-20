@@ -12,7 +12,7 @@
         android:layout_marginTop="76dp"
         android:layout_width="77dp"
         android:layout_gravity="center_horizontal"
-        android:background="@mipmap/app_checked_icon"
+        android:background="@mipmap/state_ok"
         android:layout_height="77dp" />
     
     <TextView

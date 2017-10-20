@@ -9,6 +9,7 @@ import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.text.util.Linkify;
 import android.util.SparseArray;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
@@ -47,7 +48,8 @@ public class ViewHolder extends RecyclerView.ViewHolder {
 
     public static ViewHolder createViewHolder(ViewGroup parent, int layoutId)
     {
-        View itemView = UIUtil.inflate(layoutId);
+
+        View itemView = LayoutInflater.from(UIUtil.getContext()).inflate(layoutId,parent,false);
         ViewHolder holder = new ViewHolder(itemView);
         return holder;
     }

@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
 import com.squareup.picasso.Picasso;
+import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
 import java.util.ArrayList;
@@ -52,7 +53,7 @@ public class BannerHelper {
     private boolean mIsTouchDown;
     /** banner条目点击事件 */
     private OnItemClickListener mOnItemClickListener;
-
+    private OnPageChangeListener onPageChangeListener;
     private boolean isAutoPlay = false;
 
     private BannerHelper() {
@@ -103,7 +104,7 @@ public class BannerHelper {
         for (int x = 0; x < bannerList.size(); x++) {
             View v = new View(mBannerRootLayout.getContext());
             v.setBackgroundResource(R.drawable.selector_pointers);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(35, 35);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(15, 15);
             if (x != 0) {
                 params.leftMargin = 10;
             }
@@ -189,6 +190,9 @@ public class BannerHelper {
             int newPosition = position % mPointersLayout.getChildCount();
             mPointersLayout.getChildAt(previousEnabledPosition).setEnabled(false);
             mPointersLayout.getChildAt(newPosition).setEnabled(true);
+            if (null!=onPageChangeListener){
+                onPageChangeListener.onItemClick(newPosition);
+            }
             if (needShowDesc) {
                 CharSequence pageTitle = mBannerViewpager.getAdapter().getPageTitle(newPosition);
                 if (!TextUtils.isEmpty(pageTitle)) {
@@ -287,12 +291,16 @@ public class BannerHelper {
             BannerBean item = mBannerList.get(position % mBannerList.size());
             //TODO use img loader here to load net img
 //            iv.setImageResource(item.getTestImgResId());
-            Picasso
-                    .with(UIUtil.getContext())
-                    .load(item.getImgurl())
-                    .placeholder(item.getTestImgResId())
-                    .error(item.getTestImgResId())
-                    .into(iv);
+           if (StringUtil.validText(item.getImgurl())) {
+               Picasso
+                       .with(UIUtil.getContext())
+                       .load(item.getImgurl())
+                       .placeholder(item.getTestImgResId())
+                       .error(R.mipmap.net_error_icon)
+                       .into(iv);
+           }else {
+                           iv.setImageResource(item.getTestImgResId());
+           }
 
             iv.setTag(R.id.banner_rootlayout, item);
             iv.setOnClickListener(mOnClickListener);
@@ -311,7 +319,10 @@ public class BannerHelper {
             }
         };
     }
+public void setOnPageChangeListener(OnPageChangeListener onPageChangeListener){
+        this.onPageChangeListener= onPageChangeListener;
 
+}
     /**
      * 条目点击回调监听
      */
@@ -322,6 +333,9 @@ public class BannerHelper {
         this.isAutoPlay = auto;
     }
 
+    public interface OnPageChangeListener{
+        void onItemClick(int positon);
+    }
     /**
      * 设置Gravity
      * @param gravity

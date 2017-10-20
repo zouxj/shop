@@ -9,14 +9,13 @@ import java.util.List;
  */
 
 public class GoodsBean extends BaseReponse{
-    private List<GoodBean> payload;
-
-    public List<GoodBean> getPayload() {
+    public GoodBean getPayload() {
         return payload;
     }
 
-    public void setPayload(List<GoodBean> payload) {
+    public void setPayload(GoodBean payload) {
         this.payload = payload;
     }
 
+    private GoodBean payload;
 }

@@ -36,6 +36,7 @@
         android:layout_height="1dp"
         layout="@layout/line_view"/>
     <TextView
+        android:id="@+id/tv_money"
         android:layout_marginTop="35dp"
         android:layout_width="wrap_content"
         android:textSize="29sp"

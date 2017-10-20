@@ -1,10 +1,15 @@
 package com.shenyu.laikaword.main.activity;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.FrameLayout;
 
+import com.leo618.mpermission.MPermission;
+import com.leo618.mpermission.MPermissionSettingsDialog;
 import com.shenyu.laikaword.LaiKaApplication;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
@@ -24,18 +29,20 @@ import com.zxj.utilslibrary.utils.ActivityManageUtil;
 import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
+import com.zxj.utilslibrary.utils.UIUtil;
 
+
+import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 
 /**
  * 首页Acitivity
  */
-public class MainActivity extends LKWordBaseActivity {
+public class MainActivity extends LKWordBaseActivity implements  MPermission.PermissionCallbacks {
 
     @BindView(R.id.left_drawer)
     FrameLayout frameLeft;
@@ -63,8 +70,10 @@ public class MainActivity extends LKWordBaseActivity {
 
     @Override
     public void doBusiness(Context context) {
+        getMPermission();
         subscribeEvent();
         initFragment();
+        ToastUtil.showToastShort("我是热修复之后的插件");
 
     }
     private void subscribeEvent() {
@@ -83,8 +92,8 @@ public class MainActivity extends LKWordBaseActivity {
                                     public void onSuccess(BaseReponse loginReponse) {
                                         if (loginReponse.isSuccess()){
                                             SPUtil.saveObject(Constants.LOGININFO_KEY,loginReponse);
-                                            RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER,null));
                                         }
+                                        RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER,null));
                                     }
 
                                     @Override
@@ -149,5 +158,49 @@ public class MainActivity extends LKWordBaseActivity {
         }
     }
 
+    /**
+     * 获取权限
+     */
+    public void getMPermission(){
+        if (MPermission.hasPermissions(this, Manifest.permission.READ_PHONE_STATE,Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            // Have permission, do the thing!
 
+//          ToastUtil.showToastShort("TODO: Camera things");
+        } else {
+            // Ask for one permission
+            MPermission.requestPermissions(this, UIUtil.getString(R.string.rationale_read_external), Constants.READ_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE,Manifest.permission.READ_EXTERNAL_STORAGE);
+        }
+}
+
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms) {
+
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> perms) {
+        if (MPermission.somePermissionPermanentlyDenied(this, perms)) {
+            new MPermissionSettingsDialog.Builder(this).build().show();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == MPermissionSettingsDialog.DEFAULT_SETTINGS_REQ_CODE) {
+            // Do something after user returned from app settings screen, like showing a Toast.
+            ToastUtil.showToastShort(R.string.returned_from_app_settings_to_activity+"");
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            //相机获取权限返回结果
+            case Constants.READ_EXTERNAL_STORAGE:
+                getMPermission();
+                break;
+        }
+    }
 }

@@ -2,6 +2,8 @@ package com.shenyu.laikaword.bean.reponse;
 
 import com.shenyu.laikaword.bean.BaseReponse;
 
+import java.util.List;
+
 /**
  * Created by shenyu_zxjCode on 2017/10/11 0011.
  */

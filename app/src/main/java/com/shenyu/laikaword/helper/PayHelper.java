@@ -2,6 +2,9 @@ package com.shenyu.laikaword.helper;
 
 import android.app.Activity;
 
+import com.shenyu.laikaword.bean.BaseReponse;
+import com.shenyu.laikaword.retrofit.ApiCallback;
+import com.shenyu.laikaword.retrofit.RetrofitUtils;
 import com.zxj.parlibary.alipay.AliPayAPI;
 import com.zxj.parlibary.alipay.AliPayReq2;
 import com.zxj.parlibary.qqpay.QQPayAPI;
@@ -12,6 +15,11 @@ import com.zxj.parlibary.resultlistener.QqPayListener;
 import com.zxj.parlibary.wechatpay.WechatPayAPI;
 import com.zxj.parlibary.wechatpay.WechatPayReq;
 import com.zxj.utilslibrary.utils.ToastUtil;
+
+import java.util.Map;
+
+import rx.Observable;
+import rx.Subscriber;
 
 /**
  * Created by shenyu_zxjCode on 2017/9/26 0026.
@@ -49,7 +57,9 @@ public class PayHelper {
      * 安全的支付宝支付测试
      * 支付宝支付
      */
-    public static  void testAliPaySafely(Activity activity,OnAliPayListener onAliPayListener){
+
+
+    public static  void testAliPaySafely(String orderInfo,Activity activity,OnAliPayListener onAliPayListener){
         String partner          = "";
         String seller           = "";
         String outTradeNo       = "";
@@ -58,25 +68,22 @@ public class PayHelper {
         String orderBody        = "";
         String callbackUrl      = "";
 
-
-        String rawAliOrderInfo = new AliPayReq2.AliOrderInfo()
-                .setPartner(partner) //商户PID || 签约合作者身份ID
-                .setSeller(seller)  // 商户收款账号 || 签约卖家支付宝账号
-                .setOutTradeNo(outTradeNo) //设置唯一订单号
-                .setSubject(orderSubject) //设置订单标题
-                .setBody(orderBody) //设置订单内容
-                .setPrice(price) //设置订单价格
-                .setCallbackUrl(callbackUrl) //设置回调链接
-                .createOrderInfo(); //创建支付宝支付订单信息
+//        String rawAliOrderInfo = new AliPayReq2.AliOrderInfo()
+//                .setPartner(partner) //商户PID || 签约合作者身份ID
+//                .setSeller(seller)  // 商户收款账号 || 签约卖家支付宝账号
+//                .setOutTradeNo(outTradeNo) //设置唯一订单号
+//                .setSubject(orderSubject) //设置订单标题
+//                .setBody(orderBody) //设置订单内容
+//                .setPrice(price) //设置订单价格
+//                .setCallbackUrl(callbackUrl) //设置回调链接
+//                .createOrderInfo(); //创建支付宝支付订单信息
 
 
         //TODO 这里需要从服务器获取用商户私钥签名之后的订单信息
 //        String signAliOrderInfo = getSignAliOrderInfoFromServer(rawAliOrderInfo);
-        String signAliOrderInfo = null;
         AliPayReq2 aliPayReq = new AliPayReq2.Builder()
                 .with(activity)//Activity实例
-                .setRawAliPayOrderInfo(rawAliOrderInfo)//set the ali pay order info
-                .setSignedAliPayOrderInfo(signAliOrderInfo) //set the signed ali pay order info
+                .setSignedAliPayOrderInfo(orderInfo) //set the signed ali pay order info
                 .create()//
                 .setOnAliPayListener(onAliPayListener);//
         AliPayAPI.getInstance().sendPayReq(aliPayReq);
@@ -110,5 +117,27 @@ public class PayHelper {
                 .setSig(sig)
                 .create();
         QQPayAPI.getInstance().sendPayReq(qqPayReq, onAliPayListener);
+    }
+
+    /**
+     * 余额支付
+     */
+    public   void yuePay(Map<String,String> param){
+        RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.createOrder(param), new ApiCallback<BaseReponse>() {
+            @Override
+            public void onSuccess(BaseReponse model) {
+
+            }
+
+            @Override
+            public void onFailure(String msg) {
+
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        });
     }
 }

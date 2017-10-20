@@ -22,7 +22,7 @@ public class StepBar extends View {
 
     /**未完成的步骤的颜色*/
 
-    public static final int COLOR_BAR_UNDONE=UIUtil.getColor(R.color.lightgray);
+    public static final int COLOR_BAR_UNDONE=UIUtil.getColor(R.color.red_40);
 
     /**完成步骤的颜色*/
 

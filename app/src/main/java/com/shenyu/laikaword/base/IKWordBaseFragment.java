@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.shenyu.laikaword.helper.LoadViewHelper;
 import com.shenyu.laikaword.interfaces.IBaseFragment;
 import com.shenyu.laikaword.rxbus.RxSubscriptions;
 import com.trello.rxlifecycle2.components.RxFragment;
@@ -29,6 +30,7 @@ public abstract class IKWordBaseFragment extends com.trello.rxlifecycle2.compone
     protected boolean isViewInitiated;
     protected boolean isDataLoaded;
     protected Subscription mRxSub;
+    public LoadViewHelper loadViewHelper;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -77,6 +79,7 @@ public abstract class IKWordBaseFragment extends com.trello.rxlifecycle2.compone
 
     public boolean prepareRequestData(boolean forceUpdate) {
         if (getUserVisibleHint() && isViewInitiated && (!isDataLoaded || forceUpdate)) {
+            loadViewHelper = LoadViewHelper.instanceLoadViewHelper();
             setupFragmentComponent();
             requestData();
             isDataLoaded = true;

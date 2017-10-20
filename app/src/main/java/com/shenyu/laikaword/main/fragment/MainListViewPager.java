@@ -11,10 +11,15 @@ import android.widget.TextView;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.adapter.CommonAdapter;
 import com.shenyu.laikaword.adapter.ViewHolder;
+import com.shenyu.laikaword.adapter.wrapper.EmptyWrapper;
 import com.shenyu.laikaword.base.BaseViewPager;
 import com.shenyu.laikaword.bean.reponse.GoodBean;
+import com.shenyu.laikaword.bean.reponse.LoginReponse;
 import com.shenyu.laikaword.bean.reponse.ShopMainReponse;
 import com.shenyu.laikaword.common.Constants;
+import com.shenyu.laikaword.helper.GridDividerItemDecoration;
+import com.shenyu.laikaword.helper.GridSpacingItemDecoration;
+import com.shenyu.laikaword.module.login.activity.LoginActivity;
 import com.shenyu.laikaword.module.shop.activity.ConfirmOrderActivity;
 import com.shenyu.laikaword.module.shop.activity.ShopDateilActivity;
 import com.shenyu.laikaword.rxbus.RxBus;
@@ -41,6 +46,7 @@ public class MainListViewPager extends BaseViewPager {
 
     RecyclerView recycleView;
     CommonAdapter commonAdapter;
+    EmptyWrapper emptyWrappe;
     List<ShopMainReponse.PayloadBean.GoodsBean> goods;
     List<GoodBean> listBeans=new ArrayList<>();
     private int mType=0;
@@ -57,16 +63,19 @@ public class MainListViewPager extends BaseViewPager {
         View view = UIUtil.inflate(R.layout.fragment_list);
         recycleView = view.findViewById(R.id.recycle_view);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(mActivity,2);
+        gridLayoutManager.setAutoMeasureEnabled(true);
         recycleView.setLayoutManager(gridLayoutManager);
+        recycleView.addItemDecoration(new GridSpacingItemDecoration(2,(int) UIUtil.dp2px(10),true));
         return view;
     }
 
     @Override
     public void initData() {
         goods = (List<ShopMainReponse.PayloadBean.GoodsBean>) SPUtil.readObject(Constants.MAIN_SHOP_KEY);
+
         commonAdapter=new CommonAdapter<GoodBean>(R.layout.item_home_shop,listBeans) {
             @Override
-            protected void convert(ViewHolder holder, GoodBean listBean, int position) {
+            protected void convert(ViewHolder holder, final GoodBean listBean, int position) {
                 Picasso.with(UIUtil.getContext()).load(listBean.getGoodsImage()).placeholder(R.mipmap.yidong_icon).error(R.mipmap.yidong_icon).into((ImageView) holder.getView(R.id.iv_main_shop_img));
                 holder.setText(R.id.tv_main_shop_name, listBean.getGoodsName());
                 holder.setText(R.id.tv_main_shop_original_price, "￥"+listBean.getOriginPrice());
@@ -79,7 +88,11 @@ public class MainListViewPager extends BaseViewPager {
                 holder.setOnClickListener(R.id.tv_main_shop_purchase, new View.OnClickListener() {
           @Override
      public void onClick(View view) {
-        IntentLauncher.with(mActivity).launch(ConfirmOrderActivity.class);
+              LoginReponse loginReponse = (LoginReponse) SPUtil.readObject(Constants.LOGININFO_KEY);
+              if (null==loginReponse) {
+                  IntentLauncher.with(mActivity).launch(LoginActivity.class);
+                  return;
+              }IntentLauncher.with(mActivity).putObjectString("order",listBean).launch(ConfirmOrderActivity.class);
         }
         });
         holder.setOnClickListener(R.id.lv_main_shop, new View.OnClickListener() {
@@ -92,8 +105,11 @@ public class MainListViewPager extends BaseViewPager {
 
         }
         };
+        emptyWrappe = new EmptyWrapper(commonAdapter);
+        emptyWrappe.setEmptyView(R.layout.empty_view);
         subscribeEvent();
-        recycleView.setAdapter(commonAdapter);
+        recycleView.setAdapter(emptyWrappe);
+
         setData(mType);
         }
 
@@ -139,7 +155,7 @@ private void  setData(int position){
         break;
 
         }
-        commonAdapter.notifyDataSetChanged();
+    emptyWrappe.notifyDataSetChanged();
         }
 
 private void subscribeEvent() {

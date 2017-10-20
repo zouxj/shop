@@ -5,8 +5,6 @@ import com.shenyu.laikaword.bean.BaseReponse;
 import java.io.Serializable;
 import java.util.List;
 
-import io.reactivex.exceptions.OnErrorNotImplementedException;
-
 /**
  * Created by shenyu_zxjCode on 2017/9/29 0029.
  */

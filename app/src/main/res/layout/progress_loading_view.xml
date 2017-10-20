@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/loadingStateRelativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ProgressBar
+        android:id="@+id/loadingStateProgressBar"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:indeterminateDrawable="@drawable/progressbar_circle"
+        android:indeterminateDuration="1200"
+        android:layout_centerInParent="true"/>
+
+</RelativeLayout>

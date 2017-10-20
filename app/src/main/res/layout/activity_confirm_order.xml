@@ -1,44 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:background="@color/main_bg_gray"
-    android:scrollbars="none"
     android:layout_height="match_parent"
-    tools:context="com.shenyu.laikaword.module.shop.activity.ConfirmOrderActivity"
-    >
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="com.shenyu.laikaword.module.shop.activity.ConfirmOrderActivity">
 <include layout="@layout/toolbar_layout"/>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:paddingLeft="9dp"
-        android:paddingRight="9dp"
-        android:background="@color/white"
-        android:layout_height="43dp">
-
-        <TextView
-            android:id="@+id/tv_confirm_order_consignee"
-            android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:textSize="@dimen/text_size_14sp"
-            android:textColor="@color/color_333"
-            android:text="收货人:来卡小猪"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:text="13266834341"
-            android:textColor="@color/color_333"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:textSize="@dimen/text_size_14sp"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
     <LinearLayout
-        android:layout_marginTop="9dp"
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:background="@color/white"
@@ -47,19 +17,24 @@
             android:layout_width="match_parent"
             android:orientation="horizontal"
             android:layout_height="43dp">
-            <com.shenyu.laikaword.widget.CircleImageView
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="卖家:"
+                style="@style/bank_add_one"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/imge_head"
                 android:layout_width="21dp"
                 android:layout_height="21dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
-                android:src="@mipmap/ic_launcher"
                 />
             <TextView
+                android:id="@+id/tv_name"
                 android:layout_gravity="center_vertical"
                 android:textSize="@dimen/text_size_12sp"
                 android:layout_width="wrap_content"
-                android:text="带刺的玫瑰"
-                android:layout_marginLeft="2dp"
+                android:layout_marginLeft="8dp"
                 android:textColor="@color/color_666"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -71,10 +46,10 @@
             android:layout_height="match_parent">
 
             <ImageView
+                android:id="@+id/img_order"
                 android:layout_marginLeft="10dp"
                 android:layout_width="121dp"
                 android:layout_gravity="center_vertical"
-                android:background="@mipmap/yidong_icon"
                 android:layout_height="80dp" />
 <RelativeLayout
     android:layout_marginLeft="18dp"
@@ -87,14 +62,17 @@
         android:layout_gravity="center_vertical"
         android:layout_height="wrap_content">
         <TextView
-            android:text="100元移动充值卡"
+            android:id="@+id/tv_shop_name"
+            android:text=""
             android:textSize="@dimen/text_size_14sp"
             android:textColor="@color/color_666"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
+            android:id="@+id/tv_zhegou"
             android:background="@drawable/bg_bodre_zhekou_rectangle"
             android:text="9.3折"
+            android:textColor="@color/main_item_orange"
             android:layout_marginLeft="5dp"
             android:gravity="center"
             android:textSize="10sp"
@@ -116,14 +94,13 @@
                 android:textSize="18sp"
                 android:layout_alignParentBottom="true"
                 android:gravity="bottom"
-                android:layout_marginLeft="11dp"
                 android:textColor="@color/app_theme_red"
-                android:text="￥94"
+                android:text=""
                 android:layout_height="match_parent" />
             <TextView
                 android:id="@+id/tv_main_shop_original_price"
                 android:textSize="10sp"
-                android:text="￥100"
+                android:text=""
                 android:gravity="bottom"
                 android:layout_alignParentBottom="true"
                 android:textColor="@color/color_ccc"
@@ -139,7 +116,7 @@
             android:id="@+id/tv_main_shop_purchase"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:text="剩余数量 : 10"
+            android:text=""
             android:textColor="@color/color_333"
             android:textSize="@dimen/text_size_14sp"
             android:gravity="center"
@@ -187,22 +164,32 @@
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="228dp">
-
+<TextView
+    android:layout_width="match_parent"
+    android:gravity="center_vertical"
+    android:text="支付方式"
+    android:layout_marginLeft="10dp"
+    android:textColor="@color/color_333"
+    android:textSize="@dimen/text_size_14sp"
+    android:layout_height="54dp" />
+        <include layout="@layout/line_view"/>
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rl_pay_type"
             android:scrollbars="none"
             android:layout_width="match_parent"
-            android:layout_height="228dp">
+            android:layout_height="wrap_content">
         </android.support.v7.widget.RecyclerView>
     </LinearLayout>
 
-
+    <TextView
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
     <RelativeLayout
         android:background="@color/white"
-        android:layout_marginTop="23dp"
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_height="47dp">
+        android:layout_gravity="bottom"
+        android:layout_height="48dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -215,6 +202,7 @@
             android:text="合计："
             />
         <TextView
+            android:id="@+id/tv_price_count"
             android:layout_marginLeft="144dp"
             android:layout_width="wrap_content"
             android:gravity="center"
@@ -222,7 +210,6 @@
             android:textSize="@dimen/text_size_14sp"
             android:layout_height="wrap_content"
             android:textColor="@color/app_theme_red"
-            android:text="￥94"
             />
         <TextView
             android:id="@+id/tv_to_pay"
@@ -237,8 +224,3 @@
 
     </RelativeLayout>
 </LinearLayout>
-
-
-
-
-</ScrollView>

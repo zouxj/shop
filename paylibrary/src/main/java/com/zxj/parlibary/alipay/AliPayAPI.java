@@ -53,7 +53,9 @@ public class AliPayAPI {
     public void sendPayReq(AliPayReq2 aliPayReq2){
         aliPayReq2.send();
     }
-
+    public String sendPayReqrx(AliPayReq2 aliPayReq2){
+       return aliPayReq2.sendrx();
+    }
 
     /**
      * 支付宝支付配置

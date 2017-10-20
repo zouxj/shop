@@ -1,7 +1,6 @@
 package com.shenyu.laikaword.main;
 
 import com.shenyu.laikaword.base.BaseLoadView;
-import com.shenyu.laikaword.bean.reponse.ShopBeanReponse;
 import com.shenyu.laikaword.bean.reponse.ShopMainReponse;
 
 import java.util.List;

@@ -178,5 +178,6 @@ public class CardBankInfoActivity extends LKWordBaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        RxSubscriptions.remove(mRxSub);
     }
 }

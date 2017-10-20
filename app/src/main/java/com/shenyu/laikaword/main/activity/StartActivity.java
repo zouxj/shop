@@ -41,7 +41,7 @@ public class StartActivity extends LKWordBaseActivity {
         }else {
             if(StringUtil.validText(usename)&&StringUtil.validText(password)){
                     //TODO 登录进入APP
-                login();
+//                login();
             }else{
                 //TODO 没有登录过直接延时进入主页面
                 Observable.timer(2, TimeUnit.SECONDS).subscribe(new Action1<Long>() {
@@ -61,24 +61,24 @@ public class StartActivity extends LKWordBaseActivity {
     public void setupActivityComponent() {
 
     }
-    public void login(){
-        NetWorks.loginUser(usename, password, new SimpleCallback<UserReponse>() {
-            @Override
-            public void onStart() {
-
-            }
-
-            @Override
-            public void onNext(UserReponse userReponse) {
-                IntentLauncher.with(mActivity).launch(MainActivity.class);
-                finish();
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        });
-
-    }
+//    public void login(){
+//        NetWorks.loginUser(usename, password, new SimpleCallback<UserReponse>() {
+//            @Override
+//            public void onStart() {
+//
+//            }
+//
+//            @Override
+//            public void onNext(UserReponse userReponse) {
+//                IntentLauncher.with(mActivity).launch(MainActivity.class);
+//                finish();
+//            }
+//
+//            @Override
+//            public void onComplete() {
+//
+//            }
+//        });
+//
+//    }
 }

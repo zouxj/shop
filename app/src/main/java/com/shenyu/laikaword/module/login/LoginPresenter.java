@@ -2,28 +2,20 @@ package com.shenyu.laikaword.module.login;
 
 import android.Manifest;
 import android.app.Activity;
-import android.util.Log;
 import android.widget.TextView;
 
 import com.leo618.mpermission.MPermission;
 import com.shenyu.laikaword.LaiKaApplication;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.BasePresenter;
-import com.shenyu.laikaword.bean.BaseResponse;
-import com.shenyu.laikaword.bean.ReRequest;
 import com.shenyu.laikaword.bean.reponse.LoginReponse;
-import com.shenyu.laikaword.bean.reponse.UserReponse;
 import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.helper.SendMsgHelper;
-import com.shenyu.laikaword.http.NetWorks;
-import com.shenyu.laikaword.http.uitls.SimpleCallback;
 import com.shenyu.laikaword.interfaces.BaseUiListener;
 import com.shenyu.laikaword.main.activity.MainActivity;
 import com.shenyu.laikaword.retrofit.ApiCallback;
-import com.tencent.connect.UserInfo;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.zxj.utilslibrary.utils.IntentLauncher;
-import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
@@ -98,7 +90,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
             loginWX();
         } else {
             // Ask for one permission
-            MPermission.requestPermissions(mActivity, UIUtil.getString(R.string.rationale_camera), Constants.READ_PHONE_STATE, Manifest.permission.READ_PHONE_STATE);
+            MPermission.requestPermissions(mActivity,"微信登录需要获取"+ UIUtil.getString(R.string.read_phone_state), Constants.READ_PHONE_STATE, Manifest.permission.READ_PHONE_STATE);
         }
 
     }
@@ -107,7 +99,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
             SendAuth.Req req = new SendAuth.Req();
             req.scope = "snsapi_userinfo";
             Constants.WXSTATE= UUID.randomUUID().toString();
-            req.state =  Constants.WXSTATE;;
+            req.state =  Constants.WXSTATE;
             LaiKaApplication.iwxapi.sendReq(req);
         } else {
             ToastUtil.showToastLong("您尚未安装微信");

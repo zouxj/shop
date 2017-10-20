@@ -25,7 +25,7 @@ import butterknife.BindView;
 public class AmountView extends LinearLayout implements View.OnClickListener, TextWatcher {
     private static final String TAG = "AmountView";
     TextView btnDecrease;
-    EditText etAmount;
+    public  EditText etAmount;
     TextView btnIncrease;
     private int amount = 1; //购买数量
     private int goods_storage = 1; //商品库存
@@ -43,7 +43,7 @@ public class AmountView extends LinearLayout implements View.OnClickListener, Te
 
         LayoutInflater.from(context).inflate(R.layout.view_amount, this);
 
-        etAmount = (EditText) findViewById(R.id.etAmount);
+        etAmount = findViewById(R.id.etAmount);
 
         btnDecrease = findViewById(R.id.btnDecrease);
 

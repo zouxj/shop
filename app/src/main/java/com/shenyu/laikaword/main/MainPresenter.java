@@ -1,5 +1,6 @@
 package com.shenyu.laikaword.main;
 
+import android.app.Activity;
 import android.widget.ImageView;
 
 import com.shenyu.laikaword.R;
@@ -31,9 +32,7 @@ import rx.subscriptions.CompositeSubscription;
  */
 
 public class MainPresenter extends BasePresenter<MainView> {
-    /**
-     * 订阅下载进度
-     */
+
     private CompositeSubscription rxSubscriptions = new CompositeSubscription();
     public MainPresenter(MainView mainView){
         this.mvpView = mainView;
@@ -41,6 +40,7 @@ public class MainPresenter extends BasePresenter<MainView> {
     }
     public void requestData(){
         //TODO 请求商品数据
+        mvpView.isLoading();
         addSubscription(apiStores.getMainShop(), new ApiCallback<ShopMainReponse>() {
             @Override
             public void onSuccess(ShopMainReponse model) {
@@ -50,12 +50,12 @@ public class MainPresenter extends BasePresenter<MainView> {
 
             @Override
             public void onFailure(String msg) {
-
+                mvpView.loadFailure();
             }
 
             @Override
             public void onFinish() {
-
+                mvpView.loadFinished();
             }
         });
 

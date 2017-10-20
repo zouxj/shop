@@ -10,16 +10,20 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import com.githang.statusbar.StatusBarCompat;
 import com.shenyu.laikaword.R;
+import com.shenyu.laikaword.helper.LoadViewHelper;
 import com.shenyu.laikaword.interfaces.IBaseActivity;
 import com.shenyu.laikaword.rxbus.RxBusSubscriber;
 import com.shenyu.laikaword.rxbus.RxSubscriptions;
 import com.shenyu.laikaword.widget.loaddialog.LoadingDialog;
+import com.shenyu.laikaword.widget.loaddialog.ProgressLayout;
 import com.zxj.utilslibrary.utils.ActivityManageUtil;
 import com.zxj.utilslibrary.utils.KeyBoardUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
@@ -37,8 +41,8 @@ public abstract class LKWordBaseActivity extends AppCompatActivity implements IB
     protected  TextView mToolbarSubTitle;
     protected  Toolbar mToolbar;
     protected  TextView mLeftTitile;
-    protected  static  LoadingDialog ld;
     protected Subscription mRxSub;
+    protected LoadViewHelper loadViewHelper;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,10 +55,7 @@ public abstract class LKWordBaseActivity extends AppCompatActivity implements IB
         ActivityManageUtil.getAppManager().addActivity(this);
         initToolBar();
         initView();
-        ld =new LoadingDialog(this);
-        ld.setLoadingText("加载中")
-                .setSuccessText("加载成功")//显示加载成功时的文字
-                .setFailedText("加载失败");
+        loadViewHelper = LoadViewHelper.instanceLoadViewHelper();
         doBusiness(this);
         
     }
@@ -205,4 +206,6 @@ public abstract class LKWordBaseActivity extends AppCompatActivity implements IB
             }
         }
     }
+
+
 }

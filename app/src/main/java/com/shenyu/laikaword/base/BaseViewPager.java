@@ -5,13 +5,14 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.shenyu.laikaword.R;
+import com.shenyu.laikaword.bean.reponse.CarPagerReponse;
 import com.zxj.utilslibrary.utils.UIUtil;
 
 /**
  * Created by shenyu_zxjCode on 2017/10/16 0016.
  */
 
-public abstract class BaseViewPager {
+public abstract class BaseViewPager<T> {
     public Activity mActivity;
     public View mRootView;
     public FrameLayout flContent;//内容
@@ -27,8 +28,10 @@ public abstract class BaseViewPager {
         flContent.addView(initView());
     }
     public abstract View initView();
+    public void initData(T t,int postion){
+
+    }
     public void initData(){
 
     }
-
 }

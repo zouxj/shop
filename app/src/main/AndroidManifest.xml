@@ -24,7 +24,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".main.activity.StartActivity">
@@ -80,13 +80,13 @@
         <!-- hotfix配置 -->
         <meta-data
             android:name="com.taobao.android.hotfix.IDSECRET"
-            android:value="24628347-1" />
+            android:value="24659306-1" />
         <meta-data
             android:name="com.taobao.android.hotfix.APPSECRET"
-            android:value="14a16507399802762cf86f0dc48cd8f4" />
+            android:value="ecdc301c7fac7e942eeb76031d237e7b" />
         <meta-data
             android:name="com.taobao.android.hotfix.RSASECRET"
-            android:value="MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCoew7zYlnZoaJnU8R3ZbQ1drdndY             2o88U6TfulXzWlH9KOqy7FY08BUKirsrNEM01/NpotGQGJavYo1braLqutak7+OxT50ajYxRmI2nXBelWmhFz5a9WbuZ             Srtn97GNg2pmAaHfPcIFojDsdj3+5Q07KDVvoZb1w4GEMD60bJcYKqB+UtfoWIN4AI1uriTwiouYpFKWeuW0xOWVeqmC             doOhPkrG9dyjmgVFkJ3sD94sO9OVD8jBl1h6tili1Mrf8FtBHwFvj1SAUC/SBZhXPB4V/GcVnyLqabc8FLeufW2zFUXe             SbLUaedL5u+64Jn9u7MqW6oRUCk/xySSFugdJjAgMBAAECggEAc7fZ4/bYSa9H0XpqhatYJCR/AdNu0e1kuJAZWFNVkC             2UPCN9Q1vbRsb0osFheWVXRBnnuTPkp1LM8e0ionrNtZU/3kQMOy3yr7houmN538K7k1x0U2fqVkQXxfzaAF1nG9oYRb             fu53FdF5kt//4tPFy6zpTtwIyJJYocdVOi0fZC3Ws0a4ILLjGQ3pUFKz+gzMjm95bGmW8HufJ4wA5O9c31KdKjRM2303             3GNIFoWDWi8i+VglmjEk3Br+A1wvX8j2j8Exd7bxyDjLga6vCzzXU07g2k5E0D6zSIE/6xNihUgYykvvu3In9g12QAm4             GU3+NSlcDJNGLM0CuSE3sWGQKBgQDnQY9FstHn9YLySDDgaDA0Qb7ceRXc1IN7mXJ09Kq1Ye8JplAbYGlq6CjlwrLPZK             X4sqay8/Qvu4K6GxI0GT4+E9ed7XcqHYrbyEmH2wXPAlaOyRrYW857ZAuIOjaQH2mBD5WNDt/GjJ9nL+7Lw0XqPxCT6V9             2smHLfn8NMcTllwKBgQC6gf1NOHMIr3BOcPcY0w2UeyAIvTePA0hL9IBRXUkoaIGzR/qahrJgRxBl1mPckb9atqj7Nro+             l5Eji5qTnUcR4iZeF1b36xfIlx2V05lZ8to/d/OgyEJPPPpiLukCjn4rFGradY6LbQaCxDN14mcROnp4LoT0pQnSb6ZT3             x6LFQKBgQC9/RyJ9HmDCi8Egc617qL7q6/0Tf5qKKXE27Iu5/t/fO/3i41wkGrLC+TdrnFc9aFtishtaQMKXBDweOEhsEN             0mLSh6L/n99Fm80uFs6k4AwG92PaXHgWrVewrhTfifAwfngANnVS3ODyVd8nF2a4M3rbt7eMiDzdNCaWz31mWDQKBgFUv9             nCE7hXzfAp4EoTmMXe2XUVgl7Xcu/LldI61Wyr3wPYQVGisSWEsVFMPf4FJmOtoLvq/XoYkWIixxSLTXZjPgNLNOk32tWB             LlZnPkmXBROpkcYTos1DZ+0tJPeiLCRnIM54gv8DzRVwJHbAkfwsheLrYFKZhk4DoukHo0VyZAoGAMhFUl8qtFz2J+npsw/             mQG4rByEwKm7FrjmwXEvrB0r6fVQG9PGOhqND51RH2r2TXFzv/BaW/gBHcoBeTBipR+tWlvIPJk3Dy6ldukO+RQ/43262AuI             b+fKUt2g0IXtxe2+gMtA/+o+6O4J20kd6YOBStIt/zxtQ/1sI2kBKktT8=" />
+            android:value="MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCh2EpzZ3jSFQgAGWmdKO2xKECg4u1RIXaUfD0eaoPxcFc6KHC+SfJHtYGYI9NsvgFFt2llBVZtAd/qJWetjSywFJSBJVEJILRvHcEiHErKiN5j+wIJ7vK3sYI628pCOAYcbA2U0z73mGOG3XbEidCU0vCPsCW4Lx3EFb+Ac64JgpgA/0BIMH4Y7NHWHFZHWtGMu2CpYkPDyfR1AOx8lqyQLepC4Ltby9YhCbFRzs/5fjA0axrRvXpJ5ouhU7NZwj5iUFzsA+khfU1QoWa/InQAGoKmEcC0yIDwOM0zBDs6rwt7z4RT0wtj1UQD9R7LpXHqd6JpD7oSDmAmwm5Xk3GNAgMBAAECggEAaOuE6Get5dOIijfvRdkgrnZ/30z9uFjPPNeF78/xlXXUtnk9Db92d5JtXynqiFZtELskcj8Rlj1e4bY6DkK1M7lDxK1iaV5wWpCZgfmBaudr9Ljmy3XCl99Vo76U0nTrUUWjUFXaPjzmWKn9ss/9Dl3pYd05trukule2/BkCPFsIMtTX7smKAoTZ5FQKbenoc01c7SLw5DWLB9EC/PuOGHNaR0cSRozUb8sHyCsKDLdbR2nu2NY6L7uXHqQunH9o9DNyzyq8PBYmrWjGR/l4ZoT0a6j7nvdIobCyg0HN3hV8iSC1Lg/cSejyDjKogGTcAC5XV1CG4laOT+ebhAJZwQKBgQDsmqwfET6lmgr7sgfak5upxg9nr3hXrP5g/defgwshcpH1NAzRv0bFZzTsMnR5S4l3pzKY1eQYr7e9FPbOz/5RrbdwH5q/97Hik4MpfaeSaa0HaiQaVj+GUaIg4OJxzRXkVAIEYOU3B7XeGqw1YuIsvkfvUx6f54O/mFeSn7EHqQKBgQCvHLwgMUiuO3m/0Lk0Q4/H1J2tvRfP95GBt9na/wZowhXAqxXYrpb0hdJ1ciaKvc5+vPvUSaTkkrZpc2jNu8bnj+Ady1Q1KT/+doCdGusP3RYzwXgoHGfXUO+Pb048ffSUkzrr2WYPfuHm4vQnFH5ogxJ6i1sT6A8yVbfCZsH5RQKBgGTyJMdoexr6Wv9B2Ln3yi0n9ICfS6/Uff9xreI/batKj11XZLTEb/Re8SRo7mqlwLPNIPg2IYgqyDCi1h4sfWvput7ajRKkIj/yAb7c/naoIYuNTHP0IkwzXgG7EMHO5y0wbl/h20mcP4rQRHLOioLeeCByjRlaFErVO1+yRDxpAoGAUVLi+4Bn5KKydCaXHHKT/5X6dIlw2aB77uZXQqFVdKlOOOA7kRnj+UN87hZJV/22PJ2/xmM9NPn9xRNYBNPEGB51UuDvBpFVqvOV32B08jUW7opXJymqABEScGacyvMj9yw5HPclsuSWPQgBo3SdECRvHIJDlgcbp6CvapUWWJECgYEAyLJW4iWtEdRomairdSwT/TvDMyuRpGJIfnYxrsugm6mG9kNJK815TP8tgsk+o2ytJycr0mDkUNJ9a52ApXT3781CtMPArt+QxwSe+r8CTINaYG2XO0oWTOuDS33TcBjBqTETi42jb0ZwgPe7B/cVQHgY/Div3GAtWdmBt92kOuU="/>
 
         <activity android:name=".module.mine.remaining.UserRemainingActivity" />
         <activity android:name=".module.mine.remaining.WthdrawMoneyActivity" />

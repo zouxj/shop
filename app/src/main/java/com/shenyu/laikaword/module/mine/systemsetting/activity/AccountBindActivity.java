@@ -3,7 +3,6 @@ package com.shenyu.laikaword.module.mine.systemsetting.activity;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
@@ -15,8 +14,6 @@ import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.bean.reponse.LoginReponse;
 import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.interfaces.BaseUiListener;
-import com.shenyu.laikaword.main.activity.MainActivity;
-import com.shenyu.laikaword.retrofit.ApiCallback;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.LogUtil;
@@ -26,10 +23,7 @@ import com.zxj.utilslibrary.utils.UIUtil;
 
 import org.json.JSONObject;
 
-import java.util.UUID;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class AccountBindActivity extends LKWordBaseActivity {
@@ -113,7 +107,7 @@ public class AccountBindActivity extends LKWordBaseActivity {
             acountbdWx();
         } else {
             // Ask for one permission
-            MPermission.requestPermissions(mActivity, UIUtil.getString(R.string.rationale_camera), Constants.READ_PHONE_STATE, Manifest.permission.READ_PHONE_STATE);
+            MPermission.requestPermissions(mActivity, UIUtil.getString(R.string.read_phone_state), Constants.READ_PHONE_STATE, Manifest.permission.READ_PHONE_STATE);
         }
 
     }

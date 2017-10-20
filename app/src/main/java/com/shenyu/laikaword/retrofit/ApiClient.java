@@ -1,8 +1,6 @@
 package com.shenyu.laikaword.retrofit;
 
 import com.shenyu.laikaword.common.UrlConstant;
-import com.shenyu.laikaword.http.uitls.CommonParamntercepter;
-import com.shenyu.laikaword.http.uitls.Interceptor.LogInterceptor;
 import com.shenyu.laikaword.http.uitls.OkHttp3Utils;
 
 import okhttp3.OkHttpClient;

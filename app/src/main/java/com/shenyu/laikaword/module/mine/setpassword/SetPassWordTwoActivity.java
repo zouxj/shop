@@ -13,6 +13,7 @@ import com.shenyu.laikaword.rxbus.event.EventType;
 import com.shenyu.laikaword.rxbus.RxBus;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.KeyBoardUtil;
+import com.zxj.utilslibrary.utils.SignUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.widget.countdownview.PayPsdInputView;
 
@@ -45,7 +46,7 @@ public class SetPassWordTwoActivity extends LKWordBaseActivity {
 
             @Override
             public void onEqual(String psd) {
-                RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.setTransactionPIN(psd, codeToken), new ApiCallback<BaseReponse>() {
+                RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.setTransactionPIN(SignUtil.md5(psd), codeToken), new ApiCallback<BaseReponse>() {
                     @Override
                     public void onSuccess(BaseReponse model) {
                         if (model.isSuccess()) {

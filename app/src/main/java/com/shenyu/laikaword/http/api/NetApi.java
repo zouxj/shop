@@ -1,8 +1,7 @@
 package com.shenyu.laikaword.http.api;
 
-import com.shenyu.laikaword.bean.BaseResponse;
+import com.shenyu.laikaword.bean.BaseReponse;
 import com.shenyu.laikaword.bean.ReRequest;
-import com.shenyu.laikaword.bean.reponse.DidiFuResponse;
 import com.shenyu.laikaword.bean.reponse.HeadReponse;
 import com.shenyu.laikaword.bean.reponse.UserReponse;
 
@@ -38,31 +37,31 @@ public interface NetApi {
     //POST请求
     @FormUrlEncoded
     @POST("bjws/app.user/login")
-    Observable<BaseResponse> getVerfcationCodePost(@Field("tel") String tel, @Field("password") String pass);
+    Observable<BaseReponse> getVerfcationCodePost(@Field("tel") String tel, @Field("password") String pass);
 
     //POST请求
     @FormUrlEncoded
     @POST("bjws/app.user/login")
-    Observable<BaseResponse> getVerfcationCodePostMap(@FieldMap Map<String, String> map);
+    Observable<BaseReponse> getVerfcationCodePostMap(@FieldMap Map<String, String> map);
 
     //GET请求
     @GET("router?v=1.0.0&app_key=48e5e13229b82c1b4e6e8c96151f0637&sessio" +
             "n=034b3a932677461b40aeb646131b4a7c&method=glsx.ddcb.mobile.getCommonDeviceList&tim" +
             "estamp=2017-08-01+11%3A05%3A39&softVersion=5.7.1.1&channel=android&format=json&sign=ef11655d85265ae6dab6d1d0d014aabe")
-    Observable<DidiFuResponse> getVerfcationGet();
+    Observable<BaseReponse> getVerfcationGet();
 
 
     //GET请求，设置缓存
     @Headers("Cache-Control: public," + CACHE_CONTROL_CACHE)
     @GET("bjws/app.user/login")
-    Observable<BaseResponse> getVerfcationGetCache(@Query("tel") String tel, @Query("password") String pass);
+    Observable<BaseReponse> getVerfcationGetCache(@Query("tel") String tel, @Query("password") String pass);
 
 
     @Headers("Cache-Control: public," + CACHE_CONTROL_NETWORK)
     @GET("router?v=1.0.0&app_key=48e5e13229b82c1b4e6e8c96151f0637&sessio" +
             "n=034b3a932677461b40aeb646131b4a7c&method=glsx.ddcb.mobile.getCommonDeviceList&tim" +
             "estamp=2017-08-01+11%3A05%3A39&softVersion=5.7.1.1&channel=android&format=json&sign=ef11655d85265ae6dab6d1d0d014aabe")
-    Observable<DidiFuResponse> getMainMenu();
+    Observable<BaseReponse> getMainMenu();
 
     @Multipart
     @POST("appapi/v5_3/image/upload/userHeadPic")

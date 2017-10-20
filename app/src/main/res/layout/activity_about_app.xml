@@ -44,28 +44,29 @@
             android:layout_height="48dp" />
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_gravity="bottom"
+        android:paddingBottom="10dp"
         android:orientation="vertical"
-        android:layout_marginTop="235dp"
-        android:layout_marginBottom="19dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content">
         <TextView
-            android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:textColor="@color/color_999"
+            android:layout_centerHorizontal="true"
             android:textSize="10sp"
+            android:layout_marginBottom="15dp"
+            android:layout_alignParentBottom="true"
             android:text="神羽网络科技 版权所有"
             android:layout_height="wrap_content" />
 
         <TextView
             android:textColor="@color/color_999"
             android:textSize="10sp"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="center_horizontal"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
             android:layout_width="wrap_content"
             android:text="Copyright@2017 ShenYu.All Rights Resvered"
             android:layout_height="wrap_content" />
-    </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>

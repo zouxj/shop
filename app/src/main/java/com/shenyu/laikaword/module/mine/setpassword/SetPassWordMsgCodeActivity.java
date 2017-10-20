@@ -54,11 +54,18 @@ public class SetPassWordMsgCodeActivity extends LKWordBaseActivity {
 
     @Override
     public void doBusiness(Context context) {
-            LoginReponse loginReponse = (LoginReponse) SPUtil.readObject(Constants.LOGININFO_KEY);
 
-        if (null!=loginReponse) {
+            LoginReponse loginReponse = (LoginReponse) SPUtil.readObject(Constants.LOGININFO_KEY);
+            if (null!=loginReponse) {
             final String phone = loginReponse.getPayload().getBindPhone();
-            tvSendMsgPhone.setText(Html.fromHtml("<b>"+ StringUtil.formatPhoneNumber(phone)+"</b>"));
+            if (StringUtil.validText(phone)) {
+                tvSendMsgPhone.setText(Html.fromHtml("<b>" + StringUtil.formatPhoneNumber(phone) + "</b>"));
+            }else {
+                String phones =getIntent().getStringExtra("phone");
+                if (StringUtil.validText(phones)){
+                    tvSendMsgPhone.setText(Html.fromHtml("<b>" + StringUtil.formatPhoneNumber(phones) + "</b>"));
+                }
+            }
             SendMsgHelper.sendMsg(tvDownTime,phone,"setTransactionPIN");
             tvDownTime.setOnClickListener(new View.OnClickListener() {
                 @Override

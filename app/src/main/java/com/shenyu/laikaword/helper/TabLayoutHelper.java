@@ -1,5 +1,6 @@
 package com.shenyu.laikaword.helper;
 
+import android.annotation.SuppressLint;
 import android.content.res.Resources;
 import android.support.design.widget.TabLayout;
 import android.util.TypedValue;
@@ -19,8 +20,10 @@ public class TabLayoutHelper {
      * @param leftDip
      * @param rightDip
      */
+    @SuppressLint("NewApi")
     public static  void setIndicator(TabLayout tabs, int leftDip, int rightDip) {
         Class<?> tabLayout = tabs.getClass();
+        tabs.setElevation(0);
         Field tabStrip = null;
         try {
             tabStrip = tabLayout.getDeclaredField("mTabStrip");

@@ -1,7 +1,11 @@
 package com.zxj.utilslibrary.utils;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
+
 import java.util.Stack;
 
 /**
@@ -116,5 +120,16 @@ public class ActivityManageUtil {
             android.os.Process.killProcess(android.os.Process.myPid());
         } catch (Exception e) {
         }
+    }
+
+
+
+    public static  void resertApp(){
+        Intent intent = UIUtil.getContext().getPackageManager()
+                .getLaunchIntentForPackage(UIUtil.getContext().getPackageName());
+        PendingIntent restartIntent = PendingIntent.getActivity(UIUtil.getContext(), 0, intent, PendingIntent.FLAG_ONE_SHOT);
+        AlarmManager mgr = (AlarmManager)UIUtil.getContext().getSystemService(Context.ALARM_SERVICE);
+        mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 1000, restartIntent); // 1秒钟后重启应用
+        System.exit(0);
     }
 }

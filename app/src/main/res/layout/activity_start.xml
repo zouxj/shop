@@ -5,8 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.shenyu.laikaword.main.activity.StartActivity">
+
 <TextView
-    android:layout_width="match_parent"
-    android:text="我是启动页"
-    android:layout_height="match_parent" />
+    android:drawableTop="@mipmap/ic_launcher"
+    android:layout_width="wrap_content"
+    android:layout_gravity="center"
+    android:drawablePadding="10dp"
+    android:textColor="#bababa"
+    android:textSize="@dimen/text_size_18sp"
+    android:text="@string/app_name"
+    android:layout_height="wrap_content" />
 </FrameLayout>

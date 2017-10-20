@@ -2,6 +2,8 @@ package com.shenyu.laikaword.bean.reponse;
 
 import com.shenyu.laikaword.bean.BaseReponse;
 
+import java.util.List;
+
 /**
  * Created by shenyu_zxjCode on 2017/10/12 0012.
  */
@@ -11,7 +13,6 @@ public class ImgSTSReponse extends BaseReponse {
     /**
      * payload : {"AccessKeySecret":"HETVJFUWvsc35igfuafDUSLnMYmLBybvnKGBmxUQRr2d","AccessKeyId":"STS.LbcGheBWffZjGHbk4oz4FiycF","Expiration":"2017-10-12T09:28:07Z","SecurityToken":"CAIS+QF1q6Ft5B2yfSjIraHWDNLRr4hH0ZiBRW7TjzQ6drtqhrzIpDz2IHtEeHNqAOsctPowmmhX5/YTlqBac6duQU3Ja9coW1aZZpviMeT7oMWQweEuqv/MQBq+aXPS2MvVfJ+KLrf0ceusbFbpjzJ6xaCAGxypQ12iN+/i6/clFKN1ODO1dj1bHtxbCxJ/ocsBTxvrOO2qLwThjxi7biMqmHIl1zImtfXnkpHEtUeP0Aeg8IJP+dSteKrDRtJ3IZJyX+2y2OFLbafb2EZSkUMRpPss1vUfo22Z4Y/FXAgBsg//NPHP78ZiNgZybaUhALRDqPXsAw3BZ2p3f+8agAGWlF0ldIRdpbM7kR6MMo5Mv24IfnAU9wK8DlqIPyqKBgeI5AsexxnKd9KA1lD/KcyPLfl0B37OrR5kWX4ioMWRwFl+saeFoddtqSIroYtXgKFGprfk5Vo3DYK4nKnHbMVxT6qIjKFrQxZvvKA7GicsX8uE28FvGzgb1opWAJjFQQ==","bucketName":"app-upload-img-test"}
      */
-
     private PayloadBean payload;
 
     public PayloadBean getPayload() {

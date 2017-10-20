@@ -109,6 +109,7 @@
         android:text="@string/bank_delete_miaosu"
         android:layout_height="48dp" />
     <LinearLayout
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:background="@color/white"
@@ -125,6 +126,7 @@
     </LinearLayout>
             <include layout="@layout/line_view"/>
     <LinearLayout
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:background="@color/white"

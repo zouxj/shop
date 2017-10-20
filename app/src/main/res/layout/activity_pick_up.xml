@@ -23,16 +23,25 @@
            style="@style/bank_add_one"/>
 
         <TextView
+
             android:id="@+id/tv_tihuo_tianxia"
-            android:drawableRight="@mipmap/right_back"
-            android:drawablePadding="19dp"
+            android:layout_width="250dp"
+            android:text="请填写收货地址"
+            android:gravity="right"
+            android:textSize="@dimen/text_size_14sp"
+            android:textColor="@color/color_999"
+            android:layout_marginRight="14dp"
+            android:layout_toLeftOf="@+id/img_tihuo_tianxia"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/img_tihuo_tianxia"
+            android:background="@mipmap/right_back"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="9dp"
-            android:textSize="@dimen/text_size_13sp"
-            android:textColor="@color/color_999"
             android:layout_width="wrap_content"
-            android:hint="请填写收货地址"
             android:layout_height="wrap_content" />
 
     </RelativeLayout>

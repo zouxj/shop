@@ -14,7 +14,7 @@ public class Constants {
     //SP
     public static final String TOKEN="LOGIN_TOKEN";
     //获取摄像头权限Code
-    public static final int RC_CAMERA_PERM = 123;
+    public static final int READ_EXTERNAL_STORAGE = 123;
     //获取相册全向Code
     public static  final int RC_PHOTO_PERM=125;
     public static final int READ_PHONE_STATE=126;
@@ -23,7 +23,8 @@ public class Constants {
     public static final int REQUEST_IMAGE_GET = 0;
     //相机调取
     public static final int REQUEST_IMAGE_CAPTURE = 1;
-
+    //地址调取
+    public static final int REQUEST_ADDRESS= 2;
     public static final int FRAGEMTN_MAIN_FLOG = 0x001;
     public static final int FRAGEMTN_CARPACK_FLOG = 0x002;
     public static final String QQ_APPID="101425071";

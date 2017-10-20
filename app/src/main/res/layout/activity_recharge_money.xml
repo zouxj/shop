@@ -60,7 +60,7 @@
         android:layout_marginTop="17dp"
         android:layout_marginLeft="29dp"
         android:id="@+id/recharge_rg"
-        android:layout_width="218dp"
+        android:layout_width="wrap_content"
         android:orientation="horizontal"
         android:layout_height="41dp">
 <RadioButton

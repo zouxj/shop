@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="176dp"
+    android:layout_width="match_parent"
     android:id="@+id/lv_main_shop"
-    android:padding="5dp"
+    android:layout_gravity="center"
     android:background="@color/main_bg_gray"
     android:orientation="vertical"
-    android:layout_height="217dp">
+    android:layout_height="207dp">
 <LinearLayout
     android:background="@color/white"
     android:orientation="vertical"
-    android:layout_width="166dp"
+    android:layout_width="match_parent"
     android:layout_height="207dp">
 <ImageView
     android:id="@+id/iv_main_shop_img"

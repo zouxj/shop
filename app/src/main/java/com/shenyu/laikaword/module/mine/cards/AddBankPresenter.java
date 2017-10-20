@@ -54,7 +54,6 @@ public class AddBankPresenter extends BasePresenter<AddBankView> {
             public void onNext(Boolean verify) {
                 if (verify) {
                     //TODO 请求
-                    mvpView.setBankName("已经获取到了银行名字");
                 }else{
 
                 }
@@ -68,32 +67,25 @@ public class AddBankPresenter extends BasePresenter<AddBankView> {
         SendMsgHelper.sendMsg(textView,phone,"phoneLogin");
     }
     //请求添加到银行卡信息
-    public void setAddRequest(String cardNum, String bankName, String bankAddress, String bankPhone, String bankMsgCode, String bankZhangName, String bankUserName, String bankProvince, String bankCity){
+    public void setAddRequest(String cardNum, String bankName, String bankZhangName, String bankUserName, String bankProvince, String bankCity){
         //TODO 添加银行卡信息
         Map<String,String> mapParam = new HashMap<>();
         mapParam.put("name",bankUserName);
         mapParam.put("cardNo",cardNum);
-        mapParam.put("SMSCode",bankMsgCode);
         mapParam.put("bankName",bankName);
         mapParam.put("bankDetail",bankZhangName);
         mapParam.put("province",bankProvince);
         mapParam.put("city",bankCity);
         mapParam.put("default","0");
+        mvpView.isLoading();
         addSubscription(apiStores.setBankCard(mapParam), new ApiCallback<BaseReponse>() {
             @Override
             public void onSuccess(BaseReponse model) {
-                    if (model.isSuccess())
-                        mvpView.loadFinished();
-                    else
+                    if (!model.isSuccess())
                         ToastUtil.showToastShort(model.getError().getMessage());
-
-
+                mvpView.loadFinished();
             }
 
-            @Override
-            public void onStarts() {
-                mvpView.isLoading();
-            }
 
             @Override
             public void onFailure(String msg) {

@@ -6,12 +6,11 @@ import com.shenyu.laikaword.bean.BaseReponse;
  * Created by shenyu_zxjCode on 2017/10/11 0011.
  */
 
-public class CheckAppUpdateReponse extends BaseReponse {
+public class CheckAppUpdateReponse extends BaseReponse{
 
     /**
      * payload : {"newVersion":"2.0.0","type":"1","message":"1.增加了XXX功能\n2.解决了XXX问题\n3.修复了XXXXBUG"}
      */
-
     private PayloadBean payload;
 
     public PayloadBean getPayload() {
@@ -23,7 +22,7 @@ public class CheckAppUpdateReponse extends BaseReponse {
     }
 
     public static class PayloadBean {
-        /**
+         /**
          * newVersion : 2.0.0
          * type : 1
          * message : 1.增加了XXX功能

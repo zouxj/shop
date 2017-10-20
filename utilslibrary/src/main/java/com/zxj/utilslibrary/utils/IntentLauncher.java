@@ -2,8 +2,10 @@ package com.zxj.utilslibrary.utils;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Parcelable;
 
+import java.io.Serializable;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
@@ -62,6 +64,12 @@ public class IntentLauncher {
         mIntent.putStringArrayListExtra(key, value);
         return this;
     }
+    public IntentLauncher putObjectString(String key, Object value) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(key, (Serializable) value);
+        mIntent.putExtras(bundle);
+        return this;
+    }
 
     public IntentLauncher putListParcelable(String key, ArrayList<? extends Parcelable> value) {
         mIntent.putParcelableArrayListExtra(key, value);
@@ -78,4 +86,6 @@ public class IntentLauncher {
             mIntent = null;
         }
     }
+
+
 }

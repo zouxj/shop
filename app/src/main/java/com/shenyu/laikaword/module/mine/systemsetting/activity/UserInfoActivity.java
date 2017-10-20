@@ -1,5 +1,6 @@
 package com.shenyu.laikaword.module.mine.systemsetting.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -13,7 +14,6 @@ import com.shenyu.laikaword.LaiKaApplication;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.bean.reponse.LoginReponse;
-import com.shenyu.laikaword.common.CircleTransform;
 import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.module.mine.MineModule;
 import com.shenyu.laikaword.module.mine.systemsetting.UserInfoPresenter;
@@ -27,7 +27,6 @@ import com.shenyu.laikaword.widget.CircleImageView;
 import com.squareup.picasso.Picasso;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.LogUtil;
-import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
@@ -38,7 +37,6 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 
 /*
 个人信息
@@ -109,6 +107,7 @@ public class UserInfoActivity extends LKWordBaseActivity  implements UserInfoVie
                 break;
             case R.id.set_rl_user_acount_bd:
                 //TODO 更换名字
+                if (loginReponse!=null&&loginReponse.getPayload()!=null)
                 IntentLauncher.with(this).put("USERHEAD",loginReponse.getPayload().getAvatar()).put("USERNAME",loginReponse.getPayload().getNickname()).launch(UpdateUserNameActivity.class);
                 break;
         }
@@ -161,7 +160,7 @@ public class UserInfoActivity extends LKWordBaseActivity  implements UserInfoVie
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
             //相机获取权限返回结果
-            case Constants.RC_CAMERA_PERM:
+            case Constants.READ_EXTERNAL_STORAGE:
                 userInfoPresenter.cameraTask();
                 break;
             //相获取权限返回结果
@@ -197,14 +196,19 @@ public class UserInfoActivity extends LKWordBaseActivity  implements UserInfoVie
         mCurrentPhotoPath = url;
     }
 
+    @SuppressLint("NewApi")
     @Override
     public void setUserInfo(LoginReponse loginReponse) {
-        LogUtil.i(loginReponse.getPayload().getAvatar());
         this.loginReponse= loginReponse;
-        changeTvName.setText(loginReponse.getPayload().getNickname());
-        tvPhone.setText(loginReponse.getPayload().getBindPhone());
-        Picasso.with(UIUtil.getContext()).load(loginReponse.getPayload().getAvatar()) .placeholder(R.mipmap.left_user_icon)
-                .error(R.mipmap.left_user_icon).resize(50, 50).into(setChangeUserHead);
+        if (loginReponse!=null&&null!=loginReponse.getPayload()) {
+            changeTvName.setText(loginReponse.getPayload().getNickname());
+            tvPhone.setText(loginReponse.getPayload().getBindPhone());
+            Picasso.with(UIUtil.getContext()).load(loginReponse.getPayload().getAvatar()).placeholder(R.mipmap.left_user_icon)
+                    .error(R.mipmap.left_user_icon).resize(50, 50).into(setChangeUserHead);
+        }else{
+            changeTvName.setText("");
+            setChangeUserHead.setBackground(UIUtil.getDrawable(R.mipmap.left_user_icon));
+        }
     }
 
     @Override

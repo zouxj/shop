@@ -1,5 +1,9 @@
 package com.shenyu.laikaword.bean;
 
+import com.shenyu.laikaword.bean.reponse.BankInfoReponse;
+
+import java.util.List;
+
 /**
  * Created by shenyu_zxjCode on 2017/9/21 0021.
  */

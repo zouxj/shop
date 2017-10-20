@@ -6,17 +6,18 @@ import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 import com.shenyu.laikaword.bean.BaseReponse;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by shenyu_zxjCode on 2017/9/30 0030.
  */
 
-public class AddressReponse extends BaseReponse {
+public class AddressReponse extends BaseReponse{
 
-    private List<PayloadBean> payload;
+    private List<AddressReponse.PayloadBean> payload;
 
-    public List<PayloadBean> getPayload() {
+    public List<AddressReponse.PayloadBean> getPayload() {
         return payload;
     }
 
@@ -24,7 +25,7 @@ public class AddressReponse extends BaseReponse {
         this.payload = payload;
     }
 
-    public static class PayloadBean implements Parcelable {
+    public static class PayloadBean implements Serializable {
         /**
          * addressId : 1
          * userId : 7
@@ -130,24 +131,7 @@ public class AddressReponse extends BaseReponse {
             this.defaultX = defaultX;
         }
 
-        @Override
-        public int describeContents() {
-            return 0;
-        }
 
-        @Override
-        public void writeToParcel(Parcel dest, int flags) {
-            dest.writeString(this.addressId);
-            dest.writeString(this.userId);
-            dest.writeString(this.receiveName);
-            dest.writeString(this.phone);
-            dest.writeString(this.province);
-            dest.writeString(this.city);
-            dest.writeString(this.district);
-            dest.writeString(this.detail);
-            dest.writeString(this.createTime);
-            dest.writeInt(this.defaultX);
-        }
 
         public PayloadBean() {
         }

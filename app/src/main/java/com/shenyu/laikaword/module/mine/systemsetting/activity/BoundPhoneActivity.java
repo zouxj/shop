@@ -10,9 +10,15 @@ import com.jakewharton.rxbinding.widget.RxTextView;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.bean.BaseReponse;
+import com.shenyu.laikaword.bean.reponse.LoginReponse;
+import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.helper.SendMsgHelper;
+import com.shenyu.laikaword.module.mine.setpassword.SetPassWordMsgCodeActivity;
 import com.shenyu.laikaword.retrofit.ApiCallback;
 import com.shenyu.laikaword.retrofit.RetrofitUtils;
+import com.shenyu.laikaword.rxbus.RxBus;
+import com.shenyu.laikaword.rxbus.event.Event;
+import com.shenyu.laikaword.rxbus.event.EventType;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
@@ -88,12 +94,21 @@ public class BoundPhoneActivity extends LKWordBaseActivity {
             case R.id.bt_login:
                 //TODO 绑定手机号码
                 String code = etUserMsgCode.getText().toString().trim();
-               String phone =etUsePhone.getText().toString().trim();
+               final String phone =etUsePhone.getText().toString().trim();
                 RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.bindPhone(phone, code), new ApiCallback<BaseReponse>() {
                     @Override
                     public void onSuccess(BaseReponse model) {
-                            if (model.isSuccess())
-                        IntentLauncher.with(BoundPhoneActivity.this).launch(AcountBdingSuccessActivity.class);
+                            if (model.isSuccess()){
+                                RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_REQUEST, null));
+                                LoginReponse loginReponse = Constants.getLoginReponse();
+                                if (loginReponse.getPayload().getIsSetTransactionPIN()==0){
+                                    IntentLauncher.with(BoundPhoneActivity.this).put("phone",phone).launch(SetPassWordMsgCodeActivity.class);
+                                }else {
+                                    IntentLauncher.with(BoundPhoneActivity.this).launch(AcountBdingSuccessActivity.class);
+                                }
+                            }else {
+                                ToastUtil.showToastShort(model.getError().getMessage());
+                            }
                     }
 
                     @Override

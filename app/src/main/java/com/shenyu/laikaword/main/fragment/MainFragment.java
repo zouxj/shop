@@ -1,6 +1,7 @@
 package com.shenyu.laikaword.main.fragment;
 
 
+import android.annotation.SuppressLint;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
@@ -120,6 +121,7 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
         RxSubscriptions.remove(mRxSub);
         mRxSub = RxBus.getDefault().toObservable(Event.class)
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(new RxBusSubscriber<Event>() {
+                    @SuppressLint("NewApi")
                     @Override
                     protected void onEvent(Event myEvent) {
                         switch (myEvent.event) {
@@ -128,6 +130,9 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
                                 if (null!=loginReponse) {
                                     Picasso.with(UIUtil.getContext()).load(loginReponse.getPayload().getAvatar()).placeholder(R.mipmap.left_user_icon)
                                             .error(R.mipmap.left_user_icon).resize(50, 50).transform(new CircleTransform()).into(headImg);
+                                }else {
+                                    headImg.setImageBitmap(null);
+                                    headImg.setBackground(UIUtil.getDrawable(R.mipmap.left_user_icon));
                                 }
                                 break;
                         }
@@ -151,12 +156,13 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
     public void doBusiness() {
         setupViewPager();
         LoginReponse loginReponse = (LoginReponse) SPUtil.readObject(Constants.LOGININFO_KEY);
-        if (null!=loginReponse)
-        mainPresenter.setImgHead(loginReponse.getPayload().getAvatar(),headImg);
-        for(int i=0;i<2;i++){
-            data.add("版本更新啦,新会员更多福利"+i);
+        if (null!=loginReponse&&loginReponse.getPayload()!=null) {
+            mainPresenter.setImgHead(loginReponse.getPayload().getAvatar(), headImg);
+            for (int i = 0; i < 2; i++) {
+                data.add("版本更新啦,新会员更多福利" + i);
+            }
+            setNoticeView();
         }
-        setNoticeView();
     }
     /**
      * 初始化头部效果
@@ -204,6 +210,7 @@ public void onClick(View v){
 
     @Override
     public void requestData() {
+
         mainPresenter.requestData();
     }
     private void setupViewPager() {
@@ -213,10 +220,9 @@ public void onClick(View v){
         tabs.setupWithViewPager(viewpager);
     }
 
-
     @Override
     public void isLoading() {
-
+        loadViewHelper.showLoadingDialog(getActivity());
     }
 
     @Override
@@ -226,12 +232,19 @@ public void onClick(View v){
 
     @Override
     public void loadFinished() {
-
+        loadViewHelper.closeLoadingDialog();
     }
 
     @Override
     public void loadFailure() {
-
+        smartRefreshLayout.setVisibility(View.GONE);
+        loadViewHelper.showErrorResert(getActivity(), new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                smartRefreshLayout.setVisibility(View.VISIBLE);
+                mainPresenter.requestData();
+            }
+        });
     }
 
 
@@ -240,7 +253,7 @@ public void onClick(View v){
         setViewpagerTopData(shopBeanReponse.getPayload().getBanner());
         SPUtil.saveObject(Constants.MAIN_SHOP_KEY,shopBeanReponse.getPayload().getGoods());
         RxBus.getDefault().post(new Event(EventType.ACTION_MAIN_SETDATE,shopBeanReponse.getPayload().getGoods()));
-        mainPresenter.timeTask();
+//        mainPresenter.timeTask();
     }
 
     @Override

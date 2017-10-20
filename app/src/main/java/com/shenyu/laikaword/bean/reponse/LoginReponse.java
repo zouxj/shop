@@ -19,7 +19,8 @@ public class LoginReponse extends BaseReponse implements Serializable {
      * payload : {"userId":"13","nickname":"132****4341","avatar":null,"bindPhone":"13266834341","bindWeChat":null,"weChatUnionId":null,"bindQQ":null,"qqOpenId":null,"createTime":"1506649774","isSetTransactionPIN":0,"token":"a81dfr3umpw2duzm1506649774"}
      */
 
-    private PayloadBean payload;
+
+private PayloadBean payload;
 
     public PayloadBean getPayload() {
         return payload;
@@ -30,7 +31,7 @@ public class LoginReponse extends BaseReponse implements Serializable {
     }
 
     @SuppressLint("ParcelCreator")
-    public  class PayloadBean implements Serializable {
+    public static class PayloadBean implements Serializable {
         /**
          * userId : 13
          * nickname : 132****4341
@@ -43,6 +44,7 @@ public class LoginReponse extends BaseReponse implements Serializable {
          * createTime : 1506649774
          * isSetTransactionPIN : 0
          * token : a81dfr3umpw2duzm1506649774
+         *  "money": "100",  //用户余额
          */
 
         private String userId;
@@ -56,6 +58,15 @@ public class LoginReponse extends BaseReponse implements Serializable {
         private String createTime;
         private int isSetTransactionPIN;
         private String token;
+        private String money;
+
+        public String getMoney() {
+            return money;
+        }
+
+        public void setMoney(String money) {
+            this.money = money;
+        }
 
         public String getUserId() {
             return userId;
@@ -145,25 +156,30 @@ public class LoginReponse extends BaseReponse implements Serializable {
             this.token = token;
         }
 
-    }
 
 
-    public LoginReponse() {
-    }
-
-    protected LoginReponse(Parcel in) {
-        this.payload = in.readParcelable(PayloadBean.class.getClassLoader());
-    }
-
-    public static final Parcelable.Creator<LoginReponse> CREATOR = new Parcelable.Creator<LoginReponse>() {
-        @Override
-        public LoginReponse createFromParcel(Parcel source) {
-            return new LoginReponse(source);
+        public PayloadBean() {
         }
 
-        @Override
-        public LoginReponse[] newArray(int size) {
-            return new LoginReponse[size];
+        protected PayloadBean(Parcel in) {
+            this.userId = in.readString();
+            this.nickname = in.readString();
+            this.avatar = in.readString();
+            this.bindPhone = in.readString();
+            this.bindWeChat = in.readString();
+            this.weChatUnionId = in.readString();
+            this.bindQQ = in.readString();
+            this.qqOpenId = in.readString();
+            this.createTime = in.readString();
+            this.isSetTransactionPIN = in.readInt();
+            this.token = in.readString();
+            this.money = in.readString();
         }
-    };
+
+    }
+
+
+
+
+
 }

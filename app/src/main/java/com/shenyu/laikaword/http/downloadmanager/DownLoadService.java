@@ -14,15 +14,10 @@ import android.support.v4.content.FileProvider;
 
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.common.UrlConstant;
-import com.shenyu.laikaword.http.Intercepter.DownIntercepter;
-import com.shenyu.laikaword.http.NetWorks;
 import com.shenyu.laikaword.http.uitls.OkHttp3Utils;
-import com.shenyu.laikaword.retrofit.ApiClient;
 import com.shenyu.laikaword.retrofit.ApiStores;
-import com.shenyu.laikaword.retrofit.RetrofitUtils;
 import com.shenyu.laikaword.retrofit.callback.FileCallback;
 import com.zxj.utilslibrary.utils.LogUtil;
-import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
 import java.io.File;
@@ -30,7 +25,6 @@ import java.io.File;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
-import retrofit2.http.GET;
 
 /**
  * Created by Administrator on 2017/8/6 0006.

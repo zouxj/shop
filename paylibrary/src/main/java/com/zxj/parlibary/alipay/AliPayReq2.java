@@ -6,6 +6,7 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import com.alipay.sdk.app.EnvUtils;
 import com.alipay.sdk.app.PayTask;
 import com.zxj.parlibary.resultlistener.OnAliPayListener;
 
@@ -27,7 +28,7 @@ public class AliPayReq2 {
     private Activity mActivity;
 
     //未签名的订单信息
-    private String rawAliPayOrderInfo;
+//    private String rawAliPayOrderInfo;
     //服务器签名成功的订单信息
     private String signedAliPayOrderInfo;
 
@@ -80,29 +81,36 @@ public class AliPayReq2 {
         };
     }
 
-
+public String sendrx(){
+    PayTask alipay = new PayTask(mActivity);
+//                // 调用支付接口，获取支付结果
+                Map<String, String> result = alipay.payV2(signedAliPayOrderInfo,true);
+             PayResult payResult = (PayResult) result;
+                return  payResult.getResultStatus();
+    }
     /**
      * 发送支付宝支付请求
      */
     public void send() {
+//        EnvUtils.setEnv(EnvUtils.EnvEnum.SANDBOX);
+
         // 创建订单信息
 //		String orderInfo = getOrderInfo(this.partner,
 //				this.seller, this.outTradeNo, this.subject, this.body,
 //				this.price, this.callbackUrl);
-        String orderInfo = rawAliPayOrderInfo;
         // 做RSA签名之后的订单信息
-        String sign = signedAliPayOrderInfo;
-        try {
-            // 仅需对sign 做URL编码
-            sign = URLEncoder.encode(sign, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+//        final  String sign = signedAliPayOrderInfo;
+//        try {
+//            // 仅需对sign 做URL编码
+//            sign = URLEncoder.encode(sign, "UTF-8");
+//        } catch (UnsupportedEncodingException e) {
+//            e.printStackTrace();
+//        }
 
-        // 完整的符合支付宝参数规范的订单信息
-        final String payInfo = orderInfo + "&sign=\"" + sign + "\"&"
-                + getSignType();
-
+//        // 完整的符合支付宝参数规范的订单信息
+//        final String payInfo = orderInfo + "&sign=\"" + sign + "\"&"
+//                + getSignType();
+        // 调用支付接口，获取支付结果
         Runnable payRunnable = new Runnable() {
 
             @Override
@@ -110,15 +118,14 @@ public class AliPayReq2 {
                 // 构造PayTask 对象
                 PayTask alipay = new PayTask(mActivity);
                 // 调用支付接口，获取支付结果
-                Map<String, String> result = alipay.payV2(payInfo,true);
-
+                Map<String, String> result = alipay.payV2(signedAliPayOrderInfo,true);
                 Message msg = new Message();
                 msg.what = SDK_PAY_FLAG;
                 msg.obj = result;
                 mHandler.sendMessage(msg);
             }
         };
-
+//
         // 必须异步调用
         Thread payThread = new Thread(payRunnable);
         payThread.start();
@@ -266,7 +273,6 @@ public class AliPayReq2 {
         public AliPayReq2 create(){
             AliPayReq2 aliPayReq = new AliPayReq2();
             aliPayReq.mActivity = this.activity;
-            aliPayReq.rawAliPayOrderInfo = this.rawAliPayOrderInfo;
             aliPayReq.signedAliPayOrderInfo = this.signedAliPayOrderInfo;
 
             return aliPayReq;

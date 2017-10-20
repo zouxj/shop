@@ -1,5 +1,6 @@
 package com.shenyu.laikaword.main.fragment;
 
+import android.annotation.SuppressLint;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -75,6 +76,7 @@ public class LeftFragment extends IKWordBaseFragment {
         RxSubscriptions.remove(mRxSub);
         mRxSub = RxBus.getDefault().toObservable(Event.class)
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(new RxBusSubscriber<Event>() {
+                    @SuppressLint("NewApi")
                     @Override
                     protected void onEvent(Event myEvent) {
                         switch (myEvent.event) {
@@ -84,6 +86,10 @@ public class LeftFragment extends IKWordBaseFragment {
                                     Picasso.with(UIUtil.getContext()).load(loginReponse.getPayload().getAvatar()).placeholder(R.mipmap.left_user_icon)
                                             .error(R.mipmap.left_user_icon).resize(50, 50).transform(new CircleTransform()).into(tvUserHead);
                                     tvUserName.setText(loginReponse.getPayload().getNickname());
+                                }else{
+                                    tvUserName.setText("未登录");
+                                    tvUserHead.setImageBitmap(null);
+                                    tvUserHead.setBackground(UIUtil.getDrawable(R.mipmap.left_user_icon));
                                 }
                                 break;
                         }
@@ -130,8 +136,14 @@ public class LeftFragment extends IKWordBaseFragment {
                     holder.getView(R.id.ly_line).setVisibility(View.VISIBLE);
                 }
                 holder.setOnClickListener(R.id.tv_left_fragment, new View.OnClickListener() {
+
                     @Override
                     public void onClick(View view) {
+                        LoginReponse loginReponse = (LoginReponse) SPUtil.readObject(Constants.LOGININFO_KEY);
+                        if (null==loginReponse) {
+                            IntentLauncher.with(getActivity()).launch(LoginActivity.class);
+                            return;
+                        }
                         switch (position){
                             case 0:
                                 //TODO 我的余额
@@ -179,9 +191,9 @@ public class LeftFragment extends IKWordBaseFragment {
     @Override
     public void requestData() {
         LoginReponse loginReponse = (LoginReponse) SPUtil.readObject(Constants.LOGININFO_KEY);
-        if (null!=loginReponse){
+        if (null!=loginReponse&&loginReponse.getPayload()!=null){
             Picasso.with(UIUtil.getContext()).load(loginReponse.getPayload().getAvatar()) .placeholder(R.mipmap.left_user_icon)
-                    .error(R.mipmap.left_user_icon).resize(50, 50).transform(new CircleTransform()).into(tvUserHead);
+                    .error(R.mipmap.left_user_icon).transform(new CircleTransform()).into(tvUserHead);
        tvUserName.setText(loginReponse.getPayload().getNickname());
         }
     }

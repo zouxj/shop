@@ -9,12 +9,16 @@ import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.main.activity.MainActivity;
 import com.shenyu.laikaword.module.mine.cards.activity.CardPackageActivity;
+import com.shenyu.laikaword.retrofit.RetrofitUtils;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.UIUtil;
 
 import java.util.Observable;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.OnClick;
+import rx.Subscriber;
+import rx.functions.Action1;
 
 public class PaySuccessActivity extends LKWordBaseActivity {
 
@@ -34,22 +38,47 @@ public class PaySuccessActivity extends LKWordBaseActivity {
         switch (view.getId()){
             case R.id.tv_back_main:
                 IntentLauncher.with(this).launch(MainActivity.class);
+                RetrofitUtils.getRetrofitUtils().onUnsubscribe();
                 finish();
                 break;
         }
     }
     @Override
     public void doBusiness(Context context) {
-        UIUtil.getHandler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                IntentLauncher.with(PaySuccessActivity.this).launch(CardPackageActivity.class);
-            }
-        },3000);
+        RetrofitUtils.getRetrofitUtils().addSubscription(rx.Observable.interval(3000, TimeUnit.MILLISECONDS).take(1), new Subscriber() {
+    @Override
+    public void onCompleted() {
+
+    }
+
+    @Override
+    public void onError(Throwable e) {
+
+    }
+
+    @Override
+    public void onNext(Object o) {
+        IntentLauncher.with(PaySuccessActivity.this).launch(CardPackageActivity.class);
+        finish();
+    }
+});
+//        UIUtil.getHandler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                IntentLauncher.with(PaySuccessActivity.this).launch(CardPackageActivity.class);
+//                finish();
+//            }
+//        },3000);
     }
 
     @Override
     public void setupActivityComponent() {
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RetrofitUtils.getRetrofitUtils().onUnsubscribe();
     }
 }
