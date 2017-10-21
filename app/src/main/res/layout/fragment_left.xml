@@ -7,6 +7,7 @@
 
     <!-- TODO: Update blank fragmitem_cardinfo_listyout -->
 <LinearLayout
+    android:id="@+id/ly_user_head"
     android:layout_width="match_parent"
     android:orientation="horizontal"
     android:background="@mipmap/left_bg_icon"

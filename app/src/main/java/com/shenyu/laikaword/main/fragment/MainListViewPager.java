@@ -79,8 +79,6 @@ public class MainListViewPager extends BaseViewPager {
                 Picasso.with(UIUtil.getContext()).load(listBean.getGoodsImage()).placeholder(R.mipmap.yidong_icon).error(R.mipmap.yidong_icon).into((ImageView) holder.getView(R.id.iv_main_shop_img));
                 holder.setText(R.id.tv_main_shop_name, listBean.getGoodsName());
                 holder.setText(R.id.tv_main_shop_original_price, "￥"+listBean.getOriginPrice());
-                TextView textView=holder.getView(R.id.tv_main_shop_original_price);
-                textView .getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
                 holder.setText(R.id.tv_main_shop_price, "￥"+listBean.getDiscountPrice());
                 holder.setText(R.id.tv_main_shop_surplus, "还剩"+listBean.getStock());
                 holder.setText(R.id.tv_main_shop_seller,listBean.getNickName()+" 出售");
@@ -98,7 +96,7 @@ public class MainListViewPager extends BaseViewPager {
         holder.setOnClickListener(R.id.lv_main_shop, new View.OnClickListener() {
         @Override
     public void onClick(View view) {
-        IntentLauncher.with(mActivity).launch(ShopDateilActivity.class);
+        IntentLauncher.with(mActivity).putObjectString("GoodBean",listBean).launch(ShopDateilActivity.class);
         }
         });
 

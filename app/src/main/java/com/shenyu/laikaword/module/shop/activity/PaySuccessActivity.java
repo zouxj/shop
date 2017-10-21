@@ -37,8 +37,8 @@ public class PaySuccessActivity extends LKWordBaseActivity {
     public void onClick(View view){
         switch (view.getId()){
             case R.id.tv_back_main:
+//                RetrofitUtils.getRetrofitUtils().onUnsubscribe();
                 IntentLauncher.with(this).launch(MainActivity.class);
-                RetrofitUtils.getRetrofitUtils().onUnsubscribe();
                 finish();
                 break;
         }
@@ -79,6 +79,5 @@ public class PaySuccessActivity extends LKWordBaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        RetrofitUtils.getRetrofitUtils().onUnsubscribe();
     }
 }

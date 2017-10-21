@@ -99,7 +99,7 @@ public class ConfirmOrderPresenter extends BasePresenter<ConfirmOrderView> {
                 param.put("amount",zecount);
                 param.put("quantity",count+"");
                 param.put("payWay",type+"");
-                RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.createOrder(param), new ApiCallback<PayInfoReponse>() {
+            addSubscription(apiStores.createOrder(param), new ApiCallback<PayInfoReponse>() {
                     @Override
                     public void onSuccess(PayInfoReponse model) {
                         if (model.isSuccess())
@@ -194,11 +194,13 @@ public class ConfirmOrderPresenter extends BasePresenter<ConfirmOrderView> {
     }
 
     public   void yuePay(Map<String,String> param){
-        RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.createOrder(param), new ApiCallback<PayInfoReponse>() {
+       addSubscription(apiStores.createOrder(param), new ApiCallback<PayInfoReponse>() {
             @Override
             public void onSuccess(PayInfoReponse model) {
                 if (model.isSuccess())
                     IntentLauncher.with(mActivity).launch(PaySuccessActivity.class);
+                else
+                    ToastUtil.showToastShort(model.getError().getMessage());
 
             }
 

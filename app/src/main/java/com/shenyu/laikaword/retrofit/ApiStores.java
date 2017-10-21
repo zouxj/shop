@@ -13,6 +13,7 @@ import com.shenyu.laikaword.bean.reponse.MessageReponse;
 import com.shenyu.laikaword.bean.reponse.MsgCodeReponse;
 import com.shenyu.laikaword.bean.reponse.OrderListReponse;
 import com.shenyu.laikaword.bean.reponse.PayInfoReponse;
+import com.shenyu.laikaword.bean.reponse.PickUpGoodsReponse;
 import com.shenyu.laikaword.bean.reponse.ShopMainReponse;
 
 import java.util.Map;
@@ -109,10 +110,12 @@ public interface ApiStores {
     @FormUrlEncoded
     @POST("order/create")//下单接口
     Observable<PayInfoReponse> createOrder(@FieldMap Map<String, String> map);
-    @POST("account/extract")//下单接口
+    @POST("account/extractPackage")//下单接口
     @FormUrlEncoded
-    Observable<PayInfoReponse> extractOrder(@FieldMap Map<String, String> map);
-
+    Observable<BaseReponse> extractPackage(@FieldMap Map<String, String> map);
+    @POST("account/myextract")//下单接口
+    @FormUrlEncoded
+    Observable<PickUpGoodsReponse> myextract(@Field("extractStatus") int extractStatus);
 
 
 

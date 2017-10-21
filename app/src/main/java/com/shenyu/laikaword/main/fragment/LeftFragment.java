@@ -63,10 +63,10 @@ public class LeftFragment extends IKWordBaseFragment {
         return R.layout.fragment_left;
     }
 
-  @OnClick({R.id.tv_user_head})
+  @OnClick({R.id.ly_user_head})
   public void onClick(View view){
         switch (view.getId()){
-            case R.id.tv_user_head:
+            case R.id.ly_user_head:
                 IntentLauncher.with(getActivity()).launch(LoginActivity.class);
                 break;
         }

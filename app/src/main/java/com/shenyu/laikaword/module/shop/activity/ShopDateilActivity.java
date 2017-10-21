@@ -12,6 +12,7 @@ import android.webkit.WebViewClient;
 
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
+import com.shenyu.laikaword.bean.reponse.GoodBean;
 import com.shenyu.laikaword.js.AndroidtoJs;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.ToastUtil;
@@ -29,7 +30,7 @@ public class ShopDateilActivity extends LKWordBaseActivity {
 
     @BindView(R.id.wb_load)
     WebView wbLoad;
-
+    GoodBean goodBean;
     @Override
     public int bindLayout() {
         return R.layout.activity_shop_dateil;
@@ -38,13 +39,14 @@ public class ShopDateilActivity extends LKWordBaseActivity {
     @Override
     public void initView() {
         setToolBarTitle("商品详情");
+        goodBean = (GoodBean) getIntent().getSerializableExtra("GoodBean");
         WebSettings webSettings = wbLoad.getSettings();
 
         // 设置与Js交互的权限
         webSettings.setJavaScriptEnabled(true);
         // 设置允许JS弹窗
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
-        String webURL = "http://t.shop.comingcard.com/view/detail/detail.html?goodsId=1";
+        String webURL = "http://t.shop.comingcard.com/view/detail/detail.html?goodsId="+goodBean.getGoodsId();
         // 先载入JS代码
         // 格式规定为:file:///android_asset/文件名.html
         wbLoad.loadUrl(webURL);
@@ -63,7 +65,7 @@ public class ShopDateilActivity extends LKWordBaseActivity {
                                               if (uri.getAuthority().equals("goOrder")) {
                                                   //  步骤3：
                                                   // 执行JS所需要调用的逻辑
-                                                  IntentLauncher.with(ShopDateilActivity.this).launch(ConfirmOrderActivity.class);
+                                                  IntentLauncher.with(mActivity).putObjectString("order",goodBean).launch(ConfirmOrderActivity.class);
 //                                                 ToastUtil.showToastShort("js调用了Android的方法");
 //                                                  // 可以在协议上带有参数并传递到Android上
 //                                                  HashMap<String, String> params = new HashMap<>();

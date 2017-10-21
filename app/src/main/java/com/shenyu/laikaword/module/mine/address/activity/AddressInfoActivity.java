@@ -28,10 +28,13 @@ import com.squareup.picasso.Picasso;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.SPUtil;
+import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -44,7 +47,7 @@ public class AddressInfoActivity extends LKWordBaseActivity {
     RecyclerView rlAddressList;
     private CommonAdapter<AddressReponse.PayloadBean> commonAdapter;
     private List<AddressReponse.PayloadBean> payload;
-    EmptyWrapper emptyWrapper;
+    EmptyWrapper<AddressReponse.PayloadBean> emptyWrapper;
     @Override
     public int bindLayout() {
         return R.layout.activity_add_address_info;
@@ -83,7 +86,7 @@ public class AddressInfoActivity extends LKWordBaseActivity {
                 });
         RxSubscriptions.add(mRxSub);
     }
-
+    private  boolean bools = true;
     @Override
     public void doBusiness(Context context) {
         payload = new ArrayList<>();
@@ -95,17 +98,21 @@ public class AddressInfoActivity extends LKWordBaseActivity {
             protected void convert(final ViewHolder holder, final AddressReponse.PayloadBean addressReponse, final int position) {
                 holder.setText(R.id.tv_address_name,addressReponse.getReceiveName());
                 holder.setText(R.id.tv_address_tel,addressReponse.getPhone());
+                holder.setText(R.id.tv_select_adress, addressReponse.getProvince()+addressReponse.getCity()+addressReponse.getDetail());
                 holder.setOnClickListener(R.id.tv_to_edite_address, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
                         IntentLauncher.with(AddressInfoActivity.this).put("AddressInfo",addressReponse).launch(EditAddressActivity.class);
                     }
                 });
 
-
                 CheckBox checkBox = holder.getView(R.id.ck_moren);
-                checkBox.setChecked(selectedPosition==position?true:false||addressReponse.getDefaultX()==1);
+                if (addressReponse.getDefaultX()==1){
+                    selectedPosition=position;
+                }else {
+                    selectedPosition=-1;
+                }
+                checkBox.setChecked((selectedPosition==position?true:false&&addressReponse.getDefaultX()==1));
                 holder.setOnClickListener(R.id.tv_delete_address, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -138,23 +145,27 @@ public class AddressInfoActivity extends LKWordBaseActivity {
                             //先取消上个item的勾选状态
                             if (selectedPosition!=-1) {
                                 holder.itemView.setSelected(false);
-                                notifyItemChanged(selectedPosition);
+                                bools=false;
+                                emptyWrapper.notifyItemChanged(selectedPosition);
                             }
                             //设置新Item的勾选状态
                             selectedPosition = position;
                             holder.itemView.setSelected(true);
+                            request(addressReponse,1);
+                            bools=true;
                             emptyWrapper.notifyItemChanged(selectedPosition);
 
                         }else if (selectedPosition==position){
                             selectedPosition = -1; //选择的position赋值给参数，
                             holder.itemView.setSelected(false);
+                            bools=false;
                             emptyWrapper.notifyItemChanged(position);//刷新当前点击item
                         }
                     }
                 });
             }
         };
-         emptyWrapper = new EmptyWrapper(commonAdapter);
+         emptyWrapper = new EmptyWrapper<AddressReponse.PayloadBean>(commonAdapter);
         emptyWrapper.setEmptyView(R.layout.empty_view);
         rlAddressList.setAdapter(emptyWrapper);
     }
@@ -199,5 +210,44 @@ public class AddressInfoActivity extends LKWordBaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    public void request(AddressReponse.PayloadBean payloadBean,int def){
+        Map<String,String> mapParam = new HashMap<>();
+        mapParam.put("addressId",payloadBean.getAddressId());
+        mapParam.put("phone",payloadBean.getPhone());
+        mapParam.put("receiveName",payloadBean.getReceiveName());
+        mapParam.put("detail",payloadBean.getDetail());
+        mapParam.put("default",def+"");
+        mapParam.put("province",payloadBean.getProvince());
+        mapParam.put("city",payloadBean.getCity());
+        mapParam.put("district",payloadBean.getDistrict());
+        RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.setAddress(mapParam), new ApiCallback<BaseReponse>() {
+            @Override
+            public void onSuccess(BaseReponse model) {
+                if (model.isSuccess()) {
+                    ToastUtil.showToastShort("设置默认成功");
+                    RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_ADDRESS,null));
+                }
+                else {
+
+                }
+            }
+
+            @Override
+            public void onFailure(String msg) {
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+
+            @Override
+            public void onStarts() {
+                super.onStarts();
+            }
+        });
+
     }
 }

@@ -25,6 +25,8 @@
         <EditText
             android:layout_marginTop="27dp"
             android:background="@null"
+            android:inputType="phone"
+            android:maxLength="11"
             android:layout_marginLeft="9dp"
             android:id="@+id/tv_tihuo_tianxia"
             android:textSize="@dimen/text_size_17sp"

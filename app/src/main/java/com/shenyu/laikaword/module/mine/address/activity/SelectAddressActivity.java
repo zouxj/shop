@@ -32,58 +32,68 @@ public class SelectAddressActivity extends LKWordBaseActivity {
 
     @BindView(R.id.re_cy_view)
     RecyclerView reCyView;
-    private List<AddressReponse.PayloadBean> payload=new ArrayList<>();
+    private List<AddressReponse.PayloadBean> payload = new ArrayList<>();
+
     @Override
     public int bindLayout() {
         return R.layout.activity_select_address;
     }
+
     EmptyWrapper emptyWrapper;
+
     @Override
     public void initView() {
         setToolBarTitle("选择地址");
-        setToolBarRight("管理",0);
-        reCyView.addItemDecoration(new RecycleViewDivider(this, LinearLayoutManager.HORIZONTAL, (int) UIUtil.dp2px(5),UIUtil.getColor(R.color.main_bg_gray)));
+        setToolBarRight("管理", 0);
+        reCyView.addItemDecoration(new RecycleViewDivider(this, LinearLayoutManager.HORIZONTAL, (int) UIUtil.dp2px(5), UIUtil.getColor(R.color.main_bg_gray)));
         reCyView.setLayoutManager(new LinearLayoutManager(this));
     }
+
     CommonAdapter<AddressReponse.PayloadBean> commonAdapter;
+    private boolean bools = true;
+    Intent intent;
+    Bundle bundle;
+    int selectedPosition =-1;
     @Override
     public void doBusiness(Context context) {
-        final Intent intent =getIntent();
-        final Bundle  bundle =new Bundle();
-          commonAdapter=   new CommonAdapter<AddressReponse.PayloadBean>(R.layout.item_select_address,payload) {
-            int selectedPosition=-1;
+          intent = getIntent();
+          bundle = new Bundle();
+        commonAdapter = new CommonAdapter<AddressReponse.PayloadBean>(R.layout.item_select_address, payload) {
+
             @Override
             protected void convert(final ViewHolder holder, final AddressReponse.PayloadBean payloadBean, final int position) {
                 CheckBox checkBox = holder.getView(R.id.ck_select_address);
-                    holder.setText(R.id.tv_select_address, payloadBean.getProvince()+payloadBean.getCity()+payloadBean.getDetail());
-                    holder.setText(R.id.tv_select_phone, payloadBean.getPhone());
-                    holder.setText(R.id.tv_select_name, payloadBean.getReceiveName());
-                checkBox.setChecked(selectedPosition == position ? true : false || payloadBean.getDefaultX() == 1);
-                bundle.putSerializable("address",payloadBean);
-                intent.putExtras(bundle);
-                setResult(RESULT_OK,intent);
-                checkBox.setOnClickListener( new View.OnClickListener() {
+                holder.setText(R.id.tv_select_address, payloadBean.getProvince() + payloadBean.getCity() + payloadBean.getDetail());
+                holder.setText(R.id.tv_select_phone, payloadBean.getPhone());
+                holder.setText(R.id.tv_select_name, payloadBean.getReceiveName());
+                checkBox.setChecked(selectedPosition == position);
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (selectedPosition!=position){
+                        if (selectedPosition != position) {
                             //先取消上个item的勾选状态
-                            if (selectedPosition!=-1) {
+                            if (selectedPosition != -1) {
                                 holder.itemView.setSelected(false);
-                                bundle.clear();
+                                bools = false;
                                 emptyWrapper.notifyItemChanged(selectedPosition);
                             }
                             //设置新Item的勾选状态
                             selectedPosition = position;
+                            bools = true;
                             holder.itemView.setSelected(true);
                             emptyWrapper.notifyItemChanged(selectedPosition);
-                            bundle.putSerializable("address",payloadBean);
+                            bundle.putSerializable("address", payloadBean);
                             intent.putExtras(bundle);
-                            setResult(RESULT_OK,intent);
+//                            setResult(RESULT_OK, intent);
 
-                        }else if (selectedPosition==position){
+
+
+                        } else if (selectedPosition == position) {
                             selectedPosition = -1; //选择的position赋值给参数，
                             holder.itemView.setSelected(false);
+                            bools = false;
                             bundle.clear();
+//                            setResult(RESULT_OK, intent);
                             emptyWrapper.notifyItemChanged(position);//刷新当前点击item
                         }
 
@@ -93,7 +103,7 @@ public class SelectAddressActivity extends LKWordBaseActivity {
 
             }
         };
-         emptyWrapper = new EmptyWrapper<AddressReponse.PayloadBean>(commonAdapter);
+        emptyWrapper = new EmptyWrapper<AddressReponse.PayloadBean>(commonAdapter);
         emptyWrapper.setEmptyView(R.layout.empty_view);
         reCyView.setAdapter(emptyWrapper);
         initData();
@@ -106,18 +116,38 @@ public class SelectAddressActivity extends LKWordBaseActivity {
     }
 
 
-    @OnClick(R.id.toolbar_subtitle)
-    public void onViewClicked() {
-        IntentLauncher.with(this).launch(AddressInfoActivity.class);
+    @OnClick({R.id.toolbar_subtitle,R.id.bt_ok_address})
+    public void onViewClicked(View view) {
+        switch (view.getId()){
+            case R.id.toolbar_subtitle:
+                IntentLauncher.with(this).launch(AddressInfoActivity.class);
+                break;
+            case R.id.bt_ok_address:
+                setResult(RESULT_OK, intent);
+                finish();
+
+                break;
+        }
+
     }
 
-    public void initData(){
+    public void initData() {
         RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.getAddress(), new ApiCallback<AddressReponse>() {
             @Override
             public void onSuccess(AddressReponse model) {
-                if (model.isSuccess());{
+                if (model.isSuccess()) ;
+                {
                     payload.clear();
                     payload.addAll(model.getPayload());
+                    for (int i = 0; i < payload.size(); i++) {
+                        if (payload.get(i).getDefaultX() == 1) {
+                            selectedPosition = i;
+                            bundle.putSerializable("address", payload.get(i));
+                            intent.putExtras(bundle);
+//                            setResult(RESULT_OK, intent);
+                        }
+
+                    }
                     emptyWrapper.notifyDataSetChanged();
                 }
             }
@@ -133,4 +163,8 @@ public class SelectAddressActivity extends LKWordBaseActivity {
             }
         });
     }
+
+
+
+
 }

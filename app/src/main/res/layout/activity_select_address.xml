@@ -12,7 +12,18 @@
     <include layout="@layout/toolbar_layout"/>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/re_cy_view"
+        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </android.support.v7.widget.RecyclerView>
+    <TextView
+        android:id="@+id/bt_ok_address"
+        android:layout_width="match_parent"
+        android:background="@color/app_theme_red"
+        android:text="确认"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_15sp"
+        android:gravity="center"
+        android:layout_height="48dp" />
+
 </LinearLayout>

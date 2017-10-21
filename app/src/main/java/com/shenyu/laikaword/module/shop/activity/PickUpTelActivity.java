@@ -9,12 +9,23 @@ import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
+import com.shenyu.laikaword.bean.BaseReponse;
+import com.shenyu.laikaword.bean.reponse.CarPagerReponse;
+import com.shenyu.laikaword.common.Constants;
+import com.shenyu.laikaword.retrofit.ApiCallback;
+import com.shenyu.laikaword.retrofit.RetrofitUtils;
 import com.shenyu.laikaword.widget.AmountView;
+import com.squareup.picasso.Picasso;
 import com.zxj.utilslibrary.utils.IntentLauncher;
+import com.zxj.utilslibrary.utils.StringUtil;
+import com.zxj.utilslibrary.utils.ToastUtil;
+import com.zxj.utilslibrary.utils.UIUtil;
 import com.zxj.utilslibrary.widget.countdownview.step.StepView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,29 +53,29 @@ public class PickUpTelActivity extends LKWordBaseActivity {
     AmountView avZj;
     @BindView(R.id.tv_tihuo_tianxia)
     EditText tvTihuoTianxia;
-    @BindView(R.id.tv_heji)
-    TextView tvHeji;
     @BindView(R.id.tv_tihuo_all)
     TextView tvTihuoAll;
     @BindView(R.id.tv_tihuo_commit)
     TextView tvTihuoCommit;
-    private int count;
+    private int count=1;
 
     @Override
     public int bindLayout() {
         return R.layout.activity_pick_up_tel;
     }
-
+    CarPagerReponse.Bean bean;
     @Override
     public void initView() {
-        avZj.setGoods_storage(50);
+
         avZj.setOnAmountChangeListener(new AmountView.OnAmountChangeListener() {
             @Override
             public void onAmountChange(View view, int amount) {
                 count = amount;
+                if (bean!=null)
+                    if (StringUtil.validText(bean.getGoodsValue()))
+                        tvTihuoAll.setText(Double.valueOf(bean.getGoodsValue())*amount+"元");
             }
         });
-        tvHeji.setText("充值总额:");
         setToolBarTitle("提货申请");
         tvTihuoCommit.setText("确认充值");
     }
@@ -73,11 +84,24 @@ public class PickUpTelActivity extends LKWordBaseActivity {
     public void doBusiness(Context context) {
         List<String> titles = new ArrayList<String>();
         titles.add("提货申请");
-
         titles.add("提货中");
-
         titles.add("提货完成");
         stepView.setStepTitles(titles);
+        bean = (CarPagerReponse.Bean) getIntent().getSerializableExtra("bean");
+            if (null!=bean){
+                if (StringUtil.validText(bean.getQuantity()))
+                avZj.setGoods_storage(Integer.parseInt(bean.getQuantity()));
+            Picasso.with(UIUtil.getContext()).load(bean.getGoodsImage()).placeholder(R.mipmap.yidong_icon)
+                    .error(R.mipmap.yidong_icon).into(ivTihuoImg);
+            tvTihuoName.setText(bean.getGoodsName());
+            if (StringUtil.validText(bean.getQuantity())) {
+                tvTihuoCount.setText("数量:" + bean.getQuantity());
+                avZj.setGoods_storage(Integer.parseInt(bean.getQuantity()));
+            }
+                tvTihuoAll.setText(Double.valueOf(bean.getGoodsValue())+"元");
+        }
+
+        tvTihuoTianxia.setText(Constants.getLoginReponse().getPayload().getBindPhone());
 
     }
 
@@ -87,16 +111,57 @@ public class PickUpTelActivity extends LKWordBaseActivity {
     }
 
 
-    @OnClick({R.id.tv_tihuo_tianxia, R.id.tv_tihuo_all, R.id.tv_tihuo_commit})
+    @OnClick({ R.id.tv_tihuo_all_select, R.id.tv_tihuo_commit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.tv_tihuo_tianxia:
-                break;
-            case R.id.tv_tihuo_all:
+            case R.id.tv_tihuo_all_select:
+                if (null!=bean)
+                avZj.etAmount.setText(bean.getQuantity());
+                tvTihuoAll.setText(bean.getQuantity());
+                tvTihuoAll.setText(Double.valueOf(bean.getGoodsValue())*Integer.valueOf(bean.getQuantity())+"元");
                 break;
             case R.id.tv_tihuo_commit:
-                IntentLauncher.with(this).launch(PickUpSuccessActivity.class);
+                if (!StringUtil.validText(tvTihuoTianxia.getText().toString().trim())) {
+                    ToastUtil.showToastShort("请输入充值手机号码");
+                    return;
+                }
+                if (!StringUtil.isTelNumber(tvTihuoTianxia.getText().toString().trim())) {
+                    ToastUtil.showToastShort("请输入正确手机号码");
+                    return;
+                }
+                    Map<String,String> param = new HashMap<>();
+                    param.put("packageId",bean.getPackageId());
+                    param.put("quantity",count+"");
+                     param.put("phone",tvTihuoTianxia.getText().toString().trim());
+                    requestData(param);
+
                 break;
         }
+    }
+
+    /**
+     * tihuo 充值提交
+     * @param param
+     */
+    private void requestData(Map<String,String> param){
+        RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.extractPackage(param), new ApiCallback<BaseReponse>() {
+            @Override
+            public void onSuccess(BaseReponse model) {
+                if (model.isSuccess())
+                    IntentLauncher.with(PickUpTelActivity.this).launch(PickUpSuccessActivity.class);
+                else
+                    ToastUtil.showToastShort(model.getError().getMessage());
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                ToastUtil.showToastShort(msg);
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        });
     }
 }

@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
+import com.shenyu.laikaword.bean.BaseReponse;
 import com.shenyu.laikaword.bean.reponse.AddressReponse;
 import com.shenyu.laikaword.bean.reponse.CarPagerReponse;
 import com.shenyu.laikaword.common.Constants;
@@ -23,6 +24,7 @@ import com.shenyu.laikaword.widget.AmountView;
 import com.squareup.picasso.Picasso;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.StringUtil;
+import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 import com.zxj.utilslibrary.widget.countdownview.step.StepView;
 
@@ -52,8 +54,6 @@ public class PickUpActivity extends LKWordBaseActivity {
     AmountView avZj;
     @BindView(R.id.tv_tihuo_tianxia)
     TextView tvTihuoTianxia;
-    @BindView(R.id.tv_heji)
-    TextView tvHeji;
     @BindView(R.id.tv_tihuo_all)
     TextView tvTihuoAll;
     @BindView(R.id.tv_tihuo_commit)
@@ -72,6 +72,7 @@ public class PickUpActivity extends LKWordBaseActivity {
             @Override
             public void onAmountChange(View view, int amount) {
                 count = amount;
+                tvTihuoAll.setText(amount+"张");
             }
         });
     }
@@ -95,6 +96,7 @@ public class PickUpActivity extends LKWordBaseActivity {
             if (StringUtil.validText(bean.getQuantity())) {
                 tvTihuoCount.setText("数量:" + bean.getQuantity());
                 avZj.setGoods_storage(Integer.parseInt(bean.getQuantity()));
+                tvTihuoAll.setText("1张");
             }
         }
     }
@@ -105,7 +107,7 @@ public class PickUpActivity extends LKWordBaseActivity {
 
     }
 
-    @OnClick({R.id.tv_tihuo_tianxia, R.id.tv_tihuo_all, R.id.tv_tihuo_commit})
+    @OnClick({R.id.tv_tihuo_tianxia, R.id.tv_tihuo_all_select, R.id.tv_tihuo_commit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_tihuo_tianxia:
@@ -114,14 +116,20 @@ public class PickUpActivity extends LKWordBaseActivity {
                 startActivityForResult(intent,Constants.REQUEST_ADDRESS);
                 break;
             case R.id.tv_tihuo_all_select:
-                if (null!=bean)
+                if (null!=bean) {
+                    count= Integer.parseInt(bean.getQuantity());
                     avZj.etAmount.setText(bean.getQuantity());
+                    tvTihuoAll.setText(bean.getQuantity()+"张");
+                }
                 break;
             case R.id.tv_tihuo_commit:
                 if (StringUtil.validText(tvTihuoTianxia.getText().toString().trim())) {
                     Map<String,String> param = new HashMap<>();
-//                    param.put("packageId",);
-//                    requestData();
+                    param.put("packageId",bean.getPackageId());
+                    param.put("quantity",count+"");
+                    if (payloadBean!=null)
+                    param.put("addressId",payloadBean.getAddressId());
+                    requestData(param);
 
                 } else{
                 DialogHelper.tianXAddress(this, new DialogHelper.ButtonCallback() {
@@ -142,7 +150,7 @@ public class PickUpActivity extends LKWordBaseActivity {
                 break;
         }
     }
-
+   private AddressReponse.PayloadBean payloadBean;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -150,7 +158,7 @@ public class PickUpActivity extends LKWordBaseActivity {
         if (resultCode == RESULT_OK) {
             //判断是哪一个的回调
             if (requestCode == Constants.REQUEST_ADDRESS) {
-             AddressReponse.PayloadBean payloadBean   = (AddressReponse.PayloadBean) data.getSerializableExtra("address");
+              payloadBean   = (AddressReponse.PayloadBean) data.getSerializableExtra("address");
         if (null!=payloadBean){
             Spanned dizhi= Html.fromHtml("<font color='#333333' >"+payloadBean.getReceiveName()+payloadBean.getPhone()+"</font><br/><font color='#999999' >"+payloadBean.getProvince()+payloadBean.getCity()+payloadBean.getDetail()+"</font>");
             tvTihuoTianxia.setGravity(Gravity.CENTER);
@@ -160,16 +168,23 @@ public class PickUpActivity extends LKWordBaseActivity {
         }
     }
 
-    public void requestData(Map<String,String> param){
-        RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.extractOrder(param), new ApiCallback() {
+    /**
+     * tihuo 提货生气提交
+     * @param param
+     */
+    private void requestData(Map<String,String> param){
+        RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.extractPackage(param), new ApiCallback<BaseReponse>() {
             @Override
-            public void onSuccess(Object model) {
+            public void onSuccess(BaseReponse model) {
+                if (model.isSuccess())
                 IntentLauncher.with(PickUpActivity.this).launch(PickUpSuccessActivity.class);
+                else
+                    ToastUtil.showToastShort(model.getError().getMessage());
             }
 
             @Override
             public void onFailure(String msg) {
-
+                ToastUtil.showToastShort(msg);
             }
 
             @Override

@@ -107,7 +107,7 @@ public class CarListPagerView extends BaseViewPager<CarPagerReponse> {
                         if (bean.getGoodsType().equals("jd"))
                             IntentLauncher.with(mActivity).putObjectString("bean",bean).launch(PickUpActivity.class);
                         else
-                            IntentLauncher.with(mActivity).launch(PickUpTelActivity.class);
+                            IntentLauncher.with(mActivity).putObjectString("bean",bean).launch(PickUpTelActivity.class);
                     }
                 });
             }

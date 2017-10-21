@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:background="@color/main_bg_gray"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -27,6 +27,7 @@
                 android:text="13266834341" />
         </LinearLayout>
         <TextView
+            android:id="@+id/tv_select_adress"
             android:layout_below="@+id/ly_name"
             android:layout_marginTop="14dp"
             style="@style/bank_add_one"

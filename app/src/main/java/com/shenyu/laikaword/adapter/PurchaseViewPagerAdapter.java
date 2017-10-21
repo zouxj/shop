@@ -18,6 +18,6 @@ public class PurchaseViewPagerAdapter extends BaseViewPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return new PurchaseListFragment();
+        return new PurchaseListFragment(position);
     }
 }

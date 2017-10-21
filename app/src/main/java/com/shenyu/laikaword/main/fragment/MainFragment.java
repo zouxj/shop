@@ -2,6 +2,8 @@ package com.shenyu.laikaword.main.fragment;
 
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
@@ -187,7 +189,11 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
            bannerHelper.startBanner(dataList, new BannerHelper.OnItemClickListener() {
                @Override
                public void onItemClick(BannerBean bean) {
-                   ToastUtil.showToastShort(bean.getDesc());
+                   Intent intent = new Intent();
+                   intent.setAction("android.intent.action.VIEW");
+                   Uri content_url = Uri.parse(bean.getDetailurl());
+                   intent.setData(content_url);
+                   startActivity(intent);
                }
            });
        }
