@@ -1,7 +1,6 @@
 package com.shenyu.laikaword.module.shop.activity;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -12,6 +11,7 @@ import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.bean.BaseReponse;
 import com.shenyu.laikaword.bean.reponse.CarPagerReponse;
 import com.shenyu.laikaword.common.Constants;
+import com.shenyu.laikaword.helper.DialogHelper;
 import com.shenyu.laikaword.retrofit.ApiCallback;
 import com.shenyu.laikaword.retrofit.RetrofitUtils;
 import com.shenyu.laikaword.widget.AmountView;
@@ -28,7 +28,6 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -72,8 +71,7 @@ public class PickUpTelActivity extends LKWordBaseActivity {
             public void onAmountChange(View view, int amount) {
                 count = amount;
                 if (bean!=null)
-                    if (StringUtil.validText(bean.getGoodsValue()))
-                        tvTihuoAll.setText(Double.valueOf(bean.getGoodsValue())*amount+"元");
+                        tvTihuoAll.setText(StringUtil.m2((StringUtil.formatDouble(bean.getGoodsValue())*amount))+"元");
             }
         });
         setToolBarTitle("提货申请");
@@ -88,22 +86,22 @@ public class PickUpTelActivity extends LKWordBaseActivity {
         titles.add("提货完成");
         stepView.setStepTitles(titles);
         bean = (CarPagerReponse.Bean) getIntent().getSerializableExtra("bean");
-            if (null!=bean){
-                if (StringUtil.validText(bean.getQuantity()))
-                avZj.setGoods_storage(Integer.parseInt(bean.getQuantity()));
-            Picasso.with(UIUtil.getContext()).load(bean.getGoodsImage()).placeholder(R.mipmap.yidong_icon)
-                    .error(R.mipmap.yidong_icon).into(ivTihuoImg);
+            if (null!=bean)
+                avZj.setGoods_storage(StringUtil.formatIntger(bean.getQuantity()));
+            Picasso.with(UIUtil.getContext()).load(bean.getGoodsImage()).placeholder(R.mipmap.defaul_icon)
+                    .error(R.mipmap.defaul_icon).into(ivTihuoImg);
             tvTihuoName.setText(bean.getGoodsName());
             if (StringUtil.validText(bean.getQuantity())) {
-                tvTihuoCount.setText("数量:" + bean.getQuantity());
-                avZj.setGoods_storage(Integer.parseInt(bean.getQuantity()));
+                tvTihuoCount.setText("数量:" + StringUtil.formatIntger(bean.getQuantity()));
+                avZj.setGoods_storage(StringUtil.formatIntger(bean.getQuantity()));
             }
-                tvTihuoAll.setText(Double.valueOf(bean.getGoodsValue())+"元");
+                tvTihuoAll.setText(StringUtil.m2(StringUtil.formatDouble((bean.getGoodsValue())))+"元");
+        tvTihuoTianxia.setText(Constants.getLoginReponse().getPayload().getBindPhone());
         }
 
-        tvTihuoTianxia.setText(Constants.getLoginReponse().getPayload().getBindPhone());
 
-    }
+
+
 
     @Override
     public void setupActivityComponent() {
@@ -143,25 +141,37 @@ public class PickUpTelActivity extends LKWordBaseActivity {
      * tihuo 充值提交
      * @param param
      */
-    private void requestData(Map<String,String> param){
-        RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.extractPackage(param), new ApiCallback<BaseReponse>() {
+    private void requestData(final Map<String,String> param){
+        DialogHelper.setInputDialog(mActivity, true,"", new DialogHelper.LinstenrText() {
             @Override
-            public void onSuccess(BaseReponse model) {
-                if (model.isSuccess())
-                    IntentLauncher.with(PickUpTelActivity.this).launch(PickUpSuccessActivity.class);
-                else
-                    ToastUtil.showToastShort(model.getError().getMessage());
+            public void onLintenerText(String passWord) {
+                param.put("transactionPIN",passWord);
+                RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.extractPackage(param), new ApiCallback<BaseReponse>() {
+                    @Override
+                    public void onSuccess(BaseReponse model) {
+                        if (model.isSuccess())
+                            IntentLauncher.with(PickUpTelActivity.this).launch(PickUpSuccessActivity.class);
+                        else
+                            ToastUtil.showToastShort(model.getError().getMessage());
+                    }
+
+                    @Override
+                    public void onFailure(String msg) {
+                        ToastUtil.showToastShort(msg);
+                    }
+
+                    @Override
+                    public void onFinish() {
+
+                    }
+                });
             }
 
             @Override
-            public void onFailure(String msg) {
-                ToastUtil.showToastShort(msg);
-            }
-
-            @Override
-            public void onFinish() {
+            public void onWjPassword() {
 
             }
-        });
+        }).show();
+
     }
 }

@@ -18,6 +18,7 @@ import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.module.login.activity.LoginActivity;
 import com.shenyu.laikaword.module.mine.address.activity.AddressInfoActivity;
 import com.shenyu.laikaword.module.mine.cards.activity.CardBankInfoActivity;
+import com.shenyu.laikaword.module.mine.systemsetting.activity.UserInfoActivity;
 import com.shenyu.laikaword.module.shop.activity.BuyGoodsActivity;
 import com.shenyu.laikaword.module.mine.remaining.PurchaseCardActivity;
 import com.shenyu.laikaword.module.mine.cards.activity.CardPackageActivity;
@@ -67,7 +68,13 @@ public class LeftFragment extends IKWordBaseFragment {
   public void onClick(View view){
         switch (view.getId()){
             case R.id.ly_user_head:
-                IntentLauncher.with(getActivity()).launch(LoginActivity.class);
+                LoginReponse loginReponse = Constants.getLoginReponse();
+                if (null!=loginReponse) {
+                    IntentLauncher.with(getActivity()).launch(UserInfoActivity.class);
+                }else{
+                    IntentLauncher.with(getActivity()).launch(LoginActivity.class);
+                }
+
                 break;
         }
 
@@ -81,7 +88,7 @@ public class LeftFragment extends IKWordBaseFragment {
                     protected void onEvent(Event myEvent) {
                         switch (myEvent.event) {
                             case EventType.ACTION_UPDATA_USER:
-                                LoginReponse loginReponse = (LoginReponse) SPUtil.readObject(Constants.LOGININFO_KEY);
+                                LoginReponse loginReponse = Constants.getLoginReponse();
                                 if (null!=loginReponse) {
                                     Picasso.with(UIUtil.getContext()).load(loginReponse.getPayload().getAvatar()).placeholder(R.mipmap.left_user_icon)
                                             .error(R.mipmap.left_user_icon).resize(50, 50).transform(new CircleTransform()).into(tvUserHead);
@@ -190,7 +197,7 @@ public class LeftFragment extends IKWordBaseFragment {
 
     @Override
     public void requestData() {
-        LoginReponse loginReponse = (LoginReponse) SPUtil.readObject(Constants.LOGININFO_KEY);
+        LoginReponse loginReponse = Constants.getLoginReponse();
         if (null!=loginReponse&&loginReponse.getPayload()!=null){
             Picasso.with(UIUtil.getContext()).load(loginReponse.getPayload().getAvatar()) .placeholder(R.mipmap.left_user_icon)
                     .error(R.mipmap.left_user_icon).transform(new CircleTransform()).into(tvUserHead);

@@ -1,5 +1,6 @@
 package com.shenyu.laikaword.module.mine.address.activity;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,7 +17,9 @@ import com.shenyu.laikaword.bean.reponse.AddressReponse;
 import com.shenyu.laikaword.bean.reponse.LoginReponse;
 import com.shenyu.laikaword.common.CircleTransform;
 import com.shenyu.laikaword.common.Constants;
+import com.shenyu.laikaword.helper.DialogHelper;
 import com.shenyu.laikaword.helper.RecycleViewDivider;
+import com.shenyu.laikaword.module.mine.cards.activity.CardBankInfoActivity;
 import com.shenyu.laikaword.retrofit.ApiCallback;
 import com.shenyu.laikaword.retrofit.RetrofitUtils;
 import com.shenyu.laikaword.rxbus.RxBusSubscriber;
@@ -70,8 +73,6 @@ public class AddressInfoActivity extends LKWordBaseActivity {
                                 initData();
                                 break;
                         }
-                        LogUtil.e(TAG, myEvent.event+"____"+"threadType=>"+Thread.currentThread());
-//            }
                     }
                     @Override
                     public void onError(Throwable e) {
@@ -86,7 +87,6 @@ public class AddressInfoActivity extends LKWordBaseActivity {
                 });
         RxSubscriptions.add(mRxSub);
     }
-    private  boolean bools = true;
     @Override
     public void doBusiness(Context context) {
         payload = new ArrayList<>();
@@ -102,7 +102,7 @@ public class AddressInfoActivity extends LKWordBaseActivity {
                 holder.setOnClickListener(R.id.tv_to_edite_address, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        IntentLauncher.with(AddressInfoActivity.this).put("AddressInfo",addressReponse).launch(EditAddressActivity.class);
+                        IntentLauncher.with(AddressInfoActivity.this).putObjectString("AddressInfo",addressReponse).launch(EditAddressActivity.class);
                     }
                 });
 
@@ -116,25 +116,37 @@ public class AddressInfoActivity extends LKWordBaseActivity {
                 holder.setOnClickListener(R.id.tv_delete_address, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.deleteAddress(addressReponse.getAddressId()), new ApiCallback<BaseReponse>() {
+
+                        DialogHelper.deleteBankDialog(mActivity,"地址删除后,不可再使用该地址", "确认删除",new DialogHelper.ButtonCallback() {
                             @Override
-                            public void onSuccess(BaseReponse model) {
-                                if (model.isSuccess()){
-                                    payload.remove(position);
-                                    notifyDataSetChanged();
-                                }
+                            public void onNegative(Dialog dialog) {
+                                RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.deleteAddress(addressReponse.getAddressId()), new ApiCallback<BaseReponse>() {
+                                    @Override
+                                    public void onSuccess(BaseReponse model) {
+                                        if (model.isSuccess()){
+                                            payload.remove(position);
+                                            emptyWrapper.notifyDataSetChanged();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(String msg) {
+
+                                    }
+
+                                    @Override
+                                    public void onFinish() {
+
+                                    }
+                                });
                             }
 
                             @Override
-                            public void onFailure(String msg) {
-
-                            }
-
-                            @Override
-                            public void onFinish() {
+                            public void onPositive(Dialog dialog) {
 
                             }
                         });
+
 
                     }
                 });
@@ -145,20 +157,17 @@ public class AddressInfoActivity extends LKWordBaseActivity {
                             //先取消上个item的勾选状态
                             if (selectedPosition!=-1) {
                                 holder.itemView.setSelected(false);
-                                bools=false;
                                 emptyWrapper.notifyItemChanged(selectedPosition);
                             }
                             //设置新Item的勾选状态
                             selectedPosition = position;
                             holder.itemView.setSelected(true);
                             request(addressReponse,1);
-                            bools=true;
                             emptyWrapper.notifyItemChanged(selectedPosition);
 
                         }else if (selectedPosition==position){
                             selectedPosition = -1; //选择的position赋值给参数，
                             holder.itemView.setSelected(false);
-                            bools=false;
                             emptyWrapper.notifyItemChanged(position);//刷新当前点击item
                         }
                     }
@@ -250,4 +259,7 @@ public class AddressInfoActivity extends LKWordBaseActivity {
         });
 
     }
+
+
+
 }

@@ -1,10 +1,12 @@
 package com.shenyu.laikaword.module.mine.cards.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.jakewharton.rxbinding.widget.RxTextView;
 import com.shenyu.laikaword.LaiKaApplication;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
@@ -18,9 +20,15 @@ import com.shenyu.laikaword.rxbus.event.EventType;
 import com.shenyu.laikaword.rxbus.RxBus;
 import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
+import com.zxj.utilslibrary.utils.UIUtil;
+
 import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
+import rx.Observable;
+import rx.functions.Action1;
+import rx.functions.Func4;
+import rx.functions.Func5;
 
 /**
  * 添加银行卡
@@ -33,10 +41,6 @@ public class AddBankCardActivity extends LKWordBaseActivity implements AddBankVi
     EditText etAddBankYinhang;
     @BindView(R.id.et_add_bank_address)
     TextView etAddBankAddress;
-    @BindView(R.id.et_add_bank_phone)
-    TextView etAddBankPhone;
-    @BindView(R.id.tv_send_msg_code)
-    TextView tvSendMsgCode;
     @Inject
     CityDataHelper cityDataHelper;
     @Inject
@@ -47,8 +51,6 @@ public class AddBankCardActivity extends LKWordBaseActivity implements AddBankVi
     EditText editTextZhang;
     @BindView(R.id.et_bank_user_name)
     EditText etUserName;
-    @BindView(R.id.et_get_msg_code)
-    EditText etGetMsgCode;
     String cardNum;
     String bankName;
     String bankZhangName;
@@ -68,8 +70,34 @@ public class AddBankCardActivity extends LKWordBaseActivity implements AddBankVi
 //        addBankPresenter.setMonitor(etAddBankYinhang, etAddBankCardNum);
     }
 
+    public void setMonitor() {
+        Observable.combineLatest(RxTextView.textChanges(etAddBankCardNum), RxTextView.textChanges(etAddBankYinhang), RxTextView.textChanges(etUserName), RxTextView.textChanges(editTextZhang),
+                RxTextView.textChanges(etAddBankAddress), new Func5<CharSequence, CharSequence, CharSequence, CharSequence, CharSequence, Boolean>() {
+                    @Override
+                    public Boolean call(CharSequence charSequence, CharSequence charSequence2, CharSequence charSequence3, CharSequence charSequence4, CharSequence charSequence5) {
+                           return StringUtil.validText(charSequence.toString().trim()) && StringUtil.validText(charSequence2.toString().trim()) &&
+                                StringUtil.validText(charSequence3.toString().trim()) && StringUtil.validText(charSequence4.toString().trim())&&StringUtil.validText(charSequence5.toString().trim());
+                    }
+                }).subscribe(new Action1<Boolean>() {
+            @SuppressLint("NewApi")
+            @Override
+            public void call(Boolean bool) {
+                if (bool) {
+                    btAddBank.setEnabled(true);
+                    btAddBank.setBackgroundColor(UIUtil.getColor(R.color.app_theme_red));
+                } else {
+                    btAddBank.setEnabled(false);
+                    btAddBank.setBackgroundColor(UIUtil.getColor(R.color.app_theme_red_40));
+                }
+
+            }
+        });
+
+    }
+
     @Override
     public void doBusiness(Context context) {
+        setMonitor();
     }
 
     @Override
@@ -77,15 +105,13 @@ public class AddBankCardActivity extends LKWordBaseActivity implements AddBankVi
         LaiKaApplication.get(this).getAppComponent().plus(new MineModule(this, this)).inject(this);
     }
 
-    @OnClick({R.id.bt_add_bank, R.id.bt_select_address_bank, R.id.tv_send_msg_code})
+    @OnClick({R.id.bt_add_bank, R.id.bt_select_address_bank})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bt_add_bank:
                 //TODO 保存下发
-                if (yzCode())
-                addBankPresenter.setAddRequest(cardNum, bankName,bankZhangName,bankUserName,bankProvince,bankCity);
-              else
-                ToastUtil.showToastShort("请完善信息");
+                yzCodeode();
+                    addBankPresenter.setAddRequest(cardNum, bankName, bankZhangName, bankUserName, bankProvince, bankCity);
                 break;
 
             case R.id.bt_select_address_bank:
@@ -101,14 +127,14 @@ public class AddBankCardActivity extends LKWordBaseActivity implements AddBankVi
                 });
                 //TODO 开户选择地址
                 break;
-            case R.id.tv_send_msg_code:
-                //获取手机验证码
-                String phone = etAddBankPhone.getText().toString().trim();
-                if (!StringUtil.isTelNumber(phone))
-                    ToastUtil.showToastShort("手机验证码无效");
-                else
-                addBankPresenter.sendMsg(phone, tvSendMsgCode);
-                break;
+//            case R.id.tv_send_msg_code:
+//                //获取手机验证码
+//                String phone = etAddBankPhone.getText().toString().trim();
+//                if (!StringUtil.isTelNumber(phone))
+//                    ToastUtil.showToastShort("手机验证码无效");
+//                else
+//                addBankPresenter.sendMsg(phone, tvSendMsgCode);
+//                break;
 
         }
     }
@@ -127,7 +153,7 @@ public class AddBankCardActivity extends LKWordBaseActivity implements AddBankVi
     @Override
     public void loadFinished() {
         loadViewHelper.closeLoadingDialog();
-        RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_BANK,null));
+        RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_BANK, null));
         ToastUtil.showToastShort("添加成功");
         finish();
     }
@@ -140,13 +166,10 @@ public class AddBankCardActivity extends LKWordBaseActivity implements AddBankVi
     }
 
     //检验空值
-private Boolean yzCode(){
-     cardNum = etAddBankCardNum.getText().toString().trim();
-     bankName = etAddBankYinhang.getText().toString().trim();
-      bankZhangName = editTextZhang.getText().toString().trim();
-      bankUserName =etUserName.getText().toString().trim();
-    if (StringUtil.validText(bankZhangName)&&StringUtil.validText(cardNum)&&StringUtil.validText(bankName))
-        return true;
-         return false;
-}
+    private void yzCodeode() {
+        cardNum = etAddBankCardNum.getText().toString().trim();
+        bankName = etAddBankYinhang.getText().toString().trim();
+        bankZhangName = editTextZhang.getText().toString().trim();
+        bankUserName = etUserName.getText().toString().trim();
+    }
 }

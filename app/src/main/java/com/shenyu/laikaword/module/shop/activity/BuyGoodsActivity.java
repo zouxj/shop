@@ -1,8 +1,6 @@
 package com.shenyu.laikaword.module.shop.activity;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -15,18 +13,14 @@ import com.shenyu.laikaword.adapter.wrapper.EmptyWrapper;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.bean.reponse.OrderListReponse;
 import com.shenyu.laikaword.helper.RecycleViewDivider;
-import com.shenyu.laikaword.helper.SpaceItemDecoration;
 import com.shenyu.laikaword.retrofit.ApiCallback;
 import com.shenyu.laikaword.retrofit.RetrofitUtils;
 import com.squareup.picasso.Picasso;
 import com.zxj.utilslibrary.utils.DateTimeUtil;
-import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.inject.Inject;
 
 import butterknife.BindView;
 
@@ -56,11 +50,12 @@ public class BuyGoodsActivity extends LKWordBaseActivity {
                 holder.setText(R.id.tv_goumai_shop_name,payloadBean.getGoodsName());
                 holder.setText(R.id.tv_goumai_shop_original_price,payloadBean.getOriginalPrice());
                 holder.setText(R.id.tv_goumai_shop_price,payloadBean.getDiscountPrice());
+                holder.setText(R.id.tv_goumai_shop_purchase,payloadBean.getQuantity()+"");
                 holder.setText(R.id.tv_goumai_time, DateTimeUtil.formatDate(payloadBean.getCreateTime(),"yyyy-MM-dd HH:mm:ss"));
                 Picasso.with(UIUtil.getContext()).
                         load(payloadBean.getGoodsImage()).
-                        placeholder(R.mipmap.yidong_icon).
-                        error(R.mipmap.yidong_icon).into((ImageView) holder.getView(R.id.iv_goumai_img));
+                        placeholder(R.mipmap.defaul_icon).
+                        error(R.mipmap.defaul_icon).into((ImageView) holder.getView(R.id.iv_goumai_img));
             }
         };
          emptyWrapper = new EmptyWrapper(commonAdapter);

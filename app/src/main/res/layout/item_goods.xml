@@ -10,11 +10,10 @@
 <TextView
     android:id="@+id/tv_goumai_time"
    style="@style/tv_car_goumai"
-    android:text="2017-08-03 12:00:00" />
+   />
     <TextView
         style="@style/tv_car_jiaoyi"
         android:layout_marginRight="10dp"
-        android:text="交易成功"
       />
 </RelativeLayout>
 
@@ -29,7 +28,6 @@
             android:layout_marginLeft="14dp"
             android:layout_width="106dp"
             android:layout_gravity="center_vertical"
-            android:background="@mipmap/yidong_icon"
             android:layout_height="80dp" />
         <RelativeLayout
             android:layout_marginLeft="18dp"
@@ -38,7 +36,6 @@
             android:layout_height="80dp">
             <TextView
                 android:id="@+id/tv_goumai_shop_name"
-                android:text="100元移动充值卡"
                 android:layout_marginTop="9dp"
                 android:textSize="@dimen/text_size_15sp"
                 android:textColor="@color/color_333"
@@ -61,12 +58,10 @@
                         android:gravity="bottom"
                         android:layout_marginLeft="11dp"
                         android:textColor="@color/color_333"
-                        android:text="￥94"
                         android:layout_height="match_parent" />
                     <TextView
                         android:id="@+id/tv_goumai_shop_original_price"
                         android:textSize="10sp"
-                        android:text="￥100"
                         android:gravity="bottom"
                         android:layout_alignParentBottom="true"
                         android:textColor="@color/color_999"
@@ -81,7 +76,6 @@
                     android:id="@+id/tv_goumai_shop_purchase"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"
-                    android:text="x10张"
                     android:textColor="@color/color_666"
                     android:textSize="@dimen/text_size_13sp"
                     android:gravity="center"
@@ -100,7 +94,6 @@
         <TextView
             android:id="@+id/tv_goumai_indent_no"
             style="@style/tv_car_goumai"
-            android:text="订单号:0x01123"
             />
         <TextView
             android:id="@+id/tv_goumai_count"
@@ -109,7 +102,6 @@
             android:layout_centerVertical="true"
             android:textColor="@color/color_333"
             android:layout_alignParentRight="true"
-            android:text="合计： ￥900"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </RelativeLayout>

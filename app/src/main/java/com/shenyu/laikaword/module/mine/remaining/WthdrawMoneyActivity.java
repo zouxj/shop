@@ -14,6 +14,7 @@ import com.jakewharton.rxbinding.widget.RxTextView;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.bean.BaseReponse;
+import com.shenyu.laikaword.helper.DialogHelper;
 import com.shenyu.laikaword.module.mine.cards.activity.CardBankActivity;
 import com.shenyu.laikaword.retrofit.ApiCallback;
 import com.shenyu.laikaword.retrofit.RetrofitUtils;
@@ -39,8 +40,6 @@ import rx.functions.Func2;
 public class WthdrawMoneyActivity extends LKWordBaseActivity {
 
 
-    @BindView(R.id.tv_select_bank)
-    ImageView tvSelectBank;
     @BindView(R.id.et_tixian_num)
     EditText etTixianNum;
     @BindView(R.id.tv_account_yue)
@@ -62,7 +61,7 @@ public class WthdrawMoneyActivity extends LKWordBaseActivity {
     public void initView() {
         setToolBarTitle("余额提现");
     }
-
+    String yue;
     @Override
     public void doBusiness(Context context) {
         Observable.combineLatest(RxTextView.textChanges(etTixianNum), RxTextView.textChanges(tvBankType), new Func2<CharSequence, CharSequence, Boolean>() {
@@ -84,7 +83,7 @@ public class WthdrawMoneyActivity extends LKWordBaseActivity {
             }
         });
 
-        String yue = getIntent().getStringExtra("acountyue");
+         yue = getIntent().getStringExtra("acountyue");
         if (StringUtil.validText(yue))
         tvAccountYue.setText(yue);
     }
@@ -95,8 +94,13 @@ public class WthdrawMoneyActivity extends LKWordBaseActivity {
     @SuppressLint("NewApi")
     public Boolean isJyan(){
         String bankName = etTixianNum.getText().toString().trim();
-        String yue = tvBankType.getText().toString().trim();
-        if (StringUtil.validText(yue)&&StringUtil.validText(bankName))
+        String bankStr = tvBankType.getText().toString().trim();
+        if (StringUtil.formatIntger(etTixianNum.getText().toString().trim())>StringUtil.formatDouble(yue)){
+            ToastUtil.showToastShort("余额不够");
+//            etTixianNum.setText(etTixianNum.getText().toString().trim());
+            return  false;
+        }
+        if (StringUtil.validText(bankStr)&&StringUtil.validText(bankName))
             return true;
         else
             return  false;
@@ -110,28 +114,39 @@ public class WthdrawMoneyActivity extends LKWordBaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_tixianing:
-                RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.withdrawMoney(etTixianNum.getText().toString().trim(), carID), new ApiCallback<BaseReponse>() {
+                DialogHelper.setInputDialog(mActivity, true,etTixianNum.getText().toString().trim()
+                        , new DialogHelper.LinstenrText() {
                     @Override
-                    public void onSuccess(BaseReponse model) {
-                        if (model.isSuccess()) {
-                            ToastUtil.showToastShort("提现成功");
-                            RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_REQUEST, null));
-                        }
-                        else {
-                            ToastUtil.showToastShort(model.getError().getMessage());
-                        }
+                    public void onLintenerText(String passWord) {
+                        RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.withdrawMoney(etTixianNum.getText().toString().trim(), carID,passWord), new ApiCallback<BaseReponse>() {
+                            @Override
+                            public void onSuccess(BaseReponse model) {
+                                if (model.isSuccess()) {
+                                    ToastUtil.showToastShort("提现成功");
+                                    RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_REQUEST, null));
+                                } else {
+                                    ToastUtil.showToastShort(model.getError().getMessage());
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(String msg) {
+
+                            }
+
+                            @Override
+                            public void onFinish() {
+
+                            }
+                        });
                     }
 
                     @Override
-                    public void onFailure(String msg) {
+                    public void onWjPassword() {
 
                     }
+                }).show();
 
-                    @Override
-                    public void onFinish() {
-
-                    }
-                });
                 break;
             case R.id.tv_select_bank:
                 Intent intent = new Intent(this,CardBankActivity.class);
@@ -151,6 +166,7 @@ public class WthdrawMoneyActivity extends LKWordBaseActivity {
             if(bundle!=null)
                 text=bundle.getString("bankName");
                 carID = bundle.getString("carID");
+                if (StringUtil.validText(text))
                 tvBankType.setText(text);
         }
     }

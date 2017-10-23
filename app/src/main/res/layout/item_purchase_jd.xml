@@ -31,7 +31,6 @@
             android:layout_marginLeft="14dp"
             android:layout_width="106dp"
             android:layout_gravity="center_vertical"
-            android:background="@mipmap/yidong_icon"
             android:layout_height="70dp" />
         <RelativeLayout
             android:layout_marginLeft="18dp"

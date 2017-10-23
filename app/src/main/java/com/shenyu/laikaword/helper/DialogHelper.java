@@ -14,7 +14,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
+import com.shenyu.laikaword.module.mine.setpassword.SetPassWordMsgCodeActivity;
+import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.KeyBoardUtil;
+import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.widget.countdownview.PayPsdInputView;
 
 import org.w3c.dom.Text;
@@ -198,7 +201,7 @@ public  final  class DialogHelper {
      * @param linstenrText
      * @return
      */
-    public  static  Dialog setInputDialog(Context context, boolean is_must, String money,final LinstenrText linstenrText){
+    public  static  Dialog setInputDialog(final Context context, boolean is_must, String money, final LinstenrText linstenrText){
         final Dialog dialog = new Dialog(context,R.style.Dialog);
         if(!is_must) {
             dialog.setCanceledOnTouchOutside(true);
@@ -208,7 +211,12 @@ public  final  class DialogHelper {
         View view = View.inflate(context,R.layout.dialog_input_passwprd,null);
         final PayPsdInputView textPassWord = view.findViewById(R.id.psd_view_password);
         TextView tvMoney = view.findViewById(R.id.tv_money);
-        tvMoney.setText(money);
+        if (StringUtil.validText(money)){
+            tvMoney.setVisibility(View.VISIBLE);
+            tvMoney.setText(StringUtil.m2(StringUtil.formatDouble(money)));
+        }else {
+            tvMoney.setVisibility(View.GONE);
+        }
         TextView forpasword = view.findViewById(R.id.tv_forgert_pwd);
         view.findViewById(R.id.iv_close).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -220,7 +228,7 @@ public  final  class DialogHelper {
             @Override
             public void onClick(View view) {
                 //TODO 忘记密码
-                linstenrText.onWjPassword();
+                IntentLauncher.with(context).put("RESERT","RESERT").launch(SetPassWordMsgCodeActivity.class);
                 dialog.dismiss();
             }
         });
@@ -259,12 +267,15 @@ public  final  class DialogHelper {
      * @param context
      * @param buttonCallback
      */
-    public static void deleteBankDialog(Context context, final ButtonCallback buttonCallback){
+    public static void deleteBankDialog(Context context, String msg,String okBt,final ButtonCallback buttonCallback){
         final Dialog dialog = new Dialog(context, R.style.Dialog);
         dialog.setCanceledOnTouchOutside(true);
         View view = View.inflate(context,R.layout.dialog_delete_bank,null);
         TextView tvDelete= (TextView)view.findViewById(R.id.tv_delete);
+        tvDelete.setText(okBt);
         TextView tvCannel  = (TextView)view.findViewById(R.id.tv_cancel_dialog);
+        TextView tvMsg = view.findViewById(R.id.tv_delete_msg);
+        tvMsg.setText(msg);
         tvDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -308,7 +319,7 @@ public  final  class DialogHelper {
      */
     public static void tianXAddress(Context context, final ButtonCallback buttonCallback){
         final Dialog dialog = new Dialog(context, R.style.Dialog);
-        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCanceledOnTouchOutside(true);
         View view = View.inflate(context,R.layout.dialog_shengqi_adress,null);
         view.findViewById(R.id.tv_select_address).setOnClickListener(new View.OnClickListener() {
             @Override

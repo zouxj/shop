@@ -76,14 +76,13 @@ public class ConfirmOrderPresenter extends BasePresenter<ConfirmOrderView> {
                                            param.put("amount",zecount);
                                            param.put("quantity",count+"");
                                            param.put("payWay",type+"");
-                                           param.put("pawd",SignUtil.md5(passWord));
+                                           param.put("transactionPIN",passWord);
                                             yuePay(param);
 
                            }
 
                            @Override
                            public void onWjPassword() {
-                               IntentLauncher.with(mActivity).put("RESERT","RESERT").launch(SetPassWordMsgCodeActivity.class);
                            }
                        }).show();
                    }

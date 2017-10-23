@@ -75,7 +75,7 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
     MainPresenter mainPresenter;
     @BindView(R.id.umt_main_gonggao)
     UPMarqueeView upMarqueeTextView;
-    List<String> data = new ArrayList<>();
+    List<ShopMainReponse.PayloadBean.NoticeBean> data = new ArrayList<>();
     List<View> views = new ArrayList<>();
     BannerHelper bannerHelper;
     @BindView(R.id.bt_top_img)
@@ -95,7 +95,7 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
                 TabLayoutHelper.setIndicator(tabs, 25, 25);
             }
         });
-        smartRefreshLayout.setEnableRefresh(false);
+        smartRefreshLayout.setEnableRefresh(true);
         smartRefreshLayout.setEnableLoadmore(false);
         smartRefreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
         smartRefreshLayout.setRefreshFooter(new ClassicsFooter(getActivity()));
@@ -160,10 +160,7 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
         LoginReponse loginReponse = (LoginReponse) SPUtil.readObject(Constants.LOGININFO_KEY);
         if (null!=loginReponse&&loginReponse.getPayload()!=null) {
             mainPresenter.setImgHead(loginReponse.getPayload().getAvatar(), headImg);
-            for (int i = 0; i < 2; i++) {
-                data.add("版本更新啦,新会员更多福利" + i);
-            }
-            setNoticeView();
+
         }
     }
     /**
@@ -189,11 +186,7 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
            bannerHelper.startBanner(dataList, new BannerHelper.OnItemClickListener() {
                @Override
                public void onItemClick(BannerBean bean) {
-                   Intent intent = new Intent();
-                   intent.setAction("android.intent.action.VIEW");
-                   Uri content_url = Uri.parse(bean.getDetailurl());
-                   intent.setData(content_url);
-                   startActivity(intent);
+                  IntentLauncher.with(getActivity()).launchViews(bean.getDetailurl());
                }
            });
        }
@@ -259,7 +252,9 @@ public void onClick(View v){
         setViewpagerTopData(shopBeanReponse.getPayload().getBanner());
         SPUtil.saveObject(Constants.MAIN_SHOP_KEY,shopBeanReponse.getPayload().getGoods());
         RxBus.getDefault().post(new Event(EventType.ACTION_MAIN_SETDATE,shopBeanReponse.getPayload().getGoods()));
-//        mainPresenter.timeTask();
+        data.addAll(shopBeanReponse.getPayload().getNotice());
+        setNoticeView();
+        mainPresenter.timeTask();
     }
 
     @Override
@@ -273,22 +268,22 @@ public void onClick(View v){
     }
     private void setNoticeView() {
         for (int i = 0; i < data.size(); i = i + 2) {
-            final int position = i;
             //设置滚动的单个布局
             LinearLayout moreView = (LinearLayout) UIUtil.inflate(R.layout.marquen_item);
             //初始化布局的控件
             TextView tv1 = moreView.findViewById(R.id.tv1);
-            tv1.setText(data.get(i));
-            tv1.setTextSize(UIUtil.px2sp(getActivity(),36));
+            tv1.setText(data.get(i).getText());
+            tv1.setTextSize(10);
             tv1.setTextColor(UIUtil.getColor(R.color.color_666));
-//            TextView tv2 = (TextView) moreView.findViewById(R.id.tv2);
             /**
              * 设置监听
              */
+            final int finalI = i;
             tv1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                 ToastUtil.showToastShort("你点击了" + data.get(position).toString());
+                    IntentLauncher.with(getActivity()).launchViews(data.get(finalI).getLink());
+
                 }
             });
             /**

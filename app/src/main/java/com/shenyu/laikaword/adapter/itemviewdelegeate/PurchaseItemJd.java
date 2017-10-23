@@ -42,6 +42,6 @@ public class PurchaseItemJd  implements ItemViewDelegate<PickUpGoodsReponse.Payl
         holder.setText(R.id.tv_purchase_shop_name,payloadBean.getGoodsName());
         holder.setText(R.id.tv_purchase_countmun,"X"+payloadBean.getQuantity());
         holder.setText(R.id.tv_purchase_number,"编号:"+payloadBean.getExtractId());
-        Picasso.with(UIUtil.getContext()).load(payloadBean.getGoodsImage()).placeholder(R.mipmap.yidong_icon).error(R.mipmap.yidong_icon).into((ImageView) holder.getView(R.id.img_purchase_img));
+        Picasso.with(UIUtil.getContext()).load(payloadBean.getGoodsImage()).placeholder(R.mipmap.defaul_icon).error(R.mipmap.defaul_icon).into((ImageView) holder.getView(R.id.img_purchase_img));
     }
 }

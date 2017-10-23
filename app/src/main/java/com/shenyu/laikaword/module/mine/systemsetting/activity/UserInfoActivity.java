@@ -108,7 +108,7 @@ public class UserInfoActivity extends LKWordBaseActivity  implements UserInfoVie
             case R.id.set_rl_user_acount_bd:
                 //TODO 更换名字
                 if (loginReponse!=null&&loginReponse.getPayload()!=null)
-                IntentLauncher.with(this).put("USERHEAD",loginReponse.getPayload().getAvatar()).put("USERNAME",loginReponse.getPayload().getNickname()).launch(UpdateUserNameActivity.class);
+                IntentLauncher.with(this).launch(UpdateUserNameActivity.class);
                 break;
         }
     }

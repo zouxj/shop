@@ -17,7 +17,7 @@
 
     <TextView
         android:id="@+id/tv_select_address"
-        android:layout_marginTop="43dp"
+        android:layout_marginTop="33dp"
         android:layout_gravity="center_horizontal"
         android:textColor="@color/app_theme_red"
         android:textSize="@dimen/text_size_17sp"

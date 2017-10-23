@@ -65,7 +65,7 @@ public class CardBankActivity extends LKWordBaseActivity {
         recyclerView.addItemDecoration(new RecycleViewDivider(this,LinearLayoutManager.HORIZONTAL,1, UIUtil.getColor(R.color.divider)));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         CommonAdapter commonAdapter=  new CommonAdapter<BankInfoReponse.PayloadBean>(R.layout.item_card_list,payload) {
-            private int selectedPosition=-5;
+             int selectedPosition=-5;
             @Override
             protected void convert(final ViewHolder holder, final BankInfoReponse.PayloadBean str, final int position) {
                 CheckBox checkBox = holder.getView(R.id.cb_bank_name);

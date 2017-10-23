@@ -46,12 +46,13 @@ public class SetPassWordTwoActivity extends LKWordBaseActivity {
 
             @Override
             public void onEqual(String psd) {
-                RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.setTransactionPIN(SignUtil.md5(psd), codeToken), new ApiCallback<BaseReponse>() {
+                RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.setTransactionPIN(psd, codeToken), new ApiCallback<BaseReponse>() {
                     @Override
                     public void onSuccess(BaseReponse model) {
                         if (model.isSuccess()) {
                             RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_REQUEST, null));
                             IntentLauncher.with(SetPassWordTwoActivity.this).launch(ConfirmOrderActivity.class);
+                            finish();
                         }
                         else {
                             ToastUtil.showToastShort(model.getError().getMessage());

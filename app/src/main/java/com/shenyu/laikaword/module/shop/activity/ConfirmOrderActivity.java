@@ -3,7 +3,6 @@ package com.shenyu.laikaword.module.shop.activity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Paint;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -241,11 +240,11 @@ public class ConfirmOrderActivity extends LKWordBaseActivity implements ConfirmO
             tvMainShopOriginalPrice.setText(goodBean.getOriginPrice());
             tvMainShopOriginalPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             tvMainShopPrice.setText(goodBean.getDiscountPrice());
-            tvMainShopPurchase.setText("剩余数量 :"+goodBean.getDiscount());
+            tvMainShopPurchase.setText("剩余数量 :"+goodBean.getStock());
             if (StringUtil.validText(goodBean.getDiscountPrice()))
-            priceCount.setText(""+(count*(Double.parseDouble(goodBean.getDiscountPrice()))));
+            priceCount.setText(""+(count*(StringUtil.formatDouble(goodBean.getDiscountPrice()))));
             if (StringUtil.validText(goodBean.getDiscount()))
-            mAmountView.setGoods_storage(Integer.parseInt(goodBean.getDiscount()));
+            mAmountView.setGoods_storage(StringUtil.formatIntger(goodBean.getDiscount()));
         }
 
     }

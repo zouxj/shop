@@ -8,7 +8,7 @@
 <include layout="@layout/toolbar_layout"/>
 
     <TextView
-        android:text="账户名额"
+        android:text="账户余额"
         android:layout_marginTop="42dp"
         android:layout_marginLeft="26dp"
         android:textSize="@dimen/text_size_15sp"

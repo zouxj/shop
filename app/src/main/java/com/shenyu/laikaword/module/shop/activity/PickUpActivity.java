@@ -18,6 +18,7 @@ import com.shenyu.laikaword.bean.reponse.CarPagerReponse;
 import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.helper.DialogHelper;
 import com.shenyu.laikaword.module.mine.address.activity.SelectAddressActivity;
+import com.shenyu.laikaword.module.mine.setpassword.SetPassWordMsgCodeActivity;
 import com.shenyu.laikaword.retrofit.ApiCallback;
 import com.shenyu.laikaword.retrofit.RetrofitUtils;
 import com.shenyu.laikaword.widget.AmountView;
@@ -90,14 +91,13 @@ public class PickUpActivity extends LKWordBaseActivity {
         setStepTitles.setStepTitles(titles);
          bean = (CarPagerReponse.Bean) getIntent().getSerializableExtra("bean");
         if (null!=bean){
-            Picasso.with(UIUtil.getContext()).load(bean.getGoodsImage()).placeholder(R.mipmap.yidong_icon)
-                    .error(R.mipmap.yidong_icon).into(ivTihuoImg);
+            Picasso.with(UIUtil.getContext()).load(bean.getGoodsImage()).placeholder(R.mipmap.defaul_icon)
+                    .error(R.mipmap.defaul_icon).into(ivTihuoImg);
             tvTihuoName.setText(bean.getGoodsName());
-            if (StringUtil.validText(bean.getQuantity())) {
-                tvTihuoCount.setText("数量:" + bean.getQuantity());
-                avZj.setGoods_storage(Integer.parseInt(bean.getQuantity()));
+                tvTihuoCount.setText("数量:" + StringUtil.formatIntger(bean.getQuantity()));
+                avZj.setGoods_storage(StringUtil.formatIntger(bean.getQuantity()));
                 tvTihuoAll.setText("1张");
-            }
+
         }
     }
 
@@ -117,7 +117,7 @@ public class PickUpActivity extends LKWordBaseActivity {
                 break;
             case R.id.tv_tihuo_all_select:
                 if (null!=bean) {
-                    count= Integer.parseInt(bean.getQuantity());
+                    count= StringUtil.formatIntger(bean.getQuantity());
                     avZj.etAmount.setText(bean.getQuantity());
                     tvTihuoAll.setText(bean.getQuantity()+"张");
                 }
@@ -127,10 +127,8 @@ public class PickUpActivity extends LKWordBaseActivity {
                     Map<String,String> param = new HashMap<>();
                     param.put("packageId",bean.getPackageId());
                     param.put("quantity",count+"");
-                    if (payloadBean!=null)
                     param.put("addressId",payloadBean.getAddressId());
                     requestData(param);
-
                 } else{
                 DialogHelper.tianXAddress(this, new DialogHelper.ButtonCallback() {
                     @Override
@@ -169,28 +167,40 @@ public class PickUpActivity extends LKWordBaseActivity {
     }
 
     /**
-     * tihuo 提货生气提交
+     * tihuo 提货提交
      * @param param
      */
-    private void requestData(Map<String,String> param){
-        RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.extractPackage(param), new ApiCallback<BaseReponse>() {
+    private void requestData(final Map<String,String> param){
+        DialogHelper.setInputDialog(mActivity, true,"", new DialogHelper.LinstenrText() {
             @Override
-            public void onSuccess(BaseReponse model) {
-                if (model.isSuccess())
-                IntentLauncher.with(PickUpActivity.this).launch(PickUpSuccessActivity.class);
-                else
-                    ToastUtil.showToastShort(model.getError().getMessage());
+            public void onLintenerText(String passWord) {
+                param.put("transactionPIN",passWord);
+                RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.extractPackage(param), new ApiCallback<BaseReponse>() {
+                    @Override
+                    public void onSuccess(BaseReponse model) {
+                        if (model.isSuccess())
+                            IntentLauncher.with(PickUpActivity.this).launch(PickUpSuccessActivity.class);
+                        else
+                            ToastUtil.showToastShort(model.getError().getMessage());
+                    }
+
+                    @Override
+                    public void onFailure(String msg) {
+                        ToastUtil.showToastShort(msg);
+                    }
+
+                    @Override
+                    public void onFinish() {
+
+                    }
+                });
             }
 
             @Override
-            public void onFailure(String msg) {
-                ToastUtil.showToastShort(msg);
-            }
-
-            @Override
-            public void onFinish() {
+            public void onWjPassword() {
 
             }
-        });
+        }).show();
+
     }
 }

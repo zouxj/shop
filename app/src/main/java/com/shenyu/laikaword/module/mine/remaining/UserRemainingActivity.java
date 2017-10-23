@@ -66,7 +66,7 @@ public class UserRemainingActivity extends LKWordBaseActivity {
     public void setupActivityComponent() {
 
     }
-    @OnClick({R.id.re_bt_pay,R.id.re_bt_withdraw,R.id.toolbar_subtitle})
+    @OnClick({R.id.re_bt_pay,R.id.re_bt_withdraw,R.id.rl_toolbar_subtitle})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.re_bt_pay:
@@ -77,7 +77,7 @@ public class UserRemainingActivity extends LKWordBaseActivity {
                 //TODO 提现
                 IntentLauncher.with(this).put("acountyue", reTvSum.getText().toString().trim()).launch(WthdrawMoneyActivity.class);
                 break;
-            case R.id.toolbar_subtitle:
+            case R.id.rl_toolbar_subtitle:
                 //TODO 明细
                 IntentLauncher.with(this).launch(DetailMoneyActivity.class);
                 break;

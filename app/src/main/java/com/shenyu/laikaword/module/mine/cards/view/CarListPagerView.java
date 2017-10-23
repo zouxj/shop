@@ -12,14 +12,11 @@ import com.shenyu.laikaword.adapter.CommonAdapter;
 import com.shenyu.laikaword.adapter.ViewHolder;
 import com.shenyu.laikaword.adapter.wrapper.EmptyWrapper;
 import com.shenyu.laikaword.base.BaseViewPager;
-import com.shenyu.laikaword.bean.BaseReponse;
 import com.shenyu.laikaword.bean.reponse.CarPagerReponse;
-import com.shenyu.laikaword.common.CircleTransform;
+import com.shenyu.laikaword.helper.DialogHelper;
 import com.shenyu.laikaword.helper.RecycleViewDivider;
 import com.shenyu.laikaword.module.shop.activity.PickUpActivity;
 import com.shenyu.laikaword.module.shop.activity.PickUpTelActivity;
-import com.shenyu.laikaword.retrofit.ApiCallback;
-import com.shenyu.laikaword.retrofit.RetrofitUtils;
 import com.squareup.picasso.Picasso;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.UIUtil;
@@ -98,8 +95,8 @@ public class CarListPagerView extends BaseViewPager<CarPagerReponse> {
             protected void convert(ViewHolder holder, final CarPagerReponse.Bean bean, int position) {
                 holder.setText(R.id.tv_kpage_count,bean.getQuantity());
                 holder.setText(R.id.tv_page_name,bean.getGoodsName());
-                Picasso.with(UIUtil.getContext()).load(bean.getGoodsImage()).placeholder(R.mipmap.yidong_icon)
-                        .error(R.mipmap.yidong_icon).into((ImageView) holder.getView(R.id.iv_page_img));
+                Picasso.with(UIUtil.getContext()).load(bean.getGoodsImage()).placeholder(R.mipmap.defaul_icon)
+                        .error(R.mipmap.defaul_icon).into((ImageView) holder.getView(R.id.iv_page_img));
                 holder.setOnClickListener(R.id.tv_tihuo, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

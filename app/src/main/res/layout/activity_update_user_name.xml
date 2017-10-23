@@ -13,6 +13,8 @@
        style="@style/ly_layout"
         >
         <EditText
+            android:maxLength="10"
+            android:lines="1"
             android:id="@+id/update_et_uer_name"
             android:layout_width="100dp"
             style="@style/bank_add_one"

@@ -97,7 +97,7 @@ public interface ApiStores {
     Observable<MsgCodeReponse> createRechargeOrder(@Field("money") String money, @Field("payWay") String payWay);
     @FormUrlEncoded
     @POST("user/withDrawMoney")//余额提现
-    Observable<BaseReponse> withdrawMoney(@Field("money") String money,@Field("cardId") String cardId);
+    Observable<BaseReponse> withdrawMoney(@Field("money") String money,@Field("cardId") String cardId,@Field("transactionPIN") String transactionPIN);
     @GET("user/messageList")//获取消息
     Observable<MessageReponse> messageList();
     @GET("transaction/orderList")//购买记录

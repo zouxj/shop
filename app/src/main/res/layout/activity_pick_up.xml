@@ -26,7 +26,7 @@
 
             android:id="@+id/tv_tihuo_tianxia"
             android:layout_width="250dp"
-            android:text="请填写收货地址"
+            android:hint="请填写收货地址"
             android:gravity="right"
             android:textSize="@dimen/text_size_14sp"
             android:textColor="@color/color_999"

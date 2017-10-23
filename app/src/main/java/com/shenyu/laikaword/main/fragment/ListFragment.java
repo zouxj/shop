@@ -15,11 +15,8 @@ import com.shenyu.laikaword.adapter.CommonAdapter;
 import com.shenyu.laikaword.adapter.ViewHolder;
 import com.shenyu.laikaword.base.IKWordBaseFragment;
 import com.shenyu.laikaword.bean.reponse.GoodBean;
-import com.shenyu.laikaword.bean.reponse.LoginReponse;
 import com.shenyu.laikaword.bean.reponse.ShopMainReponse;
 import com.shenyu.laikaword.common.Constants;
-import com.shenyu.laikaword.module.login.activity.LoginActivity;
-import com.shenyu.laikaword.module.shop.activity.ConfirmOrderActivity;
 import com.shenyu.laikaword.module.shop.activity.ShopDateilActivity;
 import com.shenyu.laikaword.rxbus.event.EventType;
 import com.shenyu.laikaword.rxbus.RxBus;
@@ -76,7 +73,7 @@ public class ListFragment extends IKWordBaseFragment {
         commonAdapter=new CommonAdapter<GoodBean>(R.layout.item_home_shop,listBeans) {
             @Override
             protected void convert(ViewHolder holder, GoodBean listBean, int position) {
-                Picasso.with(UIUtil.getContext()).load(listBean.getGoodsImage()).placeholder(R.mipmap.yidong_icon).error(R.mipmap.yidong_icon).into((ImageView) holder.getView(R.id.iv_main_shop_img));
+                Picasso.with(UIUtil.getContext()).load(listBean.getGoodsImage()).placeholder(R.mipmap.defaul_icon).error(R.mipmap.defaul_icon).into((ImageView) holder.getView(R.id.iv_main_shop_img));
                 holder.setText(R.id.tv_main_shop_name, listBean.getGoodsName());
                 holder.setText(R.id.tv_main_shop_original_price, "￥"+listBean.getOriginPrice());
                 TextView textView=holder.getView(R.id.tv_main_shop_original_price);

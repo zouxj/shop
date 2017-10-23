@@ -17,7 +17,13 @@ import com.shenyu.laikaword.bean.reponse.AddressReponse;
 import com.shenyu.laikaword.helper.RecycleViewDivider;
 import com.shenyu.laikaword.retrofit.ApiCallback;
 import com.shenyu.laikaword.retrofit.RetrofitUtils;
+import com.shenyu.laikaword.rxbus.RxBus;
+import com.shenyu.laikaword.rxbus.RxBusSubscriber;
+import com.shenyu.laikaword.rxbus.RxSubscriptions;
+import com.shenyu.laikaword.rxbus.event.Event;
+import com.shenyu.laikaword.rxbus.event.EventType;
 import com.zxj.utilslibrary.utils.IntentLauncher;
+import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
 import java.util.ArrayList;
@@ -26,6 +32,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import rx.android.schedulers.AndroidSchedulers;
 
 public class SelectAddressActivity extends LKWordBaseActivity {
 
@@ -107,6 +114,7 @@ public class SelectAddressActivity extends LKWordBaseActivity {
         emptyWrapper.setEmptyView(R.layout.empty_view);
         reCyView.setAdapter(emptyWrapper);
         initData();
+        subscribeEvent();
 
     }
 
@@ -116,10 +124,10 @@ public class SelectAddressActivity extends LKWordBaseActivity {
     }
 
 
-    @OnClick({R.id.toolbar_subtitle,R.id.bt_ok_address})
+    @OnClick({R.id.rl_toolbar_subtitle,R.id.bt_ok_address})
     public void onViewClicked(View view) {
         switch (view.getId()){
-            case R.id.toolbar_subtitle:
+            case R.id.rl_toolbar_subtitle:
                 IntentLauncher.with(this).launch(AddressInfoActivity.class);
                 break;
             case R.id.bt_ok_address:
@@ -130,7 +138,31 @@ public class SelectAddressActivity extends LKWordBaseActivity {
         }
 
     }
-
+    private void subscribeEvent() {
+        RxSubscriptions.remove(mRxSub);
+        mRxSub = RxBus.getDefault().toObservable(Event.class)
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(new RxBusSubscriber<Event>() {
+                    @Override
+                    protected void onEvent(Event myEvent) {
+                        switch (myEvent.event) {
+                            case EventType.ACTION_UPDATA_USER_ADDRESS:
+                                initData();
+                                break;
+                        }
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        LogUtil.e(TAG, "onError");
+                        /**
+                         * 这里注意: 一旦订阅过程中发生异常,走到onError,则代表此次订阅事件完成,后续将收不到onNext()事件,
+                         * 即 接受不到后续的任何事件,实际环境中,我们需要在onError里 重新订阅事件!
+                         */
+                        subscribeEvent();
+                    }
+                });
+        RxSubscriptions.add(mRxSub);
+    }
     public void initData() {
         RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.getAddress(), new ApiCallback<AddressReponse>() {
             @Override
@@ -165,6 +197,9 @@ public class SelectAddressActivity extends LKWordBaseActivity {
     }
 
 
-
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RxSubscriptions.remove(mRxSub);
+    }
 }

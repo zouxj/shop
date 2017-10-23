@@ -9,6 +9,7 @@ import android.view.View;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.adapter.CommonAdapter;
 import com.shenyu.laikaword.adapter.ViewHolder;
+import com.shenyu.laikaword.adapter.wrapper.EmptyWrapper;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.bean.BaseReponse;
 import com.shenyu.laikaword.bean.reponse.BankInfoReponse;
@@ -39,6 +40,7 @@ public class CardBankInfoActivity extends LKWordBaseActivity {
     @BindView(R.id.card_cy_list)
     RecyclerView recyclerView;
     CommonAdapter commonAdapter;
+    EmptyWrapper emptyWrapper;
     private List<BankInfoReponse.PayloadBean> payload=new ArrayList<>();
     @Override
     public int bindLayout() {
@@ -54,18 +56,17 @@ public class CardBankInfoActivity extends LKWordBaseActivity {
         commonAdapter = new CommonAdapter<BankInfoReponse.PayloadBean>(R.layout.item_cardinfo_list,payload) {
             @Override
             protected void convert(ViewHolder holder, final BankInfoReponse.PayloadBean payloadBean, final int position) {
-
                 holder.setText(R.id.tv_bank_no,StringUtil.formatBankNumber(payloadBean.getCardNo()));
                 holder.setText(R.id.tv_card_bank,payloadBean.getBankName());
                 holder.setOnClickListener(R.id.tv_card_num, new  View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        DialogHelper.deleteBankDialog(CardBankInfoActivity.this, new DialogHelper.ButtonCallback() {
+                        DialogHelper.deleteBankDialog(CardBankInfoActivity.this, "解除绑定后银行卡服务将不可使用,包括快捷支付","解除绑定",new DialogHelper.ButtonCallback() {
                             @Override
                             public void onNegative(Dialog dialog) {
                                 if (deleteBank(payloadBean.getCardId())) {
                                     payload.remove(position);
-                                    commonAdapter.notifyDataSetChanged();
+                                    emptyWrapper.notifyDataSetChanged();
                                 }
                             }
 
@@ -78,7 +79,9 @@ public class CardBankInfoActivity extends LKWordBaseActivity {
                 });
             }
         };
-        recyclerView.setAdapter(commonAdapter);
+         emptyWrapper = new EmptyWrapper(commonAdapter);
+        emptyWrapper.setEmptyView(R.layout.empty_view);
+        recyclerView.setAdapter(emptyWrapper);
     }
 
     @Override
@@ -97,7 +100,6 @@ public class CardBankInfoActivity extends LKWordBaseActivity {
                                 initData();
                                 break;
                         }
-//            }
                     }
 
                     @Override
@@ -120,7 +122,7 @@ public class CardBankInfoActivity extends LKWordBaseActivity {
                 if (model.isSuccess()) {
                     payload.clear();
                     payload.addAll(model.getPayload());
-                    commonAdapter.notifyDataSetChanged();
+                    emptyWrapper.notifyDataSetChanged();
                 }
 
             }
@@ -159,7 +161,6 @@ public class CardBankInfoActivity extends LKWordBaseActivity {
                     deleteBoolean = true;
                 else
                     deleteBoolean=false;
-
             }
 
             @Override

@@ -40,10 +40,10 @@
     android:paddingBottom="@dimen/dp_15dp"
     android:layout_width="wrap_content"
     android:layout_alignParentRight="true"
-    android:layout_marginRight="9dp"
+    android:paddingRight="9dp"
     android:src="@mipmap/right_back"
     android:layout_centerVertical="true"
-    android:layout_height="wrap_content" />
+    android:layout_height="match_parent" />
     </RelativeLayout>
     <include layout="@layout/line_view"/>
     <RelativeLayout

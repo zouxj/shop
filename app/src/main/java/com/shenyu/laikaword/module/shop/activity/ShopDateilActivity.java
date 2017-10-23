@@ -13,8 +13,11 @@ import android.webkit.WebViewClient;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.bean.reponse.GoodBean;
-import com.shenyu.laikaword.js.AndroidtoJs;
+import com.shenyu.laikaword.bean.reponse.LoginReponse;
+import com.shenyu.laikaword.common.Constants;
+import com.shenyu.laikaword.module.login.activity.LoginActivity;
 import com.zxj.utilslibrary.utils.IntentLauncher;
+import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 
 import java.util.HashMap;
@@ -65,6 +68,10 @@ public class ShopDateilActivity extends LKWordBaseActivity {
                                               if (uri.getAuthority().equals("goOrder")) {
                                                   //  步骤3：
                                                   // 执行JS所需要调用的逻辑
+                                                  LoginReponse loginReponse = (LoginReponse) SPUtil.readObject(Constants.LOGININFO_KEY);
+                                                  if (null==loginReponse)
+                                                      IntentLauncher.with(mActivity).launch(LoginActivity.class);
+                                                else
                                                   IntentLauncher.with(mActivity).putObjectString("order",goodBean).launch(ConfirmOrderActivity.class);
 //                                                 ToastUtil.showToastShort("js调用了Android的方法");
 //                                                  // 可以在协议上带有参数并传递到Android上

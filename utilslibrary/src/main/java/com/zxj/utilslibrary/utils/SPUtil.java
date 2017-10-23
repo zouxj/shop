@@ -101,7 +101,7 @@ public class SPUtil {
      * @param obj 要保存的对象，只能保存实现了serializable的对象
      * modified:
      */
-    public static boolean saveObject(String Key,Object obj){
+    public synchronized  static boolean saveObject(String Key,Object obj){
         // TODO Auto-generated method stub
         if (obj == null) {
             getSp().edit().remove(Key).apply();

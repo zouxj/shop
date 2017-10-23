@@ -6,9 +6,14 @@ import android.view.View;
 
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
+import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.module.login.activity.LoginActivity;
+import com.shenyu.laikaword.rxbus.RxBus;
+import com.shenyu.laikaword.rxbus.event.Event;
+import com.shenyu.laikaword.rxbus.event.EventType;
 import com.zxj.utilslibrary.utils.ActivityManageUtil;
 import com.zxj.utilslibrary.utils.IntentLauncher;
+import com.zxj.utilslibrary.utils.SPUtil;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -55,7 +60,9 @@ public class SettingSystemActivity extends LKWordBaseActivity {
             case R.id.set_rl_about://关于我们
                 IntentLauncher.with(this).launch(AboutAppActivity.class);
                 break;
-            case R.id.set_tv_exit://退出应用
+            case R.id.set_tv_exit://退出当前账号
+                SPUtil.removeSp(Constants.LOGININFO_KEY);
+                RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER, null));
                 IntentLauncher.with(this).launch(LoginActivity.class);
 
                 break;

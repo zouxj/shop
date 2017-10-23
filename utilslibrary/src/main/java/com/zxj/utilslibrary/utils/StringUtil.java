@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.zxj.utilslibrary.AndroidUtilsCore;
 
+import java.text.DecimalFormat;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -115,6 +116,31 @@ public class StringUtil {
      */
     public static String formatNum(int time) {
         return time < 10 ? "0" + time : String.valueOf(time);
+    }
+    public static String m2(Double value) {
+                 DecimalFormat df = new DecimalFormat("#.00");
+                   return  df.format(value);
+          }
+
+    /**
+     * 字符串转int
+     * @param num
+     * @return
+     */
+    public static int formatIntger(String num) {
+       if (validText(num))
+           return  Integer.parseInt(num);
+       return 0;
+    }
+    /**
+     * 字符串转Double
+     * @param num
+     * @return
+     */
+    public static Double formatDouble(String num) {
+        if (validText(num))
+            return  Double.parseDouble(num);
+        return 0.00;
     }
 
     /*

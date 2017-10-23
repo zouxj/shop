@@ -1,12 +1,10 @@
 package com.shenyu.laikaword.main.fragment;
 
 import android.app.Activity;
-import android.graphics.Paint;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.adapter.CommonAdapter;
@@ -17,7 +15,6 @@ import com.shenyu.laikaword.bean.reponse.GoodBean;
 import com.shenyu.laikaword.bean.reponse.LoginReponse;
 import com.shenyu.laikaword.bean.reponse.ShopMainReponse;
 import com.shenyu.laikaword.common.Constants;
-import com.shenyu.laikaword.helper.GridDividerItemDecoration;
 import com.shenyu.laikaword.helper.GridSpacingItemDecoration;
 import com.shenyu.laikaword.module.login.activity.LoginActivity;
 import com.shenyu.laikaword.module.shop.activity.ConfirmOrderActivity;
@@ -30,6 +27,7 @@ import com.shenyu.laikaword.rxbus.event.EventType;
 import com.squareup.picasso.Picasso;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.SPUtil;
+import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
 import java.util.ArrayList;
@@ -76,11 +74,11 @@ public class MainListViewPager extends BaseViewPager {
         commonAdapter=new CommonAdapter<GoodBean>(R.layout.item_home_shop,listBeans) {
             @Override
             protected void convert(ViewHolder holder, final GoodBean listBean, int position) {
-                Picasso.with(UIUtil.getContext()).load(listBean.getGoodsImage()).placeholder(R.mipmap.yidong_icon).error(R.mipmap.yidong_icon).into((ImageView) holder.getView(R.id.iv_main_shop_img));
+                Picasso.with(UIUtil.getContext()).load(listBean.getGoodsImage()).placeholder(R.mipmap.defaul_icon).error(R.mipmap.defaul_icon).into((ImageView) holder.getView(R.id.iv_main_shop_img));
                 holder.setText(R.id.tv_main_shop_name, listBean.getGoodsName());
-                holder.setText(R.id.tv_main_shop_original_price, "￥"+listBean.getOriginPrice());
+//                holder.setText(R.id.tv_main_shop_original_price, "￥"+listBean.getOriginPrice());
                 holder.setText(R.id.tv_main_shop_price, "￥"+listBean.getDiscountPrice());
-                holder.setText(R.id.tv_main_shop_surplus, "还剩"+listBean.getStock());
+                holder.setText(R.id.tv_main_shop_surplus, StringUtil.formatIntger(listBean.getStock())>5?"":"还剩"+StringUtil.formatIntger(listBean.getStock()));
                 holder.setText(R.id.tv_main_shop_seller,listBean.getNickName()+" 出售");
                 holder.setText(R.id.tv_mian_shop_discount,listBean.getDiscount()+"折");
                 holder.setOnClickListener(R.id.tv_main_shop_purchase, new View.OnClickListener() {

@@ -5,8 +5,8 @@
     android:background="@color/main_bg_gray"
     android:layout_height="wrap_content">
 <TextView
+    android:id="@+id/tv_delete_msg"
     android:layout_width="360dp"
-    android:text="解除绑定后银行卡服务将不可使用,包括快捷支付"
     android:textSize="13sp"
     android:textColor="@color/color_999"
     android:layout_gravity="center_horizontal"

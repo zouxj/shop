@@ -84,10 +84,13 @@ public class SetPassWordMsgCodeActivity extends LKWordBaseActivity {
                         @Override
                         public void onSuccess(MsgCodeReponse model) {
                             if (model.isSuccess())
-                                if (typeActivity!=null&&typeActivity.equals("RESERT"))
-                                    IntentLauncher.with(mActivity).put("typeActivity",typeActivity).put("codeToken",model.getPayload().getSMSToken()).launch(SetPassWordOneActivity.class);
-                            else
-                                IntentLauncher.with(mActivity).put("codeToken",model.getPayload().getSMSToken()).launch(SetPassWordOneActivity.class);
+                                if (typeActivity != null && typeActivity.equals("RESERT")) {
+                                    IntentLauncher.with(mActivity).put("typeActivity", typeActivity).put("codeToken", model.getPayload().getSMSToken()).launch(SetPassWordOneActivity.class);
+                                    finish();
+                                } else {
+                                    IntentLauncher.with(mActivity).put("codeToken", model.getPayload().getSMSToken()).launch(SetPassWordOneActivity.class);
+                                    finish();
+                                }
                         }
 
                         @Override

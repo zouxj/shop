@@ -2,6 +2,7 @@ package com.zxj.utilslibrary.utils;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 
@@ -86,6 +87,17 @@ public class IntentLauncher {
             mIntent = null;
         }
     }
-
+    public void launchViews(String url) {
+        if (weakReference != null && weakReference.get() != null) {
+            Context context = weakReference.get();
+            mIntent.setAction("android.intent.action.VIEW");
+            Uri content_url = Uri.parse(url);
+            mIntent.setData(content_url);
+            context.startActivity(mIntent);
+            weakReference.clear();
+            weakReference = null;
+            mIntent = null;
+        }
+    }
 
 }

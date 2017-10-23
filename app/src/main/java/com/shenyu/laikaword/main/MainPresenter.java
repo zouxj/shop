@@ -61,22 +61,38 @@ public class MainPresenter extends BasePresenter<MainView> {
 
     }
     public void onLoadMore(){
-        List<String> moreList = new ArrayList<>();
-        for (int i=0;i<10;i++){
-            moreList.add("more"+i);
-        }
-        mvpView.loadMore(moreList);
+//        List<String> moreList = new ArrayList<>();
+//        for (int i=0;i<10;i++){
+//            moreList.add("more"+i);
+//        }
+//        mvpView.loadMore(moreList);
     }
 
     /**
      * 下拉刷新
      */
     public void loadRefresh(){
-        List<String> refesh = new ArrayList<>();
-        for (int i=0;i<10;i++){
-            refesh.add("refrsh"+i);
-        }
-        mvpView.refreshPull(refesh);
+        mvpView.isLoading();
+        addSubscription(apiStores.getMainShop(), new ApiCallback<ShopMainReponse>() {
+            @Override
+            public void onSuccess(ShopMainReponse model) {
+                if (model.isSuccess()) {
+                    SPUtil.saveObject(Constants.MAIN_SHOP_KEY,model.getPayload().getGoods());
+                    RxBus.getDefault().post(new Event(EventType.ACTION_MAIN_SETDATE,model.getPayload().getGoods()));
+                }
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                mvpView.loadFailure();
+            }
+
+            @Override
+            public void onFinish() {
+                mvpView.loadFinished();
+            }
+        });
+
     }
 
     /**

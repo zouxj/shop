@@ -146,7 +146,8 @@ public class LoginActivity extends LKWordBaseActivity implements LoginView,MPerm
                 break;
             case R.id.iv_login_close:
                 //TODO 退出APP
-                ActivityManageUtil.getAppManager().exitApp(this);
+                finish();
+//                ActivityManageUtil.getAppManager().exitApp(this);
                 break;
         }
 

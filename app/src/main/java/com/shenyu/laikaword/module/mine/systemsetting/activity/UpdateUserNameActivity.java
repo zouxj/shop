@@ -6,6 +6,8 @@ import android.widget.EditText;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.bean.BaseReponse;
+import com.shenyu.laikaword.bean.reponse.LoginReponse;
+import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.retrofit.ApiCallback;
 import com.shenyu.laikaword.retrofit.RetrofitUtils;
 import com.shenyu.laikaword.rxbus.event.Event;
@@ -38,9 +40,11 @@ public class UpdateUserNameActivity extends LKWordBaseActivity {
     String headURL;
     @Override
     public void doBusiness(Context context) {
-        String userName = getIntent().getStringExtra("USERNAME");
-         headURL =  getIntent().getStringExtra("USERHEAD");
-        updateEtUerName.setText(userName);
+        LoginReponse loginReponse = Constants.getLoginReponse();
+        if (null != loginReponse){
+            headURL=loginReponse.getPayload().getAvatar();
+        updateEtUerName.setText(loginReponse.getPayload().getNickname());
+    }
 
     }
 

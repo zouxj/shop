@@ -143,7 +143,7 @@ public abstract class LKWordBaseActivity extends AppCompatActivity implements IB
     private void showBack(){
         //setNavigationIcon必须在setSupportActionBar(toolbar);方法后面加
         if(null!=mLeftTitile) {
-            mLeftTitile.setOnClickListener(new View.OnClickListener() {
+            findViewById(R.id.rl_toolbar_left).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     onBackPressed();
