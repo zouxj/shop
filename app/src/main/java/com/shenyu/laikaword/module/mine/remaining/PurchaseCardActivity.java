@@ -24,7 +24,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * 购买记录
+ * 提貨记录
  */
 public class PurchaseCardActivity extends LKWordBaseActivity {
 

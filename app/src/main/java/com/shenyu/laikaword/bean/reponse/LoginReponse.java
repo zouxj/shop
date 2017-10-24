@@ -100,7 +100,7 @@ private PayloadBean payload;
             this.bindPhone = bindPhone;
         }
 
-        public Object getBindWeChat() {
+        public String getBindWeChat() {
             return bindWeChat;
         }
 
@@ -116,7 +116,7 @@ private PayloadBean payload;
             this.weChatUnionId = weChatUnionId;
         }
 
-        public Object getBindQQ() {
+        public String getBindQQ() {
             return bindQQ;
         }
 

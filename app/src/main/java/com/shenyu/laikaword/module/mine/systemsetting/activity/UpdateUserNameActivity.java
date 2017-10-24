@@ -13,6 +13,7 @@ import com.shenyu.laikaword.retrofit.RetrofitUtils;
 import com.shenyu.laikaword.rxbus.event.Event;
 import com.shenyu.laikaword.rxbus.event.EventType;
 import com.shenyu.laikaword.rxbus.RxBus;
+import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 
 import butterknife.BindView;
@@ -56,28 +57,32 @@ public class UpdateUserNameActivity extends LKWordBaseActivity {
 
     @OnClick(R.id.toolbar_subtitle)
     public void onViewClicked() {
-        RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.editInfo(updateEtUerName.getText().toString().trim(), headURL), new ApiCallback<BaseReponse>() {
-            @Override
-            public void onSuccess(BaseReponse model) {
-                if (model.isSuccess()) {
-                    ToastUtil.showToastShort("修改成功");
-                    RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_REQUEST, null));
-                    finish();
-                }else{
-                    ToastUtil.showToastShort("修改失败");
+        if (StringUtil.validText(updateEtUerName.getText().toString().trim())) {
+            RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.editInfo(updateEtUerName.getText().toString().trim(), headURL), new ApiCallback<BaseReponse>() {
+                @Override
+                public void onSuccess(BaseReponse model) {
+                    if (model.isSuccess()) {
+                        ToastUtil.showToastShort("修改成功");
+                        RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_REQUEST, null));
+                        finish();
+                    } else {
+                        ToastUtil.showToastShort("修改失败");
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(String msg) {
+                @Override
+                public void onFailure(String msg) {
 
-            }
+                }
 
-            @Override
-            public void onFinish() {
+                @Override
+                public void onFinish() {
 
-            }
-        });
+                }
+            });
+        }else {
+            ToastUtil.showToastShort("请输入昵称");
+        }
 
 //        RetrofitUtils.getRetrofitUtils().apiStores.editInfo(updateEtUerName.getText().toString().trim(), headURL).flatMap(new Func1<BaseReponse, Observable<LoginReponse>>() {
 //            @Override

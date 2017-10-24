@@ -246,7 +246,7 @@ public class DateTimeUtil {
      * 格式化时间
      */
     public static String formatDate(long dateL, String formater) {
-        return new SimpleDateFormat(formater).format(new Date(dateL));
+        return new SimpleDateFormat(formater).format(new Date(dateL*1000));
     }
 
     /**

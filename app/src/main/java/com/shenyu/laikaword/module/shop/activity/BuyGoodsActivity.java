@@ -46,7 +46,7 @@ public class BuyGoodsActivity extends LKWordBaseActivity {
             @Override
             protected void convert(ViewHolder holder, OrderListReponse.PayloadBean payloadBean, int position) {
                 holder.setText(R.id.tv_goumai_count,payloadBean.getDiscount());
-                holder.setText(R.id.tv_goumai_indent_no,payloadBean.getOrderId());
+                holder.setText(R.id.tv_goumai_indent_no,"订单编号:"+payloadBean.getOrderId());
                 holder.setText(R.id.tv_goumai_shop_name,payloadBean.getGoodsName());
                 holder.setText(R.id.tv_goumai_shop_original_price,payloadBean.getOriginalPrice());
                 holder.setText(R.id.tv_goumai_shop_price,payloadBean.getDiscountPrice());

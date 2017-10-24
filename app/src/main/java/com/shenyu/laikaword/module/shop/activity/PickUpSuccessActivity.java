@@ -7,6 +7,7 @@ import android.view.View;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.main.activity.MainActivity;
+import com.shenyu.laikaword.module.mine.remaining.PurchaseCardActivity;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 
 import butterknife.ButterKnife;
@@ -37,7 +38,7 @@ public class PickUpSuccessActivity extends LKWordBaseActivity {
         switch (view.getId()) {
             case R.id.tv_sq_check_state:
                 //TODO 查看申请状态
-                IntentLauncher.with(this).launch(PickUpStateActivity.class);
+                IntentLauncher.with(this).launch(PurchaseCardActivity.class);
                 finish();
                 break;
             case R.id.tv_sq_back_main:

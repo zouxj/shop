@@ -85,7 +85,7 @@
         android:textSize="@dimen/text_size_14sp"
         android:hint="请输入短信验证码"
         android:gravity="center_vertical"
-        android:textColor="@color/color_ccc"
+        android:textColor="@color/color_333"
         android:layout_marginLeft="25dp"
         android:inputType="number"
         android:background="@null"

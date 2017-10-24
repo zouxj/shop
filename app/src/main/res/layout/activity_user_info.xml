@@ -17,13 +17,12 @@
             android:layout_centerVertical="true"
             android:text="个人头像"
             />
-        <com.shenyu.laikaword.widget.CircleImageView
+        <ImageView
             android:id="@+id/set_change_user_head"
             android:layout_width="30dp"
             android:layout_marginRight="14dp"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/head_user_back"
-            android:src="@mipmap/ic_launcher"
             android:layout_height="30dp" />
         <ImageView
             android:id="@+id/head_user_back"

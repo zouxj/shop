@@ -10,6 +10,7 @@ import com.shenyu.laikaword.bean.reponse.GoodsBean;
 import com.shenyu.laikaword.bean.reponse.ImgSTSReponse;
 import com.shenyu.laikaword.bean.reponse.LoginReponse;
 import com.shenyu.laikaword.bean.reponse.MessageReponse;
+import com.shenyu.laikaword.bean.reponse.MoneyDetailReponse;
 import com.shenyu.laikaword.bean.reponse.MsgCodeReponse;
 import com.shenyu.laikaword.bean.reponse.OrderListReponse;
 import com.shenyu.laikaword.bean.reponse.PayInfoReponse;
@@ -113,9 +114,15 @@ public interface ApiStores {
     @POST("account/extractPackage")//下单接口
     @FormUrlEncoded
     Observable<BaseReponse> extractPackage(@FieldMap Map<String, String> map);
-    @POST("account/myextract")//下单接口
     @FormUrlEncoded
+    @POST("account/myextract")//下单接口
     Observable<PickUpGoodsReponse> myextract(@Field("extractStatus") int extractStatus);
+    @FormUrlEncoded
+    @POST("account/getUserMoneyDetail")//余额明细
+    Observable<MoneyDetailReponse> getUserMoneyDetail(@Field("page") int page, @Field("pageSize") int pageSize);
+    @FormUrlEncoded
+    @POST("user/partyBind")//余额明细
+    Observable<LoginReponse> partyBind(@FieldMap Map<String, String> map);
 
 
 

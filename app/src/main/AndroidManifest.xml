@@ -86,7 +86,7 @@
             android:value="ecdc301c7fac7e942eeb76031d237e7b" />
         <meta-data
             android:name="com.taobao.android.hotfix.RSASECRET"
-            android:value="MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCh2EpzZ3jSFQgAGWmdKO2xKECg4u1RIXaUfD0eaoPxcFc6KHC+SfJHtYGYI9NsvgFFt2llBVZtAd/qJWetjSywFJSBJVEJILRvHcEiHErKiN5j+wIJ7vK3sYI628pCOAYcbA2U0z73mGOG3XbEidCU0vCPsCW4Lx3EFb+Ac64JgpgA/0BIMH4Y7NHWHFZHWtGMu2CpYkPDyfR1AOx8lqyQLepC4Ltby9YhCbFRzs/5fjA0axrRvXpJ5ouhU7NZwj5iUFzsA+khfU1QoWa/InQAGoKmEcC0yIDwOM0zBDs6rwt7z4RT0wtj1UQD9R7LpXHqd6JpD7oSDmAmwm5Xk3GNAgMBAAECggEAaOuE6Get5dOIijfvRdkgrnZ/30z9uFjPPNeF78/xlXXUtnk9Db92d5JtXynqiFZtELskcj8Rlj1e4bY6DkK1M7lDxK1iaV5wWpCZgfmBaudr9Ljmy3XCl99Vo76U0nTrUUWjUFXaPjzmWKn9ss/9Dl3pYd05trukule2/BkCPFsIMtTX7smKAoTZ5FQKbenoc01c7SLw5DWLB9EC/PuOGHNaR0cSRozUb8sHyCsKDLdbR2nu2NY6L7uXHqQunH9o9DNyzyq8PBYmrWjGR/l4ZoT0a6j7nvdIobCyg0HN3hV8iSC1Lg/cSejyDjKogGTcAC5XV1CG4laOT+ebhAJZwQKBgQDsmqwfET6lmgr7sgfak5upxg9nr3hXrP5g/defgwshcpH1NAzRv0bFZzTsMnR5S4l3pzKY1eQYr7e9FPbOz/5RrbdwH5q/97Hik4MpfaeSaa0HaiQaVj+GUaIg4OJxzRXkVAIEYOU3B7XeGqw1YuIsvkfvUx6f54O/mFeSn7EHqQKBgQCvHLwgMUiuO3m/0Lk0Q4/H1J2tvRfP95GBt9na/wZowhXAqxXYrpb0hdJ1ciaKvc5+vPvUSaTkkrZpc2jNu8bnj+Ady1Q1KT/+doCdGusP3RYzwXgoHGfXUO+Pb048ffSUkzrr2WYPfuHm4vQnFH5ogxJ6i1sT6A8yVbfCZsH5RQKBgGTyJMdoexr6Wv9B2Ln3yi0n9ICfS6/Uff9xreI/batKj11XZLTEb/Re8SRo7mqlwLPNIPg2IYgqyDCi1h4sfWvput7ajRKkIj/yAb7c/naoIYuNTHP0IkwzXgG7EMHO5y0wbl/h20mcP4rQRHLOioLeeCByjRlaFErVO1+yRDxpAoGAUVLi+4Bn5KKydCaXHHKT/5X6dIlw2aB77uZXQqFVdKlOOOA7kRnj+UN87hZJV/22PJ2/xmM9NPn9xRNYBNPEGB51UuDvBpFVqvOV32B08jUW7opXJymqABEScGacyvMj9yw5HPclsuSWPQgBo3SdECRvHIJDlgcbp6CvapUWWJECgYEAyLJW4iWtEdRomairdSwT/TvDMyuRpGJIfnYxrsugm6mG9kNJK815TP8tgsk+o2ytJycr0mDkUNJ9a52ApXT3781CtMPArt+QxwSe+r8CTINaYG2XO0oWTOuDS33TcBjBqTETi42jb0ZwgPe7B/cVQHgY/Div3GAtWdmBt92kOuU="/>
+            android:value="MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCh2EpzZ3jSFQgAGWmdKO2xKECg4u1RIXaUfD0eaoPxcFc6KHC+SfJHtYGYI9NsvgFFt2llBVZtAd/qJWetjSywFJSBJVEJILRvHcEiHErKiN5j+wIJ7vK3sYI628pCOAYcbA2U0z73mGOG3XbEidCU0vCPsCW4Lx3EFb+Ac64JgpgA/0BIMH4Y7NHWHFZHWtGMu2CpYkPDyfR1AOx8lqyQLepC4Ltby9YhCbFRzs/5fjA0axrRvXpJ5ouhU7NZwj5iUFzsA+khfU1QoWa/InQAGoKmEcC0yIDwOM0zBDs6rwt7z4RT0wtj1UQD9R7LpXHqd6JpD7oSDmAmwm5Xk3GNAgMBAAECggEAaOuE6Get5dOIijfvRdkgrnZ/30z9uFjPPNeF78/xlXXUtnk9Db92d5JtXynqiFZtELskcj8Rlj1e4bY6DkK1M7lDxK1iaV5wWpCZgfmBaudr9Ljmy3XCl99Vo76U0nTrUUWjUFXaPjzmWKn9ss/9Dl3pYd05trukule2/BkCPFsIMtTX7smKAoTZ5FQKbenoc01c7SLw5DWLB9EC/PuOGHNaR0cSRozUb8sHyCsKDLdbR2nu2NY6L7uXHqQunH9o9DNyzyq8PBYmrWjGR/l4ZoT0a6j7nvdIobCyg0HN3hV8iSC1Lg/cSejyDjKogGTcAC5XV1CG4laOT+ebhAJZwQKBgQDsmqwfET6lmgr7sgfak5upxg9nr3hXrP5g/defgwshcpH1NAzRv0bFZzTsMnR5S4l3pzKY1eQYr7e9FPbOz/5RrbdwH5q/97Hik4MpfaeSaa0HaiQaVj+GUaIg4OJxzRXkVAIEYOU3B7XeGqw1YuIsvkfvUx6f54O/mFeSn7EHqQKBgQCvHLwgMUiuO3m/0Lk0Q4/H1J2tvRfP95GBt9na/wZowhXAqxXYrpb0hdJ1ciaKvc5+vPvUSaTkkrZpc2jNu8bnj+Ady1Q1KT/+doCdGusP3RYzwXgoHGfXUO+Pb048ffSUkzrr2WYPfuHm4vQnFH5ogxJ6i1sT6A8yVbfCZsH5RQKBgGTyJMdoexr6Wv9B2Ln3yi0n9ICfS6/Uff9xreI/batKj11XZLTEb/Re8SRo7mqlwLPNIPg2IYgqyDCi1h4sfWvput7ajRKkIj/yAb7c/naoIYuNTHP0IkwzXgG7EMHO5y0wbl/h20mcP4rQRHLOioLeeCByjRlaFErVO1+yRDxpAoGAUVLi+4Bn5KKydCaXHHKT/5X6dIlw2aB77uZXQqFVdKlOOOA7kRnj+UN87hZJV/22PJ2/xmM9NPn9xRNYBNPEGB51UuDvBpFVqvOV32B08jUW7opXJymqABEScGacyvMj9yw5HPclsuSWPQgBo3SdECRvHIJDlgcbp6CvapUWWJECgYEAyLJW4iWtEdRomairdSwT/TvDMyuRpGJIfnYxrsugm6mG9kNJK815TP8tgsk+o2ytJycr0mDkUNJ9a52ApXT3781CtMPArt+QxwSe+r8CTINaYG2XO0oWTOuDS33TcBjBqTETi42jb0ZwgPe7B/cVQHgY/Div3GAtWdmBt92kOuU=" />
 
         <activity android:name=".module.mine.remaining.UserRemainingActivity" />
         <activity android:name=".module.mine.remaining.WthdrawMoneyActivity" />
@@ -144,13 +144,19 @@
         <activity android:name=".module.mine.setpassword.SetPassWordTwoActivity" />
         <activity android:name=".module.mine.systemsetting.activity.AcountBdingSuccessActivity" />
         <activity android:name=".module.mine.setpassword.SetPassWordMsgCodeActivity" />
-        <activity android:name=".module.mine.message.UserMessageActivity"></activity>
-        <provider android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.shenyu.laikaword.fileprovider"
-            android:grantUriPermissions="true" android:exported="false">
-            <meta-data android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_provider_paths" /> </provider>
+        <activity android:name=".module.mine.message.UserMessageActivity" />
 
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.shenyu.laikaword.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_provider_paths" />
+        </provider>
+
+        <activity android:name=".web.GuessActivity"></activity>
     </application>
 
 </manifest>

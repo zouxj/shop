@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:background="@color/main_bg_gray"
@@ -26,6 +25,7 @@
             android:text="持 卡 人 :"
            />
         <EditText
+            android:maxLength="10"
             android:id="@+id/et_bank_user_name"
             style="@style/bank_add_edite"
             android:hint="请输入持卡人姓名" />
@@ -39,6 +39,7 @@
             style="@style/bank_add_one"
             android:text="卡      号:" />
         <EditText
+            android:inputType="number"
             android:id="@+id/et_add_bank_card_num"
             style="@style/bank_add_edite"
             android:layout_width="220dp"
@@ -55,6 +56,7 @@
                     style="@style/bank_add_one"
                     android:text="银      行:" />
                 <EditText
+                    android:maxLength="10"
                     android:hint="请输入银行昵称"
                     android:id="@+id/et_add_bank_yinhang"
                     android:layout_height="match_parent"
@@ -71,13 +73,14 @@
                     android:layout_centerVertical="true"
                     style="@style/bank_add_one"/>
                 <TextView
-                    android:layout_toRightOf="@+id/tv_biaoti"
+                    android:lines="1"
                     android:id="@+id/et_add_bank_address"
                     android:hint="请选择地址"
                     android:layout_height="match_parent"
                     style="@style/bank_add_edite"
-                    android:layout_centerVertical="true"
-                    android:layout_width="200dp" />
+                    android:layout_width="200dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true" />
                 <ImageView
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
@@ -97,6 +100,8 @@
             android:text="开 户 行 :"
              />
         <EditText
+            android:lines="1"
+            android:maxLength="20"
             android:id="@+id/et_zhihang"
            style="@style/bank_add_edite"
             android:hint="如:科技园支行"

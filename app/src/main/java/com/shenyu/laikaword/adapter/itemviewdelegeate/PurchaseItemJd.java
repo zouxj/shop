@@ -38,7 +38,7 @@ public class PurchaseItemJd  implements ItemViewDelegate<PickUpGoodsReponse.Payl
         holder.setText(R.id.tv_purchase_indent_no,payloadBean.getName()+"  "+payloadBean.getPhone());
         holder.setText(R.id.tv_purchase_address,payloadBean.getAddress());
         holder.setText(R.id.tv_purchase_order_number,"订单号:"+payloadBean.getExtractNo());
-        holder.setText(R.id.tv_purchase_time, DateTimeUtil.formatDate( Long.parseLong(payloadBean.getCreateTime()),"yyyy-mm-dd-mm:ss"));
+        holder.setText(R.id.tv_purchase_time, DateTimeUtil.formatDate( Long.parseLong(payloadBean.getCreateTime()),"yyyy-MM-dd HH:mm:ss"));
         holder.setText(R.id.tv_purchase_shop_name,payloadBean.getGoodsName());
         holder.setText(R.id.tv_purchase_countmun,"X"+payloadBean.getQuantity());
         holder.setText(R.id.tv_purchase_number,"编号:"+payloadBean.getExtractId());

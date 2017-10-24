@@ -15,6 +15,8 @@ import com.shenyu.laikaword.rxbus.RxBus;
 import com.shenyu.laikaword.rxbus.event.Event;
 import com.squareup.picasso.Picasso;
 import com.zxj.utilslibrary.utils.SPUtil;
+import com.zxj.utilslibrary.utils.StringUtil;
+import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
 import java.util.ArrayList;
@@ -101,8 +103,11 @@ public class MainPresenter extends BasePresenter<MainView> {
      * @param headImg
      */
     public void setImgHead(String headURl, ImageView headImg){
-        Picasso.with(UIUtil.getContext()).load(headURl) .placeholder(R.mipmap.left_user_icon)
-                .error(R.mipmap.left_user_icon).resize(50, 50).transform(new CircleTransform()).into(headImg);
+        if (StringUtil.validText(headURl)) {
+            Picasso.with(UIUtil.getContext()).load(headURl).placeholder(R.mipmap.left_user_icon)
+                    .error(R.mipmap.left_user_icon).resize(50, 50).transform(new CircleTransform()).into(headImg);
+
+        }
     }
 
     /**

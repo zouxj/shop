@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.leo618.mpermission.MPermission;
@@ -14,6 +15,7 @@ import com.shenyu.laikaword.LaiKaApplication;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.bean.reponse.LoginReponse;
+import com.shenyu.laikaword.common.CircleTransform;
 import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.module.mine.MineModule;
 import com.shenyu.laikaword.module.mine.systemsetting.UserInfoPresenter;
@@ -27,6 +29,7 @@ import com.shenyu.laikaword.widget.CircleImageView;
 import com.squareup.picasso.Picasso;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.LogUtil;
+import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
@@ -45,7 +48,7 @@ public class UserInfoActivity extends LKWordBaseActivity  implements UserInfoVie
 
 
     @BindView(R.id.set_change_user_head)
-    CircleImageView setChangeUserHead;
+    ImageView setChangeUserHead;
     @BindView(R.id.change_tv_name)
     TextView changeTvName;
 //    //当前路径
@@ -60,6 +63,12 @@ public class UserInfoActivity extends LKWordBaseActivity  implements UserInfoVie
         return R.layout.activity_user_info;
     }
 
+    @Override
+    public void initView() {
+        super.initView();
+        setToolBarTitle("个人资料");
+
+}
     @Override
     public void doBusiness(Context context) {
         //修改时重新刷新数据
@@ -203,8 +212,10 @@ public class UserInfoActivity extends LKWordBaseActivity  implements UserInfoVie
         if (loginReponse!=null&&null!=loginReponse.getPayload()) {
             changeTvName.setText(loginReponse.getPayload().getNickname());
             tvPhone.setText(loginReponse.getPayload().getBindPhone());
-            Picasso.with(UIUtil.getContext()).load(loginReponse.getPayload().getAvatar()).placeholder(R.mipmap.left_user_icon)
-                    .error(R.mipmap.left_user_icon).resize(50, 50).into(setChangeUserHead);
+            if (StringUtil.validText(loginReponse.getPayload().getAvatar())) {
+                Picasso.with(UIUtil.getContext()).load(loginReponse.getPayload().getAvatar()).placeholder(R.mipmap.left_user_icon)
+                        .error(R.mipmap.left_user_icon).transform(new CircleTransform()).into(setChangeUserHead);
+            }
         }else{
             changeTvName.setText("");
             setChangeUserHead.setBackground(UIUtil.getDrawable(R.mipmap.left_user_icon));

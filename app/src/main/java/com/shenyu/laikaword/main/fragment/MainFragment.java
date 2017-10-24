@@ -39,11 +39,13 @@ import com.shenyu.laikaword.rxbus.RxSubscriptions;
 import com.shenyu.laikaword.rxbus.event.EventType;
 import com.shenyu.laikaword.rxbus.RxBus;
 import com.shenyu.laikaword.rxbus.event.Event;
+import com.shenyu.laikaword.web.GuessActivity;
 import com.shenyu.laikaword.widget.UPMarqueeView;
 import com.squareup.picasso.Picasso;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.SPUtil;
+import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
@@ -98,7 +100,7 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
         smartRefreshLayout.setEnableRefresh(true);
         smartRefreshLayout.setEnableLoadmore(false);
         smartRefreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
-        smartRefreshLayout.setRefreshFooter(new ClassicsFooter(getActivity()));
+//        smartRefreshLayout.setRefreshFooter(new ClassicsFooter(getActivity()));
         smartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
@@ -107,14 +109,14 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
 //                ToastUtil.showToastShort("正在刷新...");
             }
         });
-        smartRefreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
-            @Override
-            public void onLoadmore(RefreshLayout refreshlayout) {
-                refreshlayout.finishLoadmore(2000);
-                mainPresenter.onLoadMore();
-//                ToastUtil.showToastShort("正在加载...");
-            }
-        });
+//        smartRefreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+//            @Override
+//            public void onLoadmore(RefreshLayout refreshlayout) {
+//                refreshlayout.finishLoadmore(2000);
+//                mainPresenter.onLoadMore();
+////                ToastUtil.showToastShort("正在加载...");
+//            }
+//        });
         initViewpagerTop(view);
         subscribeEvent();
 
@@ -129,7 +131,7 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
                         switch (myEvent.event) {
                             case EventType.ACTION_UPDATA_USER:
                                 LoginReponse loginReponse = Constants.getLoginReponse();
-                                if (null!=loginReponse) {
+                                if (null!=loginReponse&& StringUtil.validText(loginReponse.getPayload().getAvatar())) {
                                     Picasso.with(UIUtil.getContext()).load(loginReponse.getPayload().getAvatar()).placeholder(R.mipmap.left_user_icon)
                                             .error(R.mipmap.left_user_icon).resize(50, 50).transform(new CircleTransform()).into(headImg);
                                 }else {
@@ -157,7 +159,7 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
     @Override
     public void doBusiness() {
         setupViewPager();
-        LoginReponse loginReponse = (LoginReponse) SPUtil.readObject(Constants.LOGININFO_KEY);
+        LoginReponse loginReponse = Constants.getLoginReponse();
         if (null!=loginReponse&&loginReponse.getPayload()!=null) {
             mainPresenter.setImgHead(loginReponse.getPayload().getAvatar(), headImg);
 
@@ -186,7 +188,8 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
            bannerHelper.startBanner(dataList, new BannerHelper.OnItemClickListener() {
                @Override
                public void onItemClick(BannerBean bean) {
-                  IntentLauncher.with(getActivity()).launchViews(bean.getDetailurl());
+//                   IntentLauncher.with(getActivity()).put("weburl",bean.getDetailurl()).launch(GuessActivity.class);
+                    IntentLauncher.with(getActivity()).launchViews(bean.getDetailurl());
                }
            });
        }

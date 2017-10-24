@@ -44,12 +44,14 @@ public class ShopDateilActivity extends LKWordBaseActivity {
         setToolBarTitle("商品详情");
         goodBean = (GoodBean) getIntent().getSerializableExtra("GoodBean");
         WebSettings webSettings = wbLoad.getSettings();
-
+        webSettings.setUseWideViewPort(true); //将图片调整到适合webview的大小
+        webSettings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
         // 设置与Js交互的权限
         webSettings.setJavaScriptEnabled(true);
         // 设置允许JS弹窗
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
         String webURL = "http://t.shop.comingcard.com/view/detail/detail.html?goodsId="+goodBean.getGoodsId();
+//      String webURL = "http://comingcard.com";
         // 先载入JS代码
         // 格式规定为:file:///android_asset/文件名.html
         wbLoad.loadUrl(webURL);

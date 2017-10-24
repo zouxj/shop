@@ -24,6 +24,8 @@ import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 
+import java.util.HashMap;
+
 import rx.internal.util.ObserverSubscriber;
 
 /**
@@ -79,7 +81,35 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                         }
                         if (response.state.equals("ACOUNT_BD")){
                             //TODO 绑定用户信息
-                            IntentLauncher.with(this).launch(AcountBdingSuccessActivity.class);
+                            //TODO 发送网络请求
+                            HashMap<String,String> param =new HashMap<>();
+                            param.put("loginType","WeChat");
+                            param.put("code",code);
+                            RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.partyBind(param), new ApiCallback<LoginReponse>() {
+                                @Override
+                                public void onSuccess(LoginReponse model) {
+                                    if (model.isSuccess()) {
+                                        SPUtil.saveObject(Constants.LOGININFO_KEY, model);
+                                        SPUtil.putString(Constants.TOKEN, model.getPayload().getToken());
+                                        IntentLauncher.with(WXEntryActivity.this).launch(AcountBdingSuccessActivity.class);
+                                    } else {
+                                        ToastUtil.showToastShort(model.getError().getMessage());
+                                        finish();
+                                   }
+                                }
+
+                                @Override
+                                public void onFailure(String msg) {
+                                    ToastUtil.showToastShort(msg);
+                                    finish();
+                                }
+
+                                @Override
+                                public void onFinish() {
+                                    finish();
+                                }
+                            });
+
                         }else {
                             RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.loginWxQQ("WeChat", code, "", ""), new ApiCallback<LoginReponse>() {
                                 @Override
@@ -107,7 +137,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
                             });
                         }
-                        //TODO 发送网络请求
+
                         //就在这个地方，用网络库什么的或者自己封的网络api，发请求去咯，注意是get请求
                         break;
                     case RETURN_MSG_TYPE_SHARE:

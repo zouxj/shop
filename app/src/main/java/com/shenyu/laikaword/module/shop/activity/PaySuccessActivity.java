@@ -10,6 +10,9 @@ import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.main.activity.MainActivity;
 import com.shenyu.laikaword.module.mine.cards.activity.CardPackageActivity;
 import com.shenyu.laikaword.retrofit.RetrofitUtils;
+import com.shenyu.laikaword.rxbus.RxBus;
+import com.shenyu.laikaword.rxbus.event.Event;
+import com.shenyu.laikaword.rxbus.event.EventType;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.UIUtil;
 
@@ -45,6 +48,7 @@ public class PaySuccessActivity extends LKWordBaseActivity {
     }
     @Override
     public void doBusiness(Context context) {
+        RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_REQUEST, null));
         RetrofitUtils.getRetrofitUtils().addSubscription(rx.Observable.interval(3000, TimeUnit.MILLISECONDS).take(1), new Subscriber() {
     @Override
     public void onCompleted() {

@@ -14,14 +14,19 @@ import com.jakewharton.rxbinding.widget.RxTextView;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.bean.BaseReponse;
+import com.shenyu.laikaword.bean.reponse.LoginReponse;
+import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.helper.DialogHelper;
 import com.shenyu.laikaword.module.mine.cards.activity.CardBankActivity;
 import com.shenyu.laikaword.retrofit.ApiCallback;
 import com.shenyu.laikaword.retrofit.RetrofitUtils;
 import com.shenyu.laikaword.rxbus.RxBus;
+import com.shenyu.laikaword.rxbus.RxBusSubscriber;
+import com.shenyu.laikaword.rxbus.RxSubscriptions;
 import com.shenyu.laikaword.rxbus.event.Event;
 import com.shenyu.laikaword.rxbus.event.EventType;
 import com.zxj.utilslibrary.utils.IntentLauncher;
+import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
@@ -31,6 +36,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import rx.Observable;
 import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func2;
 
@@ -86,6 +92,7 @@ public class WthdrawMoneyActivity extends LKWordBaseActivity {
          yue = getIntent().getStringExtra("acountyue");
         if (StringUtil.validText(yue))
         tvAccountYue.setText(yue);
+        subscribeEvent();
     }
 
     /**
@@ -170,5 +177,38 @@ public class WthdrawMoneyActivity extends LKWordBaseActivity {
                 tvBankType.setText(text);
         }
     }
+    private void subscribeEvent() {
+        RxSubscriptions.remove(mRxSub);
+        mRxSub = RxBus.getDefault().toObservable(Event.class)
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(new RxBusSubscriber<Event>() {
+                    @Override
+                    protected void onEvent(Event myEvent) {
+                        switch (myEvent.event) {
+                            case EventType.ACTION_UPDATA_USER:
+                                LoginReponse loginReponse = Constants.getLoginReponse();
+                                tvAccountYue.setText(loginReponse.getPayload().getMoney());
+                                break;
+                        }
+                        LogUtil.e(TAG, myEvent.event+"____"+"threadType=>"+Thread.currentThread());
+//            }
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        LogUtil.e(TAG, "onError");
+                        /**
+                         * 这里注意: 一旦订阅过程中发生异常,走到onError,则代表此次订阅事件完成,后续将收不到onNext()事件,
+                         * 即 接受不到后续的任何事件,实际环境中,我们需要在onError里 重新订阅事件!
+                         */
+                        subscribeEvent();
+                    }
+                });
+        RxSubscriptions.add(mRxSub);
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RxSubscriptions.remove(mRxSub);
+    }
 }

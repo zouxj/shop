@@ -33,6 +33,7 @@ import com.squareup.picasso.Picasso;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.SPUtil;
+import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
 import java.util.ArrayList;
@@ -90,8 +91,10 @@ public class LeftFragment extends IKWordBaseFragment {
                             case EventType.ACTION_UPDATA_USER:
                                 LoginReponse loginReponse = Constants.getLoginReponse();
                                 if (null!=loginReponse) {
-                                    Picasso.with(UIUtil.getContext()).load(loginReponse.getPayload().getAvatar()).placeholder(R.mipmap.left_user_icon)
-                                            .error(R.mipmap.left_user_icon).resize(50, 50).transform(new CircleTransform()).into(tvUserHead);
+                                    if (StringUtil.validText(loginReponse.getPayload().getAvatar())) {
+                                        Picasso.with(UIUtil.getContext()).load(loginReponse.getPayload().getAvatar()).placeholder(R.mipmap.left_user_icon)
+                                                .error(R.mipmap.left_user_icon).resize(50, 50).transform(new CircleTransform()).into(tvUserHead);
+                                    }
                                     tvUserName.setText(loginReponse.getPayload().getNickname());
                                 }else{
                                     tvUserName.setText("未登录");
@@ -199,8 +202,10 @@ public class LeftFragment extends IKWordBaseFragment {
     public void requestData() {
         LoginReponse loginReponse = Constants.getLoginReponse();
         if (null!=loginReponse&&loginReponse.getPayload()!=null){
-            Picasso.with(UIUtil.getContext()).load(loginReponse.getPayload().getAvatar()) .placeholder(R.mipmap.left_user_icon)
-                    .error(R.mipmap.left_user_icon).transform(new CircleTransform()).into(tvUserHead);
+            if (StringUtil.validText(loginReponse.getPayload().getAvatar())) {
+                Picasso.with(UIUtil.getContext()).load(loginReponse.getPayload().getAvatar()).placeholder(R.mipmap.left_user_icon)
+                        .error(R.mipmap.left_user_icon).transform(new CircleTransform()).into(tvUserHead);
+            }
        tvUserName.setText(loginReponse.getPayload().getNickname());
         }
     }

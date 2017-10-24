@@ -223,8 +223,10 @@ public class ConfirmOrderActivity extends LKWordBaseActivity implements ConfirmO
     public void showData(LoginReponse loginReponse, GoodBean goodBean) {
         this.mGoodBean = goodBean;
         if (null != loginReponse && loginReponse.getPayload() != null) {
-            Picasso.with(UIUtil.getContext()).load(loginReponse.getPayload().getAvatar()).placeholder(R.mipmap.left_user_icon)
-                    .error(R.mipmap.left_user_icon).resize(50, 50).transform(new CircleTransform()).into(imgeHead);
+            if (StringUtil.validText(loginReponse.getPayload().getAvatar())) {
+                Picasso.with(UIUtil.getContext()).load(loginReponse.getPayload().getAvatar()).placeholder(R.mipmap.left_user_icon)
+                        .error(R.mipmap.left_user_icon).resize(50, 50).transform(new CircleTransform()).into(imgeHead);
+            }
             tvName.setText(loginReponse.getPayload().getNickname());
             userAount = loginReponse.getPayload().getMoney();
         } else {
