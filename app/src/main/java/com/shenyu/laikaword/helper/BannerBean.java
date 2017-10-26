@@ -4,7 +4,7 @@ package com.shenyu.laikaword.helper;
  * Created by Administrator on 2017/8/15 0015.
  */
 
-public class BannerBean {
+public final class BannerBean {
     private int testImgResId;
     private String imgurl;
     private String desc;

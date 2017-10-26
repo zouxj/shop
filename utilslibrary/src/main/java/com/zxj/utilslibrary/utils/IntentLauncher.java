@@ -1,5 +1,6 @@
 package com.zxj.utilslibrary.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -19,10 +20,10 @@ public class IntentLauncher {
     private IntentLauncher() {
     }
 
-    private static WeakReference<Context> weakReference;
+    private static WeakReference<Activity> weakReference;
     private volatile static Intent mIntent = null;
 
-    public static IntentLauncher with(Context sourceContext) {
+    public static IntentLauncher with(Activity sourceContext) {
         weakReference = new WeakReference<>(sourceContext);
         mIntent = new Intent();
         return new IntentLauncher();
@@ -99,5 +100,15 @@ public class IntentLauncher {
             mIntent = null;
         }
     }
-
+    public void launchFinishCpresent(Class<?> cls) {
+        if (weakReference != null && weakReference.get() != null) {
+            Context context = weakReference.get();
+            mIntent.setClass(context, cls);
+            context.startActivity(mIntent);
+            weakReference.get().finish();
+            weakReference.clear();
+            weakReference = null;
+            mIntent = null;
+        }
+    }
 }

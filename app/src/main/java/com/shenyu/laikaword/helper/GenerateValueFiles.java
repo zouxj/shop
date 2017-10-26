@@ -10,7 +10,7 @@ import java.io.PrintWriter;
  * 适配资源文件
  */
 
-public class GenerateValueFiles {
+public final class GenerateValueFiles {
 
     private int baseW;
     private int baseH;

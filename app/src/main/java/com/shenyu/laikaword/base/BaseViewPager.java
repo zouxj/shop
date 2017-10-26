@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.shenyu.laikaword.R;
-import com.shenyu.laikaword.bean.reponse.CarPagerReponse;
 import com.zxj.utilslibrary.utils.UIUtil;
 
 /**

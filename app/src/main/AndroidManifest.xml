@@ -20,14 +20,14 @@
     <uses-permission android:name="com.shenyu.laikaword.permission.JPUSH_MESSAGE" />
 
     <application
-        android:name=".LaiKaApplication"
+        android:name=".module.launch.LaiKaApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".main.activity.StartActivity">
+        <activity android:name=".module.launch.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -45,17 +45,20 @@
                 android:resource="@xml/file_provider_paths" />
         </provider>
 
-        <service android:name=".http.downloadmanager.DownLoadService" />
+        <service android:name=".model.net.downloadmanager.DownLoadService" />
 
-        <activity android:name=".module.login.activity.LoginActivity" />
+        <activity android:name=".module.login.ui.activity.LoginActivity"
+            android:launchMode="singleTask"
+            android:taskAffinity=".module.login.activity.LoginActivity"
+            />
         <activity
-            android:name=".main.activity.MainActivity"
+            android:name=".module.home.ui.activity.MainActivity"
             android:theme="@style/Main_AppTheme"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".main.activity.WelcomePageActivity" />
+        <activity android:name=".module.launch.StartActivity$WelcomePageActivity" />
 
         <receiver
-            android:name=".jpushreceiver.TalkReceiver"
+            android:name=".jpush.TalkReceiver"
             android:enabled="true">
             <intent-filter>
 
@@ -74,7 +77,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".jpushreceiver.AppJPushMessageReceiver"
+            android:name=".jpush.AppJPushMessageReceiver"
             android:enabled="true"
             android:exported="true" />
         <!-- hotfix配置 -->
@@ -88,25 +91,31 @@
             android:name="com.taobao.android.hotfix.RSASECRET"
             android:value="MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCh2EpzZ3jSFQgAGWmdKO2xKECg4u1RIXaUfD0eaoPxcFc6KHC+SfJHtYGYI9NsvgFFt2llBVZtAd/qJWetjSywFJSBJVEJILRvHcEiHErKiN5j+wIJ7vK3sYI628pCOAYcbA2U0z73mGOG3XbEidCU0vCPsCW4Lx3EFb+Ac64JgpgA/0BIMH4Y7NHWHFZHWtGMu2CpYkPDyfR1AOx8lqyQLepC4Ltby9YhCbFRzs/5fjA0axrRvXpJ5ouhU7NZwj5iUFzsA+khfU1QoWa/InQAGoKmEcC0yIDwOM0zBDs6rwt7z4RT0wtj1UQD9R7LpXHqd6JpD7oSDmAmwm5Xk3GNAgMBAAECggEAaOuE6Get5dOIijfvRdkgrnZ/30z9uFjPPNeF78/xlXXUtnk9Db92d5JtXynqiFZtELskcj8Rlj1e4bY6DkK1M7lDxK1iaV5wWpCZgfmBaudr9Ljmy3XCl99Vo76U0nTrUUWjUFXaPjzmWKn9ss/9Dl3pYd05trukule2/BkCPFsIMtTX7smKAoTZ5FQKbenoc01c7SLw5DWLB9EC/PuOGHNaR0cSRozUb8sHyCsKDLdbR2nu2NY6L7uXHqQunH9o9DNyzyq8PBYmrWjGR/l4ZoT0a6j7nvdIobCyg0HN3hV8iSC1Lg/cSejyDjKogGTcAC5XV1CG4laOT+ebhAJZwQKBgQDsmqwfET6lmgr7sgfak5upxg9nr3hXrP5g/defgwshcpH1NAzRv0bFZzTsMnR5S4l3pzKY1eQYr7e9FPbOz/5RrbdwH5q/97Hik4MpfaeSaa0HaiQaVj+GUaIg4OJxzRXkVAIEYOU3B7XeGqw1YuIsvkfvUx6f54O/mFeSn7EHqQKBgQCvHLwgMUiuO3m/0Lk0Q4/H1J2tvRfP95GBt9na/wZowhXAqxXYrpb0hdJ1ciaKvc5+vPvUSaTkkrZpc2jNu8bnj+Ady1Q1KT/+doCdGusP3RYzwXgoHGfXUO+Pb048ffSUkzrr2WYPfuHm4vQnFH5ogxJ6i1sT6A8yVbfCZsH5RQKBgGTyJMdoexr6Wv9B2Ln3yi0n9ICfS6/Uff9xreI/batKj11XZLTEb/Re8SRo7mqlwLPNIPg2IYgqyDCi1h4sfWvput7ajRKkIj/yAb7c/naoIYuNTHP0IkwzXgG7EMHO5y0wbl/h20mcP4rQRHLOioLeeCByjRlaFErVO1+yRDxpAoGAUVLi+4Bn5KKydCaXHHKT/5X6dIlw2aB77uZXQqFVdKlOOOA7kRnj+UN87hZJV/22PJ2/xmM9NPn9xRNYBNPEGB51UuDvBpFVqvOV32B08jUW7opXJymqABEScGacyvMj9yw5HPclsuSWPQgBo3SdECRvHIJDlgcbp6CvapUWWJECgYEAyLJW4iWtEdRomairdSwT/TvDMyuRpGJIfnYxrsugm6mG9kNJK815TP8tgsk+o2ytJycr0mDkUNJ9a52ApXT3781CtMPArt+QxwSe+r8CTINaYG2XO0oWTOuDS33TcBjBqTETi42jb0ZwgPe7B/cVQHgY/Div3GAtWdmBt92kOuU=" />
 
-        <activity android:name=".module.mine.remaining.UserRemainingActivity" />
-        <activity android:name=".module.mine.remaining.WthdrawMoneyActivity" />
-        <activity android:name=".module.mine.remaining.RechargeMoneyActivity" />
-        <activity android:name=".module.mine.remaining.PurchaseCardActivity" />
-        <activity android:name=".module.mine.remaining.DetailMoneyActivity" />
-        <activity android:name=".module.shop.activity.BuyGoodsActivity" />
-        <activity android:name=".module.mine.cards.activity.CardPackageActivity" />
-        <activity android:name=".module.mine.cards.activity.CardBankActivity" />
-        <activity android:name=".module.mine.systemsetting.activity.SettingSystemActivity" />
-        <activity android:name=".module.mine.systemsetting.activity.AboutAppActivity" />
-        <activity android:name=".module.mine.systemsetting.activity.AccountBindActivity" />
-        <activity android:name=".module.mine.systemsetting.activity.BoundPhoneActivity" />
-        <activity android:name=".module.mine.systemsetting.activity.UserInfoActivity" />
+        <activity android:name=".module.mine.wallet.remaining.UserRemainingActivity" />
+        <activity android:name=".module.mine.wallet.withdraw.WthdrawMoneyActivity" />
+        <activity android:name=".module.mine.wallet.recharge.RechargeMoneyActivity" />
+        <activity android:name=".module.mine.wallet.remaining.PurchaseCardActivity" />
+        <activity android:name=".module.mine.wallet.DetailMoneyActivity" />
+        <activity android:name=".module.goods.BuyGoodsActivity" />
+        <activity android:name=".module.mine.goodcards.ui.activity.CardPackageActivity" />
+        <activity android:name=".module.mine.bankcard.ui.activity.SelectBankIDActivity" />
+        <activity android:name=".module.mine.appsetting.SettingSystemActivity" />
+        <activity android:name=".module.mine.appsetting.aboutus.AboutAppActivity" />
+        <activity android:name=".module.mine.appsetting.acountbind.AccountBindActivity"
+            android:taskAffinity=".module.mine.systemsetting.activity.AccountBindActivity"
+            android:launchMode="singleTask"
+            />
+        <activity android:name=".module.mine.appsetting.acountbind.BoundPhoneActivity"
+            android:taskAffinity=".module.mine.systemsetting.activity.BoundPhoneActivity"
+            android:launchMode="singleTask"
+            />
+        <activity android:name=".module.mine.appsetting.UserInfoActivity" />
         <activity
             android:name="com.leo618.mpermission.AppSettingsDialogHolderActivity"
             android:exported="false"
             android:theme="@style/MPermissions.Transparent" />
-        <activity android:name=".module.mine.systemsetting.activity.UpdateUserNameActivity" />
-        <activity android:name=".module.mine.cards.activity.AddBankCardActivity" />
+        <activity android:name=".module.mine.appsetting.updateus.UpdateUserNameActivity" />
+        <activity android:name=".module.mine.bankcard.ui.activity.AddBankCardActivity" />
         <activity
             android:name="com.tencent.tauth.AuthActivity"
             android:launchMode="singleTask"
@@ -128,22 +137,42 @@
             android:name=".wxapi.WXEntryActivity"
             android:exported="true"
             android:label="@string/app_name"
+            android:taskAffinity="com.shenyu.laikaword.wxapi.WXEntryActivity"
             android:launchMode="singleTop" />
-        <activity android:name=".module.shop.activity.ConfirmOrderActivity" />
-        <activity android:name=".module.shop.activity.PaySuccessActivity" />
-        <activity android:name=".module.mine.cards.activity.CardBankInfoActivity" />
-        <activity android:name=".module.mine.address.activity.AddressInfoActivity" />
-        <activity android:name=".module.mine.address.activity.EditAddressActivity" />
-        <activity android:name=".module.shop.activity.PickUpActivity" />
-        <activity android:name=".module.shop.activity.ShopDateilActivity" />
-        <activity android:name=".module.shop.activity.PickUpSuccessActivity" />
-        <activity android:name=".module.mine.address.activity.SelectAddressActivity" />
-        <activity android:name=".module.shop.activity.PickUpTelActivity" />
-        <activity android:name=".module.shop.activity.PickUpStateActivity" />
-        <activity android:name=".module.mine.setpassword.SetPassWordOneActivity" />
-        <activity android:name=".module.mine.setpassword.SetPassWordTwoActivity" />
-        <activity android:name=".module.mine.systemsetting.activity.AcountBdingSuccessActivity" />
-        <activity android:name=".module.mine.setpassword.SetPassWordMsgCodeActivity" />
+        <activity android:name=".module.goods.order.ui.activity.ConfirmOrderActivity"
+            android:launchMode="singleTask"
+            android:taskAffinity="com.shenyu.laikaword.module.shop.activity.ConfirmOrderActivity"
+            />
+        <activity android:name=".module.goods.order.PaySuccessActivity" />
+        <activity android:name=".module.mine.bankcard.ui.activity.CardBankInfoActivity" />
+        <activity android:name=".module.mine.address.ui.activity.AddressInfoActivity" />
+        <activity android:name=".module.mine.address.ui.activity.EditAddressActivity" />
+        <activity android:name=".module.goods.pickupgoods.ui.activity.PickUpActivity" />
+        <activity android:name=".module.goods.ShopDateilActivity" />
+        <activity android:name=".di.component.ShopCommponent$PickUpSuccessActivity"
+            android:launchMode="singleTask"
+            android:taskAffinity=".module.shop.activity.PickUpSuccessActivit"
+            />
+        <activity android:name=".module.mine.address.ui.activity.SelectAddressActivity"
+            android:launchMode="singleTask"
+            android:taskAffinity="com.shenyu.laikaword.module.mine.address.activity.SelectAddressActivity"
+            />
+        <activity android:name=".module.goods.pickupgoods.ui.activity.PickUpTelActivity" />
+        <activity android:name=".module.goods.pickupgoods.ui.activity.PickUpStateActivity" />
+        <activity android:name=".module.mine.setpassword.SetPassWordOneActivity"
+            android:launchMode="singleTask"
+            android:taskAffinity=".module.mine.setpassword.SetPassWordOneActivity"
+            />
+        <activity android:name=".module.mine.setpassword.SetPassWordTwoActivity"
+            android:launchMode="singleTask"
+            android:taskAffinity=".module.mine.setpassword.SetPassWordTwoActivityy"
+            />
+        <activity android:name=".module.mine.appsetting.acountbind.AcountBdingSuccessActivity" />
+        <activity android:name=".module.mine.setpassword.SetPassWordMsgCodeActivity"
+            android:launchMode="singleInstance"
+            android:taskAffinity="com.shenyu.laikaword.module.mine.setpassword.SetPassWordMsgCodeActivity"
+
+            />
         <activity android:name=".module.mine.message.UserMessageActivity" />
 
         <provider
@@ -156,7 +185,16 @@
                 android:resource="@xml/file_provider_paths" />
         </provider>
 
-        <activity android:name=".web.GuessActivity"></activity>
+        <activity android:name=".ui.web.GuessActivity"></activity>
+
+        <!--注册支付宝网页支付，当手机为安装支付宝的时候自动跳转到网页支付。只需要在这配置文件中加下面配置。-->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
     </application>
 
 </manifest>

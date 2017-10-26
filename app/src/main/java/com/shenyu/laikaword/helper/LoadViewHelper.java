@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.shenyu.laikaword.R;
-import com.shenyu.laikaword.widget.loaddialog.ProgressLayout;
+import com.shenyu.laikaword.ui.view.widget.loaddialog.ProgressLayout;
 
 /**
  * Created by shenyu_zxjCode on 2017/10/17 0017.

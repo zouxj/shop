@@ -7,7 +7,7 @@
 
     <size
 
-        android:width="0.5dp"/>
+        android:width="1dp"/>
 
     <solid android:color="@color/divider"/>
 

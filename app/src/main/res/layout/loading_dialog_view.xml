@@ -8,18 +8,18 @@
     android:orientation="vertical"
     android:padding="20dp">
 
-    <com.shenyu.laikaword.widget.loaddialog.LVCircularRing
+    <com.shenyu.laikaword.ui.view.widget.loaddialog.LVCircularRing
         android:id="@+id/lv_circularring"
         android:layout_width="50dp"
         android:layout_height="50dp" />
 
-    <com.shenyu.laikaword.widget.loaddialog.RightDiaView
+    <com.shenyu.laikaword.ui.view.widget.loaddialog.RightDiaView
         android:id="@+id/rdv_right"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:visibility="gone" />
 
-    <com.shenyu.laikaword.widget.loaddialog.WrongDiaView
+    <com.shenyu.laikaword.ui.view.widget.loaddialog.WrongDiaView
         android:id="@+id/wv_wrong"
         android:layout_width="50dp"
         android:layout_height="50dp"

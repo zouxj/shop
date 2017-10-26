@@ -2,7 +2,6 @@ package com.shenyu.laikaword.module.mine.message;
 
 import android.content.Context;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,15 +9,14 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.shenyu.laikaword.R;
-import com.shenyu.laikaword.adapter.CommonAdapter;
-import com.shenyu.laikaword.adapter.ViewHolder;
-import com.shenyu.laikaword.adapter.wrapper.EmptyWrapper;
+import com.shenyu.laikaword.model.adapter.CommonAdapter;
+import com.shenyu.laikaword.model.adapter.ViewHolder;
+import com.shenyu.laikaword.model.adapter.wrapper.EmptyWrapper;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
-import com.shenyu.laikaword.bean.reponse.MessageReponse;
+import com.shenyu.laikaword.model.bean.reponse.MessageReponse;
 import com.shenyu.laikaword.helper.RecycleViewDivider;
-import com.shenyu.laikaword.retrofit.ApiCallback;
-import com.shenyu.laikaword.retrofit.RetrofitUtils;
-import com.shenyu.laikaword.widget.LoadingView;
+import com.shenyu.laikaword.model.net.api.ApiCallback;
+import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
@@ -26,7 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class UserMessageActivity extends LKWordBaseActivity {
 

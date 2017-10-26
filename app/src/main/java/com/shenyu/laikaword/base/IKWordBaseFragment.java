@@ -1,19 +1,14 @@
 package com.shenyu.laikaword.base;
 
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.shenyu.laikaword.helper.LoadViewHelper;
-import com.shenyu.laikaword.interfaces.IBaseFragment;
-import com.shenyu.laikaword.rxbus.RxSubscriptions;
-import com.trello.rxlifecycle2.components.RxFragment;
+import com.shenyu.laikaword.Interactor.IBaseFragment;
+import com.shenyu.laikaword.model.rxjava.rxbus.RxSubscriptions;
 import com.zxj.utilslibrary.utils.LogUtil;
 
 import butterknife.ButterKnife;

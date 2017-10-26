@@ -4,8 +4,8 @@
     android:orientation="vertical"
     android:layout_height="match_parent">
     <include layout="@layout/toolbar_layout"/>
-    <com.shenyu.laikaword.widget.ProgressWebView
+    <com.shenyu.laikaword.ui.view.widget.ProgressWebView
         android:id="@+id/wb_load"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></com.shenyu.laikaword.widget.ProgressWebView>
+        android:layout_height="match_parent"></com.shenyu.laikaword.ui.view.widget.ProgressWebView>
 </LinearLayout>

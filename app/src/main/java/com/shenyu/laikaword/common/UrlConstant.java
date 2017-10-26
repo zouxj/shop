@@ -7,7 +7,6 @@ package com.shenyu.laikaword.common;
 
 public class UrlConstant {
 //    public final static String HOST="http://mapi.qfang.com";
-public final static String HOST="http://t.shop.comingcard.com/MApi/";
-    public final static String HOSTDOWN_URL="http://t.shop.comingcard.com/";
+
 
 }

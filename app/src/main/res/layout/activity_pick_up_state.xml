@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:background="@color/main_bg_gray"
     android:layout_height="match_parent"
-    tools:context="com.shenyu.laikaword.module.shop.activity.PickUpStateActivity">
+    tools:context="com.shenyu.laikaword.module.goods.pickupgoods.ui.activity.PickUpStateActivity">
 
     <include layout="@layout/toolbar_layout"/>
     <FrameLayout

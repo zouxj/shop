@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context="com.shenyu.laikaword.module.mine.address.activity.AddressInfoActivity">
+    tools:context=".module.mine.address.ui.activity.AddressInfoActivity">
 <include layout="@layout/toolbar_layout"/>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rl_address_list"

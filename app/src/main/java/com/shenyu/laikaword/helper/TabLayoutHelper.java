@@ -13,7 +13,7 @@ import java.lang.reflect.Field;
  * Created by shenyu_zxjCode on 2017/10/16 0016.
  */
 
-public class TabLayoutHelper {
+public final class TabLayoutHelper {
     /**
      * 指示器
      * @param tabs

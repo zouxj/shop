@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context="com.shenyu.laikaword.main.fragment.LeftFragment">
+    tools:context="com.shenyu.laikaword.module.home.ui.fragment.LeftFragment">
 
     <!-- TODO: Update blank fragmitem_cardinfo_listyout -->
 <LinearLayout

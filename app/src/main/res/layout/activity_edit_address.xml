@@ -5,11 +5,11 @@
     android:layout_height="match_parent"
     android:background="@color/main_bg_gray"
     android:orientation="vertical"
-    tools:context="com.shenyu.laikaword.module.mine.address.activity.EditAddressActivity">
+    tools:context=".module.mine.address.ui.activity.EditAddressActivity">
 <include layout="@layout/toolbar_layout"/>
     <LinearLayout style="@style/ly_layout">
     <TextView
-        android:text="收货人"
+        android:text="    收货人"
         android:layout_marginLeft="14dp"
         style="@style/bank_add_one"/>
     <EditText
@@ -50,6 +50,7 @@
             android:layout_toRightOf="@+id/tv_biaoti"
             android:id="@+id/edite_address"
             android:hint="请选择地址"
+            android:textCursorDrawable="@drawable/color_cursor"
             style="@style/bank_add_edite"
             android:layout_centerVertical="true"
             android:layout_width="200dp"
@@ -80,8 +81,9 @@
         <EditText
             android:id="@+id/edit_address_detail"
             android:background="@null"
+            android:textCursorDrawable="@drawable/color_cursor"
             android:textSize="@dimen/text_size_13sp"
-            android:layout_marginLeft="31dp"
+            android:layout_marginLeft="35dp"
             android:maxLength="30"
             android:gravity="top"
             android:textColor="@color/color_999"

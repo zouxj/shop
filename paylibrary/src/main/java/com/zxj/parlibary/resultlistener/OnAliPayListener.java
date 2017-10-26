@@ -9,8 +9,6 @@ package com.zxj.parlibary.resultlistener;
  *
  */
 public interface OnAliPayListener{
-    public void onPaySuccess(String resultInfo);
-    public void onPayFailure(String resultInfo);
-    public void onPayConfirmimg(String resultInfo);
-    public void onPayCheck(String status);
+     void onNext(String resultInfo);
+
 }

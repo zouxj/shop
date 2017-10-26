@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context="com.shenyu.laikaword.module.mine.remaining.UserRemainingActivity">
+    tools:context=".module.mine.wallet.remaining.UserRemainingActivity">
 <include layout="@layout/toolbar_layout"/>
 
     <TextView

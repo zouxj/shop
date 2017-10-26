@@ -47,12 +47,12 @@
         app:timeTextColor="#000000"
         app:timeTextSize="15sp" />
 
-    <com.shenyu.laikaword.widget.IdentityImageView
+    <com.shenyu.laikaword.ui.view.widget.IdentityImageView
         android:id="@+id/iiv"
         android:layout_width="100dp"
         android:layout_height="100dp" />
 
-<com.shenyu.laikaword.widget.CircleImageView
+<com.shenyu.laikaword.ui.view.widget.CircleImageView
     android:layout_width="180dp"
     android:layout_height="180dp"
     android:src="@mipmap/xxxx"

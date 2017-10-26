@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/main_bg_gray"
     android:orientation="vertical"
-    tools:context="com.shenyu.laikaword.module.mine.systemsetting.activity.UserInfoActivity">
+    tools:context="com.shenyu.laikaword.module.mine.appsetting.UserInfoActivity">
 <include layout="@layout/toolbar_layout"/>
     <RelativeLayout
         android:id="@+id/set_rl_user_info"
@@ -19,11 +19,11 @@
             />
         <ImageView
             android:id="@+id/set_change_user_head"
-            android:layout_width="30dp"
+            android:layout_width="40dp"
             android:layout_marginRight="14dp"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/head_user_back"
-            android:layout_height="30dp" />
+            android:layout_height="40dp" />
         <ImageView
             android:id="@+id/head_user_back"
             android:layout_marginRight="14dp"

@@ -4,16 +4,15 @@ import android.content.Context;
 
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
-import com.shenyu.laikaword.bean.BaseReponse;
-import com.shenyu.laikaword.module.shop.activity.ConfirmOrderActivity;
-import com.shenyu.laikaword.retrofit.ApiCallback;
-import com.shenyu.laikaword.retrofit.RetrofitUtils;
-import com.shenyu.laikaword.rxbus.event.Event;
-import com.shenyu.laikaword.rxbus.event.EventType;
-import com.shenyu.laikaword.rxbus.RxBus;
+import com.shenyu.laikaword.base.BaseReponse;
+import com.shenyu.laikaword.module.goods.order.ui.activity.ConfirmOrderActivity;
+import com.shenyu.laikaword.model.net.api.ApiCallback;
+import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
+import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
+import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
+import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.KeyBoardUtil;
-import com.zxj.utilslibrary.utils.SignUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.widget.countdownview.PayPsdInputView;
 
@@ -22,7 +21,6 @@ import butterknife.BindView;
 public class SetPassWordTwoActivity extends LKWordBaseActivity {
     @BindView(R.id.psd_view_password)
     PayPsdInputView psdViewPassword;
-    String typeActivity;
     @Override
     public int bindLayout() {
         return R.layout.activity_set_pass_word_two;

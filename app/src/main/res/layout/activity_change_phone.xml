@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.shenyu.laikaword.module.mine.systemsetting.activity.BoundPhoneActivity">
+    tools:context="com.shenyu.laikaword.module.mine.appsetting.acountbind.BoundPhoneActivity">
 <include layout="@layout/toolbar_layout"/>
 
     <LinearLayout
@@ -38,10 +38,12 @@
                 android:background="@color/login_bg"
                 android:layout_height="@dimen/y25" />
             <EditText
+                android:textCursorDrawable="@drawable/color_cursor"
                 android:layout_marginLeft="@dimen/x5"
                 android:id="@+id/et_use_phone"
                 android:hint="请输入手机号"
                 android:textSize="@dimen/text_size_14sp"
+                android:textColor="@color/color_333"
                 android:textColorHint="@color/color_ccc"
                 android:layout_gravity="center_vertical"
                 android:layout_width="@dimen/x180"
@@ -62,6 +64,7 @@
             android:background="@drawable/bg_login_rectangle"
             >
             <EditText
+                android:textCursorDrawable="@drawable/color_cursor"
                 android:id="@+id/et_user_msg_code"
                 android:layout_width="@dimen/x180"
                 android:layout_height="@dimen/x35"
@@ -70,7 +73,7 @@
                 android:textSize="@dimen/text_size_14sp"
                 android:hint="请输入短信验证码"
                 android:gravity="center_vertical"
-                android:textColor="@color/color_ccc"
+                android:textColor="@color/color_333"
                 android:layout_marginLeft="25dp"
                 android:inputType="number"
                 android:background="@null"
@@ -79,7 +82,6 @@
                 android:id="@+id/tv_send_msg_code"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
-
                 android:layout_marginRight="8dp"
                 android:layout_width="wrap_content"
                 android:textSize="@dimen/text_size_14sp"

@@ -4,19 +4,16 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.google.gson.JsonObject;
-import com.shenyu.laikaword.LaiKaApplication;
-import com.shenyu.laikaword.bean.reponse.LoginReponse;
+import com.shenyu.laikaword.module.launch.LaiKaApplication;
+import com.shenyu.laikaword.model.bean.reponse.LoginReponse;
 import com.shenyu.laikaword.common.Constants;
-import com.shenyu.laikaword.main.activity.MainActivity;
-import com.shenyu.laikaword.module.login.LoginPresenter;
-import com.shenyu.laikaword.module.mine.systemsetting.activity.AcountBdingSuccessActivity;
-import com.shenyu.laikaword.retrofit.ApiCallback;
-import com.shenyu.laikaword.retrofit.RetrofitUtils;
+import com.shenyu.laikaword.module.home.ui.activity.MainActivity;
+import com.shenyu.laikaword.module.mine.appsetting.acountbind.AcountBdingSuccessActivity;
+import com.shenyu.laikaword.model.net.api.ApiCallback;
+import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
-import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.zxj.utilslibrary.utils.IntentLauncher;
@@ -25,8 +22,6 @@ import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 
 import java.util.HashMap;
-
-import rx.internal.util.ObserverSubscriber;
 
 /**
  * Created by Administrator on 2017/8/10 0010.
@@ -110,7 +105,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                                 }
                             });
 
-                        }else {
+                        }else if (response.state.equals(Constants.WXSTATE)){
                             RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.loginWxQQ("WeChat", code, "", ""), new ApiCallback<LoginReponse>() {
                                 @Override
                                 public void onSuccess(LoginReponse model) {

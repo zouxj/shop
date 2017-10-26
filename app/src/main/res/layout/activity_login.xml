@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.shenyu.laikaword.module.login.activity.LoginActivity">
+    tools:context="com.shenyu.laikaword.module.login.ui.activity.LoginActivity">
 
     <ImageView
         android:layout_marginTop="31dp"

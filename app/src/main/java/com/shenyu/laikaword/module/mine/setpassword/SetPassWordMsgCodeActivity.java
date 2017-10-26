@@ -1,29 +1,25 @@
 package com.shenyu.laikaword.module.mine.setpassword;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.jakewharton.rxbinding.widget.RxTextView;
-import com.jakewharton.rxbinding.widget.TextViewAfterTextChangeEvent;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
-import com.shenyu.laikaword.bean.BaseReponse;
-import com.shenyu.laikaword.bean.reponse.LoginReponse;
-import com.shenyu.laikaword.bean.reponse.MsgCodeReponse;
+import com.shenyu.laikaword.model.bean.reponse.LoginReponse;
+import com.shenyu.laikaword.model.bean.reponse.MsgCodeReponse;
 import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.helper.SendMsgHelper;
-import com.shenyu.laikaword.retrofit.ApiCallback;
-import com.shenyu.laikaword.retrofit.RetrofitUtils;
+import com.shenyu.laikaword.model.net.api.ApiCallback;
+import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import rx.functions.Action1;
 
 /**
@@ -87,7 +83,7 @@ public class SetPassWordMsgCodeActivity extends LKWordBaseActivity {
                                 if (typeActivity != null && typeActivity.equals("RESERT")) {
                                     IntentLauncher.with(mActivity).put("typeActivity", typeActivity).put("codeToken", model.getPayload().getSMSToken()).launch(SetPassWordOneActivity.class);
                                     finish();
-                                } else {
+                            } else {
                                     IntentLauncher.with(mActivity).put("codeToken", model.getPayload().getSMSToken()).launch(SetPassWordOneActivity.class);
                                     finish();
                                 }

@@ -81,7 +81,7 @@
             android:background="@drawable/bg_paysuccess_border_rectangle"
             android:layout_width="69dp"
             android:layout_height="29dp" />
-        <com.shenyu.laikaword.widget.AmountView
+        <com.shenyu.laikaword.ui.view.widget.AmountView
             android:id="@+id/av_zj"
             android:layout_marginRight="9dp"
             android:layout_width="96dp"

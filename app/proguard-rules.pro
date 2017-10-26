@@ -146,7 +146,7 @@
 # Gson
 -keep class com.google.gson.stream.** { *; }
 -keepattributes EnclosingMethod
--keep class com.shenyu.laikaword.bean.reponse.**{*;}
+-keep class com.shenyu.laikaword.model.bean.reponse.**{*;}
 # Dagger ProGuard rules.
 # https://github.com/square/dagger
 

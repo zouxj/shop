@@ -32,14 +32,16 @@
         <item name="android:layout_width">wrap_content</item>
     </style>
     <style name="bank_add_edite">
+        <item name="android:textCursorDrawable">@drawable/color_cursor</item>
         <item name="android:textSize">@dimen/text_size_13sp</item>
-        <item name="android:textColor">@color/color_999</item>
+        <item name="android:textColor">@color/color_333</item>
+        <item name="android:textColorHint">@color/color_999</item>
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:layout_height">@dimen/dp_15dp</item>
         <item name="android:layout_width">106dp</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:background">@null</item>
-        <item name="android:layout_marginLeft">25dp</item>
+        <item name="android:layout_marginLeft">35dp</item>
     </style>
     <style name="check_box">
         <item name="android:button">@null</item>

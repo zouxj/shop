@@ -6,35 +6,19 @@ import android.view.View;
 
 import com.bigkoo.pickerview.OptionsPickerView;
 import com.google.gson.Gson;
-import com.shenyu.laikaword.bean.JsonBean;
-import com.shenyu.laikaword.interfaces.IOptionPickerVierCallBack;
+import com.shenyu.laikaword.Interactor.IOptionPickerVierCallBack;
+import com.shenyu.laikaword.model.bean.common.JsonBean;
 import com.zxj.utilslibrary.utils.JsonUtils;
-import com.zxj.utilslibrary.utils.ToastUtil;
-import com.zxj.utilslibrary.utils.UIUtil;
 
 import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.concurrent.Future;
-
-import rx.Observable;
-import rx.Subscriber;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by Administrator on 2017/9/8 0008.
  */
 
-public class CityDataHelper {
+public final class CityDataHelper {
 
 private Context mContext;
 private Thread thread;

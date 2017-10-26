@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.shenyu.laikaword.module.mine.systemsetting.activity.UpdateUserNameActivity">
+    tools:context="com.shenyu.laikaword.module.mine.appsetting.updateus.UpdateUserNameActivity">
 
     <include layout="@layout/toolbar_layout"/>
     <LinearLayout
@@ -13,6 +13,7 @@
        style="@style/ly_layout"
         >
         <EditText
+            android:textCursorDrawable="@drawable/color_cursor"
             android:maxLength="10"
             android:lines="1"
             android:id="@+id/update_et_uer_name"

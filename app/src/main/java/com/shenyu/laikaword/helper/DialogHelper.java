@@ -1,5 +1,6 @@
 package com.shenyu.laikaword.helper;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -201,7 +202,7 @@ public  final  class DialogHelper {
      * @param linstenrText
      * @return
      */
-    public  static  Dialog setInputDialog(final Context context, boolean is_must, String money, final LinstenrText linstenrText){
+    public  static  Dialog setInputDialog(final Activity context, boolean is_must, String money, final LinstenrText linstenrText){
         final Dialog dialog = new Dialog(context,R.style.Dialog);
         if(!is_must) {
             dialog.setCanceledOnTouchOutside(true);

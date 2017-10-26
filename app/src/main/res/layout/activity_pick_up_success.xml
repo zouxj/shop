@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.shenyu.laikaword.module.shop.activity.PickUpSuccessActivity">
+    tools:context="com.shenyu.laikaword.di.component.ShopCommponent$PickUpSuccessActivity">
 <include layout="@layout/toolbar_layout"/>
     <TextView
         android:layout_marginTop="76dp"
@@ -27,7 +27,7 @@
         <TextView
             android:id="@+id/tv_sq_check_state"
             style="@style/tv_operation_finsh"
-            android:text="查看状态"
+            android:text="我的提货"
              />
         <TextView
 

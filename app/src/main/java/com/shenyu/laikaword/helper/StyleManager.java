@@ -1,7 +1,7 @@
 package com.shenyu.laikaword.helper;
 
 
-import com.shenyu.laikaword.widget.loaddialog.LoadingDialog;
+import com.shenyu.laikaword.ui.view.widget.loaddialog.LoadingDialog;
 
 /**
  * Created by Luo_xiasuhuei321@163.com on 2016/11/12.

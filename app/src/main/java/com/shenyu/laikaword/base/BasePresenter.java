@@ -1,8 +1,7 @@
 package com.shenyu.laikaword.base;
 
-import com.shenyu.laikaword.retrofit.ApiClient;
-import com.shenyu.laikaword.retrofit.ApiStores;
-import com.shenyu.laikaword.widget.loaddialog.LoadingDialog;
+import com.shenyu.laikaword.model.net.api.ApiClient;
+import com.shenyu.laikaword.model.net.retrofit.ApiStores;
 
 import rx.Observable;
 import rx.Subscriber;
@@ -50,7 +49,7 @@ public class BasePresenter<V> {
 
     //RXjava取消注册，以避免内存泄露
 
-    public void onUnsubscribe() {
+    private void onUnsubscribe() {
 
         if (mCompositeSubscription != null && mCompositeSubscription.hasSubscriptions()) {
 

@@ -1,13 +1,13 @@
 package com.shenyu.laikaword.helper;
 
-import android.graphics.Color;
 import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
-import com.shenyu.laikaword.bean.BaseReponse;
-import com.shenyu.laikaword.retrofit.ApiCallback;
-import com.shenyu.laikaword.retrofit.RetrofitUtils;
+import com.shenyu.laikaword.base.BaseReponse;
+import com.shenyu.laikaword.model.net.api.ApiCallback;
+import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
 import com.zxj.utilslibrary.utils.LogUtil;
+import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
@@ -24,12 +24,20 @@ import rx.functions.Func1;
  * 短信发送帮助类
  */
 
-public class SendMsgHelper {
+public final class SendMsgHelper {
     /**
      * 发送短信验证码
      * @param mSend
      */
     public static  void sendMsg(final TextView mSend, final String phone, final String codeTpe){
+        if (!StringUtil.validText(phone)){
+            ToastUtil.showToastShort("请输入手机号");
+            return;
+        }
+        if (!StringUtil.isTelNumber(phone)){
+            ToastUtil.showToastShort("请输入正确手机号");
+            return;
+        }
         final int count = 60;
         Observable.interval(0, 1, TimeUnit.SECONDS)//设置0延迟，每隔一秒发送一条数据
                 .take(count+1) //设置循环11次

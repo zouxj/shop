@@ -4,28 +4,26 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import com.githang.statusbar.StatusBarCompat;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.helper.LoadViewHelper;
-import com.shenyu.laikaword.interfaces.IBaseActivity;
-import com.shenyu.laikaword.rxbus.RxBusSubscriber;
-import com.shenyu.laikaword.rxbus.RxSubscriptions;
-import com.shenyu.laikaword.widget.loaddialog.LoadingDialog;
-import com.shenyu.laikaword.widget.loaddialog.ProgressLayout;
+import com.shenyu.laikaword.Interactor.IBaseActivity;
+import com.shenyu.laikaword.model.rxjava.rxbus.RxSubscriptions;
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.zxj.utilslibrary.utils.ActivityManageUtil;
 import com.zxj.utilslibrary.utils.KeyBoardUtil;
+import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 import butterknife.ButterKnife;
 import rx.Subscription;
@@ -34,7 +32,7 @@ import rx.Subscription;
  * Created by Administrator on 2017/8/2 0002.
  */
 
-public abstract class LKWordBaseActivity extends AppCompatActivity implements IBaseActivity{
+public abstract class LKWordBaseActivity extends RxAppCompatActivity implements IBaseActivity{
     protected final String TAG = getClass().getSimpleName();
     protected Activity mActivity;
     protected  TextView mToolbarTitle;
@@ -57,6 +55,8 @@ public abstract class LKWordBaseActivity extends AppCompatActivity implements IB
         initView();
         loadViewHelper = LoadViewHelper.instanceLoadViewHelper();
         doBusiness(this);
+        LogUtil.i("shenyu", "onCreate：" + getClass().getSimpleName() + " TaskId: " + getTaskId() + " hasCode:" + this.hashCode());
+        dumpTaskAffinity();
         
     }
 
@@ -207,5 +207,21 @@ public abstract class LKWordBaseActivity extends AppCompatActivity implements IB
         }
     }
 
+    protected void dumpTaskAffinity(){
+        try {
+            ActivityInfo info = this.getPackageManager()
+                    .getActivityInfo(getComponentName(), PackageManager.GET_META_DATA);
+            LogUtil.i("shenyu", "taskAffinity:"+info.taskAffinity);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        LogUtil.i("shenyu", "*****onNewIntent()方法*****");
+        LogUtil.i("shenyu", "onNewIntent：" + getClass().getSimpleName() + " TaskId: " + getTaskId() + " hasCode:" + this.hashCode());
+        dumpTaskAffinity();
+    }
 
 }

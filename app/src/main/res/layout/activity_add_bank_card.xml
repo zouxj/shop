@@ -5,7 +5,7 @@
     android:background="@color/main_bg_gray"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.shenyu.laikaword.module.mine.cards.activity.AddBankCardActivity">
+    tools:context=".module.mine.bankcard.ui.activity.AddBankCardActivity">
     <include layout="@layout/toolbar_layout"/>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -22,10 +22,11 @@
 
         <TextView
             style="@style/bank_add_one"
-            android:text="持 卡 人 :"
+            android:text="持 卡 人:"
            />
         <EditText
             android:maxLength="10"
+            android:lines="1"
             android:id="@+id/et_bank_user_name"
             style="@style/bank_add_edite"
             android:hint="请输入持卡人姓名" />
@@ -39,6 +40,9 @@
             style="@style/bank_add_one"
             android:text="卡      号:" />
         <EditText
+            android:textCursorDrawable="@drawable/color_cursor"
+            android:lines="1"
+            android:maxLength="21"
             android:inputType="number"
             android:id="@+id/et_add_bank_card_num"
             style="@style/bank_add_edite"
@@ -56,7 +60,9 @@
                     style="@style/bank_add_one"
                     android:text="银      行:" />
                 <EditText
+                    android:textCursorDrawable="@drawable/color_cursor"
                     android:maxLength="10"
+                    android:lines="1"
                     android:hint="请输入银行昵称"
                     android:id="@+id/et_add_bank_yinhang"
                     android:layout_height="match_parent"
@@ -100,6 +106,7 @@
             android:text="开 户 行 :"
              />
         <EditText
+            android:textCursorDrawable="@drawable/color_cursor"
             android:lines="1"
             android:maxLength="20"
             android:id="@+id/et_zhihang"
@@ -141,6 +148,7 @@
             android:text="验 证 码:"
            />
         <EditText
+            android:textCursorDrawable="@drawable/color_cursor"
             android:inputType="number"
             android:maxLength="6"
             android:id="@+id/et_get_msg_code"

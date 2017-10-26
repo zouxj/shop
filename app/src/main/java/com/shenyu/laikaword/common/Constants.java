@@ -1,8 +1,6 @@
 package com.shenyu.laikaword.common;
 
-import android.net.Uri;
-
-import com.shenyu.laikaword.bean.reponse.LoginReponse;
+import com.shenyu.laikaword.model.bean.reponse.LoginReponse;
 import com.zxj.utilslibrary.utils.SPUtil;
 
 /**
@@ -11,7 +9,14 @@ import com.zxj.utilslibrary.utils.SPUtil;
  */
 
 public class Constants {
-    //SP
+    /**
+     * URL Host
+     */
+    public final static String HOST="http://t.shop.comingcard.com/MApi/";
+    public final static String HOSTDOWN_URL="http://t.shop.comingcard.com/";
+    /**
+     * xml存在key
+     */
     public static final String TOKEN="LOGIN_TOKEN";
     //获取摄像头权限Code
     public static final int READ_EXTERNAL_STORAGE = 123;
@@ -25,15 +30,16 @@ public class Constants {
     public static final int REQUEST_IMAGE_CAPTURE = 1;
     //地址调取
     public static final int REQUEST_ADDRESS= 2;
-    public static final int FRAGEMTN_MAIN_FLOG = 0x001;
-    public static final int FRAGEMTN_CARPACK_FLOG = 0x002;
+    /**
+     * appID
+     */
     public static final String QQ_APPID="101425071";
     public static final String WX_APPID="wx72f8cc7bb98bfa4d";
     public static final String KEY_VALUE="124uj13nejk31h4u3faenfiu3h923jalkd";
     public static synchronized String getToken() {
         return SPUtil.getString(TOKEN,"");
     }
-    public static String WXSTATE="";
+    public static String WXSTATE="WX_LOGIN";
 
     //SharedPreferences保存信息KEY
     public static final String LOGININFO_KEY ="USERINFO_LOGIN";

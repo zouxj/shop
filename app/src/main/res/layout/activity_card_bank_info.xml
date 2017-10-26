@@ -6,7 +6,7 @@
     android:background="@color/main_bg_gray"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.shenyu.laikaword.module.mine.cards.activity.CardBankActivity">
+    tools:context=".module.mine.bankcard.ui.activity.SelectBankIDActivity">
     <include layout="@layout/toolbar_layout"/>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/card_cy_list"
