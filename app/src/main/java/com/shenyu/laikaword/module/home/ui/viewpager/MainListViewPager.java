@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.shenyu.laikaword.R;
+import com.shenyu.laikaword.helper.ImageUitls;
 import com.shenyu.laikaword.model.adapter.CommonAdapter;
 import com.shenyu.laikaword.model.adapter.ViewHolder;
 import com.shenyu.laikaword.model.adapter.wrapper.EmptyWrapper;
@@ -73,7 +74,7 @@ public class MainListViewPager extends BaseViewPager {
         commonAdapter=new CommonAdapter<GoodBean>(R.layout.item_home_shop,listBeans) {
             @Override
             protected void convert(ViewHolder holder, final GoodBean listBean, int position) {
-                Picasso.with(UIUtil.getContext()).load(listBean.getGoodsImage()).placeholder(R.mipmap.defaul_icon).error(R.mipmap.defaul_icon).into((ImageView) holder.getView(R.id.iv_main_shop_img));
+                ImageUitls.loadImg(listBean.getGoodsImage(),(ImageView) holder.getView(R.id.iv_main_shop_img));
                 holder.setText(R.id.tv_main_shop_name, listBean.getGoodsName());
 //                holder.setText(R.id.tv_main_shop_original_price, "￥"+listBean.getOriginPrice());
                 holder.setText(R.id.tv_main_shop_price, "￥"+listBean.getDiscountPrice());

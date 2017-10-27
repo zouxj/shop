@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.shenyu.laikaword.module.mine.setpassword.SetPassWordMsgCodeActivity">
+    tools:context="com.shenyu.laikaword.module.us.setpassword.SetPassWordMsgCodeActivity">
 <include layout="@layout/toolbar_layout"/>
     <TextView
         android:id="@+id/tv_ms_code"
@@ -25,6 +25,8 @@
     <EditText
         android:id="@+id/tv_msg_code"
         android:layout_marginTop="36dp"
+        android:maxLength="6"
+        android:inputType="number"
         android:textCursorDrawable="@drawable/color_cursor"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/edite_bottom"

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context="com.shenyu.laikaword.module.mine.setpassword.SetPassWordOneActivity">
+    tools:context="com.shenyu.laikaword.module.us.setpassword.SetPassWordOneActivity">
     <include layout="@layout/toolbar_layout"/>
 
     <TextView

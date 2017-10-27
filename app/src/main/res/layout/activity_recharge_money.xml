@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:layout_centerInParent="true"
     android:background="@color/main_bg_gray"
-    tools:context="com.shenyu.laikaword.module.mine.wallet.recharge.RechargeMoneyActivity">
+    tools:context="com.shenyu.laikaword.module.us.wallet.recharge.RechargeMoneyActivity">
     <include layout="@layout/toolbar_layout"/>
 <LinearLayout
     android:paddingRight="18dp"

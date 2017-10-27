@@ -126,7 +126,7 @@ public class MainActivity extends LKWordBaseActivity implements  MPermission.Per
     }
     @Override
     public void setupActivityComponent() {
-        LaiKaApplication.get(this).getAppComponent().plus(new MainModule(getSupportFragmentManager())).inject(this);
+        LaiKaApplication.get(this).getAppComponent().plus(new MainModule(getSupportFragmentManager(),bindToLifecycle())).inject(this);
     }
 
     /**

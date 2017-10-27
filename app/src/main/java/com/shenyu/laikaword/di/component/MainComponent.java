@@ -4,6 +4,7 @@ import com.shenyu.laikaword.di.module.MainModule;
 import com.shenyu.laikaword.module.home.ui.activity.MainActivity;
 import com.shenyu.laikaword.module.home.ui.fragment.MainFragment;
 import com.shenyu.laikaword.module.launch.StartActivity;
+import com.shenyu.laikaword.module.launch.WelcomePageActivity;
 
 import dagger.Subcomponent;
 
@@ -14,5 +15,5 @@ import dagger.Subcomponent;
 public interface MainComponent {
      MainActivity inject(MainActivity loginActivity);
      MainFragment inject(MainFragment mainFragment);
-     StartActivity.WelcomePageActivity inject(StartActivity.WelcomePageActivity welcomePageActivity);
+    WelcomePageActivity inject(WelcomePageActivity welcomePageActivity);
 }

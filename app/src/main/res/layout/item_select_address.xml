@@ -13,6 +13,7 @@
   >
     <CheckBox
         style="@style/check_box"
+        android:enabled="false"
         android:id="@+id/ck_select_address"
         android:layout_centerVertical="true"
         android:layout_marginLeft="9dp"

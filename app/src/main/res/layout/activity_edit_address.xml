@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/main_bg_gray"
     android:orientation="vertical"
-    tools:context=".module.mine.address.ui.activity.EditAddressActivity">
+    tools:context=".module.us.address.ui.activity.EditAddressActivity">
 <include layout="@layout/toolbar_layout"/>
     <LinearLayout style="@style/ly_layout">
     <TextView
@@ -85,8 +85,9 @@
             android:textSize="@dimen/text_size_13sp"
             android:layout_marginLeft="35dp"
             android:maxLength="30"
+            android:textColorHint="@color/color_999"
             android:gravity="top"
-            android:textColor="@color/color_999"
+            android:textColor="@color/color_333"
             android:layout_width="242dp"
             android:hint="街道地址,请填写整栋楼楼层或房间信息"
             android:layout_marginTop="17dp"

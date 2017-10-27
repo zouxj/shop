@@ -11,6 +11,6 @@ package com.zxj.parlibary.resultlistener;
  *
  */
 public interface OnWechatPayListener{
-    public void onPaySuccess(int errorCode);
-    public void onPayFailure(int errorCode);
+     void onPaySuccess(int errorCode);
+     void onPayFailure(int errorCode);
 }

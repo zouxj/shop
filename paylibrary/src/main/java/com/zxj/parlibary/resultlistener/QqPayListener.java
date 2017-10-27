@@ -10,6 +10,6 @@ package com.zxj.parlibary.resultlistener;
  *
  */
 public interface QqPayListener {
-    public  void onPaySuccess(int successCode);
-    public  void onPayFailure(int errorCode);
+      void onPaySuccess(int successCode);
+      void onPayFailure(int errorCode);
 }

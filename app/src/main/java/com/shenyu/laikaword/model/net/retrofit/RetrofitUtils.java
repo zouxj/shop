@@ -1,6 +1,10 @@
 package com.shenyu.laikaword.model.net.retrofit;
 
+import android.arch.lifecycle.Lifecycle;
+
 import com.shenyu.laikaword.model.net.api.ApiClient;
+import com.trello.lifecycle2.android.lifecycle.AndroidLifecycle;
+import com.trello.rxlifecycle2.LifecycleProvider;
 
 import rx.Observable;
 import rx.Subscriber;
@@ -12,14 +16,13 @@ import rx.subscriptions.CompositeSubscription;
  * Created by shenyu_zxjCode on 2017/9/22 0022.
  */
 
-public class RetrofitUtils {
+public class RetrofitUtils  {
 
     public static ApiStores apiStores;
     private CompositeSubscription mCompositeSubscription;
 
     private static RetrofitUtils retrofitUtils;
     private RetrofitUtils(){
-
     }
 
     public static RetrofitUtils getRetrofitUtils(){

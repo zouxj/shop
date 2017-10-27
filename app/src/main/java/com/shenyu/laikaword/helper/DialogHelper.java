@@ -11,17 +11,14 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
-import com.shenyu.laikaword.module.mine.setpassword.SetPassWordMsgCodeActivity;
+import com.shenyu.laikaword.module.us.setpassword.SetPassWordMsgCodeActivity;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.KeyBoardUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.widget.countdownview.PayPsdInputView;
-
-import org.w3c.dom.Text;
 
 /**
  * Created by Administrator on 2017/8/4 0004.

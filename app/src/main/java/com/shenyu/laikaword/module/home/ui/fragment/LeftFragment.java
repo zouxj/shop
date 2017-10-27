@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
+import com.shenyu.laikaword.helper.ImageUitls;
 import com.shenyu.laikaword.model.adapter.CommonAdapter;
 import com.shenyu.laikaword.model.adapter.ViewHolder;
 import com.shenyu.laikaword.base.IKWordBaseFragment;
@@ -15,14 +16,14 @@ import com.shenyu.laikaword.model.bean.reponse.LoginReponse;
 import com.shenyu.laikaword.common.CircleTransform;
 import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.module.login.ui.activity.LoginActivity;
-import com.shenyu.laikaword.module.mine.address.ui.activity.AddressInfoActivity;
-import com.shenyu.laikaword.module.mine.bankcard.ui.activity.CardBankInfoActivity;
-import com.shenyu.laikaword.module.mine.appsetting.UserInfoActivity;
+import com.shenyu.laikaword.module.us.address.ui.activity.AddressInfoActivity;
+import com.shenyu.laikaword.module.us.bankcard.ui.activity.CardBankInfoActivity;
+import com.shenyu.laikaword.module.us.appsetting.UserInfoActivity;
 import com.shenyu.laikaword.module.goods.BuyGoodsActivity;
-import com.shenyu.laikaword.module.mine.wallet.remaining.PurchaseCardActivity;
-import com.shenyu.laikaword.module.mine.goodcards.ui.activity.CardPackageActivity;
-import com.shenyu.laikaword.module.mine.wallet.remaining.UserRemainingActivity;
-import com.shenyu.laikaword.module.mine.appsetting.SettingSystemActivity;
+import com.shenyu.laikaword.module.us.wallet.remaining.PurchaseCardActivity;
+import com.shenyu.laikaword.module.us.goodcards.ui.activity.CardPackageActivity;
+import com.shenyu.laikaword.module.us.wallet.remaining.UserRemainingActivity;
+import com.shenyu.laikaword.module.us.appsetting.SettingSystemActivity;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBusSubscriber;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxSubscriptions;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
@@ -89,10 +90,7 @@ public class LeftFragment extends IKWordBaseFragment {
                             case EventType.ACTION_UPDATA_USER:
                                 LoginReponse loginReponse = Constants.getLoginReponse();
                                 if (null!=loginReponse) {
-                                    if (StringUtil.validText(loginReponse.getPayload().getAvatar())) {
-                                        Picasso.with(UIUtil.getContext()).load(loginReponse.getPayload().getAvatar()).placeholder(R.mipmap.left_user_icon)
-                                                .error(R.mipmap.left_user_icon).transform(new CircleTransform()).into(tvUserHead);
-                                    }
+                                    ImageUitls.loadImgRound(loginReponse.getPayload().getAvatar(),tvUserHead);
                                     tvUserName.setText(loginReponse.getPayload().getNickname());
                                 }else{
                                     tvUserName.setText("未登录");
@@ -200,10 +198,7 @@ public class LeftFragment extends IKWordBaseFragment {
     public void requestData() {
         LoginReponse loginReponse = Constants.getLoginReponse();
         if (null!=loginReponse&&loginReponse.getPayload()!=null){
-            if (StringUtil.validText(loginReponse.getPayload().getAvatar())) {
-                Picasso.with(UIUtil.getContext()).load(loginReponse.getPayload().getAvatar()).placeholder(R.mipmap.left_user_icon)
-                        .error(R.mipmap.left_user_icon).transform(new CircleTransform()).into(tvUserHead);
-            }
+            ImageUitls.loadImgRound(loginReponse.getPayload().getAvatar(),tvUserHead);
        tvUserName.setText(loginReponse.getPayload().getNickname());
         }
     }

@@ -12,6 +12,7 @@ import com.shenyu.laikaword.module.home.view.MainView;
 import com.shenyu.laikaword.module.home.ui.fragment.LeftFragment;
 import com.shenyu.laikaword.module.home.presenter.MainPresenter;
 import com.shenyu.laikaword.module.home.ui.fragment.MainFragment;
+import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import dagger.Module;
 import dagger.Provides;
@@ -25,13 +26,15 @@ public class MainModule {
     private  FragmentManager manager;
     private MainView mainView;
     private Activity activity;
+    private LifecycleTransformer mlifecycleTransformer;
    private final static  String[] mlist  = new String[]{"移动卡", "京东卡", "联通卡", "电信卡"};
     public MainModule(MainView mainView, Activity activity){
         this.mainView =mainView;
         this.activity=activity;
     }
-    public MainModule(FragmentManager manager) {
+    public MainModule(FragmentManager manager,LifecycleTransformer lifecycleTransformer) {
         this.manager = manager;
+        this.mlifecycleTransformer=lifecycleTransformer;
     }
     public MainModule(){}
     @Provides
@@ -61,7 +64,7 @@ public class MainModule {
      */
     @Provides
     MainPresenter provideMainPresenter(){
-        return new MainPresenter(mainView);
+        return new MainPresenter(mainView,mlifecycleTransformer);
     }
 
     @Provides

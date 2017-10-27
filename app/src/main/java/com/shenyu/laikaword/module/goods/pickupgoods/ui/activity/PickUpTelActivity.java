@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.base.BaseReponse;
+import com.shenyu.laikaword.helper.ImageUitls;
 import com.shenyu.laikaword.model.bean.reponse.CarPagerReponse;
 import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.helper.DialogHelper;
@@ -89,8 +90,7 @@ public class PickUpTelActivity extends LKWordBaseActivity {
         bean = (CarPagerReponse.Bean) getIntent().getSerializableExtra("bean");
             if (null!=bean)
                 avZj.setGoods_storage(StringUtil.formatIntger(bean.getQuantity()));
-            Picasso.with(UIUtil.getContext()).load(bean.getGoodsImage()).placeholder(R.mipmap.defaul_icon)
-                    .error(R.mipmap.defaul_icon).into(ivTihuoImg);
+        ImageUitls.loadImg(bean.getGoodsImage(),ivTihuoImg);
             tvTihuoName.setText(bean.getGoodsName());
             if (StringUtil.validText(bean.getQuantity())) {
                 tvTihuoCount.setText("数量:" + StringUtil.formatIntger(bean.getQuantity()));

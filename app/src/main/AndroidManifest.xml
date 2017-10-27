@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.shenyu.laikaword">
 
     <uses-permission android:name="android.permission.MOUNT_FORMAT_FILESYSTEMS" />
@@ -30,7 +31,6 @@
         <activity android:name=".module.launch.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -55,7 +55,10 @@
             android:name=".module.home.ui.activity.MainActivity"
             android:theme="@style/Main_AppTheme"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".module.launch.StartActivity$WelcomePageActivity" />
+        <activity android:name=".module.launch.WelcomePageActivity"
+            android:launchMode="singleTask"
+            android:taskAffinity=".module.launch.WelcomePageActivity"
+            />
 
         <receiver
             android:name=".jpush.TalkReceiver"
@@ -91,31 +94,31 @@
             android:name="com.taobao.android.hotfix.RSASECRET"
             android:value="MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCh2EpzZ3jSFQgAGWmdKO2xKECg4u1RIXaUfD0eaoPxcFc6KHC+SfJHtYGYI9NsvgFFt2llBVZtAd/qJWetjSywFJSBJVEJILRvHcEiHErKiN5j+wIJ7vK3sYI628pCOAYcbA2U0z73mGOG3XbEidCU0vCPsCW4Lx3EFb+Ac64JgpgA/0BIMH4Y7NHWHFZHWtGMu2CpYkPDyfR1AOx8lqyQLepC4Ltby9YhCbFRzs/5fjA0axrRvXpJ5ouhU7NZwj5iUFzsA+khfU1QoWa/InQAGoKmEcC0yIDwOM0zBDs6rwt7z4RT0wtj1UQD9R7LpXHqd6JpD7oSDmAmwm5Xk3GNAgMBAAECggEAaOuE6Get5dOIijfvRdkgrnZ/30z9uFjPPNeF78/xlXXUtnk9Db92d5JtXynqiFZtELskcj8Rlj1e4bY6DkK1M7lDxK1iaV5wWpCZgfmBaudr9Ljmy3XCl99Vo76U0nTrUUWjUFXaPjzmWKn9ss/9Dl3pYd05trukule2/BkCPFsIMtTX7smKAoTZ5FQKbenoc01c7SLw5DWLB9EC/PuOGHNaR0cSRozUb8sHyCsKDLdbR2nu2NY6L7uXHqQunH9o9DNyzyq8PBYmrWjGR/l4ZoT0a6j7nvdIobCyg0HN3hV8iSC1Lg/cSejyDjKogGTcAC5XV1CG4laOT+ebhAJZwQKBgQDsmqwfET6lmgr7sgfak5upxg9nr3hXrP5g/defgwshcpH1NAzRv0bFZzTsMnR5S4l3pzKY1eQYr7e9FPbOz/5RrbdwH5q/97Hik4MpfaeSaa0HaiQaVj+GUaIg4OJxzRXkVAIEYOU3B7XeGqw1YuIsvkfvUx6f54O/mFeSn7EHqQKBgQCvHLwgMUiuO3m/0Lk0Q4/H1J2tvRfP95GBt9na/wZowhXAqxXYrpb0hdJ1ciaKvc5+vPvUSaTkkrZpc2jNu8bnj+Ady1Q1KT/+doCdGusP3RYzwXgoHGfXUO+Pb048ffSUkzrr2WYPfuHm4vQnFH5ogxJ6i1sT6A8yVbfCZsH5RQKBgGTyJMdoexr6Wv9B2Ln3yi0n9ICfS6/Uff9xreI/batKj11XZLTEb/Re8SRo7mqlwLPNIPg2IYgqyDCi1h4sfWvput7ajRKkIj/yAb7c/naoIYuNTHP0IkwzXgG7EMHO5y0wbl/h20mcP4rQRHLOioLeeCByjRlaFErVO1+yRDxpAoGAUVLi+4Bn5KKydCaXHHKT/5X6dIlw2aB77uZXQqFVdKlOOOA7kRnj+UN87hZJV/22PJ2/xmM9NPn9xRNYBNPEGB51UuDvBpFVqvOV32B08jUW7opXJymqABEScGacyvMj9yw5HPclsuSWPQgBo3SdECRvHIJDlgcbp6CvapUWWJECgYEAyLJW4iWtEdRomairdSwT/TvDMyuRpGJIfnYxrsugm6mG9kNJK815TP8tgsk+o2ytJycr0mDkUNJ9a52ApXT3781CtMPArt+QxwSe+r8CTINaYG2XO0oWTOuDS33TcBjBqTETi42jb0ZwgPe7B/cVQHgY/Div3GAtWdmBt92kOuU=" />
 
-        <activity android:name=".module.mine.wallet.remaining.UserRemainingActivity" />
-        <activity android:name=".module.mine.wallet.withdraw.WthdrawMoneyActivity" />
-        <activity android:name=".module.mine.wallet.recharge.RechargeMoneyActivity" />
-        <activity android:name=".module.mine.wallet.remaining.PurchaseCardActivity" />
-        <activity android:name=".module.mine.wallet.DetailMoneyActivity" />
+        <activity android:name=".module.us.wallet.remaining.UserRemainingActivity" />
+        <activity android:name=".module.us.wallet.withdraw.WthdrawMoneyActivity" />
+        <activity android:name=".module.us.wallet.recharge.RechargeMoneyActivity" />
+        <activity android:name=".module.us.wallet.remaining.PurchaseCardActivity" />
+        <activity android:name=".module.us.wallet.DetailMoneyActivity" />
         <activity android:name=".module.goods.BuyGoodsActivity" />
-        <activity android:name=".module.mine.goodcards.ui.activity.CardPackageActivity" />
-        <activity android:name=".module.mine.bankcard.ui.activity.SelectBankIDActivity" />
-        <activity android:name=".module.mine.appsetting.SettingSystemActivity" />
-        <activity android:name=".module.mine.appsetting.aboutus.AboutAppActivity" />
-        <activity android:name=".module.mine.appsetting.acountbind.AccountBindActivity"
+        <activity android:name=".module.us.goodcards.ui.activity.CardPackageActivity" />
+        <activity android:name=".module.us.bankcard.ui.activity.SelectBankIDActivity" />
+        <activity android:name=".module.us.appsetting.SettingSystemActivity" />
+        <activity android:name=".module.us.appsetting.aboutus.AboutAppActivity" />
+        <activity android:name=".module.us.appsetting.acountbind.AccountBindActivity"
             android:taskAffinity=".module.mine.systemsetting.activity.AccountBindActivity"
             android:launchMode="singleTask"
             />
-        <activity android:name=".module.mine.appsetting.acountbind.BoundPhoneActivity"
+        <activity android:name=".module.us.appsetting.acountbind.BoundPhoneActivity"
             android:taskAffinity=".module.mine.systemsetting.activity.BoundPhoneActivity"
             android:launchMode="singleTask"
             />
-        <activity android:name=".module.mine.appsetting.UserInfoActivity" />
+        <activity android:name=".module.us.appsetting.UserInfoActivity" />
         <activity
             android:name="com.leo618.mpermission.AppSettingsDialogHolderActivity"
             android:exported="false"
             android:theme="@style/MPermissions.Transparent" />
-        <activity android:name=".module.mine.appsetting.updateus.UpdateUserNameActivity" />
-        <activity android:name=".module.mine.bankcard.ui.activity.AddBankCardActivity" />
+        <activity android:name=".module.us.appsetting.updateus.UpdateUserNameActivity" />
+        <activity android:name=".module.us.bankcard.ui.activity.AddBankCardActivity" />
         <activity
             android:name="com.tencent.tauth.AuthActivity"
             android:launchMode="singleTask"
@@ -144,36 +147,36 @@
             android:taskAffinity="com.shenyu.laikaword.module.shop.activity.ConfirmOrderActivity"
             />
         <activity android:name=".module.goods.order.PaySuccessActivity" />
-        <activity android:name=".module.mine.bankcard.ui.activity.CardBankInfoActivity" />
-        <activity android:name=".module.mine.address.ui.activity.AddressInfoActivity" />
-        <activity android:name=".module.mine.address.ui.activity.EditAddressActivity" />
+        <activity android:name=".module.us.bankcard.ui.activity.CardBankInfoActivity" />
+        <activity android:name=".module.us.address.ui.activity.AddressInfoActivity" />
+        <activity android:name=".module.us.address.ui.activity.EditAddressActivity" />
         <activity android:name=".module.goods.pickupgoods.ui.activity.PickUpActivity" />
         <activity android:name=".module.goods.ShopDateilActivity" />
         <activity android:name=".di.component.ShopCommponent$PickUpSuccessActivity"
             android:launchMode="singleTask"
             android:taskAffinity=".module.shop.activity.PickUpSuccessActivit"
             />
-        <activity android:name=".module.mine.address.ui.activity.SelectAddressActivity"
+        <activity android:name=".module.us.address.ui.activity.SelectAddressActivity"
             android:launchMode="singleTask"
             android:taskAffinity="com.shenyu.laikaword.module.mine.address.activity.SelectAddressActivity"
             />
         <activity android:name=".module.goods.pickupgoods.ui.activity.PickUpTelActivity" />
         <activity android:name=".module.goods.pickupgoods.ui.activity.PickUpStateActivity" />
-        <activity android:name=".module.mine.setpassword.SetPassWordOneActivity"
+        <activity android:name=".module.us.setpassword.SetPassWordOneActivity"
             android:launchMode="singleTask"
             android:taskAffinity=".module.mine.setpassword.SetPassWordOneActivity"
             />
-        <activity android:name=".module.mine.setpassword.SetPassWordTwoActivity"
+        <activity android:name=".module.us.setpassword.SetPassWordTwoActivity"
             android:launchMode="singleTask"
             android:taskAffinity=".module.mine.setpassword.SetPassWordTwoActivityy"
             />
-        <activity android:name=".module.mine.appsetting.acountbind.AcountBdingSuccessActivity" />
-        <activity android:name=".module.mine.setpassword.SetPassWordMsgCodeActivity"
+        <activity android:name=".module.us.appsetting.acountbind.AcountBdingSuccessActivity" />
+        <activity android:name=".module.us.setpassword.SetPassWordMsgCodeActivity"
             android:launchMode="singleInstance"
             android:taskAffinity="com.shenyu.laikaword.module.mine.setpassword.SetPassWordMsgCodeActivity"
 
             />
-        <activity android:name=".module.mine.message.UserMessageActivity" />
+        <activity android:name=".module.us.message.UserMessageActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

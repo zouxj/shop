@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
+import com.shenyu.laikaword.helper.ImageUitls;
 import com.shenyu.laikaword.model.adapter.CommonAdapter;
 import com.shenyu.laikaword.model.adapter.ViewHolder;
 import com.shenyu.laikaword.model.adapter.wrapper.EmptyWrapper;
@@ -59,10 +60,7 @@ public class BuyGoodsActivity extends LKWordBaseActivity {
                 holder.setText(R.id.tv_goumai_shop_price,"￥"+payloadBean.getCurrentPrice());
                 holder.setText(R.id.tv_goumai_shop_purchase,"X"+payloadBean.getQuantity());
                 holder.setText(R.id.tv_goumai_time, DateTimeUtil.formatDate(Long.parseLong(payloadBean.getCreateTime()),"yyyy-MM-dd HH:mm:ss"));
-                Picasso.with(UIUtil.getContext()).
-                        load(payloadBean.getGoodsImage()).
-                        placeholder(R.mipmap.defaul_icon).
-                        error(R.mipmap.defaul_icon).into((ImageView) holder.getView(R.id.iv_goumai_img));
+                ImageUitls.loadImg(payloadBean.getGoodsImage(),(ImageView) holder.getView(R.id.iv_goumai_img));
             }
         };
          emptyWrapper = new EmptyWrapper(commonAdapter);

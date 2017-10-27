@@ -17,6 +17,7 @@ public class Constants {
     /**
      * xml存在key
      */
+    public static final String SAVA_ADDRESS = "ADDRESS_INFO";
     public static final String TOKEN="LOGIN_TOKEN";
     //获取摄像头权限Code
     public static final int READ_EXTERNAL_STORAGE = 123;

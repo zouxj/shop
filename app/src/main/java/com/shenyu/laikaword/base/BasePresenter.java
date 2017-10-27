@@ -2,6 +2,7 @@ package com.shenyu.laikaword.base;
 
 import com.shenyu.laikaword.model.net.api.ApiClient;
 import com.shenyu.laikaword.model.net.retrofit.ApiStores;
+import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import rx.Observable;
 import rx.Subscriber;

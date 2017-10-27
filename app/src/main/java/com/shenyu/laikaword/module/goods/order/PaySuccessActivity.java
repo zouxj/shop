@@ -6,7 +6,7 @@ import android.view.View;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.module.home.ui.activity.MainActivity;
-import com.shenyu.laikaword.module.mine.goodcards.ui.activity.CardPackageActivity;
+import com.shenyu.laikaword.module.us.goodcards.ui.activity.CardPackageActivity;
 import com.shenyu.laikaword.model.rxjava.rx.RxTask;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 

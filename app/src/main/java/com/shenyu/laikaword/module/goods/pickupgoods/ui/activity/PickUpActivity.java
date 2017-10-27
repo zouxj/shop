@@ -13,17 +13,19 @@ import android.widget.TextView;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.base.BaseReponse;
+import com.shenyu.laikaword.helper.ImageUitls;
 import com.shenyu.laikaword.model.bean.reponse.AddressReponse;
 import com.shenyu.laikaword.model.bean.reponse.CarPagerReponse;
 import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.helper.DialogHelper;
 import com.shenyu.laikaword.di.component.ShopCommponent;
-import com.shenyu.laikaword.module.mine.address.ui.activity.SelectAddressActivity;
+import com.shenyu.laikaword.module.us.address.ui.activity.SelectAddressActivity;
 import com.shenyu.laikaword.model.net.api.ApiCallback;
 import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
 import com.shenyu.laikaword.ui.view.widget.AmountView;
 import com.squareup.picasso.Picasso;
 import com.zxj.utilslibrary.utils.IntentLauncher;
+import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
@@ -91,13 +93,18 @@ public class PickUpActivity extends LKWordBaseActivity {
         setStepTitles.setStepTitles(titles);
          bean = (CarPagerReponse.Bean) getIntent().getSerializableExtra("bean");
         if (null!=bean){
-            Picasso.with(UIUtil.getContext()).load(bean.getGoodsImage()).placeholder(R.mipmap.defaul_icon)
-                    .error(R.mipmap.defaul_icon).into(ivTihuoImg);
+            ImageUitls.loadImg(bean.getGoodsImage(),ivTihuoImg);
             tvTihuoName.setText(bean.getGoodsName());
                 tvTihuoCount.setText("数量:" + StringUtil.formatIntger(bean.getQuantity()));
                 avZj.setGoods_storage(StringUtil.formatIntger(bean.getQuantity()));
                 tvTihuoAll.setText("1张");
 
+        }
+        payloadBean = (AddressReponse.PayloadBean) SPUtil.readObject(Constants.SAVA_ADDRESS);
+        if (null!=payloadBean) {
+            Spanned dizhi = Html.fromHtml("<font color='#333333' >" + payloadBean.getReceiveName() + payloadBean.getPhone() + "</font><br/><font color='#999999' >" + payloadBean.getProvince() + payloadBean.getCity() + payloadBean.getDetail() + "</font>");
+            tvTihuoTianxia.setGravity(Gravity.CENTER);
+            tvTihuoTianxia.setText(dizhi);
         }
     }
 

@@ -14,6 +14,7 @@ import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 import com.squareup.picasso.Picasso;
+import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
@@ -31,9 +32,8 @@ import rx.subscriptions.CompositeSubscription;
  */
 
 public class MainPresenter extends BasePresenter<MainView> {
-
     private CompositeSubscription rxSubscriptions = new CompositeSubscription();
-    public MainPresenter(MainView mainView){
+    public MainPresenter(MainView mainView, LifecycleTransformer mlifecycleTransformer){
         this.mvpView = mainView;
         attachView(mvpView);
     }
@@ -94,18 +94,7 @@ public class MainPresenter extends BasePresenter<MainView> {
 
     }
 
-    /**
-     * 加载头像
-     * @param headURl
-     * @param headImg
-     */
-    public void setImgHead(String headURl, ImageView headImg){
-        if (StringUtil.validText(headURl)) {
-            Picasso.with(UIUtil.getContext()).load(headURl).placeholder(R.mipmap.left_user_icon)
-                    .error(R.mipmap.left_user_icon).resize(50, 50).transform(new CircleTransform()).into(headImg);
 
-        }
-    }
 
     /**
      * 定时刷新页面

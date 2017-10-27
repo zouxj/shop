@@ -8,7 +8,7 @@ import com.shenyu.laikaword.module.launch.LaiKaApplication;
 import com.shenyu.laikaword.model.bean.reponse.LoginReponse;
 import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.module.home.ui.activity.MainActivity;
-import com.shenyu.laikaword.module.mine.appsetting.acountbind.AcountBdingSuccessActivity;
+import com.shenyu.laikaword.module.us.appsetting.acountbind.AcountBdingSuccessActivity;
 import com.shenyu.laikaword.model.net.api.ApiCallback;
 import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
 import com.tencent.mm.opensdk.modelbase.BaseReq;

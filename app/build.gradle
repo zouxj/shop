@@ -106,5 +106,8 @@ dependencies {
     implementation 'com.trello.rxlifecycle2:rxlifecycle:2.2.0'
     compile 'com.aliyun.dpa:oss-android-sdk:2.4.3'
     implementation 'com.squareup.okio:okio:1.13.0'
+    implementation 'com.trello.rxlifecycle2:rxlifecycle-navi:2.2.0'
+    // If you want to use Android Lifecycle for providers
+    compile 'com.trello.rxlifecycle2:rxlifecycle-android-lifecycle:2.2.0'
 
 }

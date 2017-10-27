@@ -15,6 +15,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.shenyu.laikaword.helper.ImageUitls;
 import com.shenyu.laikaword.module.launch.LaiKaApplication;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.model.adapter.MainViewPagerAdapter;
@@ -29,7 +30,7 @@ import com.shenyu.laikaword.helper.TabLayoutHelper;
 import com.shenyu.laikaword.di.module.MainModule;
 import com.shenyu.laikaword.module.home.presenter.MainPresenter;
 import com.shenyu.laikaword.module.home.view.MainView;
-import com.shenyu.laikaword.module.mine.message.UserMessageActivity;
+import com.shenyu.laikaword.module.us.message.UserMessageActivity;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBusSubscriber;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxSubscriptions;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
@@ -124,17 +125,14 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
                         switch (myEvent.event) {
                             case EventType.ACTION_UPDATA_USER:
                                 LoginReponse loginReponse = Constants.getLoginReponse();
-                                if (null!=loginReponse&& StringUtil.validText(loginReponse.getPayload().getAvatar())) {
-                                    Picasso.with(UIUtil.getContext()).load(loginReponse.getPayload().getAvatar()).placeholder(R.mipmap.left_user_icon)
-                                            .error(R.mipmap.left_user_icon).resize(50, 50).transform(new CircleTransform()).into(headImg);
+                                if (null!=loginReponse) {
+                                    ImageUitls.loadImgRound(loginReponse.getPayload().getAvatar(),headImg);
                                 }else {
                                     headImg.setImageBitmap(null);
                                     headImg.setBackground(UIUtil.getDrawable(R.mipmap.left_user_icon));
                                 }
                                 break;
                         }
-                        LogUtil.e(TAG, myEvent.event+"____"+"threadType=>"+Thread.currentThread());
-//            }
                     }
                     @Override
                     public void onError(Throwable e) {
@@ -154,7 +152,7 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
         setupViewPager();
         LoginReponse loginReponse = Constants.getLoginReponse();
         if (null!=loginReponse&&loginReponse.getPayload()!=null) {
-            mainPresenter.setImgHead(loginReponse.getPayload().getAvatar(), headImg);
+            ImageUitls.loadImgRound(loginReponse.getPayload().getAvatar(), headImg);
 
         }
     }
@@ -164,7 +162,8 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
     private void initViewpagerTop(View view) {
         bannerHelper  = BannerHelper.getInstance();
         bannerHelper.init(view.findViewById(R.id.banner_rootlayout));
-        bannerHelper.setmPointersLayout(Gravity.RIGHT|Gravity.BOTTOM);
+        bannerHelper.setPoitSize(7);
+        bannerHelper.setmPointersLayout(Gravity.RIGHT|Gravity.BOTTOM,240,0,15,15);
         bannerHelper.setIsAuto(true);
 
     }

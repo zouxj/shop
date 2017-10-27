@@ -47,6 +47,7 @@ public abstract class LKWordBaseActivity extends RxAppCompatActivity implements 
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView( bindLayout());
         ButterKnife.bind(this);
+        bindToLifecycle();
         StatusBarCompat.setStatusBarColor(this, UIUtil.getColor(R.color.app_theme_red));
         mActivity = this;
         setupActivityComponent();

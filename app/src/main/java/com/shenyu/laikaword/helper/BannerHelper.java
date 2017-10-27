@@ -55,10 +55,13 @@ public class BannerHelper {
     private OnItemClickListener mOnItemClickListener;
     private OnPageChangeListener onPageChangeListener;
     private boolean isAutoPlay = false;
-
+    private  int poitSize=10;
     private BannerHelper() {
     }
 
+    public void setPoitSize(int poitSize){
+        this.poitSize=poitSize;
+    }
     public static BannerHelper getInstance() {
         instance = new BannerHelper();
         return instance;
@@ -71,10 +74,10 @@ public class BannerHelper {
      */
     public BannerHelper init(@NonNull View bannerView) {
         mBannerRootLayout = bannerView;
-        mBannerViewpager = (ViewPager) mBannerRootLayout.findViewById(R.id.banner_viewpager);
-        mPointersLayout = (LinearLayout) mBannerRootLayout.findViewById(R.id.banner_pointers);
-        mBannerDesc = (TextView) mBannerRootLayout.findViewById(R.id.banner_desc);
-        mLoadingPb = (ProgressBar) mBannerRootLayout.findViewById(R.id.banner_loading);
+        mBannerViewpager = mBannerRootLayout.findViewById(R.id.banner_viewpager);
+        mPointersLayout =  mBannerRootLayout.findViewById(R.id.banner_pointers);
+        mBannerDesc =mBannerRootLayout.findViewById(R.id.banner_desc);
+        mLoadingPb = mBannerRootLayout.findViewById(R.id.banner_loading);
         mLoadingPb.setVisibility(View.VISIBLE);
         mBannerDesc.setVisibility(needShowDesc ? View.VISIBLE : View.GONE);
         return instance;
@@ -104,7 +107,7 @@ public class BannerHelper {
         for (int x = 0; x < bannerList.size(); x++) {
             View v = new View(mBannerRootLayout.getContext());
             v.setBackgroundResource(R.drawable.selector_pointers);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(15, 15);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int)UIUtil.dp2px(poitSize), (int)UIUtil.dp2px(poitSize));
             if (x != 0) {
                 params.leftMargin = 10;
             }
@@ -340,9 +343,9 @@ public void setOnPageChangeListener(OnPageChangeListener onPageChangeListener){
      * 设置Gravity
      * @param gravity
      */
-    public void setmPointersLayout(int gravity){
+    public void setmPointersLayout(int gravity,int left,int top,int right,int bottom){
         if (null!=mPointersLayout){
-            mPointersLayout.setPadding((int) UIUtil.dp2px(240),0, (int) UIUtil.dp2px(15),(int) UIUtil.dp2px(15));
+            mPointersLayout.setPadding((int) UIUtil.dp2px(left),top, (int) UIUtil.dp2px(right),(int) UIUtil.dp2px(bottom));
             mPointersLayout.setGravity(gravity);
 
     }

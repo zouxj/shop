@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:minHeight="63dp"
     android:paddingLeft="10dp"
+    android:background="@color/white"
     android:paddingRight="10dp"
     android:layout_height="63dp">
     <TextView
@@ -24,6 +25,7 @@
     <TextView
         android:id="@+id/tv_money_count"
         android:textSize="@dimen/text_size_15sp"
+        android:textColor="@color/color_999"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"

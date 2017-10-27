@@ -7,12 +7,12 @@ import android.support.v4.app.FragmentManager;
 import com.shenyu.laikaword.model.adapter.CarPackageViewPagerAdapter;
 import com.shenyu.laikaword.model.adapter.PurchaseViewPagerAdapter;
 import com.shenyu.laikaword.helper.CityDataHelper;
-import com.shenyu.laikaword.module.mine.address.presenter.AddPresenter;
-import com.shenyu.laikaword.module.mine.address.view.AddressView;
-import com.shenyu.laikaword.module.mine.bankcard.presenter.AddBankPresenter;
-import com.shenyu.laikaword.module.mine.bankcard.view.AddBankView;
-import com.shenyu.laikaword.module.mine.appsetting.UserInfoPresenter;
-import com.shenyu.laikaword.module.mine.appsetting.UserInfoView;
+import com.shenyu.laikaword.module.us.address.presenter.AddPresenter;
+import com.shenyu.laikaword.module.us.address.view.AddressView;
+import com.shenyu.laikaword.module.us.bankcard.presenter.AddBankPresenter;
+import com.shenyu.laikaword.module.us.bankcard.view.AddBankView;
+import com.shenyu.laikaword.module.us.appsetting.UserInfoPresenter;
+import com.shenyu.laikaword.module.us.appsetting.UserInfoView;
 
 import dagger.Module;
 import dagger.Provides;

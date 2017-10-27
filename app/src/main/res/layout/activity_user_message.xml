@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:id="@+id/layout_content"
     android:orientation="vertical"
-    tools:context="com.shenyu.laikaword.module.mine.message.UserMessageActivity">
+    tools:context="com.shenyu.laikaword.module.us.message.UserMessageActivity">
 <include layout="@layout/toolbar_layout"/>
 
     <android.support.v7.widget.RecyclerView

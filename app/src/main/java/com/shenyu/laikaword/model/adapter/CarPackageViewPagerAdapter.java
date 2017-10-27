@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import com.shenyu.laikaword.base.BasePagerAdapter;
 import com.shenyu.laikaword.base.BaseViewPager;
 import com.shenyu.laikaword.model.bean.reponse.CarPagerReponse;
-import com.shenyu.laikaword.module.mine.goodcards.ui.CarListPagerView;
+import com.shenyu.laikaword.module.us.goodcards.ui.CarListPagerView;
 
 
 /**

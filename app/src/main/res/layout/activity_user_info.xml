@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/main_bg_gray"
     android:orientation="vertical"
-    tools:context="com.shenyu.laikaword.module.mine.appsetting.UserInfoActivity">
+    tools:context="com.shenyu.laikaword.module.us.appsetting.UserInfoActivity">
 <include layout="@layout/toolbar_layout"/>
     <RelativeLayout
         android:id="@+id/set_rl_user_info"
