@@ -101,7 +101,7 @@ public class RechargeMoneyActivity extends LKWordBaseActivity {
 //                                        ToastUtil.showToastShort("支付失败");
 //                                }
 //                    });
-                    RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.rechargeMoney(rechargeRbNum.getText().toString().trim(), type), new ApiCallback<PayInfoReponse>() {
+                   retrofitUtils.addSubscription(RetrofitUtils.apiStores.rechargeMoney(rechargeRbNum.getText().toString().trim(), type), new ApiCallback<PayInfoReponse>() {
                         @Override
                         public void onSuccess(PayInfoReponse model) {
                             PayHelper.aliPaySafely(model.getPayload().getPayInfo(),RechargeMoneyActivity.this, new OnAliPayListener() {

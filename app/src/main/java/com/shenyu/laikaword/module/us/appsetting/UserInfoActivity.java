@@ -111,7 +111,7 @@ public class UserInfoActivity extends LKWordBaseActivity  implements UserInfoVie
         switch (view.getId()) {
             case R.id.set_change_user_head:
                 //TODO 更换头像
-                userInfoPresenter.updateImg();
+                userInfoPresenter.updateImg(this.bindToLifecycle());
                 break;
             case R.id.set_rl_user_acount_bd:
                 //TODO 更换名字
@@ -139,7 +139,7 @@ public class UserInfoActivity extends LKWordBaseActivity  implements UserInfoVie
                 }
             }
             if (!TextUtils.isEmpty(filePath)) {
-                userInfoPresenter.upladHeadImg(filePath);
+                userInfoPresenter.upladHeadImg(this.bindToLifecycle(),filePath);
             }
         }
         if (requestCode == MPermissionSettingsDialog.DEFAULT_SETTINGS_REQ_CODE) {

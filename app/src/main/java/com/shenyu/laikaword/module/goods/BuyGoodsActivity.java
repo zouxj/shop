@@ -81,7 +81,7 @@ public class BuyGoodsActivity extends LKWordBaseActivity {
     }
     private void oraderData(){
         loadViewHelper.showLoadingDialog(this);
-        RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.orderList(), new ApiCallback<OrderListReponse>() {
+        retrofitUtils.addSubscription(RetrofitUtils.apiStores.orderList(), new ApiCallback<OrderListReponse>() {
             @Override
             public void onSuccess(OrderListReponse model) {
                 if (model.isSuccess()){

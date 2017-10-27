@@ -16,6 +16,7 @@ import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.SPUtil;
@@ -27,7 +28,7 @@ import java.util.HashMap;
  * Created by Administrator on 2017/8/10 0010.
  */
 
-public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
+public class WXEntryActivity extends RxAppCompatActivity implements IWXAPIEventHandler {
     //第三方app和微信通信的openapid接口
     // 这两个参数在文档中没有找到，可能是瞎了,,,自己在代码里面找了会才找到，这两个常量代表了微信返回的消息类型，是对登录的处理还是对分享的处理，登录会在后面介绍到
     private static final int RETURN_MSG_TYPE_LOGIN = 1;
@@ -80,7 +81,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                             HashMap<String,String> param =new HashMap<>();
                             param.put("loginType","WeChat");
                             param.put("code",code);
-                            RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.partyBind(param), new ApiCallback<LoginReponse>() {
+                            RetrofitUtils.getRetrofitUtils().setLifecycleTransformer(this.bindToLifecycle()).addSubscription(RetrofitUtils.apiStores.partyBind(param), new ApiCallback<LoginReponse>() {
                                 @Override
                                 public void onSuccess(LoginReponse model) {
                                     if (model.isSuccess()) {

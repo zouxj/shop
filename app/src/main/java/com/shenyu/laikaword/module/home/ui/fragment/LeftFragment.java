@@ -15,6 +15,7 @@ import com.shenyu.laikaword.base.IKWordBaseFragment;
 import com.shenyu.laikaword.model.bean.reponse.LoginReponse;
 import com.shenyu.laikaword.common.CircleTransform;
 import com.shenyu.laikaword.common.Constants;
+import com.shenyu.laikaword.model.bean.reponse.ShopMainReponse;
 import com.shenyu.laikaword.module.login.ui.activity.LoginActivity;
 import com.shenyu.laikaword.module.us.address.ui.activity.AddressInfoActivity;
 import com.shenyu.laikaword.module.us.bankcard.ui.activity.CardBankInfoActivity;
@@ -52,7 +53,8 @@ public class LeftFragment extends IKWordBaseFragment {
     ImageView tvUserHead;
     @BindView(R.id.rc_left_view)
     RecyclerView rcLeftView;
-    CommonAdapter commonAdapter;
+    List<ShopMainReponse.EntranceListBean> dataList = new ArrayList<>();
+    CommonAdapter<ShopMainReponse.EntranceListBean> commonAdapter;
     public static final int[] leftData={
         R.mipmap.left_money_icon,R.mipmap.left_gouwuchei_icon,
                 R.mipmap.left_tihuo_icon,R.mipmap.left_wodekabao_icon,
@@ -98,6 +100,9 @@ public class LeftFragment extends IKWordBaseFragment {
                                     tvUserHead.setBackground(UIUtil.getDrawable(R.mipmap.left_user_icon));
                                 }
                                 break;
+                            case EventType.ACTION_MAIN_SETDATE:
+                                initLeftData();
+                                break;
                         }
                         LogUtil.e(TAG, myEvent.event+"____"+"threadType=>"+Thread.currentThread());
 //            }
@@ -118,37 +123,38 @@ public class LeftFragment extends IKWordBaseFragment {
 
     @Override
     public void doBusiness() {
-        List<String> dataList = new ArrayList<>();
-        dataList.add("我的余额");
-        dataList.add("我的购买");
-        dataList.add("我的提货");
-        dataList.add("我的卡包");
-        dataList.add("银行卡");
-        dataList.add("我的地址");
-        dataList.add("系统设置");
         subscribeEvent();
+
         rcLeftView.setLayoutManager(new LinearLayoutManager(getActivity()));
-         commonAdapter=  new CommonAdapter<String>(R.layout.item_left_frame,dataList) {
+         commonAdapter=  new CommonAdapter<ShopMainReponse.EntranceListBean>(R.layout.item_left_frame,dataList) {
+            @SuppressLint("NewApi")
             @Override
-            protected void convert(ViewHolder holder, String s, int position) {
-                holder.setText(R.id.tv_left_menu,s);
-                holder.setBackground(R.id.img_left_menu, UIUtil.getDrawable(leftData[position]));
-            }
-
-            @Override
-            public void onBindViewHolder(ViewHolder holder, final int position) {
-                super.onBindViewHolder(holder, position);
-                if (position==getItemCount()-1){
-                    holder.getView(R.id.ly_line).setVisibility(View.VISIBLE);
+            protected void convert(ViewHolder holder, final ShopMainReponse.EntranceListBean entranceListBean, final int position) {
+                holder.setText(R.id.tv_left_menu,entranceListBean.getTitle());
+                ImageView imageView=   (ImageView) holder.getView(R.id.img_left_menu);
+                imageView.setImageBitmap(null);
+                if (entranceListBean.getImgUrl()!=0) {
+                    imageView.setBackground(UIUtil.getDrawable(entranceListBean.getImgUrl()));
                 }
-                holder.setOnClickListener(R.id.tv_left_fragment, new View.OnClickListener() {
-
+                if (StringUtil.validText(entranceListBean.getIconURL())) {
+                    ImageUitls.loadImg(entranceListBean.getIconURL(), imageView);
+                }
+//                if (position==dataList.size()-1){
+//                    holder.getView(R.id.ly_line).setVisibility(View.VISIBLE);
+//                }
+                holder.itemView.setOnClickListener( new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         LoginReponse loginReponse = (LoginReponse) SPUtil.readObject(Constants.LOGININFO_KEY);
                         if (null==loginReponse) {
                             IntentLauncher.with(getActivity()).launch(LoginActivity.class);
                             return;
+                        }
+
+                        if (entranceListBean.getTitle().equals("系统设置")){
+                                //TODO 我的设置
+                                IntentLauncher.with(getActivity()).launch(SettingSystemActivity.class);
+                                return;
                         }
                         switch (position){
                             case 0:
@@ -176,16 +182,26 @@ public class LeftFragment extends IKWordBaseFragment {
                                 //TODO 我的地址
                                 IntentLauncher.with(getActivity()).launch(AddressInfoActivity.class);
                                 break;
-                            case 6:
-                                //TODO 我的设置
-                                IntentLauncher.with(getActivity()).launch(SettingSystemActivity.class);
-                                break;
+                                default:
+                                    IntentLauncher.with(getActivity()).launchViews(entranceListBean.getUrl());
+                                    break;
+
                         }
                     }
                 });
             }
+
+//            @Override
+//            public void onBindViewHolder(ViewHolder holder, final int position) {
+//                super.onBindViewHolder(holder, position);
+//                if (position==getItemCount()-1){
+//                    holder.getView(R.id.ly_line).setVisibility(View.VISIBLE);
+//                }
+//
+//            }
         };
         rcLeftView.setAdapter(commonAdapter);
+        initLeftData();
 
     }
 
@@ -206,5 +222,24 @@ public class LeftFragment extends IKWordBaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+    }
+
+    public void  initLeftData(){
+        dataList.clear();
+        dataList.add(new ShopMainReponse.EntranceListBean("我的余额",leftData[0],null,null,false));
+        dataList.add(new ShopMainReponse.EntranceListBean("我的购买",leftData[1],null,null,false));
+        dataList.add(new ShopMainReponse.EntranceListBean("我的提货",leftData[2],null,null,false));
+        dataList.add(new ShopMainReponse.EntranceListBean("我的卡包",leftData[3],null,null,false));
+        dataList.add(new ShopMainReponse.EntranceListBean("银行卡",leftData[4],null,null,false));
+        dataList.add(new ShopMainReponse.EntranceListBean("我的地址",leftData[5],null,null,false));
+        ShopMainReponse shopMainReponse= (ShopMainReponse) SPUtil.readObject(Constants.MAIN_SHOP_KEY);
+        if (shopMainReponse!=null){
+            List<ShopMainReponse.EntranceListBean> entranceList= shopMainReponse.getPayload().getEntranceList();
+            for (ShopMainReponse.EntranceListBean listBean:entranceList) {
+                dataList.add(listBean);
+            }
+        }
+        dataList.add(new ShopMainReponse.EntranceListBean("系统设置",leftData[6],null,null,false));
+        commonAdapter.notifyDataSetChanged();
     }
 }

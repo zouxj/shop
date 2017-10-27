@@ -99,7 +99,7 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
                 refreshlayout.finishRefresh(2000);
-                mainPresenter.loadRefresh();
+                mainPresenter.loadRefresh(MainFragment.this.bindToLifecycle());
 //                ToastUtil.showToastShort("正在刷新...");
             }
         });
@@ -205,7 +205,7 @@ public void onClick(View v){
     @Override
     public void requestData() {
 
-        mainPresenter.requestData();
+        mainPresenter.requestData(this.bindToLifecycle());
     }
     private void setupViewPager() {
         // 第二步：为ViewPager设置适配器
@@ -236,7 +236,7 @@ public void onClick(View v){
             @Override
             public void onClick(View view) {
                 smartRefreshLayout.setVisibility(View.VISIBLE);
-                mainPresenter.requestData();
+                mainPresenter.requestData(MainFragment.this.bindToLifecycle());
             }
         });
     }
@@ -245,11 +245,11 @@ public void onClick(View v){
     @Override
     public void showShop(ShopMainReponse shopBeanReponse) {
         setViewpagerTopData(shopBeanReponse.getPayload().getBanner());
-        SPUtil.saveObject(Constants.MAIN_SHOP_KEY,shopBeanReponse.getPayload().getGoods());
+        SPUtil.saveObject(Constants.MAIN_SHOP_KEY,shopBeanReponse);
         RxBus.getDefault().post(new Event(EventType.ACTION_MAIN_SETDATE,shopBeanReponse.getPayload().getGoods()));
         data.addAll(shopBeanReponse.getPayload().getNotice());
         setNoticeView();
-//        mainPresenter.timeTask();
+        mainPresenter.timeTask();
     }
 
     @Override

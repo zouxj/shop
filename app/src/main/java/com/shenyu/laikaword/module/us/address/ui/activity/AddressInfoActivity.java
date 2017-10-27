@@ -108,7 +108,7 @@ public class AddressInfoActivity extends LKWordBaseActivity {
                         DialogHelper.deleteBankDialog(mActivity,"地址删除后,不可再使用该地址", "确认删除",new DialogHelper.ButtonCallback() {
                             @Override
                             public void onNegative(Dialog dialog) {
-                                RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.deleteAddress(addressReponse.getAddressId()), new ApiCallback<BaseReponse>() {
+                                retrofitUtils.addSubscription(RetrofitUtils.apiStores.deleteAddress(addressReponse.getAddressId()), new ApiCallback<BaseReponse>() {
                                     @Override
                                     public void onSuccess(BaseReponse model) {
                                         if (model.isSuccess()){
@@ -217,7 +217,7 @@ public class AddressInfoActivity extends LKWordBaseActivity {
         mapParam.put("province",payloadBean.getProvince());
         mapParam.put("city",payloadBean.getCity());
         mapParam.put("district",payloadBean.getDistrict());
-        RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.setAddress(mapParam), new ApiCallback<BaseReponse>() {
+        retrofitUtils.addSubscription(RetrofitUtils.apiStores.setAddress(mapParam), new ApiCallback<BaseReponse>() {
             @Override
             public void onSuccess(BaseReponse model) {
                 if (model.isSuccess()) {
@@ -246,10 +246,6 @@ public class AddressInfoActivity extends LKWordBaseActivity {
 
             }
 
-            @Override
-            public void onStarts() {
-                super.onStarts();
-            }
         });
 
     }

@@ -61,11 +61,11 @@ public class SetPassWordMsgCodeActivity extends LKWordBaseActivity {
                     tvSendMsgPhone.setText(Html.fromHtml("<b>" + StringUtil.formatPhoneNumber(phones) + "</b>"));
                 }
             }
-            SendMsgHelper.sendMsg(tvDownTime,phone,"setTransactionPIN");
+            SendMsgHelper.sendMsg(this.bindToLifecycle(),tvDownTime,phone,"setTransactionPIN");
             tvDownTime.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    SendMsgHelper.sendMsg(tvDownTime,phone,"setTransactionPIN");
+                    SendMsgHelper.sendMsg(bindToLifecycle(),tvDownTime,phone,"setTransactionPIN");
                 }
             });
         }
@@ -74,7 +74,7 @@ public class SetPassWordMsgCodeActivity extends LKWordBaseActivity {
             @Override
             public void call(CharSequence charSequence) {
                 if (charSequence.toString().length()==6){
-                    RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.validateSMSCode("validateSMSCode", charSequence.toString()), new ApiCallback<MsgCodeReponse>() {
+                    retrofitUtils.addSubscription(RetrofitUtils.apiStores.validateSMSCode("validateSMSCode", charSequence.toString()), new ApiCallback<MsgCodeReponse>() {
                         @Override
                         public void onSuccess(MsgCodeReponse model) {
                             if (model.isSuccess()) {

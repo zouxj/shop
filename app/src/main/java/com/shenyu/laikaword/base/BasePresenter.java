@@ -4,11 +4,11 @@ import com.shenyu.laikaword.model.net.api.ApiClient;
 import com.shenyu.laikaword.model.net.retrofit.ApiStores;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
-import rx.subscriptions.CompositeSubscription;
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
 
 /**
  * Created by shenyu_zxjCode on 2017/9/21 0021.
@@ -21,7 +21,6 @@ public class BasePresenter<V> {
 
     protected ApiStores apiStores;
 
-    private CompositeSubscription mCompositeSubscription;
 
 
 
@@ -52,11 +51,7 @@ public class BasePresenter<V> {
 
     private void onUnsubscribe() {
 
-        if (mCompositeSubscription != null && mCompositeSubscription.hasSubscriptions()) {
 
-            mCompositeSubscription.unsubscribe();
-
-        }
 
     }
 
@@ -64,21 +59,12 @@ public class BasePresenter<V> {
 
 
 
-    public void addSubscription(Observable observable, Subscriber subscriber) {
+    public void addSubscription(LifecycleTransformer lifecycleTransformer,Observable observable, Observer subscriber) {
 
-        if (mCompositeSubscription == null) {
-
-            mCompositeSubscription = new CompositeSubscription();
-
-        }
-
-        mCompositeSubscription.add(observable
-
+                observable
                 .subscribeOn(Schedulers.io())
-
                 .observeOn(AndroidSchedulers.mainThread())
-
-                .subscribe(subscriber));
+               .compose(lifecycleTransformer) .subscribe(subscriber);
 
     }
 }

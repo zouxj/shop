@@ -158,7 +158,7 @@ public class SelectBankIDActivity extends LKWordBaseActivity {
 
     protected void initData() {
         loadViewHelper.showLoadingDialog(this);
-        RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.getBankCard(), new ApiCallback<BankInfoReponse>() {
+        retrofitUtils.addSubscription(RetrofitUtils.apiStores.getBankCard(), new ApiCallback<BankInfoReponse>() {
             @Override
             public void onSuccess(BankInfoReponse model) {
                 if (model.isSuccess()) {

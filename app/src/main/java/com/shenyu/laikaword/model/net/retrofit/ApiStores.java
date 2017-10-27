@@ -14,9 +14,11 @@ import com.shenyu.laikaword.model.bean.reponse.OrderListReponse;
 import com.shenyu.laikaword.model.bean.reponse.PayInfoReponse;
 import com.shenyu.laikaword.model.bean.reponse.PickUpGoodsReponse;
 import com.shenyu.laikaword.model.bean.reponse.ShopMainReponse;
+import com.shenyu.laikaword.model.bean.reponse.StartBannerGuangKReponse;
 
 import java.util.Map;
 
+import io.reactivex.Observable;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -25,7 +27,6 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
-import rx.Observable;
 
 /**
  * Created by shenyu_zxjCode on 2017/9/21 0021.
@@ -120,6 +121,8 @@ public interface ApiStores {
     @FormUrlEncoded
     @POST("user/partyBind")//余额明细
     Observable<LoginReponse> partyBind(@FieldMap Map<String, String> map);
+    @GET("common/appStartUp")//启动页
+    Observable<StartBannerGuangKReponse> appStartUp();
 
 
 

@@ -21,26 +21,28 @@ import com.zxj.utilslibrary.utils.UIUtil;
 
 import java.util.concurrent.TimeUnit;
 
-import rx.Observable;
-import rx.functions.Action1;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
-import rx.subscriptions.CompositeSubscription;
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
+import io.reactivex.internal.observers.FullArbiterObserver;
+import io.reactivex.schedulers.Schedulers;
+
 
 /**
  * 首页业务
  */
 
 public class MainPresenter extends BasePresenter<MainView> {
-    private CompositeSubscription rxSubscriptions = new CompositeSubscription();
     public MainPresenter(MainView mainView, LifecycleTransformer mlifecycleTransformer){
         this.mvpView = mainView;
         attachView(mvpView);
     }
-    public void requestData(){
+    public void requestData(LifecycleTransformer lifecycleTransformer){
         //TODO 请求商品数据
         mvpView.isLoading();
-        addSubscription(apiStores.getMainShop(), new ApiCallback<ShopMainReponse>() {
+        addSubscription(lifecycleTransformer,apiStores.getMainShop(), new ApiCallback<ShopMainReponse>() {
             @Override
             public void onSuccess(ShopMainReponse model) {
                 if (model.isSuccess())
@@ -70,13 +72,13 @@ public class MainPresenter extends BasePresenter<MainView> {
     /**
      * 下拉刷新
      */
-    public void loadRefresh(){
+    public void loadRefresh(LifecycleTransformer lifecycleTransformer){
         mvpView.isLoading();
-        addSubscription(apiStores.getMainShop(), new ApiCallback<ShopMainReponse>() {
+        addSubscription(lifecycleTransformer,apiStores.getMainShop(), new ApiCallback<ShopMainReponse>() {
             @Override
             public void onSuccess(ShopMainReponse model) {
                 if (model.isSuccess()) {
-                    SPUtil.saveObject(Constants.MAIN_SHOP_KEY,model.getPayload().getGoods());
+                    SPUtil.saveObject(Constants.MAIN_SHOP_KEY,model);
                     RxBus.getDefault().post(new Event(EventType.ACTION_MAIN_SETDATE,model.getPayload().getGoods()));
                 }
             }
@@ -100,16 +102,32 @@ public class MainPresenter extends BasePresenter<MainView> {
      * 定时刷新页面
      */
     public void timeTask(){
-        rx.Observable.interval(30000,30000, TimeUnit.MILLISECONDS).take(Integer.MAX_VALUE).observeOn(Schedulers.io()).flatMap(new Func1<Long, Observable<ShopMainReponse>>() {
+        Observable.interval(30000,30000, TimeUnit.MILLISECONDS).take(Integer.MAX_VALUE).observeOn(Schedulers.io()).flatMap(new Function<Long, ObservableSource<ShopMainReponse>>() {
+
             @Override
-            public rx.Observable<ShopMainReponse> call(Long aLong) {
+            public ObservableSource<ShopMainReponse> apply(Long aLong) throws Exception {
                 return RetrofitUtils.getRetrofitUtils().apiStores.getMainShop();
             }
-        }).subscribe(new Action1<ShopMainReponse>() {
+        }).subscribe(new Observer<ShopMainReponse>() {
             @Override
-            public void call(ShopMainReponse shopBeanReponse) {
-                SPUtil.saveObject(Constants.MAIN_SHOP_KEY,shopBeanReponse.getPayload().getGoods());
-                RxBus.getDefault().post(new Event(EventType.ACTION_MAIN_SETDATE,shopBeanReponse.getPayload().getGoods()));
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(ShopMainReponse shopMainReponse) {
+                SPUtil.saveObject(Constants.MAIN_SHOP_KEY,shopMainReponse);
+                RxBus.getDefault().post(new Event(EventType.ACTION_MAIN_SETDATE,shopMainReponse.getPayload().getGoods()));
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
             }
         });
     }
@@ -118,9 +136,9 @@ public class MainPresenter extends BasePresenter<MainView> {
      * 移除任务
      */
     public void romveTask(){
-        if (null!=rxSubscriptions) {
-            rxSubscriptions.unsubscribe();
-            rxSubscriptions=null;
-        }
+//        if (null!=rxSubscriptions) {
+//            rxSubscriptions.unsubscribe();
+//            rxSubscriptions=null;
+//        }
     }
 }

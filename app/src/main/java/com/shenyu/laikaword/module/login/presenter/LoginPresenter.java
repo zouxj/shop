@@ -16,6 +16,7 @@ import com.shenyu.laikaword.module.home.ui.activity.MainActivity;
 import com.shenyu.laikaword.model.net.api.ApiCallback;
 import com.shenyu.laikaword.module.login.view.LoginView;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
+import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
@@ -45,8 +46,8 @@ public class LoginPresenter extends BasePresenter<LoginView> {
         mvpView.canLogin(StringUtil.validText(username)&&StringUtil.validText(password));
     }
 
-    public void login(String phone,String code){
-        addSubscription(apiStores.loginPhone(phone,code), new ApiCallback<LoginReponse>() {
+    public void login(LifecycleTransformer lifecycleTransformer,String phone,String code){
+        addSubscription(lifecycleTransformer,apiStores.loginPhone(phone,code), new ApiCallback<LoginReponse>() {
             @Override
             public void onSuccess(LoginReponse model) {
                 if (model.isSuccess()){
@@ -78,9 +79,9 @@ public class LoginPresenter extends BasePresenter<LoginView> {
 
 
     //发送短信
-    public void sendMsg(String phone, TextView textView){
+    public void sendMsg(LifecycleTransformer lifecycleTransformer, String phone, TextView textView){
         //TODO 请求获取到短信后
-            SendMsgHelper.sendMsg(textView,phone,"phoneLogin");
+            SendMsgHelper.sendMsg(lifecycleTransformer,textView,phone,"phoneLogin");
     }
 
     //微信登录
@@ -119,8 +120,8 @@ public class LoginPresenter extends BasePresenter<LoginView> {
             LaiKaApplication.mTencent.logout(mActivity);
         }
     }
-    public void loginRequestQQ(String openId,String accessToken){
-            addSubscription(apiStores.loginWxQQ("qq", null, openId, accessToken), new ApiCallback<LoginReponse>() {
+    public void loginRequestQQ(LifecycleTransformer lifecycleTransformer,String openId,String accessToken){
+            addSubscription(lifecycleTransformer,apiStores.loginWxQQ("qq", null, openId, accessToken), new ApiCallback<LoginReponse>() {
                 @Override
                 public void onSuccess(LoginReponse model) {
                     if (model.isSuccess()){

@@ -86,7 +86,7 @@ public class DetailMoneyActivity extends LKWordBaseActivity {
     }
     boolean  bool = false;
     private boolean requestData(final int page, int sizePage){
-        RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.getUserMoneyDetail(page,sizePage), new ApiCallback<MoneyDetailReponse>() {
+       retrofitUtils.addSubscription(RetrofitUtils.apiStores.getUserMoneyDetail(page,sizePage), new ApiCallback<MoneyDetailReponse>() {
 
             @Override
             public void onSuccess(MoneyDetailReponse model) {

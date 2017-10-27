@@ -153,7 +153,7 @@ public class SelectAddressActivity extends LKWordBaseActivity {
         RxSubscriptions.add(mRxSub);
     }
     public void initData() {
-        RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.getAddress(), new ApiCallback<AddressReponse>() {
+        retrofitUtils.addSubscription(RetrofitUtils.apiStores.getAddress(), new ApiCallback<AddressReponse>() {
             @Override
             public void onSuccess(AddressReponse model) {
                 if (model.isSuccess()) ;

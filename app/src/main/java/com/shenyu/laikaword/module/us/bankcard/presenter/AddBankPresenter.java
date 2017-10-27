@@ -9,6 +9,7 @@ import com.shenyu.laikaword.base.BaseReponse;
 import com.shenyu.laikaword.helper.SendMsgHelper;
 import com.shenyu.laikaword.model.net.api.ApiCallback;
 import com.shenyu.laikaword.module.us.bankcard.view.AddBankView;
+import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 
@@ -60,13 +61,13 @@ public class AddBankPresenter extends BasePresenter<AddBankView> {
             }
         });
     }
-    //发送短信
-    public void sendMsg(String phone, TextView textView){
-        //TODO 请求获取到短信后
-        SendMsgHelper.sendMsg(textView,phone,"phoneLogin");
-    }
+//    //发送短信
+//    public void sendMsg(String phone, TextView textView){
+//        //TODO 请求获取到短信后
+//        SendMsgHelper.sendMsg(textView,phone,"phoneLogin");
+//    }
     //请求添加到银行卡信息
-    public void setAddRequest(String cardNum, String bankName, String bankZhangName, String bankUserName, String bankProvince, String bankCity){
+    public void setAddRequest(LifecycleTransformer lifecycleTransformer,String cardNum, String bankName, String bankZhangName, String bankUserName, String bankProvince, String bankCity){
         //TODO 添加银行卡信息
         Map<String,String> mapParam = new HashMap<>();
         mapParam.put("name",bankUserName);
@@ -77,7 +78,7 @@ public class AddBankPresenter extends BasePresenter<AddBankView> {
         mapParam.put("city",bankCity);
         mapParam.put("default","0");
         mvpView.isLoading();
-        addSubscription(apiStores.setBankCard(mapParam), new ApiCallback<BaseReponse>() {
+        addSubscription(lifecycleTransformer,apiStores.setBankCard(mapParam), new ApiCallback<BaseReponse>() {
             @Override
             public void onSuccess(BaseReponse model) {
                     if (!model.isSuccess())

@@ -115,7 +115,7 @@ public class CardBankInfoActivity extends LKWordBaseActivity {
         RxSubscriptions.add(mRxSub);
     }
     protected void initData() {
-        RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.getBankCard(), new ApiCallback<BankInfoReponse>() {
+        retrofitUtils.addSubscription(RetrofitUtils.apiStores.getBankCard(), new ApiCallback<BankInfoReponse>() {
             @Override
             public void onSuccess(BankInfoReponse model) {
                 if (model.isSuccess()) {

@@ -182,7 +182,7 @@ public class PickUpActivity extends LKWordBaseActivity {
             @Override
             public void onLintenerText(String passWord) {
                 param.put("transactionPIN",passWord);
-                RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.extractPackage(param), new ApiCallback<BaseReponse>() {
+                retrofitUtils.addSubscription(RetrofitUtils.apiStores.extractPackage(param), new ApiCallback<BaseReponse>() {
                     @Override
                     public void onSuccess(BaseReponse model) {
                         if (model.isSuccess())

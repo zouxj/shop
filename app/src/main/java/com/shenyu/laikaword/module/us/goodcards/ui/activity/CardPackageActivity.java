@@ -50,7 +50,7 @@ public class CardPackageActivity extends LKWordBaseActivity {
 
     private void initData(){
         loadViewHelper.showLoadingDialog(this);
-        RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.cardPackage(), new ApiCallback<CarPagerReponse>() {
+        retrofitUtils.addSubscription(RetrofitUtils.apiStores.cardPackage(), new ApiCallback<CarPagerReponse>() {
             @Override
             public void onSuccess(CarPagerReponse model) {
                 if (model.isSuccess()) {

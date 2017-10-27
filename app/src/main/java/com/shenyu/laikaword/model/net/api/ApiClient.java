@@ -6,6 +6,7 @@ import com.shenyu.laikaword.model.net.okhttp.OkHttp3Utils;
 
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -21,7 +22,7 @@ public class ApiClient {
             mRetrofit = new Retrofit.Builder()
                     .baseUrl(Constants.HOST)
                     .addConverterFactory(GsonConverterFactory.create())
-                    .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .client(OkHttp3Utils.getmOkHttpClient())
                     .build();
 

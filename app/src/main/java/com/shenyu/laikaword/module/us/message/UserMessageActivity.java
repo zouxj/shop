@@ -71,7 +71,7 @@ public class UserMessageActivity extends LKWordBaseActivity {
      */
     private void loadData() {
         loadViewHelper.showLoadingDialog(this);
-        RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.messageList(), new ApiCallback<MessageReponse>() {
+        retrofitUtils.addSubscription(RetrofitUtils.apiStores.messageList(), new ApiCallback<MessageReponse>() {
             @Override
             public void onSuccess(MessageReponse model) {
                 if (model.isSuccess()) {

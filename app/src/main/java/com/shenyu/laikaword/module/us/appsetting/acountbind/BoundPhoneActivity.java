@@ -91,7 +91,7 @@ public class BoundPhoneActivity extends LKWordBaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_send_msg_code:
-                SendMsgHelper.sendMsg(tvSendMsgCode,etUsePhone.getText().toString().trim(),"bindPhone");
+                SendMsgHelper.sendMsg(this.bindToLifecycle(),tvSendMsgCode,etUsePhone.getText().toString().trim(),"bindPhone");
                 break;
             case R.id.bt_login:
                 //TODO 绑定手机号码

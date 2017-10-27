@@ -87,7 +87,7 @@ public class MainActivity extends LKWordBaseActivity implements  MPermission.Per
                             drawerLayout.openDrawer(frameLeft);
                             break;
                             case EventType.ACTION_UPDATA_USER_REQUEST:
-                                RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.getUserInfo(), new ApiCallback<BaseReponse>() {
+                                retrofitUtils.addSubscription(RetrofitUtils.apiStores.getUserInfo(), new ApiCallback<BaseReponse>() {
                                     @Override
                                     public void onSuccess(BaseReponse loginReponse) {
                                         if (loginReponse.isSuccess()){

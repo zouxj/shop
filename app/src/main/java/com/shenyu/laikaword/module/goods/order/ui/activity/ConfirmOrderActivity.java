@@ -181,7 +181,7 @@ public class ConfirmOrderActivity extends LKWordBaseActivity implements ConfirmO
         switch (view.getId()) {
             case R.id.tv_to_pay:
                 //TODO 去支付
-                mConfirmOrderPresenter.cofirmPay(payFlogType,count,priceCount.getText().toString().trim());
+                mConfirmOrderPresenter.cofirmPay(this.bindToLifecycle(),payFlogType,count,priceCount.getText().toString().trim());
                 break;
         }
     }

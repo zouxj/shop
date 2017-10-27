@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.shenyu.laikaword.helper.LoadViewHelper;
 import com.shenyu.laikaword.Interactor.IBaseFragment;
+import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxSubscriptions;
 import com.zxj.utilslibrary.utils.LogUtil;
 
@@ -26,7 +27,7 @@ public abstract class IKWordBaseFragment extends com.trello.rxlifecycle2.compone
     protected boolean isDataLoaded;
     protected Subscription mRxSub;
     public LoadViewHelper loadViewHelper;
-
+    protected RetrofitUtils retrofitUtils;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // 渲染视图View(防止切换时重绘View)
@@ -47,6 +48,7 @@ public abstract class IKWordBaseFragment extends com.trello.rxlifecycle2.compone
     public void onViewCreated(View view, Bundle savedInstanceState) {
         LogUtil.d(TAG, TAG + "-->onViewCreated()");
         isViewInitiated = true;
+        retrofitUtils=RetrofitUtils.getRetrofitUtils().setLifecycleTransformer(this.bindToLifecycle());
         prepareRequestData();
         super.onViewCreated(view, savedInstanceState);
         doBusiness();// 业务处理

@@ -69,8 +69,10 @@ public class MainListViewPager extends BaseViewPager {
 
     @Override
     public void initData() {
-        goods = (List<ShopMainReponse.PayloadBean.GoodsBean>) SPUtil.readObject(Constants.MAIN_SHOP_KEY);
-
+        ShopMainReponse shopMainReponse=  (ShopMainReponse)SPUtil.readObject(Constants.MAIN_SHOP_KEY);
+        if (shopMainReponse!=null) {
+            goods = shopMainReponse.getPayload().getGoods();
+        }
         commonAdapter=new CommonAdapter<GoodBean>(R.layout.item_home_shop,listBeans) {
             @Override
             protected void convert(ViewHolder holder, final GoodBean listBean, int position) {

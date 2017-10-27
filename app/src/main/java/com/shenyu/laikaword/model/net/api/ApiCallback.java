@@ -10,18 +10,20 @@ import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 
+
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 import retrofit2.HttpException;
-import rx.Subscriber;
 
 /**
  * Created by shenyu_zxjCode on 2017/9/21 0021.
  */
 
-public abstract class ApiCallback<M> extends Subscriber<M> {
+public abstract class ApiCallback<M> implements Observer<M> {
     public abstract void onSuccess(M model);
     public abstract void onFailure(String msg);
     public abstract void onFinish();
-    public  void onStarts(){}
+
 
     @Override
 
@@ -64,7 +66,6 @@ public abstract class ApiCallback<M> extends Subscriber<M> {
     }
 
 
-
     @Override
 
     public void onNext(M model) {
@@ -83,17 +84,13 @@ public abstract class ApiCallback<M> extends Subscriber<M> {
 
     }
 
-
-
     @Override
-
-    public void onCompleted() {
+    public void onComplete() {
         onFinish();
-
     }
 
     @Override
-    public void onStart() {
-        onStarts();
+    public void onSubscribe(Disposable d) {
+
     }
 }

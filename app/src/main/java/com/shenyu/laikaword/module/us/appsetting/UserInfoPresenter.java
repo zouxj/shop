@@ -26,6 +26,7 @@ import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
+import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.zxj.utilslibrary.utils.FileStorageUtil;
 import com.zxj.utilslibrary.utils.ImageUtil;
 import com.zxj.utilslibrary.utils.LogUtil;
@@ -57,8 +58,8 @@ public class UserInfoPresenter extends BasePresenter<UserInfoView> {
     }
 
     //点击头像
-    public void updateImg(){
-        addSubscription(RetrofitUtils.getRetrofitUtils().apiStores.getSTS(), new ApiCallback<ImgSTSReponse>() {
+    public void updateImg(LifecycleTransformer lifecycleTransformer){
+        addSubscription(lifecycleTransformer,RetrofitUtils.getRetrofitUtils().apiStores.getSTS(), new ApiCallback<ImgSTSReponse>() {
             @Override
             public void onSuccess(ImgSTSReponse model) {
                 if ( model.isSuccess())
@@ -106,7 +107,7 @@ public class UserInfoPresenter extends BasePresenter<UserInfoView> {
         return filePath;
     }
     //上传头像
-    public void upladHeadImg(String filePath){
+    public void upladHeadImg(final LifecycleTransformer lifecycleTransformer, String filePath){
         //提示状态开始上传
         mvpView.upadteHeadImgStart();
 
@@ -125,7 +126,7 @@ public class UserInfoPresenter extends BasePresenter<UserInfoView> {
                 @Override
                 public void onSuccess(Object request, Object result) {
                     //上传成功后再讲图片URL上传自己服务器
-                    loadImgUrl(loginReponse);
+                    loadImgUrl(lifecycleTransformer,loginReponse);
                 }
                 @Override
                 public void onFailure(Object request, ClientException clientException, ServiceException serviceException) {
@@ -138,10 +139,10 @@ public class UserInfoPresenter extends BasePresenter<UserInfoView> {
 
     }
 
-    private void loadImgUrl(LoginReponse loginReponse) {
+    private void loadImgUrl(LifecycleTransformer lifecycleTransformerm,LoginReponse loginReponse) {
          String imgURL = "http://" + imgSTSReponse.getPayload().getBucketName() + ".oss-cn-shanghai.aliyuncs.com/" + objectKey;
         LogUtil.i("IMGURL",imgURL);
-        addSubscription(RetrofitUtils.apiStores.editInfo(loginReponse.getPayload().getNickname(), imgURL), new ApiCallback<BaseReponse>() {
+        addSubscription(lifecycleTransformerm,RetrofitUtils.apiStores.editInfo(loginReponse.getPayload().getNickname(), imgURL), new ApiCallback<BaseReponse>() {
             @Override
             public void onSuccess(BaseReponse model) {
                 if (model.isSuccess()) {

@@ -109,7 +109,7 @@ public class AddBankCardActivity extends LKWordBaseActivity implements AddBankVi
             case R.id.bt_add_bank:
                 //TODO 保存下发
                     getValue();
-                    addBankPresenter.setAddRequest(cardNum, bankName, bankZhangName, bankUserName, bankProvince, bankCity);
+                    addBankPresenter.setAddRequest(this.bindToLifecycle(),cardNum, bankName, bankZhangName, bankUserName, bankProvince, bankCity);
                 break;
 
             case R.id.bt_select_address_bank:

@@ -44,7 +44,7 @@ public class SetPassWordTwoActivity extends LKWordBaseActivity {
 
             @Override
             public void onEqual(String psd) {
-                RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.setTransactionPIN(psd, codeToken), new ApiCallback<BaseReponse>() {
+                retrofitUtils.addSubscription(RetrofitUtils.apiStores.setTransactionPIN(psd, codeToken), new ApiCallback<BaseReponse>() {
                     @Override
                     public void onSuccess(BaseReponse model) {
                         if (model.isSuccess()) {

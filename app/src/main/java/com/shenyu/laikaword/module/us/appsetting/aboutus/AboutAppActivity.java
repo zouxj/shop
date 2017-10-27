@@ -61,7 +61,7 @@ public class AboutAppActivity extends LKWordBaseActivity implements MPermission.
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_check_update:
-                RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.checkUpdate(1), new ApiCallback<CheckAppUpdateReponse>() {
+               retrofitUtils.addSubscription(RetrofitUtils.apiStores.checkUpdate(1), new ApiCallback<CheckAppUpdateReponse>() {
                     @Override
                     public void onSuccess(final CheckAppUpdateReponse model) {
                         if (model.isSuccess()){

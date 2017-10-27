@@ -127,7 +127,7 @@ public class WthdrawMoneyActivity extends LKWordBaseActivity {
                         , new DialogHelper.LinstenrText() {
                     @Override
                     public void onLintenerText(String passWord) {
-                        RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.withdrawMoney(etTixianNum.getText().toString().trim(), carID,passWord), new ApiCallback<BaseReponse>() {
+                       retrofitUtils.addSubscription(RetrofitUtils.apiStores.withdrawMoney(etTixianNum.getText().toString().trim(), carID,passWord), new ApiCallback<BaseReponse>() {
                             @Override
                             public void onSuccess(BaseReponse model) {
                                 if (model.isSuccess()) {

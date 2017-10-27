@@ -5,6 +5,8 @@ import com.shenyu.laikaword.base.BaseReponse;
 import java.io.Serializable;
 import java.util.List;
 
+import rx.exceptions.OnErrorNotImplementedException;
+
 /**
  * Created by shenyu_zxjCode on 2017/9/29 0029.
  */
@@ -18,6 +20,7 @@ public class ShopMainReponse extends BaseReponse implements Serializable {
 
     private PayloadBean payload;
 
+
     public PayloadBean getPayload() {
         return payload;
     }
@@ -26,11 +29,83 @@ public class ShopMainReponse extends BaseReponse implements Serializable {
         this.payload = payload;
     }
 
+
+    public static class EntranceListBean implements Serializable {
+        public EntranceListBean(String title,int imgUrl, String iconURL, String url, boolean dot) {
+            this.title = title;
+            this.iconURL = iconURL;
+            this.url = url;
+            this.dot = dot;
+            this.imgUrl=imgUrl;
+        }
+
+        /**
+         * title : 来卡竞猜
+         * iconURL
+         * url : https://www.baidu.com
+         * dot : true
+         */
+
+        private String title;
+        private String iconURL;
+        private String url;
+        private boolean dot;
+        private int imgUrl;
+
+        public int getImgUrl() {
+            return imgUrl;
+        }
+
+        public void setImgUrl(int imgUrl) {
+            this.imgUrl = imgUrl;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public String getIconURL() {
+            return iconURL;
+        }
+
+        public void setIconURL(String iconURL) {
+            this.iconURL = iconURL;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
+        }
+
+        public boolean isDot() {
+            return dot;
+        }
+
+        public void setDot(boolean dot) {
+            this.dot = dot;
+        }
+    }
+
     public  class PayloadBean implements Serializable{
         private List<BannerBean> banner;
         private List<NoticeBean> notice;
         private List<GoodsBean> goods;
+        private List<EntranceListBean> entranceList;
 
+        public List<EntranceListBean> getEntranceList() {
+            return entranceList;
+        }
+
+        public void setEntranceList(List<EntranceListBean> entranceList) {
+            this.entranceList = entranceList;
+        }
         public List<BannerBean> getBanner() {
             return banner;
         }
@@ -107,7 +182,7 @@ public class ShopMainReponse extends BaseReponse implements Serializable {
             }
         }
 
-        public  class GoodsBean extends rx.exceptions.OnErrorNotImplementedException implements Serializable {
+        public  class GoodsBean extends OnErrorNotImplementedException implements Serializable {
             /**
              * type : dx
              * name : 电信卡

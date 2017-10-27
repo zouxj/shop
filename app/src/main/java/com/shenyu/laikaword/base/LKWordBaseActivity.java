@@ -19,6 +19,7 @@ import com.githang.statusbar.StatusBarCompat;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.helper.LoadViewHelper;
 import com.shenyu.laikaword.Interactor.IBaseActivity;
+import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxSubscriptions;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.zxj.utilslibrary.utils.ActivityManageUtil;
@@ -41,13 +42,13 @@ public abstract class LKWordBaseActivity extends RxAppCompatActivity implements 
     protected  TextView mLeftTitile;
     protected Subscription mRxSub;
     protected LoadViewHelper loadViewHelper;
+    protected RetrofitUtils retrofitUtils;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView( bindLayout());
         ButterKnife.bind(this);
-        bindToLifecycle();
         StatusBarCompat.setStatusBarColor(this, UIUtil.getColor(R.color.app_theme_red));
         mActivity = this;
         setupActivityComponent();
@@ -55,6 +56,7 @@ public abstract class LKWordBaseActivity extends RxAppCompatActivity implements 
         initToolBar();
         initView();
         loadViewHelper = LoadViewHelper.instanceLoadViewHelper();
+        retrofitUtils =RetrofitUtils.getRetrofitUtils().setLifecycleTransformer(this.bindToLifecycle());
         doBusiness(this);
         LogUtil.i("shenyu", "onCreate：" + getClass().getSimpleName() + " TaskId: " + getTaskId() + " hasCode:" + this.hashCode());
         dumpTaskAffinity();
@@ -224,5 +226,6 @@ public abstract class LKWordBaseActivity extends RxAppCompatActivity implements 
         LogUtil.i("shenyu", "onNewIntent：" + getClass().getSimpleName() + " TaskId: " + getTaskId() + " hasCode:" + this.hashCode());
         dumpTaskAffinity();
     }
+
 
 }

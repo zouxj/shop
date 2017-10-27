@@ -13,8 +13,10 @@ import com.zxj.utilslibrary.utils.IntentLauncher;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.OnClick;
-import rx.Observable;
-import rx.Subscriber;
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+
 
 public class PaySuccessActivity extends LKWordBaseActivity {
     private RxTask rxTask;
@@ -43,18 +45,25 @@ public class PaySuccessActivity extends LKWordBaseActivity {
     @Override
     public void doBusiness(Context context) {
          rxTask = new RxTask();
-        rxTask.addSubscription(Observable.interval(3000, TimeUnit.MILLISECONDS).take(1), new Subscriber() {
+        rxTask.addSubscription(this.bindToLifecycle(),Observable.interval(3000, TimeUnit.MILLISECONDS).take(1), new Observer() {
             @Override
-            public void onCompleted() {
+            public void onSubscribe(Disposable d) {
 
             }
+
+            @Override
+            public void onNext(Object o) {
+                IntentLauncher.with(PaySuccessActivity.this).launchFinishCpresent(CardPackageActivity.class);
+            }
+
             @Override
             public void onError(Throwable e) {
 
             }
+
             @Override
-            public void onNext(Object o) {
-                IntentLauncher.with(PaySuccessActivity.this).launchFinishCpresent(CardPackageActivity.class);
+            public void onComplete() {
+
             }
         });
     }

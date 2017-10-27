@@ -152,7 +152,7 @@ public class EditAddressActivity extends LKWordBaseActivity {
                 //TODO 设置保存
                     //TODO 上传服务器
                     verifyNULL();
-                    RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.setAddress(mapParam), new ApiCallback<BaseReponse>() {
+                retrofitUtils.addSubscription(RetrofitUtils.apiStores.setAddress(mapParam), new ApiCallback<BaseReponse>() {
                         @Override
                         public void onSuccess(BaseReponse model) {
                             if (model.isSuccess()) {
@@ -176,11 +176,7 @@ public class EditAddressActivity extends LKWordBaseActivity {
                             loadViewHelper.closeLoadingDialog();
                         }
 
-                        @Override
-                        public void onStarts() {
-                            super.onStarts();
-                            loadViewHelper.showLoadingDialog(mActivity);
-                        }
+
                     });
 
                 break;

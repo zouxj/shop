@@ -109,5 +109,5 @@ dependencies {
     implementation 'com.trello.rxlifecycle2:rxlifecycle-navi:2.2.0'
     // If you want to use Android Lifecycle for providers
     compile 'com.trello.rxlifecycle2:rxlifecycle-android-lifecycle:2.2.0'
-
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
 }

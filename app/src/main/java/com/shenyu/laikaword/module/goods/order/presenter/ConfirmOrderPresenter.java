@@ -17,6 +17,7 @@ import com.shenyu.laikaword.model.net.api.ApiCallback;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
+import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.zxj.parlibary.resultlistener.OnAliPayListener;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.StringUtil;
@@ -40,7 +41,7 @@ public class ConfirmOrderPresenter extends BasePresenter<ConfirmOrderView> {
     }
 
     //订单支付
-    public void cofirmPay(final int type, final int count, final String zecount){
+    public void cofirmPay(LifecycleTransformer lifecycleTransformer,final int type, final int count, final String zecount){
         //TODO 根据支付类型去实现支付方式
         LoginReponse loginReponse = Constants.getLoginReponse();
         if (null!=loginReponse){
@@ -61,11 +62,11 @@ public class ConfirmOrderPresenter extends BasePresenter<ConfirmOrderView> {
             }else {
                 switch (type){
                     case 5:
-                        yuePay(type, count, zecount, loginReponse);
+                        yuePay(lifecycleTransformer,type, count, zecount, loginReponse);
                         //TODO 余额支付
                         break;
                     case 3:
-                        aliPay(type, count, zecount);
+                        aliPay(lifecycleTransformer,type, count, zecount);
                         //TODO 支付宝支付
                         break;
                     case 2:
@@ -109,7 +110,7 @@ public class ConfirmOrderPresenter extends BasePresenter<ConfirmOrderView> {
 
     }
 
-    private void yuePay(final int type, final int count, final String zecount, LoginReponse loginReponse) {
+    private void yuePay(final LifecycleTransformer lifecycleTransformermr, final int type, final int count, final String zecount, LoginReponse loginReponse) {
         if (StringUtil.validText(loginReponse.getPayload().getBindPhone())&&loginReponse.getPayload().getIsSetTransactionPIN()==0){
             DialogHelper.makeUpdate(mActivity, "温馨提示", "您尚未设置支付密码", "取消", "去设置", false, new DialogHelper.ButtonCallback() {
                 @Override
@@ -134,7 +135,7 @@ public class ConfirmOrderPresenter extends BasePresenter<ConfirmOrderView> {
                     param.put("quantity",count+"");
                     param.put("payWay",type+"");
                     param.put("transactionPIN",passWord);
-                    yuePay(param);
+                    yuePay(lifecycleTransformermr,param);
 
                 }
 
@@ -145,14 +146,14 @@ public class ConfirmOrderPresenter extends BasePresenter<ConfirmOrderView> {
         }
     }
 
-    private void aliPay(int type, int count, String zecount) {
+    private void aliPay(LifecycleTransformer lifecycleTransformer,int type, int count, String zecount) {
         //TODO 支付宝支付
         Map<String,String> param = new HashMap<>();
         param.put("goodsId",goodBean.getGoodsId());
         param.put("amount",zecount);
         param.put("quantity",count+"");
         param.put("payWay",type+"");
-        addSubscription(apiStores.createOrder(param), new ApiCallback<PayInfoReponse>() {
+        addSubscription(lifecycleTransformer,apiStores.createOrder(param), new ApiCallback<PayInfoReponse>() {
                 @Override
                 public void onSuccess(PayInfoReponse model) {
                     if (model.isSuccess())
@@ -210,8 +211,8 @@ public class ConfirmOrderPresenter extends BasePresenter<ConfirmOrderView> {
         }
     }
 
-    public   void yuePay(Map<String,String> param){
-       addSubscription(apiStores.createOrder(param), new ApiCallback<PayInfoReponse>() {
+    public   void yuePay(LifecycleTransformer lifecycleTransformer,Map<String,String> param){
+       addSubscription(lifecycleTransformer,apiStores.createOrder(param), new ApiCallback<PayInfoReponse>() {
             @Override
             public void onSuccess(PayInfoReponse model) {
                 if (model.isSuccess()) {

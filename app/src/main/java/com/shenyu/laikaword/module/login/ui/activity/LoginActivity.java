@@ -76,7 +76,7 @@ public class LoginActivity extends LKWordBaseActivity implements LoginView,MPerm
                 final String openid = responseJsonobject.optString("openid");
                 final String access_token = responseJsonobject.optString("access_token");
                 final String expires_in = responseJsonobject.optString("expires_in");
-                loginPresenter.loginRequestQQ(openid,access_token);
+                loginPresenter.loginRequestQQ(LoginActivity.this.bindToLifecycle(),openid,access_token);
             }
         };
     }
@@ -130,10 +130,10 @@ public class LoginActivity extends LKWordBaseActivity implements LoginView,MPerm
         String phone = etUsePhone.getText().toString().trim();
         switch (view.getId()) {
             case R.id.bt_login:
-                loginPresenter.login(phone, code);
+                loginPresenter.login(this.bindToLifecycle(),phone, code);
                 break;
             case R.id.tv_send_msg_code:
-                loginPresenter.sendMsg(phone, tvSendMsgCode);
+                loginPresenter.sendMsg(bindToLifecycle(),phone, tvSendMsgCode);
                 break;
             case R.id.tv_qq_login:
                 loginPresenter.loginQQ(iLoginListener);

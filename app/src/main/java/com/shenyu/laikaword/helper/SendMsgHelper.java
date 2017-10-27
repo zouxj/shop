@@ -6,6 +6,7 @@ import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.BaseReponse;
 import com.shenyu.laikaword.model.net.api.ApiCallback;
 import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
+import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
@@ -29,7 +30,7 @@ public final class SendMsgHelper {
      * 发送短信验证码
      * @param mSend
      */
-    public static  void sendMsg(final TextView mSend, final String phone, final String codeTpe){
+    public static  void sendMsg(final LifecycleTransformer lifecycleTransformer, final TextView mSend, final String phone, final String codeTpe){
         if (!StringUtil.validText(phone)){
             ToastUtil.showToastShort("请输入手机号");
             return;
@@ -51,7 +52,7 @@ public final class SendMsgHelper {
                     @Override
                     public void call() {
                         //TODO 发送请求
-                        RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.getSMCode(phone, codeTpe), new ApiCallback<BaseReponse>() {
+                        RetrofitUtils.getRetrofitUtils().setLifecycleTransformer(lifecycleTransformer).addSubscription(RetrofitUtils.apiStores.getSMCode(phone, codeTpe), new ApiCallback<BaseReponse>() {
                             @Override
                             public void onSuccess(BaseReponse model) {
                                 if (model.isSuccess()){

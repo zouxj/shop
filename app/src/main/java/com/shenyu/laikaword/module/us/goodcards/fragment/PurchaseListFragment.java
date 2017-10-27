@@ -63,7 +63,7 @@ public class PurchaseListFragment extends IKWordBaseFragment {
 
     @Override
     public void requestData() {
-        RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.myextract(type), new ApiCallback<PickUpGoodsReponse>() {
+        retrofitUtils.addSubscription(RetrofitUtils.apiStores.myextract(type), new ApiCallback<PickUpGoodsReponse>() {
             @Override
             public void onSuccess(PickUpGoodsReponse model) {
                     if (model.isSuccess()&&null!=model.getPayload()) {
