@@ -36,9 +36,15 @@ public class RetrofitUtils  {
         return  retrofitUtils;
     }
     public  synchronized void  addSubscription(Observable observable, Observer subscriber) {
-        observable.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-               .compose(mLifecycleTransformer).subscribe(subscriber);
+        if (mLifecycleTransformer==null) {
+            observable.subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                   .subscribe(subscriber);
+        }else{
+            observable.subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .compose(mLifecycleTransformer).subscribe(subscriber);
+        }
 
 
     }

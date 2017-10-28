@@ -14,10 +14,10 @@
         <TextView
             android:id="@+id/tv_purchase_time"
             style="@style/bank_add_edite"
+            android:layout_width="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:text="2017-5-12 15：:3"
             />
     </RelativeLayout>
     <include layout="@layout/line_view"/>
@@ -93,7 +93,6 @@
     <TextView
         android:id="@+id/tv_purchase_order_number"
         android:paddingLeft="35dp"
-        android:text="订单号:"
         android:gravity="center_vertical"
         android:textSize="@dimen/text_size_12sp"
         android:textColor="@color/color_999"

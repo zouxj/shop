@@ -7,9 +7,9 @@
 
             <gradient
                 android:angle="270"
-                android:centerColor="#E3E3E3"
-                android:endColor="#E6E6E6"
-                android:startColor="#C8C8C8" />
+                android:centerColor="@color/app_theme_red"
+                android:endColor="@color/app_theme_red"
+                android:startColor="@color/app_theme_red_40" />
         </shape>
     </item>
     <item android:id="@android:id/progress">

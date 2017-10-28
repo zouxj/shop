@@ -180,6 +180,7 @@ public class AccountBindActivity extends LKWordBaseActivity {
                     IntentLauncher.with(AccountBindActivity.this).launch(AcountBdingSuccessActivity.class);
                 } else {
                     ToastUtil.showToastShort(model.getError().getMessage());
+                    finish();
 
                 }
             }
@@ -187,6 +188,7 @@ public class AccountBindActivity extends LKWordBaseActivity {
             @Override
             public void onFailure(String msg) {
                 ToastUtil.showToastShort(msg);
+                finish();
 
             }
 

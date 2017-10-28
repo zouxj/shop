@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
+    tools:ignore="ProtectedPermissions" />
     <permission
         android:name="com.shenyu.laikaword.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" />
@@ -31,6 +31,7 @@
         <activity android:name=".module.launch.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -47,18 +48,18 @@
 
         <service android:name=".model.net.downloadmanager.DownLoadService" />
 
-        <activity android:name=".module.login.ui.activity.LoginActivity"
+        <activity
+            android:name=".module.login.ui.activity.LoginActivity"
             android:launchMode="singleTask"
-            android:taskAffinity=".module.login.activity.LoginActivity"
-            />
+            android:taskAffinity=".module.login.activity.LoginActivity" />
         <activity
             android:name=".module.home.ui.activity.MainActivity"
             android:theme="@style/Main_AppTheme"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".module.launch.WelcomePageActivity"
+        <activity
+            android:name=".module.launch.WelcomePageActivity"
             android:launchMode="singleTask"
-            android:taskAffinity=".module.launch.WelcomePageActivity"
-            />
+            android:taskAffinity=".module.launch.WelcomePageActivity" />
 
         <receiver
             android:name=".jpush.TalkReceiver"
@@ -97,21 +98,18 @@
         <activity android:name=".module.us.wallet.remaining.UserRemainingActivity" />
         <activity android:name=".module.us.wallet.withdraw.WthdrawMoneyActivity" />
         <activity android:name=".module.us.wallet.recharge.RechargeMoneyActivity" />
-        <activity android:name=".module.us.wallet.remaining.PurchaseCardActivity" />
+        <activity android:name=".module.goods.pickupgoods.ui.activity.PurchaseCardActivity" />
         <activity android:name=".module.us.wallet.DetailMoneyActivity" />
         <activity android:name=".module.goods.BuyGoodsActivity" />
         <activity android:name=".module.us.goodcards.ui.activity.CardPackageActivity" />
         <activity android:name=".module.us.bankcard.ui.activity.SelectBankIDActivity" />
         <activity android:name=".module.us.appsetting.SettingSystemActivity" />
         <activity android:name=".module.us.appsetting.aboutus.AboutAppActivity" />
-        <activity android:name=".module.us.appsetting.acountbind.AccountBindActivity"
-            android:taskAffinity=".module.mine.systemsetting.activity.AccountBindActivity"
+        <activity android:name=".module.us.appsetting.acountbind.AccountBindActivity" />
+        <activity
+            android:name=".module.us.appsetting.acountbind.BoundPhoneActivity"
             android:launchMode="singleTask"
-            />
-        <activity android:name=".module.us.appsetting.acountbind.BoundPhoneActivity"
-            android:taskAffinity=".module.mine.systemsetting.activity.BoundPhoneActivity"
-            android:launchMode="singleTask"
-            />
+            android:taskAffinity=".module.mine.systemsetting.activity.BoundPhoneActivity" />
         <activity android:name=".module.us.appsetting.UserInfoActivity" />
         <activity
             android:name="com.leo618.mpermission.AppSettingsDialogHolderActivity"
@@ -140,42 +138,41 @@
             android:name=".wxapi.WXEntryActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:taskAffinity="com.shenyu.laikaword.wxapi.WXEntryActivity"
-            android:launchMode="singleTop" />
-        <activity android:name=".module.goods.order.ui.activity.ConfirmOrderActivity"
+            android:launchMode="singleTop"
+            android:taskAffinity="com.shenyu.laikaword.wxapi.WXEntryActivity" />
+        <activity
+            android:name=".module.goods.order.ui.activity.ConfirmOrderActivity"
             android:launchMode="singleTask"
-            android:taskAffinity="com.shenyu.laikaword.module.shop.activity.ConfirmOrderActivity"
-            />
+            android:taskAffinity="com.shenyu.laikaword.module.shop.activity.ConfirmOrderActivity" />
         <activity android:name=".module.goods.order.PaySuccessActivity" />
         <activity android:name=".module.us.bankcard.ui.activity.CardBankInfoActivity" />
         <activity android:name=".module.us.address.ui.activity.AddressInfoActivity" />
         <activity android:name=".module.us.address.ui.activity.EditAddressActivity" />
         <activity android:name=".module.goods.pickupgoods.ui.activity.PickUpActivity" />
         <activity android:name=".module.goods.ShopDateilActivity" />
-        <activity android:name=".di.component.ShopCommponent$PickUpSuccessActivity"
+        <activity
+            android:name=".di.component.ShopCommponent$PickUpSuccessActivity"
             android:launchMode="singleTask"
-            android:taskAffinity=".module.shop.activity.PickUpSuccessActivit"
-            />
-        <activity android:name=".module.us.address.ui.activity.SelectAddressActivity"
+            android:taskAffinity=".module.shop.activity.PickUpSuccessActivit" />
+        <activity
+            android:name=".module.us.address.ui.activity.SelectAddressActivity"
             android:launchMode="singleTask"
-            android:taskAffinity="com.shenyu.laikaword.module.mine.address.activity.SelectAddressActivity"
-            />
+            android:taskAffinity="com.shenyu.laikaword.module.mine.address.activity.SelectAddressActivity" />
         <activity android:name=".module.goods.pickupgoods.ui.activity.PickUpTelActivity" />
         <activity android:name=".module.goods.pickupgoods.ui.activity.PickUpStateActivity" />
-        <activity android:name=".module.us.setpassword.SetPassWordOneActivity"
+        <activity
+            android:name=".module.us.setpassword.SetPassWordOneActivity"
             android:launchMode="singleTask"
-            android:taskAffinity=".module.mine.setpassword.SetPassWordOneActivity"
-            />
-        <activity android:name=".module.us.setpassword.SetPassWordTwoActivity"
+            android:taskAffinity=".module.mine.setpassword.SetPassWordOneActivity" />
+        <activity
+            android:name=".module.us.setpassword.SetPassWordTwoActivity"
             android:launchMode="singleTask"
-            android:taskAffinity=".module.mine.setpassword.SetPassWordTwoActivityy"
-            />
+            android:taskAffinity=".module.mine.setpassword.SetPassWordTwoActivityy" />
         <activity android:name=".module.us.appsetting.acountbind.AcountBdingSuccessActivity" />
-        <activity android:name=".module.us.setpassword.SetPassWordMsgCodeActivity"
+        <activity
+            android:name=".module.us.setpassword.SetPassWordMsgCodeActivity"
             android:launchMode="singleInstance"
-            android:taskAffinity="com.shenyu.laikaword.module.mine.setpassword.SetPassWordMsgCodeActivity"
-
-            />
+            android:taskAffinity="com.shenyu.laikaword.module.mine.setpassword.SetPassWordMsgCodeActivity" />
         <activity android:name=".module.us.message.UserMessageActivity" />
 
         <provider
@@ -188,16 +185,15 @@
                 android:resource="@xml/file_provider_paths" />
         </provider>
 
-        <activity android:name=".ui.web.GuessActivity"></activity>
+        <activity android:name=".ui.web.GuessActivity" />
 
-        <!--注册支付宝网页支付，当手机为安装支付宝的时候自动跳转到网页支付。只需要在这配置文件中加下面配置。-->
+        <!-- 注册支付宝网页支付，当手机为安装支付宝的时候自动跳转到网页支付。只需要在这配置文件中加下面配置。 -->
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
-        </activity>
+            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
     </application>
 
 </manifest>

@@ -22,7 +22,6 @@ import com.shenyu.laikaword.model.adapter.MainViewPagerAdapter;
 import com.shenyu.laikaword.base.IKWordBaseFragment;
 import com.shenyu.laikaword.model.bean.reponse.LoginReponse;
 import com.shenyu.laikaword.model.bean.reponse.ShopMainReponse;
-import com.shenyu.laikaword.common.CircleTransform;
 import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.helper.BannerBean;
 import com.shenyu.laikaword.helper.BannerHelper;
@@ -37,11 +36,10 @@ import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 import com.shenyu.laikaword.ui.view.widget.UPMarqueeView;
-import com.squareup.picasso.Picasso;
+import com.shenyu.laikaword.ui.web.GuessActivity;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.SPUtil;
-import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
 import java.util.ArrayList;
@@ -180,8 +178,8 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
            bannerHelper.startBanner(dataList, new BannerHelper.OnItemClickListener() {
                @Override
                public void onItemClick(BannerBean bean) {
-//                   IntentLauncher.with(getActivity()).put("weburl",bean.getDetailurl()).launch(GuessActivity.class);
-                    IntentLauncher.with(getActivity()).launchViews(bean.getDetailurl());
+                   IntentLauncher.with(getActivity()).put("weburl",bean.getDetailurl()).launch(GuessActivity.class);
+//                    IntentLauncher.with(getActivity()).launchViews(bean.getDetailurl());
                }
            });
        }
@@ -247,6 +245,7 @@ public void onClick(View v){
         setViewpagerTopData(shopBeanReponse.getPayload().getBanner());
         SPUtil.saveObject(Constants.MAIN_SHOP_KEY,shopBeanReponse);
         RxBus.getDefault().post(new Event(EventType.ACTION_MAIN_SETDATE,shopBeanReponse.getPayload().getGoods()));
+        RxBus.getDefault().post(new Event(EventType.ACTION_LFET_DATA,shopBeanReponse.getPayload().getEntranceList()));
         data.addAll(shopBeanReponse.getPayload().getNotice());
         setNoticeView();
         mainPresenter.timeTask();
@@ -277,9 +276,8 @@ public void onClick(View v){
             tv1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    IntentLauncher.with(getActivity()).launchViews(data.get(finalI).getLink());
-
-                }
+                    IntentLauncher.with(getActivity()).put("weburl",data.get(finalI).getLink()).launch(GuessActivity.class);
+            }
             });
             /**
              * 设置监听

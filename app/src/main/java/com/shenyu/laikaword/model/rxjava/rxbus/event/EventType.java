@@ -24,4 +24,5 @@ public class EventType {
     public static final int ACTION_UPDATA_USER_BANK=0x07;
     //更新银行卡
     public static final int ACTION_UPDATA_USER_REQUEST=0x08;
+    public static final int ACTION_LFET_DATA=0x09;
 }

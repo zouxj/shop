@@ -1,7 +1,10 @@
 package com.shenyu.laikaword.module.launch;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,6 +21,7 @@ import com.shenyu.laikaword.model.net.api.ApiCallback;
 import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
 import com.shenyu.laikaword.model.rxjava.rx.RxTask;
 import com.shenyu.laikaword.module.home.ui.activity.MainActivity;
+import com.squareup.picasso.Picasso;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
@@ -57,8 +61,19 @@ public class StartActivity extends LKWordBaseActivity {
     }
     String usename;
     String password;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getWindow().setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    }
+
     @Override
     public void doBusiness(Context context) {
+
+//去掉Activity上面的状态栏
         usename = SPUtil.getString("usename", "");
         password = SPUtil.getString("password", "");
         if (!StringUtil.validText(SPUtil.getString("start_app", ""))) {
@@ -74,7 +89,10 @@ public class StartActivity extends LKWordBaseActivity {
                         payload = model.getPayload();
                         imageView.setVisibility(View.VISIBLE);
                         textView.setVisibility(View.VISIBLE);
-                        ImageUitls.loadImg(payload.getImageUrl(), imageView);
+                        String url =payload.getImageUrl();
+                        if (!StringUtil.validText(url))
+                            url = null;
+                        Picasso.with(UIUtil.getContext()).load(url).placeholder(R.mipmap.start_icon).error(R.mipmap.start_icon).into(imageView);
                         RxTask.countdown(3).doOnUnsubscribe(new Action0() {
                             @Override
                             public void call() {
@@ -83,7 +101,6 @@ public class StartActivity extends LKWordBaseActivity {
                         }).subscribe(new Subscriber<Integer>() {
                             @Override
                             public void onCompleted() {
-                                IntentLauncher.with(StartActivity.this).launch(MainActivity.class);
                             }
 
                             @Override
@@ -97,26 +114,12 @@ public class StartActivity extends LKWordBaseActivity {
                             }
                         });
 
-                    } else {
-                        rx.Observable.timer(2, TimeUnit.SECONDS).subscribe(new Action1<Long>() {
-                            @Override
-                            public void call(Long aLong) {
-                                IntentLauncher.with(StartActivity.this).launch(MainActivity.class);
-                                finish();
-                            }
-                        });
                     }
                 }
 
                 @Override
                 public void onFailure(String msg) {
-                    rx.Observable.timer(2, TimeUnit.SECONDS).subscribe(new Action1<Long>() {
-                        @Override
-                        public void call(Long aLong) {
-                            IntentLauncher.with(StartActivity.this).launch(MainActivity.class);
-                            finish();
-                        }
-                    });
+
                 }
 
                 @Override
@@ -125,6 +128,13 @@ public class StartActivity extends LKWordBaseActivity {
                 }
             });
         }
+        UIUtil.getHandler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                IntentLauncher.with(StartActivity.this).launch(MainActivity.class);
+                finish();
+            }
+        },3000);
     }
 
     @Override

@@ -5,13 +5,11 @@ import android.content.Context;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.base.BaseReponse;
-import com.shenyu.laikaword.module.goods.order.ui.activity.ConfirmOrderActivity;
 import com.shenyu.laikaword.model.net.api.ApiCallback;
 import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
-import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.KeyBoardUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.widget.countdownview.PayPsdInputView;
@@ -49,7 +47,6 @@ public class SetPassWordTwoActivity extends LKWordBaseActivity {
                     public void onSuccess(BaseReponse model) {
                         if (model.isSuccess()) {
                             RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_REQUEST, null));
-                            IntentLauncher.with(SetPassWordTwoActivity.this).launch(ConfirmOrderActivity.class);
                             finish();
                         }
                         else {

@@ -92,6 +92,7 @@ public class IntentLauncher {
         if (weakReference != null && weakReference.get() != null) {
             Context context = weakReference.get();
             mIntent.setAction("android.intent.action.VIEW");
+            mIntent.setClassName("com.android.browser","com.android.browser.BrowserActivity");
             Uri content_url = Uri.parse(url);
             mIntent.setData(content_url);
             context.startActivity(mIntent);

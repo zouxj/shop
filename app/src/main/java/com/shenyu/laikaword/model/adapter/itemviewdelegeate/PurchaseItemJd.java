@@ -1,5 +1,6 @@
 package com.shenyu.laikaword.model.adapter.itemviewdelegeate;
 
+import android.view.View;
 import android.widget.ImageView;
 
 import com.shenyu.laikaword.R;
@@ -37,8 +38,14 @@ public class PurchaseItemJd  implements ItemViewDelegate<PickUpGoodsReponse.Payl
     public void convert(ViewHolder holder, PickUpGoodsReponse.PayloadBean payloadBean, int position) {
         holder.setText(R.id.tv_purchase_indent_no,payloadBean.getName()+"  "+payloadBean.getPhone());
         holder.setText(R.id.tv_purchase_address,payloadBean.getAddress());
-        holder.setText(R.id.tv_purchase_order_number,"订单号:"+payloadBean.getExtractNo());
-        holder.setText(R.id.tv_purchase_time, DateTimeUtil.formatDate( Long.parseLong(payloadBean.getCreateTime()),"yyyy-MM-dd HH:mm:ss"));
+        if (StringUtil.validText(payloadBean.getExpressId())&&StringUtil.validText(payloadBean.getExpressCompany())) {
+            holder.getView(R.id.tv_purchase_order_number).setVisibility(View.VISIBLE);
+            holder.setText(R.id.tv_purchase_order_number, "快递单号:" + payloadBean.getExpressId() + "(" + payloadBean.getExpressCompany() + ")");
+        }
+        else
+        holder.getView(R.id.tv_purchase_order_number).setVisibility(View.GONE);
+
+        holder.setText(R.id.tv_purchase_time, DateTimeUtil.formatDate( Long.parseLong(payloadBean.getCreateTime()),"yyy-MM-dd HH:mm:ss"));
         holder.setText(R.id.tv_purchase_shop_name,payloadBean.getGoodsName());
         holder.setText(R.id.tv_purchase_countmun,"X"+payloadBean.getQuantity());
         holder.setText(R.id.tv_purchase_number,"编号:"+payloadBean.getExtractId());

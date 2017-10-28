@@ -1,4 +1,4 @@
-package com.shenyu.laikaword.module.us.wallet.remaining;
+package com.shenyu.laikaword.module.goods.pickupgoods.ui.activity;
 
 import android.content.Context;
 import android.support.design.widget.TabLayout;

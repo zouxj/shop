@@ -211,7 +211,7 @@ public  final  class DialogHelper {
         TextView tvMoney = view.findViewById(R.id.tv_money);
         if (StringUtil.validText(money)){
             tvMoney.setVisibility(View.VISIBLE);
-            tvMoney.setText(StringUtil.m2(StringUtil.formatDouble(money)));
+            tvMoney.setText(money);
         }else {
             tvMoney.setVisibility(View.GONE);
         }

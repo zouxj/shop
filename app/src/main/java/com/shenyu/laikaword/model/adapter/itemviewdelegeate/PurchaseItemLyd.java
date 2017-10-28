@@ -37,7 +37,7 @@ public class PurchaseItemLyd implements ItemViewDelegate<PickUpGoodsReponse.Payl
     @Override
     public void convert(ViewHolder holder, PickUpGoodsReponse.PayloadBean payloadBean, int position) {
         holder.setText(R.id.tv_purchase_indent_no,payloadBean.getPhone());
-        holder.setText(R.id.tv_purchase_time, DateTimeUtil.formatDate( Long.parseLong(payloadBean.getCreateTime()),"yyyy-MM-dd HH:mm:ss"));
+        holder.setText(R.id.tv_purchase_time, DateTimeUtil.formatDate(Long.parseLong(payloadBean.getCreateTime()),"yyyy-MM-dd HH:mm:ss"));
         holder.setText(R.id.tv_purchase_shop_name,payloadBean.getGoodsName());
         holder.setText(R.id.tv_purchase_countmun,"X"+payloadBean.getQuantity());
         holder.setText(R.id.tv_purchase_number,"编号:"+payloadBean.getExtractId());

@@ -78,6 +78,7 @@ public class CarListPagerView extends BaseViewPager<CarPagerReponse> {
                     //TODO 联通卡片
                     beanList.clear();
                     beanList.addAll(carPagerReponse.getPayload().getLt().getList());
+                    break;
                 case 4:
                     //TODO 电信卡片
                     beanList.clear();

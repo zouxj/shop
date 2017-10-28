@@ -4,23 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@mipmap/start_icon"
     tools:context="com.shenyu.laikaword.module.launch.StartActivity">
 
-<TextView
-    android:drawableTop="@mipmap/ic_launcher"
-    android:layout_width="wrap_content"
-    android:gravity="center"
-    android:drawablePadding="10dp"
-    android:textColor="#bababa"
-    android:layout_centerInParent="true"
-    android:textSize="@dimen/text_size_18sp"
-    android:text="@string/app_name"
-    android:layout_height="wrap_content" />
+
     
     <ImageView
         android:visibility="gone"
         android:id="@+id/img_banner"
+        android:scaleType="fitXY"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
@@ -34,7 +26,7 @@
         android:layout_marginRight="@dimen/dp_15dp"
         android:layout_alignParentRight="true"
         android:layout_width="45dp"
-        android:background="@drawable/weclome_rectangle_tiaoguo"
+        android:background="@drawable/start_tiaoguo_tran"
         android:textColor="@color/white"
         android:gravity="center"
         android:layout_height="25dp" />
