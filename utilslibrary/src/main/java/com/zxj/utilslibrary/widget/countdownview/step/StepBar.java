@@ -410,7 +410,7 @@ public class StepBar extends View {
 
             //画当前步骤(加光晕效果)
 
-                String mCircleStr=i+"";
+                String mCircleStr=i+1+"";
                 float textSize = getTextSize(mCircleStr);
                 //获取中间文字的宽度
                 int textWidth = getTextWidth(mCirclePaint, mCircleStr.trim());
@@ -430,7 +430,7 @@ public class StepBar extends View {
 
             textLoc=textLoc+mDistance;
             //设置中间字体的大小
-            String mCircleStr=i+1+"";
+            String mCircleStr=i+2+"";
             float textSize = getTextSize(mCircleStr);
             //获取中间文字的宽度
             int textWidth = getTextWidth(mCirclePaint, mCircleStr.trim());

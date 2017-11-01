@@ -14,10 +14,16 @@ import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
 import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.shenyu.laikaword.Interactor.ProgressCallback;
+import com.shenyu.laikaword.base.BaseReponse;
 import com.shenyu.laikaword.model.bean.reponse.ImgSTSReponse;
 import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
 
 /**
  * Created by shenyu_zxjCode on 2017/10/26 0026.
@@ -39,37 +45,44 @@ public class PutObjectSamples {
         this.uploadImgUrl=uploadImgUrl;
         setOssClient(imgSTSReponse.getPayload().getAccessKeyId(),imgSTSReponse.getPayload().getAccessKeySecret(),imgSTSReponse.getPayload().getSecurityToken());
     }
-    public void uploadImg(final ProgressCallback progressCallback){
-        OSSAsyncTask task = oss.asyncPutObject(put, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
-            @Override
-            public void onSuccess(PutObjectRequest request, PutObjectResult result) {
-                if (result.getStatusCode()==200){
-                    progressCallback.onSuccess(request,result);
-                }
-                LogUtil.d("PutObject", "UploadSuccess");
-                LogUtil.d("ETag", result.getETag());
-                LogUtil.d("RequestId", result.getRequestId());
+    public Observable<String> uploadImg(){
+      return  Observable.create(new ObservableOnSubscribe<String>() {
+          @Override
+          public void subscribe(final ObservableEmitter<String> observableEmitter) throws Exception {
+              OSSAsyncTask task = oss.asyncPutObject(put, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
+                  @Override
+                  public void onSuccess(PutObjectRequest request, PutObjectResult result) {
+                          observableEmitter.onNext(result.getStatusCode()+"");
+                          observableEmitter.onComplete();
 
-            }
+                      LogUtil.d("PutObject", "UploadSuccess");
+                      LogUtil.d("ETag", result.getETag());
+                      LogUtil.d("RequestId", result.getRequestId());
 
-            @Override
-            public void onFailure(PutObjectRequest request, ClientException clientExcepion, ServiceException serviceException) {
-                // 请求异常
-                if (clientExcepion != null) {
-                    // 本地异常如网络异常等
-                    clientExcepion.printStackTrace();
-                }
-                if (serviceException != null) {
-                    // 服务异常
-                    LogUtil.e("ErrorCode", serviceException.getErrorCode());
-                    LogUtil.e("RequestId", serviceException.getRequestId());
-                    LogUtil.e("HostId", serviceException.getHostId());
-                    LogUtil.e("RawMessage", serviceException.getRawMessage());
-                    ToastUtil.showToastShort(serviceException.getRawMessage());
-                }
-            }
-        });
-        task.waitUntilFinished();
+                  }
+
+                  @Override
+                  public void onFailure(PutObjectRequest request, ClientException clientExcepion, ServiceException serviceException) {
+                      // 请求异常
+                      if (clientExcepion != null) {
+                          // 本地异常如网络异常等
+                          clientExcepion.printStackTrace();
+                      }
+                      if (serviceException != null) {
+                          observableEmitter.onNext(serviceException.getErrorCode());
+                          observableEmitter.onComplete();
+                          // 服务异常
+                          LogUtil.e("ErrorCode", serviceException.getErrorCode());
+                          LogUtil.e("RequestId", serviceException.getRequestId());
+                          LogUtil.e("HostId", serviceException.getHostId());
+                          LogUtil.e("RawMessage", serviceException.getRawMessage());
+                      }
+                  }
+              });
+              task.waitUntilFinished();
+          }
+      });
+
     }
 
     private OSSCredentialProvider mCredentialProvider;

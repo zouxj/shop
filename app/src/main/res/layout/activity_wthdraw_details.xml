@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg_gray"
+    android:orientation="vertical"
+    tools:context="com.shenyu.laikaword.module.us.wallet.withdraw.WthdrawDetailsActivity">
+<include layout="@layout/toolbar_layout"/>
+    <ImageView
+        android:layout_marginTop="53dp"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@mipmap/state_ok"
+        android:layout_height="wrap_content" />
+<TextView
+    android:textSize="@dimen/text_size_18sp"
+    android:textColor="@color/color_333"
+    android:layout_marginTop="19dp"
+    android:layout_width="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:text="提现申请已提交"
+    android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_marginTop="55dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:id="@+id/set_rl_user_acount_bd"
+            style="@style/ly_layout">
+
+            <TextView
+                style="@style/bank_add_one"
+                android:layout_centerVertical="true"
+                android:text="预计到账时间"
+                />
+            <TextView
+                android:id="@+id/tv_wthdraw_time"
+                android:layout_marginRight="14dp"
+                android:textColor="@color/color_333"
+                android:text="xxxxx"
+                android:textSize="@dimen/text_size_14sp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <include layout="@layout/line_bottom_view"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            style="@style/ly_layout">
+
+            <TextView
+                style="@style/bank_add_one"
+                android:layout_centerVertical="true"
+                android:text="存储卡"
+                />
+            <TextView
+                android:id="@+id/tv_card"
+                android:layout_marginRight="14dp"
+                android:textColor="@color/color_333"
+                android:text="xxxxx"
+                android:textSize="@dimen/text_size_14sp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <include layout="@layout/line_bottom_view"/>
+        </RelativeLayout>
+        <RelativeLayout
+            style="@style/ly_layout">
+
+            <TextView
+                style="@style/bank_add_one"
+                android:layout_centerVertical="true"
+                android:text="提现金额"
+                />
+            <TextView
+                android:id="@+id/tv_moeny"
+                android:layout_marginRight="14dp"
+                android:textColor="@color/color_333"
+                android:text="xxxxx"
+                android:textSize="@dimen/text_size_14sp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <include layout="@layout/line_bottom_view"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+    <TextView
+        android:layout_marginTop="24dp"
+        android:id="@+id/bt_finish"
+        android:layout_height="45dp"
+        android:layout_width="310dp"
+        android:gravity="center"
+        android:text="完成"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:background="@drawable/bg_bt_login_rectangle_light"
+        android:layout_gravity="center" />
+
+
+
+    
+</LinearLayout>

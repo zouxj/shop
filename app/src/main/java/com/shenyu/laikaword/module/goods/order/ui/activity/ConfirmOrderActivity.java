@@ -34,6 +34,7 @@ import com.shenyu.laikaword.ui.view.widget.AmountView;
 import com.squareup.picasso.Picasso;
 import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
+import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
 import java.util.ArrayList;
@@ -98,9 +99,12 @@ public class ConfirmOrderActivity extends LKWordBaseActivity implements ConfirmO
             public void onAmountChange(View view, int amount) {
                 //根据数量改变价格
                 if (null!=tvMainShopPrice.getText().toString().trim()) {
+                    if (amount>StringUtil.formatIntger(mGoodBean.getStock())){
+                        ToastUtil.showToastShort("库存不足");
+                    }
                     count = amount;
-                    Double count = Double.parseDouble(tvMainShopPrice.getText().toString().trim());
-                    priceCount.setText(""+(count*amount));
+                    Double count = Double.parseDouble(mGoodBean.getDiscountPrice());
+                    priceCount.setText(StringUtil.m2(count*amount));
                 }
             }
         });
@@ -235,8 +239,8 @@ public class ConfirmOrderActivity extends LKWordBaseActivity implements ConfirmO
     public void showData(LoginReponse loginReponse, GoodBean goodBean) {
         this.mGoodBean = goodBean;
         if (null != loginReponse && loginReponse.getPayload() != null) {
-            ImageUitls.loadImgRound(loginReponse.getPayload().getAvatar(),imgeHead);
-            tvName.setText(loginReponse.getPayload().getNickname());
+            ImageUitls.loadImgRound(mGoodBean.getSellerAvatar(),imgeHead);
+            tvName.setText(mGoodBean.getNickName());
             userAount = loginReponse.getPayload().getMoney();
         } else {
             imgeHead.setImageBitmap(null);
@@ -247,14 +251,14 @@ public class ConfirmOrderActivity extends LKWordBaseActivity implements ConfirmO
             ImageUitls.loadImg(goodBean.getGoodsImage(),imgOrder);
             tvZhegou.setText(goodBean.getDiscount() + "折");
             tvShopName.setText(goodBean.getGoodsName());
-            tvMainShopOriginalPrice.setText(goodBean.getOriginPrice());
-            tvMainShopOriginalPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-            tvMainShopPrice.setText(goodBean.getDiscountPrice());
-            tvMainShopPurchase.setText("剩余数量 :" + goodBean.getStock());
+//            tvMainShopOriginalPrice.setText(goodBean.getOriginPrice());
+//            tvMainShopOriginalPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+            tvMainShopPrice.setText("￥"+goodBean.getDiscountPrice());
+            tvMainShopPurchase.setText("剩余数量 :" + goodBean.getStock()+"张");
             if (StringUtil.validText(goodBean.getDiscountPrice()))
-                priceCount.setText("" + (count * (StringUtil.formatDouble(goodBean.getDiscountPrice()))));
-            if (StringUtil.validText(goodBean.getDiscount()))
-                mAmountView.setGoods_storage(StringUtil.formatIntger(goodBean.getDiscount()));
+                priceCount.setText(StringUtil.m2(count * (StringUtil.formatDouble(goodBean.getDiscountPrice()))));
+            if (StringUtil.validText(goodBean.getStock()))
+                mAmountView.setGoods_storage(StringUtil.formatIntger(goodBean.getStock()));
         }
     }
     private void subscribeEvent() {

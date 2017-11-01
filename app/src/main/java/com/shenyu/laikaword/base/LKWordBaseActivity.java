@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.githang.statusbar.StatusBarCompat;
 import com.shenyu.laikaword.R;
@@ -39,6 +40,7 @@ public abstract class LKWordBaseActivity extends RxAppCompatActivity implements 
     protected  TextView mToolbarTitle;
     protected  TextView mToolbarSubTitle;
     protected  Toolbar mToolbar;
+    protected RelativeLayout leftTitle;
     protected  TextView mLeftTitile;
     protected Subscription mRxSub;
     protected LoadViewHelper loadViewHelper;
@@ -71,7 +73,9 @@ public abstract class LKWordBaseActivity extends RxAppCompatActivity implements 
         ActivityManageUtil.getAppManager().finishActivity(this);
     }
 
+  @SuppressLint("WrongViewCast")
   public void  initToolBar(){
+      leftTitle = findViewById(R.id.rl_toolbar_left);
       mToolbar = (Toolbar) findViewById(R.id.toolbar);
       mToolbarTitle = (TextView) findViewById(R.id.toolbar_title);
       mToolbarSubTitle = (TextView) findViewById(R.id.toolbar_subtitle);
@@ -125,6 +129,10 @@ public abstract class LKWordBaseActivity extends RxAppCompatActivity implements 
         return (Toolbar) findViewById(R.id.toolbar);
     }
     public void setToolBarLeft(int drawableID,String ex,int gone){
+        if (gone==View.GONE) {
+            leftTitle.setVisibility(gone);
+            return;
+        }
         if (null!=mLeftTitile){
             mLeftTitile.setText(ex);
             Drawable bgDrawable= UIUtil.getDrawable(drawableID);
@@ -134,7 +142,7 @@ public abstract class LKWordBaseActivity extends RxAppCompatActivity implements 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 mLeftTitile.setBackground(UIUtil.getDrawable(drawableID));
             }
-            mLeftTitile.setVisibility(gone);
+
 
         }
 }

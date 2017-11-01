@@ -217,7 +217,7 @@ public class ConfirmOrderPresenter extends BasePresenter<ConfirmOrderView> {
             public void onSuccess(PayInfoReponse model) {
                 if (model.isSuccess()) {
                     RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_REQUEST, null));
-                    IntentLauncher.with(mActivity).launch(PaySuccessActivity.class);
+                    IntentLauncher.with(mActivity).launchFinishCpresent(PaySuccessActivity.class);
                 }
                 else
                     ToastUtil.showToastShort(model.getError().getMessage());

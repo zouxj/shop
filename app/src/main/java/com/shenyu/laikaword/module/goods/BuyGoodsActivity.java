@@ -52,15 +52,20 @@ public class BuyGoodsActivity extends LKWordBaseActivity {
             @Override
             protected void convert(ViewHolder holder, OrderListReponse.PayloadBean payloadBean, int position) {
                 holder.setText(R.id.tv_goumai_count,"合计:￥"+payloadBean.getAmount());
-                holder.setText(R.id.tv_goumai_indent_no,"订单编号:"+payloadBean.getOrderId());
-                holder.setText(R.id.tv_goumai_shop_name,payloadBean.getGoodsName());
+                holder.setText(R.id.tv_goumai_indent_no,"订单编号:"+payloadBean.getOrderNo());
                 TextView textoriginalPrice = holder.getView(R.id.tv_goumai_shop_original_price);
-                textoriginalPrice.setText("￥"+payloadBean.getOriginPrice());
                 textoriginalPrice.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-                holder.setText(R.id.tv_goumai_shop_price,"￥"+payloadBean.getCurrentPrice());
-                holder.setText(R.id.tv_goumai_shop_purchase,"X"+payloadBean.getQuantity());
+                holder.setText(R.id.tv_goumai_state,payloadBean.getPayStatus().equals("0")?"待付款":"交易成功");
                 holder.setText(R.id.tv_goumai_time, DateTimeUtil.formatDate(Long.parseLong(payloadBean.getCreateTime()),"yyyy-MM-dd HH:mm:ss"));
-                ImageUitls.loadImg(payloadBean.getGoodsImage(),(ImageView) holder.getView(R.id.iv_goumai_img));
+                if (payloadBean.getGoods()!=null) {
+                    if (payloadBean.getGoods().size() > 0) {
+                        textoriginalPrice.setText("￥" + payloadBean.getGoods().get(0).getOriginPrice());
+                        holder.setText(R.id.tv_goumai_shop_name, payloadBean.getGoods().get(0).getGoodsName());
+                        holder.setText(R.id.tv_goumai_shop_price, "￥" + payloadBean.getGoods().get(0).getCurrentPrice());
+                        holder.setText(R.id.tv_goumai_shop_purchase, "X" + payloadBean.getGoods().get(0).getQuantity());
+                        ImageUitls.loadImg(payloadBean.getGoods().get(0).getGoodsImage(), (ImageView) holder.getView(R.id.iv_goumai_img));
+                    }
+                }
             }
         };
          emptyWrapper = new EmptyWrapper(commonAdapter);
@@ -81,7 +86,7 @@ public class BuyGoodsActivity extends LKWordBaseActivity {
     }
     private void oraderData(){
         loadViewHelper.showLoadingDialog(this);
-        retrofitUtils.addSubscription(RetrofitUtils.apiStores.orderList(), new ApiCallback<OrderListReponse>() {
+        retrofitUtils.addSubscription(RetrofitUtils.apiStores.myOrderList(), new ApiCallback<OrderListReponse>() {
             @Override
             public void onSuccess(OrderListReponse model) {
                 if (model.isSuccess()){

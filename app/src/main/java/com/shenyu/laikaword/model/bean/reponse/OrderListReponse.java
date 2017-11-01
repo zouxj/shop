@@ -10,6 +10,7 @@ import java.util.List;
 
 public class OrderListReponse extends BaseReponse{
 
+
     private List<PayloadBean> payload;
 
     public List<PayloadBean> getPayload() {
@@ -22,38 +23,28 @@ public class OrderListReponse extends BaseReponse{
 
     public static class PayloadBean {
         /**
-         * orderId : 1710247025380002
-         * orderNo : O1710247025380002
+         * orderId : 1710303716455154
+         * orderNo : O1710303716455154
          * payStatus : 0
-         * userId : 43
-         * goodsId : 6
-         * quantity : 3
+         * userId : 7
          * amount : 0.01
          * payWay : 5
          * payTime : null
          * exchangeSn :
-         * createTime : 1508844653
-         * goodsName : goods2
-         * goodsImage : http://image.comingcard.com/goods/yd100.png
-         * originPrice : 100.00
-         * currentPrice : 95.00
+         * createTime : 1509329964
+         * goods : [{"orderGoodsId":"277","orderId":"1710303716455154","goodsId":"57","quantity":"10","goodsName":"京东购物卡100元","goodsImage":"http://app-upload-img-test.oss-cn-shanghai.aliyuncs.com/a-150918","originPrice":"100.00","currentPrice":"98.00","createTime":"1509329964"}]
          */
 
         private String orderId;
         private String orderNo;
         private String payStatus;
         private String userId;
-        private String goodsId;
-        private String quantity;
         private String amount;
         private String payWay;
         private Object payTime;
         private String exchangeSn;
         private String createTime;
-        private String goodsName;
-        private String goodsImage;
-        private String originPrice;
-        private String currentPrice;
+        private List<GoodsBean> goods;
 
         public String getOrderId() {
             return orderId;
@@ -85,22 +76,6 @@ public class OrderListReponse extends BaseReponse{
 
         public void setUserId(String userId) {
             this.userId = userId;
-        }
-
-        public String getGoodsId() {
-            return goodsId;
-        }
-
-        public void setGoodsId(String goodsId) {
-            this.goodsId = goodsId;
-        }
-
-        public String getQuantity() {
-            return quantity;
-        }
-
-        public void setQuantity(String quantity) {
-            this.quantity = quantity;
         }
 
         public String getAmount() {
@@ -143,36 +118,108 @@ public class OrderListReponse extends BaseReponse{
             this.createTime = createTime;
         }
 
-        public String getGoodsName() {
-            return goodsName;
+        public List<GoodsBean> getGoods() {
+            return goods;
         }
 
-        public void setGoodsName(String goodsName) {
-            this.goodsName = goodsName;
+        public void setGoods(List<GoodsBean> goods) {
+            this.goods = goods;
         }
 
-        public String getGoodsImage() {
-            return goodsImage;
-        }
+        public static class GoodsBean {
+            /**
+             * orderGoodsId : 277
+             * orderId : 1710303716455154
+             * goodsId : 57
+             * quantity : 10
+             * goodsName : 京东购物卡100元
+             * goodsImage : http://app-upload-img-test.oss-cn-shanghai.aliyuncs.com/a-150918
+             * originPrice : 100.00
+             * currentPrice : 98.00
+             * createTime : 1509329964
+             */
 
-        public void setGoodsImage(String goodsImage) {
-            this.goodsImage = goodsImage;
-        }
+            private String orderGoodsId;
+            private String orderId;
+            private String goodsId;
+            private String quantity;
+            private String goodsName;
+            private String goodsImage;
+            private String originPrice;
+            private String currentPrice;
+            private String createTime;
 
-        public String getOriginPrice() {
-            return originPrice;
-        }
+            public String getOrderGoodsId() {
+                return orderGoodsId;
+            }
 
-        public void setOriginPrice(String originPrice) {
-            this.originPrice = originPrice;
-        }
+            public void setOrderGoodsId(String orderGoodsId) {
+                this.orderGoodsId = orderGoodsId;
+            }
 
-        public String getCurrentPrice() {
-            return currentPrice;
-        }
+            public String getOrderId() {
+                return orderId;
+            }
 
-        public void setCurrentPrice(String currentPrice) {
-            this.currentPrice = currentPrice;
+            public void setOrderId(String orderId) {
+                this.orderId = orderId;
+            }
+
+            public String getGoodsId() {
+                return goodsId;
+            }
+
+            public void setGoodsId(String goodsId) {
+                this.goodsId = goodsId;
+            }
+
+            public String getQuantity() {
+                return quantity;
+            }
+
+            public void setQuantity(String quantity) {
+                this.quantity = quantity;
+            }
+
+            public String getGoodsName() {
+                return goodsName;
+            }
+
+            public void setGoodsName(String goodsName) {
+                this.goodsName = goodsName;
+            }
+
+            public String getGoodsImage() {
+                return goodsImage;
+            }
+
+            public void setGoodsImage(String goodsImage) {
+                this.goodsImage = goodsImage;
+            }
+
+            public String getOriginPrice() {
+                return originPrice;
+            }
+
+            public void setOriginPrice(String originPrice) {
+                this.originPrice = originPrice;
+            }
+
+            public String getCurrentPrice() {
+                return currentPrice;
+            }
+
+            public void setCurrentPrice(String currentPrice) {
+                this.currentPrice = currentPrice;
+            }
+
+            public String getCreateTime() {
+                return createTime;
+            }
+
+            public void setCreateTime(String createTime) {
+                this.createTime = createTime;
+            }
         }
     }
 }

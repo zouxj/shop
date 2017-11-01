@@ -23,6 +23,7 @@ import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.Interactor.ProgressCallback;
 import com.shenyu.laikaword.model.net.api.ApiCallback;
 import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
+import com.shenyu.laikaword.model.rxjava.rx.RxTask;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
@@ -39,6 +40,11 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import io.reactivex.ObservableSource;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
+
 import static com.shenyu.laikaword.common.Constants.REQUEST_IMAGE_CAPTURE;
 
 /**
@@ -52,6 +58,7 @@ public class UserInfoPresenter extends BasePresenter<UserInfoView> {
     private  Uri imageUri;
     ImgSTSReponse imgSTSReponse;
      String objectKey;
+     private LifecycleTransformer mLifecycleTransformer;
     public UserInfoPresenter(Activity activity,UserInfoView userInfoView){
         this.activity=activity;
         this.mvpView=userInfoView;
@@ -59,23 +66,8 @@ public class UserInfoPresenter extends BasePresenter<UserInfoView> {
 
     //点击头像
     public void updateImg(LifecycleTransformer lifecycleTransformer){
-        addSubscription(lifecycleTransformer,RetrofitUtils.getRetrofitUtils().apiStores.getSTS(), new ApiCallback<ImgSTSReponse>() {
-            @Override
-            public void onSuccess(ImgSTSReponse model) {
-                if ( model.isSuccess())
-                    imgSTSReponse = model;
-            }
-
-            @Override
-            public void onFailure(String msg) {
-
-            }
-
-            @Override
-            public void onFinish() {
-
-            }
-        });
+        this.mLifecycleTransformer=lifecycleTransformer;
+        getImgSts();
         DialogHelper.takePhoto(activity, new DialogHelper.TakePhotoListener() {
             @Override
             public void takeByPhoto() {
@@ -90,6 +82,36 @@ public class UserInfoPresenter extends BasePresenter<UserInfoView> {
             }
         });
     }
+
+    int i=0;
+
+    /**
+     * 第一次获取上传图片的
+     */
+    private void getImgSts() {
+        if (i==0) {
+            addSubscription(mLifecycleTransformer, RetrofitUtils.getRetrofitUtils().apiStores.getSTS(), new ApiCallback<ImgSTSReponse>() {
+                @Override
+                public void onSuccess(ImgSTSReponse model) {
+                    if (model.isSuccess()) {
+                        imgSTSReponse = model;
+                        ++i;
+                    }
+                }
+
+                @Override
+                public void onFailure(String msg) {
+
+                }
+
+                @Override
+                public void onFinish() {
+
+                }
+            });
+        }
+    }
+
     /**
      * @param uri     content:// 样式
 
@@ -107,61 +129,82 @@ public class UserInfoPresenter extends BasePresenter<UserInfoView> {
         return filePath;
     }
     //上传头像
-    public void upladHeadImg(final LifecycleTransformer lifecycleTransformer, String filePath){
+    public void upladHeadImg( String filePath){
         //提示状态开始上传
         mvpView.upadteHeadImgStart();
-
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String newImageFileName = FileStorageUtil.getAppCacheDirPath() + timeStamp + ".JPG";
+        //压缩图片
         String  imgUrl = ImageUtil.compressImage(filePath, newImageFileName);
+        LogUtil.i(new File(imgUrl).length()+"___file");
         if (null!=imgSTSReponse) {
             final LoginReponse loginReponse = Constants.getLoginReponse();
             //想将图片上传阿里云服务器
             objectKey=  "a-"+System.currentTimeMillis()+"-"+((int)(Math.random()*9+1)*100000)+".png";
-            new PutObjectSamples(imgSTSReponse,imgUrl,objectKey).uploadImg(new ProgressCallback() {
+            new RxTask().addSubscription(mLifecycleTransformer, new PutObjectSamples(imgSTSReponse, imgUrl, objectKey).uploadImg().flatMap(new Function<String, ObservableSource<BaseReponse>>() {
                 @Override
-                public void onProgress(Object request, long currentSize, long totalSize) {
+                public ObservableSource<BaseReponse> apply(String result) throws Exception {
+                    if (result.equals("200")) {
+                        String imgURL = "http://" + imgSTSReponse.getPayload().getBucketName() + ".oss-cn-shanghai.aliyuncs.com/" + objectKey;
+                        return RetrofitUtils.apiStores.editInfo(loginReponse.getPayload().getNickname(), imgURL);
+                    }
+                    else {
+                        ToastUtil.showToastShort("服务器异常...");
+                        return null;
+                    }
+                }
+            }), new Observer<BaseReponse>() {
+                @Override
+                public void onSubscribe(Disposable d) {
 
                 }
                 @Override
-                public void onSuccess(Object request, Object result) {
-                    //上传成功后再讲图片URL上传自己服务器
-                    loadImgUrl(lifecycleTransformer,loginReponse);
-                }
-                @Override
-                public void onFailure(Object request, ClientException clientException, ServiceException serviceException) {
-                    mvpView.upadteHeadFinsh(false);
-                }
-            });
-
-        }
-            //TODO 请求阿里STS
-
-    }
-
-    private void loadImgUrl(LifecycleTransformer lifecycleTransformerm,LoginReponse loginReponse) {
-         String imgURL = "http://" + imgSTSReponse.getPayload().getBucketName() + ".oss-cn-shanghai.aliyuncs.com/" + objectKey;
-        LogUtil.i("IMGURL",imgURL);
-        addSubscription(lifecycleTransformerm,RetrofitUtils.apiStores.editInfo(loginReponse.getPayload().getNickname(), imgURL), new ApiCallback<BaseReponse>() {
-            @Override
-            public void onSuccess(BaseReponse model) {
-                if (model.isSuccess()) {
-                    RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_REQUEST, null));
+                public void onNext(BaseReponse model) {
+                    if (model.isSuccess()) {
                     mvpView.upadteHeadFinsh(true);
                 }else {
                     mvpView.upadteHeadFinsh(false);
                 }
-            }
-            @Override
-            public void onFailure(String msg) {
-                mvpView.upadteHeadFinsh(false);
-            }
-            @Override
-            public void onFinish() {
+                }
 
-            }
-        });
+                @Override
+                public void onError(Throwable e) {
+                    mvpView.upadteHeadFinsh(false);
+                }
+
+                @Override
+                public void onComplete() {
+
+                }
+            });
+
+        }
+
     }
+
+//    private void loadImgUrl() {
+//         String imgURL = "http://" + imgSTSReponse.getPayload().getBucketName() + ".oss-cn-shanghai.aliyuncs.com/" + objectKey;
+//        LogUtil.i("IMGURL",imgURL);
+//        addSubscription(mLifecycleTransformer,RetrofitUtils.apiStores.editInfo(loginReponse.getPayload().getNickname(), imgURL), new ApiCallback<BaseReponse>() {
+//            @Override
+//            public void onSuccess(BaseReponse model) {
+//                if (model.isSuccess()) {
+//                    RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_REQUEST, null));
+//                    mvpView.upadteHeadFinsh(true);
+//                }else {
+//                    mvpView.upadteHeadFinsh(false);
+//                }
+//            }
+//            @Override
+//            public void onFailure(String msg) {
+//                mvpView.upadteHeadFinsh(false);
+//            }
+//            @Override
+//            public void onFinish() {
+//
+//            }
+//        });
+//    }
 
     /**
      * 摄像头获取照片
@@ -205,7 +248,7 @@ public class UserInfoPresenter extends BasePresenter<UserInfoView> {
                 } else {
                     intentCamera.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
                 }
-                ;   activity.startActivityForResult(intentCamera, REQUEST_IMAGE_CAPTURE);
+                 activity.startActivityForResult(intentCamera, REQUEST_IMAGE_CAPTURE);
             }
         } else {
             ToastUtil.showToastLong("无法启动相机");

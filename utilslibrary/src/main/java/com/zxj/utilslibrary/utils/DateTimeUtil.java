@@ -7,6 +7,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+
 /**
  * Created by Administrator on 2017/8/2 0002.
  * 日期时间工具类.
@@ -329,4 +331,21 @@ public class DateTimeUtil {
         c.setTime(date);
         return c.get(Calendar.DAY_OF_WEEK);
     }
+
+    //获取明天的结束时间
+     public static Date getEndDayOfTomorrow() {
+               Calendar cal = new GregorianCalendar();
+               cal.setTime(getDayEnd());
+                cal.add(Calendar.DAY_OF_MONTH, 1);
+               return cal.getTime();
+            }
+
+    //获取当天的结束时间
+      public static java.util.Date getDayEnd() {
+                 Calendar cal = new GregorianCalendar();
+                 cal.set(Calendar.HOUR_OF_DAY, 23);
+                 cal.set(Calendar.MINUTE, 59);
+                 cal.set(Calendar.SECOND, 59);
+                 return cal.getTime();
+             }
 }

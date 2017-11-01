@@ -49,7 +49,6 @@ public class CardBankInfoActivity extends LKWordBaseActivity {
     @Override
     public void initView() {
         setToolBarTitle("银行卡");
-        setToolBarRight(null,R.mipmap.add_icon);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new RecycleViewDivider(this,LinearLayoutManager.HORIZONTAL, (int) UIUtil.dp2px(1),UIUtil.getColor(R.color.main_bg_gray)));
         commonAdapter = new CommonAdapter<BankInfoReponse.PayloadBean>(R.layout.item_cardinfo_list,payload) {
@@ -139,10 +138,10 @@ public class CardBankInfoActivity extends LKWordBaseActivity {
         commonAdapter.notifyDataSetChanged();
     }
 
-    @OnClick(R.id.toolbar_subtitle)
+    @OnClick(R.id.tv_add_bank)
     public void onClick(View view){
         switch (view.getId()){
-            case R.id.toolbar_subtitle:
+            case R.id.tv_add_bank:
                 IntentLauncher.with(this).launch(AddBankCardActivity.class);
                 break;
         }
@@ -153,7 +152,7 @@ public class CardBankInfoActivity extends LKWordBaseActivity {
     }
     Boolean deleteBoolean=true;
     private boolean deleteBank(String cardID){
-        RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.deleteBankCard(cardID), new ApiCallback<BaseReponse>() {
+        RetrofitUtils.getRetrofitUtils().setLifecycleTransformer(this.bindToLifecycle()).addSubscription(RetrofitUtils.apiStores.deleteBankCard(cardID), new ApiCallback<BaseReponse>() {
             @Override
             public void onSuccess(BaseReponse model) {
                 if (model.isSuccess())

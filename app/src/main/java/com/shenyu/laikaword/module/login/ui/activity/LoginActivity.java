@@ -120,7 +120,6 @@ public class LoginActivity extends LKWordBaseActivity implements LoginView,MPerm
 
     @Override
     public void showUser(LoginReponse user) {
-        etUsePhone.setText(user.getPayload().getBindPhone());
     }
 
 
@@ -142,7 +141,7 @@ public class LoginActivity extends LKWordBaseActivity implements LoginView,MPerm
                 loginPresenter.loginWx();
                 break;
             case R.id.iv_login_close:
-                //TODO 退出APP
+                //TODO 退出登录
                 finish();
                 break;
         }

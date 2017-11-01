@@ -17,6 +17,7 @@ import com.shenyu.laikaword.helper.DialogHelper;
 import com.shenyu.laikaword.model.net.downloadmanager.DownLoadService;
 import com.shenyu.laikaword.model.net.api.ApiCallback;
 import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
+import com.zxj.utilslibrary.utils.DeviceInfo;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
@@ -61,7 +62,7 @@ public class AboutAppActivity extends LKWordBaseActivity implements MPermission.
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_check_update:
-               retrofitUtils.addSubscription(RetrofitUtils.apiStores.checkUpdate(1), new ApiCallback<CheckAppUpdateReponse>() {
+               retrofitUtils.addSubscription(RetrofitUtils.apiStores.checkUpdate(1, DeviceInfo.getSystemVersion()), new ApiCallback<CheckAppUpdateReponse>() {
                     @Override
                     public void onSuccess(final CheckAppUpdateReponse model) {
                         if (model.isSuccess()){
@@ -124,7 +125,7 @@ public class AboutAppActivity extends LKWordBaseActivity implements MPermission.
      */
     public void intalAPK(){
         Intent intent = new Intent(AboutAppActivity.this, DownLoadService.class);
-        intent.putExtra("DWONAPKURL",checkAppUpdateReponse.getPayload().getDownloadUrl());
+        intent.putExtra("DWONAPKURL",checkAppUpdateReponse.getPayload().getAndroidDownloadUrl());
         startService(intent);
     }
     @Override

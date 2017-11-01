@@ -139,7 +139,7 @@ public class UserInfoActivity extends LKWordBaseActivity  implements UserInfoVie
                 }
             }
             if (!TextUtils.isEmpty(filePath)) {
-                userInfoPresenter.upladHeadImg(this.bindToLifecycle(),filePath);
+                userInfoPresenter.upladHeadImg(filePath);
             }
         }
         if (requestCode == MPermissionSettingsDialog.DEFAULT_SETTINGS_REQ_CODE) {
@@ -224,8 +224,10 @@ public class UserInfoActivity extends LKWordBaseActivity  implements UserInfoVie
 
     @Override
     public void upadteHeadFinsh(boolean bool) {
-        if (bool)
-        ToastUtil.showToastShort("上传成功");
+        if (bool) {
+            ToastUtil.showToastShort("上传成功");
+            RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_REQUEST, null));
+        }
         else
             ToastUtil.showToastShort("上传失败");
     }

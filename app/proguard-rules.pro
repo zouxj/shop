@@ -23,46 +23,6 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
-#-------------------------------------------定制化区域----------------------------------------------
-#---------------------------------1.实体类---------------------------------
-
-
-
-#-------------------------------------------------------------------------
-
-#---------------------------------2.第三方包-------------------------------
-#Buglly配置
--dontwarn com.tencent.bugly.**
--keep public class com.tencent.bugly.**{*;}
-
-#hotfix配置
-#基线包使用，生成mapping.txt
--printmapping mapping.txt
-#生成的mapping.txt在app/buidl/outputs/mapping/release路径下，移动到/app路径下
-#修复后的项目使用，保证混淆结果一致
-#-applymapping mapping.txt
-#hotfix
--keep class com.taobao.sophix.**{*;}
--keep class com.ta.utdid2.device.**{*;}
-#防止inline
--dontoptimize
-
-
-
-#-------------------------------------------------------------------------
-
-#---------------------------------3.与js互相调用的类------------------------
-
-
-
-#-------------------------------------------------------------------------
-
-#---------------------------------4.反射相关的类和方法-----------------------
-
-#----------------------------------------------------------------------------
-#---------------------------------------------------------------------------------------------------
-
-#-------------------------------------------基本不用动区域--------------------------------------------
 #---------------------------------基本指令区----------------------------------
 -optimizationpasses 5
 -dontskipnonpubliclibraryclassmembers
@@ -72,7 +32,10 @@
 -keepattributes Signature
 -keepattributes SourceFile,LineNumberTable
 #----------------------------------------------------------------------------
-
+-ignorewarnings
+-dontwarn org.codehaus.**
+-dontwarn java.nio.**
+-dontwarn java.lang.invoke.**
 #---------------------------------默认保留区---------------------------------
 -keep public class * extends android.app.Activity
 -keep public class * extends android.app.Application
@@ -109,72 +72,6 @@
 -keep class **.R$* {
  *;
 }
-## Square Otto specific rules ##
-## https://square.github.io/otto/ ##
-
--keepattributes *Annotation*
--keepclassmembers class ** {
-    @com.squareup.otto.Subscribe public *;
-    @com.squareup.otto.Produce public *;
-}
--keepclassmembers class * {
-    void *(**On*Event);
-}
--dontwarn javax.annotation.**
--dontwarn javax.inject.**
-# OkHttp3
--dontwarn okhttp3.logging.**
--keep class okhttp3.internal.**{*;}
--dontwarn okio.**
-# Retrofit
--dontwarn retrofit2.**
--keep class retrofit2.** { *; }
--keepattributes Signature-keepattributes Exceptions
-# RxJava RxAndroid
--dontwarn sun.misc.**
--keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
-    long producerIndex;
-    long consumerIndex;
-}
--keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
-    rx.internal.util.atomic.LinkedQueueNode producerNode;
-}
--keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
-    rx.internal.util.atomic.LinkedQueueNode consumerNode;
-}
-
-# Gson
--keep class com.google.gson.stream.** { *; }
--keepattributes EnclosingMethod
--keep class com.shenyu.laikaword.model.bean.reponse.**{*;}
-# Dagger ProGuard rules.
-# https://github.com/square/dagger
-
--dontwarn dagger.internal.codegen.**
--keepclassmembers,allowobfuscation class * {
-    @javax.inject.* *;
-    @dagger.* *;
-    <init>();
-}
-# ButterKnife 7
-
--keep class butterknife.** { *; }
--dontwarn butterknife.internal.**
--keep class **$$ViewBinder { *; }
-
--keepclasseswithmembernames class * {
-    @butterknife.* <fields>;
-}
-
--keepclasseswithmembernames class * {
-    @butterknife.* <methods>;
-}
-
--keep class dagger.* { *; }
--keep class javax.inject.* { *; }
--keep class * extends dagger.internal.Binding
--keep class * extends dagger.internal.ModuleAdapter
--keep class * extends dagger.internal.StaticInjection
 
 -keep class * implements android.os.Parcelable {
   public static final android.os.Parcelable$Creator *;
@@ -187,15 +84,11 @@
     java.lang.Object writeReplace();
     java.lang.Object readResolve();
 }
--keep class **.R$* {
- *;
-}
+
 -keepclassmembers class * {
     void *(**On*Event);
 }
 
-
-#----------------------------------------------------------------------------
 
 #---------------------------------webview------------------------------------
 -keepclassmembers class fqcn.of.javascript.interface.for.Webview {
@@ -208,12 +101,119 @@
 -keepclassmembers class * extends android.webkit.WebViewClient {
     public void *(android.webkit.WebView, jav.lang.String);
 }
-#-----------------权限-------------------------
+#---------------------------------第三方jar混淆------------------------------------
+#butterknife
+-keep class butterknife.** { *; }
+-dontwarn butterknife.internal.**
+-keep class **$$ViewBinder { *; }
+-keepclasseswithmembernames class * {
+    @butterknife.* <fields>;
+}
+-keepclasseswithmembernames class * {
+    @butterknife.* <methods>;
+}
+# Retrofit
+-dontwarn retrofit2.**
+-keep class retrofit2.** { *; }
+-keepattributes Signature
+-keepattributes Exceptions
+
+# RxJava RxAndroid
+-dontwarn sun.misc.**
+-keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
+    long producerIndex;
+    long consumerIndex;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
+    rx.internal.util.atomic.LinkedQueueNode producerNode;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
+    rx.internal.util.atomic.LinkedQueueNode consumerNode;
+}
+# Gson
+-dontwarn sun.misc.**
+-keep class com.google.gson.stream.** { *; }
+-keepattributes EnclosingMethod
+-keep class com.shenyu.laikaword.model.bean.reponse.**{*;}
+-keep class com.shenyu.laikaword.model.bean.common.JsonBean
+-keep class com.zxj.utilslibrary.utils.JsonUtils
+
+-keep class com.shenyu.laikaword.helper.CityDataHelper
+#okhttp3
+-dontwarn com.squareup.okhttp3.**
+-keep class com.squareup.okhttp3.** { *;}
+-dontwarn okio.**
+# Okio
+-dontwarn com.squareup.**
+-dontwarn okio.**
+-keep public class org.codehaus.* { *; }
+-keep public class java.nio.* { *; }
+#jpush
+-dontoptimize
+-dontpreverify
+-dontwarn cn.jpush.**
+-keep class cn.jpush.** { *; }
+-keep class * extends cn.jpush.android.helpers.JPushMessageReceiver { *; }
+-dontwarn cn.jiguang.**
+-keep class cn.jiguang.** { *; }
+#bugly
+-dontwarn com.tencent.bugly.**
+-keep public class com.tencent.bugly.**{*;}
+
+# 微信支付
+-dontwarn com.tencent.mm.**
+-dontwarn com.tencent.wxop.stat.**
+-keep class com.tencent.mm.** {*;}
+-keep class com.tencent.wxop.stat.**{*;}
+
+# pickerview
+-dontwarn com.bigkoo.pickerview.**
+-dontwarn com.bigkoo.pickerview.**
+-keep class com.bigkoo.pickerview.** {*;}
+-keep class com.bigkoo.pickerview.model.** {*;}
+
+-dontwarn com.shenyu.laikaword.helper.**
+-keep class com.shenyu.laikaword.helper.**{*;}
+
+-dontwarn com.shenyu.laikaword.common.**
+-keep class com.shenyu.laikaword.common.**{*;}
+
+# 支付宝钱包
+-dontwarn com.alipay.**
+-dontwarn HttpUtils.HttpFetcher
+-dontwarn com.ta.utdid2.**
+-dontwarn com.ut.device.**
+-keep class com.alipay.android.app.IAlixPay{*;}
+-keep class com.alipay.android.app.IAlixPay$Stub{*;}
+-keep class com.alipay.android.app.IRemoteServiceCallback{*;}
+-keep class com.alipay.android.app.IRemoteServiceCallback$Stub{*;}
+-keep class com.alipay.sdk.app.PayTask{ public *;}
+-keep class com.alipay.sdk.app.AuthTask{ public *;}
+-keep class com.alipay.mobilesecuritysdk.*
+-keep class com.ut.*
+ #不混淆资源类
+    -keepclassmembers class **.R$* {
+        public static <fields>;
+    }
+#sophix
+    #基线包使用，生成mapping.txt
+    -printmapping mapping.txt
+    #生成的mapping.txt在app/buidl/outputs/mapping/release路径下，移动到/app路径下
+
+    #修复后的项目使用，保证混淆结果一致
+    #-applymapping mapping.txt
+
+    #hotfix
+    -keep class com.taobao.sophix.**{*;}
+    -keep class com.ta.utdid2.device.**{*;}
+    #防止inline
+    #mpermission
 -dontwarn com.leo618.mpermission**
 -keep class com.leo618.mpermission.** {*;}
-#-----------阿里oss---------------
--keep class com.alibaba.sdk.android.oss.** { *; }
--dontwarn org.apache.commons.codec.binary.**
-
--keep com.shenyu.laikaword.common.** { *; }
--dontwarn com.shenyu.laikaword.common.**
+#tencent
+-keep class com.tencent.open.TDialog$*
+-keep class com.tencent.open.TDialog$* {*;}
+-keep class com.tencent.open.PKDialog
+-keep class com.tencent.open.PKDialog {*;}
+-keep class com.tencent.open.PKDialog$*
+-keep class com.tencent.open.PKDialog$* {*;}

@@ -95,7 +95,6 @@
                 android:layout_alignParentBottom="true"
                 android:gravity="bottom"
                 android:textColor="@color/app_theme_red"
-                android:text=""
                 android:layout_height="match_parent" />
             <TextView
                 android:id="@+id/tv_main_shop_original_price"
@@ -103,6 +102,7 @@
                 android:text=""
                 android:gravity="bottom"
                 android:layout_alignParentBottom="true"
+                android:visibility="gone"
                 android:textColor="@color/color_ccc"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -182,8 +182,13 @@
     </LinearLayout>
 
     <TextView
-        android:layout_weight="1"
+        android:text="提示:亲爱的用户,点击支付后请于1分钟内完成支付"
+        android:textColor="@color/app_theme_red"
+        android:paddingLeft="10dp"
+        android:gravity="bottom"
+        android:textSize="@dimen/text_size_12sp"
         android:layout_width="match_parent"
+        android:layout_weight="1"
         android:layout_height="match_parent" />
     <RelativeLayout
         android:background="@color/white"
@@ -207,7 +212,7 @@
             android:layout_width="wrap_content"
             android:gravity="center"
             android:layout_centerVertical="true"
-            android:textSize="@dimen/text_size_14sp"
+            android:textSize="@dimen/text_size_16sp"
             android:layout_height="wrap_content"
             android:textColor="@color/app_theme_red"
             />

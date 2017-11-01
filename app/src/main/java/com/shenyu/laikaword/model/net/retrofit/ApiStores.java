@@ -76,7 +76,7 @@ public interface ApiStores {
     @GET("user/info")
     Observable<LoginReponse> getUserInfo();
     @GET("common/checkUpdate")
-    Observable<CheckAppUpdateReponse> checkUpdate(@Query("t")int i);
+    Observable<CheckAppUpdateReponse> checkUpdate(@Query("t")int i,@Query("version")String version);
     @GET("temp/apk.apk")//下载apk
     Call<ResponseBody> downApk();
     @FormUrlEncoded
@@ -99,8 +99,8 @@ public interface ApiStores {
     Observable<BaseReponse> withdrawMoney(@Field("money") String money,@Field("cardId") String cardId,@Field("transactionPIN") String transactionPIN);
     @GET("user/messageList")//获取消息
     Observable<MessageReponse> messageList();
-    @GET("transaction/orderList")//购买记录
-    Observable<OrderListReponse> orderList();
+    @GET("order/myOrderList")//购买记录
+    Observable<OrderListReponse> myOrderList();
     @FormUrlEncoded
     @POST("account/rechargemoney")//余额充值
     Observable<PayInfoReponse> rechargeMoney(@Field("money") String money, @Field("payWay") int payWay);

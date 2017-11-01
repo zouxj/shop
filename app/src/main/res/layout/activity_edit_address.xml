@@ -9,7 +9,7 @@
 <include layout="@layout/toolbar_layout"/>
     <LinearLayout style="@style/ly_layout">
     <TextView
-        android:text="    收货人"
+        android:text="收货人"
         android:layout_marginLeft="14dp"
         style="@style/bank_add_one"/>
     <EditText

@@ -5,12 +5,12 @@
     android:layout_gravity="center"
     android:background="@color/main_bg_gray"
     android:orientation="vertical"
-    android:layout_height="207dp">
+    android:layout_height="wrap_content">
 <LinearLayout
     android:background="@color/white"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="207dp">
+    android:layout_height="wrap_content">
 <ImageView
     android:id="@+id/iv_main_shop_img"
     android:layout_gravity="center_horizontal"
@@ -27,14 +27,17 @@
             android:layout_marginLeft="11dp"
             android:textColor="@color/color_333"
             android:textSize="14sp"
-            android:layout_width="wrap_content"
-            android:text="100元移动充值卡"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:layout_width="110dp"
         android:layout_height="wrap_content" />
-        
+
+
         <TextView
             android:id="@+id/tv_mian_shop_discount"
             android:layout_marginRight="11dp"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:textColor="@color/main_item_orange"
             android:background="@drawable/bg_bodre_zhekou_rectangle"
             android:layout_width="34dp"
@@ -50,10 +53,25 @@
         <TextView
             android:id="@+id/tv_main_shop_seller"
             android:layout_width="wrap_content"
-            android:textSize="12sp"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:maxEms="6"
+            android:textSize="@dimen/text_size_12sp"
             android:layout_marginLeft="11dp"
             android:textColor="@color/color_999"
             android:layout_height="wrap_content" />
+
+        <TextView
+            android:textColor="@color/color_999"
+            android:layout_toRightOf="@+id/tv_main_shop_seller"
+            android:layout_marginLeft="2dp"
+            android:text="出售"
+            android:textSize="12sp"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
         <TextView
             android:id="@+id/tv_main_shop_surplus"
             android:layout_alignParentRight="true"

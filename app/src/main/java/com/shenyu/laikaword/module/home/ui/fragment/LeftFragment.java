@@ -110,7 +110,6 @@ public class LeftFragment extends IKWordBaseFragment {
                                 for (ShopMainReponse.EntranceListBean listBean:( List<ShopMainReponse.EntranceListBean> )myEvent.object) {
                                     dataList.add(listBean);
                                 }
-
                                 dataList.add(new ShopMainReponse.EntranceListBean("系统设置",leftData[6],null,null,false));
                                 commonAdapter.notifyDataSetChanged();
                                 break;
@@ -165,8 +164,6 @@ public class LeftFragment extends IKWordBaseFragment {
         dataList.add(new ShopMainReponse.EntranceListBean("我的卡包",leftData[3],null,null,false));
         dataList.add(new ShopMainReponse.EntranceListBean("银行卡",leftData[4],null,null,false));
         dataList.add(new ShopMainReponse.EntranceListBean("我的地址",leftData[5],null,null,false));
-
-
         dataList.add(new ShopMainReponse.EntranceListBean("系统设置",leftData[6],null,null,false));
         commonAdapter.notifyDataSetChanged();
     }

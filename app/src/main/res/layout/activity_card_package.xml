@@ -4,9 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main_bg_gray"
     android:orientation="vertical"
     tools:context=".module.us.goodcards.ui.activity.CardPackageActivity">
 <include layout="@layout/toolbar_layout"/>
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        app:elevation="0dp"
+        android:layout_height="wrap_content">
     <android.support.design.widget.TabLayout
     android:id="@+id/tb_car_pack"
         android:layout_width="match_parent"
@@ -19,8 +25,10 @@
         app:tabTextColor="@color/color_333">
 
     </android.support.design.widget.TabLayout>
+    </android.support.design.widget.AppBarLayout>
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_car_pack"
+        android:layout_marginTop="5dp"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="match_parent">

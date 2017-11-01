@@ -27,11 +27,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/LaikaAppTheme">
         <activity android:name=".module.launch.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -48,18 +47,12 @@
 
         <service android:name=".model.net.downloadmanager.DownLoadService" />
 
-        <activity
-            android:name=".module.login.ui.activity.LoginActivity"
-            android:launchMode="singleTask"
-            android:taskAffinity=".module.login.activity.LoginActivity" />
+        <activity android:name=".module.login.ui.activity.LoginActivity" />
         <activity
             android:name=".module.home.ui.activity.MainActivity"
             android:theme="@style/Main_AppTheme"
             android:windowSoftInputMode="stateHidden" />
-        <activity
-            android:name=".module.launch.WelcomePageActivity"
-            android:launchMode="singleTask"
-            android:taskAffinity=".module.launch.WelcomePageActivity" />
+        <activity android:name=".module.launch.WelcomePageActivity" />
 
         <receiver
             android:name=".jpush.TalkReceiver"
@@ -106,10 +99,7 @@
         <activity android:name=".module.us.appsetting.SettingSystemActivity" />
         <activity android:name=".module.us.appsetting.aboutus.AboutAppActivity" />
         <activity android:name=".module.us.appsetting.acountbind.AccountBindActivity" />
-        <activity
-            android:name=".module.us.appsetting.acountbind.BoundPhoneActivity"
-            android:launchMode="singleTask"
-            android:taskAffinity=".module.mine.systemsetting.activity.BoundPhoneActivity" />
+        <activity android:name=".module.us.appsetting.acountbind.BoundPhoneActivity" />
         <activity android:name=".module.us.appsetting.UserInfoActivity" />
         <activity
             android:name="com.leo618.mpermission.AppSettingsDialogHolderActivity"
@@ -140,34 +130,19 @@
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:taskAffinity="com.shenyu.laikaword.wxapi.WXEntryActivity" />
-        <activity
-            android:name=".module.goods.order.ui.activity.ConfirmOrderActivity"
-            android:launchMode="singleTask"
-            android:taskAffinity="com.shenyu.laikaword.module.shop.activity.ConfirmOrderActivity" />
+        <activity android:name=".module.goods.order.ui.activity.ConfirmOrderActivity" />
         <activity android:name=".module.goods.order.PaySuccessActivity" />
         <activity android:name=".module.us.bankcard.ui.activity.CardBankInfoActivity" />
         <activity android:name=".module.us.address.ui.activity.AddressInfoActivity" />
         <activity android:name=".module.us.address.ui.activity.EditAddressActivity" />
         <activity android:name=".module.goods.pickupgoods.ui.activity.PickUpActivity" />
-        <activity android:name=".module.goods.ShopDateilActivity" />
-        <activity
-            android:name=".di.component.ShopCommponent$PickUpSuccessActivity"
-            android:launchMode="singleTask"
-            android:taskAffinity=".module.shop.activity.PickUpSuccessActivit" />
-        <activity
-            android:name=".module.us.address.ui.activity.SelectAddressActivity"
-            android:launchMode="singleTask"
-            android:taskAffinity="com.shenyu.laikaword.module.mine.address.activity.SelectAddressActivity" />
+        <activity android:name=".ui.web.ShopDateilActivity" />
+        <activity android:name=".module.us.address.ui.activity.SelectAddressActivity" />
         <activity android:name=".module.goods.pickupgoods.ui.activity.PickUpTelActivity" />
         <activity android:name=".module.goods.pickupgoods.ui.activity.PickUpStateActivity" />
-        <activity
-            android:name=".module.us.setpassword.SetPassWordOneActivity"
-            android:launchMode="singleTask"
-            android:taskAffinity=".module.mine.setpassword.SetPassWordOneActivity" />
-        <activity
-            android:name=".module.us.setpassword.SetPassWordTwoActivity"
-            android:launchMode="singleTask"
-            android:taskAffinity=".module.mine.setpassword.SetPassWordTwoActivityy" />
+        <activity android:name=".module.goods.pickupgoods.ui.activity.PickUpSuccessActivity" />
+        <activity android:name=".module.us.setpassword.SetPassWordOneActivity" />
+        <activity android:name=".module.us.setpassword.SetPassWordTwoActivity" />
         <activity android:name=".module.us.appsetting.acountbind.AcountBdingSuccessActivity" />
         <activity
             android:name=".module.us.setpassword.SetPassWordMsgCodeActivity"
@@ -193,7 +168,8 @@
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity android:name=".module.us.wallet.withdraw.WthdrawDetailsActivity"></activity>
     </application>
 
 </manifest>

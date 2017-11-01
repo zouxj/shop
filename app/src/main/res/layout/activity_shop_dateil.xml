@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context="com.shenyu.laikaword.module.goods.ShopDateilActivity">
+    tools:context="com.shenyu.laikaword.ui.web.ShopDateilActivity">
 <include layout="@layout/toolbar_layout"/>
     <com.shenyu.laikaword.ui.view.widget.ProgressWebView
         android:id="@+id/wb_load"

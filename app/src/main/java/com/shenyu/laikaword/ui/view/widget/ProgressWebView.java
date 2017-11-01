@@ -32,6 +32,16 @@ public class ProgressWebView extends WebView {
         getSettings().setBuiltInZoomControls(true);
     }
 
+
+
+    @Override
+    protected void onScrollChanged(int l, int t, int oldl, int oldt) {
+        LayoutParams lp = (LayoutParams) progressbar.getLayoutParams();
+        lp.x = l;
+        lp.y = t;
+        progressbar.setLayoutParams(lp);
+        super.onScrollChanged(l, t, oldl, oldt);
+    }
     public class WebChromeClient extends android.webkit.WebChromeClient {
         @Override
         public void onProgressChanged(WebView view, int newProgress) {
@@ -45,15 +55,6 @@ public class ProgressWebView extends WebView {
             super.onProgressChanged(view, newProgress);
         }
 
-    }
 
-    @Override
-    protected void onScrollChanged(int l, int t, int oldl, int oldt) {
-        LayoutParams lp = (LayoutParams) progressbar.getLayoutParams();
-        lp.x = l;
-        lp.y = t;
-        progressbar.setLayoutParams(lp);
-        super.onScrollChanged(l, t, oldl, oldt);
     }
-
 }

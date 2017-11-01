@@ -17,6 +17,8 @@ import com.shenyu.laikaword.model.bean.reponse.MessageReponse;
 import com.shenyu.laikaword.helper.RecycleViewDivider;
 import com.shenyu.laikaword.model.net.api.ApiCallback;
 import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
+import com.zxj.utilslibrary.utils.DateTimeUtil;
+import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
@@ -54,8 +56,9 @@ public class UserMessageActivity extends LKWordBaseActivity {
         payload = new ArrayList<>();
         commonAdapter = new CommonAdapter<MessageReponse.PayloadBean>(R.layout.item_message_layout,payload) {
             @Override
-            protected void convert(ViewHolder holder, MessageReponse.PayloadBean o, int position) {
-                holder.setText(R.id.message_content,o.getContent());
+            protected void convert(ViewHolder holder, MessageReponse.PayloadBean payloadBean, int position) {
+                holder.setText(R.id.message_content,payloadBean.getContent());
+                holder.setText(R.id.tv_time_content, DateTimeUtil.formatDate(payloadBean.getCreateTime(),"yyyy-MM-dd HH:mm:ss"));
             }
 
 

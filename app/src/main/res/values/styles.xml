@@ -3,9 +3,9 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/app_theme_red</item>
+        <item name="colorPrimaryDark">@color/app_theme_red</item>
+        <item name="colorAccent">@color/app_theme_red</item>
     </style>
 
 
@@ -26,7 +26,7 @@
     <style name="bank_add_one">
         <item name="android:textSize">@dimen/text_size_13sp</item>
         <item name="android:textColor">@color/color_333</item>
-        <item name="android:layout_marginLeft">9dp</item>
+        <item name="android:layout_marginLeft">12dp</item>
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
@@ -125,6 +125,7 @@
         <item name="android:gravity">left</item>
     </style>
 
+
     <declare-styleable name="ProgressLayout">
         <attr name="loadingProgressBarWidth" format="dimension"/>
         <attr name="loadingProgressBarHeight" format="dimension"/>
@@ -147,4 +148,7 @@
         <attr name="errorButtonTextColor" format="color"/>
         <attr name="errorBackgroundColor" format="color"/>
     </declare-styleable>
+    <style name="LaikaAppTheme" parent="Theme.AppCompat.Light.DarkActionBar" tools:ignore="DuplicateDefinition">
+        <item name="android:windowDisablePreview">true</item>
+    </style>
 </resources>

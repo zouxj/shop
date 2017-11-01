@@ -58,6 +58,8 @@ public class PickUpTelActivity extends LKWordBaseActivity {
     TextView tvTihuoAll;
     @BindView(R.id.tv_tihuo_commit)
     TextView tvTihuoCommit;
+    @BindView(R.id.tv_heji)
+    TextView tv_bottom;
     private int count=1;
 
     @Override
@@ -67,7 +69,7 @@ public class PickUpTelActivity extends LKWordBaseActivity {
     CarPagerReponse.Bean bean;
     @Override
     public void initView() {
-
+        tv_bottom.setText("充值金额:");
         avZj.setOnAmountChangeListener(new AmountView.OnAmountChangeListener() {
             @Override
             public void onAmountChange(View view, int amount) {
@@ -93,7 +95,7 @@ public class PickUpTelActivity extends LKWordBaseActivity {
         ImageUitls.loadImg(bean.getGoodsImage(),ivTihuoImg);
             tvTihuoName.setText(bean.getGoodsName());
             if (StringUtil.validText(bean.getQuantity())) {
-                tvTihuoCount.setText("数量:" + StringUtil.formatIntger(bean.getQuantity()));
+                tvTihuoCount.setText("数量:" + StringUtil.formatIntger(bean.getQuantity())+"张");
                 avZj.setGoods_storage(StringUtil.formatIntger(bean.getQuantity()));
             }
                 tvTihuoAll.setText(StringUtil.m2(StringUtil.formatDouble((bean.getGoodsValue())))+"元");
@@ -147,11 +149,11 @@ public class PickUpTelActivity extends LKWordBaseActivity {
             @Override
             public void onLintenerText(String passWord) {
                 param.put("transactionPIN",passWord);
-                retrofitUtils.addSubscription(RetrofitUtils.apiStores.extractPackage(param), new ApiCallback<BaseReponse>() {
+                retrofitUtils.setLifecycleTransformer(PickUpTelActivity.this.bindToLifecycle()).addSubscription(RetrofitUtils.apiStores.extractPackage(param), new ApiCallback<BaseReponse>() {
                     @Override
                     public void onSuccess(BaseReponse model) {
                         if (model.isSuccess())
-                            IntentLauncher.with(PickUpTelActivity.this).launch(ShopCommponent.PickUpSuccessActivity.class);
+                            IntentLauncher.with(PickUpTelActivity.this).launch(PickUpSuccessActivity.class);
                         else
                             ToastUtil.showToastShort(model.getError().getMessage());
                     }

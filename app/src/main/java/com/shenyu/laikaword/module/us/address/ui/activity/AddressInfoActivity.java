@@ -108,7 +108,7 @@ public class AddressInfoActivity extends LKWordBaseActivity {
                         DialogHelper.deleteBankDialog(mActivity,"地址删除后,不可再使用该地址", "确认删除",new DialogHelper.ButtonCallback() {
                             @Override
                             public void onNegative(Dialog dialog) {
-                                retrofitUtils.addSubscription(RetrofitUtils.apiStores.deleteAddress(addressReponse.getAddressId()), new ApiCallback<BaseReponse>() {
+                                retrofitUtils.setLifecycleTransformer(AddressInfoActivity.this.bindToLifecycle()).addSubscription(RetrofitUtils.apiStores.deleteAddress(addressReponse.getAddressId()), new ApiCallback<BaseReponse>() {
                                     @Override
                                     public void onSuccess(BaseReponse model) {
                                         if (model.isSuccess()){

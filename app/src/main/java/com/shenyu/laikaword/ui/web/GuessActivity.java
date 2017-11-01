@@ -45,7 +45,7 @@ public class GuessActivity extends LKWordBaseActivity {
     @SuppressLint("NewApi")
    private void initWebView(){
        WebSettings webSettings = wbLoad.getSettings();
-
+        webSettings.setUserAgentString("laikashopapp");
         webSettings.setAllowContentAccess(true);
         webSettings.setAppCacheEnabled(false);
         webSettings.setLoadWithOverviewMode(true);
@@ -68,13 +68,13 @@ public class GuessActivity extends LKWordBaseActivity {
         webSettings.setJavaScriptEnabled(true);
         // 设置允许JS弹窗
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
-   }
+
+}
     @SuppressLint("WrongConstant")
     @Override
     public void doBusiness(Context context) {
         wbLoad.requestFocus();
         wbLoad.setScrollBarStyle(0);
-        wbLoad.setWebChromeClient(new WebChromeClient());
         wbLoad.setWebViewClient(new WebViewClient(){
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -86,20 +86,12 @@ public class GuessActivity extends LKWordBaseActivity {
                 // 就解析往下解析参数
                 LogUtil.i("webView",url);
                String aliPay="https://qr.alipay.com";
-                if (url.contains(aliPay)){
+               String qqPay = "https://myun.tenpay.com/mqq/pay/qrcode";
+                if (url.contains(aliPay)||url.contains(qqPay)){
                     IntentLauncher.with(GuessActivity.this).launchViews(url);
                     return true;
                 }
 
-//                if ( uri.getScheme().equals("app")) {
-//                    // 如果 authority  = 预先约定协议里的 webview，即代表都符合约定的协议
-//                    // 所以拦截url,下面JS开始调用Android需要的方法
-//                    if (uri.getAuthority().equals("goOrder")) {
-//                        //  步骤3：
-//                        // 执行JS所需要调用的逻辑
-//                    }
-//
-//                    return true;
 //                }
                 return super.shouldOverrideUrlLoading(view, url);
 

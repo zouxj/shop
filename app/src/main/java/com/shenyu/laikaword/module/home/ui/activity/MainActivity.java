@@ -73,7 +73,6 @@ public class MainActivity extends LKWordBaseActivity implements  MPermission.Per
         getMPermission();
         subscribeEvent();
         initFragment();
-        ToastUtil.showToastShort("我是热修复之后的插件");
 
     }
     private void subscribeEvent() {
@@ -87,13 +86,14 @@ public class MainActivity extends LKWordBaseActivity implements  MPermission.Per
                             drawerLayout.openDrawer(frameLeft);
                             break;
                             case EventType.ACTION_UPDATA_USER_REQUEST:
-                                retrofitUtils.addSubscription(RetrofitUtils.apiStores.getUserInfo(), new ApiCallback<BaseReponse>() {
+                                retrofitUtils.setLifecycleTransformer(MainActivity.this.bindToLifecycle()).addSubscription(RetrofitUtils.apiStores.getUserInfo(), new ApiCallback<BaseReponse>() {
                                     @Override
                                     public void onSuccess(BaseReponse loginReponse) {
                                         if (loginReponse.isSuccess()){
                                             SPUtil.saveObject(Constants.LOGININFO_KEY,loginReponse);
+                                            RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER,null));
                                         }
-                                        RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER,null));
+
                                     }
 
                                     @Override

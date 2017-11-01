@@ -42,10 +42,10 @@ public class SetPassWordOneActivity extends LKWordBaseActivity {
                 //TODO 设置密码
                 String codeToken = getIntent().getStringExtra("codeToken");
                 if (typeActivity!=null&&typeActivity.equals("RESERT")) {
-                    IntentLauncher.with(SetPassWordOneActivity.this).put("typeActivity", typeActivity).put("codeToken", codeToken).put("PAYPASSWORD", str).launch(SetPassWordTwoActivity.class);
+                    IntentLauncher.with(SetPassWordOneActivity.this).put("typeActivity", typeActivity).put("codeToken", codeToken).put("PAYPASSWORD", str).launchFinishCpresent(SetPassWordTwoActivity.class);
                 finish();
                 }  else {
-                    IntentLauncher.with(SetPassWordOneActivity.this).put("codeToken", codeToken).put("PAYPASSWORD", str).launch(SetPassWordTwoActivity.class);
+                    IntentLauncher.with(SetPassWordOneActivity.this).put("codeToken", codeToken).put("PAYPASSWORD", str).launchFinishCpresent(SetPassWordTwoActivity.class);
                     finish();
                 }
 

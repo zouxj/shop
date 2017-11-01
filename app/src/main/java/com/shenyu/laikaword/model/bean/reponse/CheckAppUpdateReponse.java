@@ -33,16 +33,8 @@ public class CheckAppUpdateReponse extends BaseReponse{
         private String newVersion;
         private String type;
         private String message;
-        private String downloadUrl;
-
-        public String getDownloadUrl() {
-            return downloadUrl;
-        }
-
-        public void setDownloadUrl(String downloadUrl) {
-            this.downloadUrl = downloadUrl;
-        }
-
+        private String androidDownloadUrl;
+        private String androidRateUrl;
         public String getNewVersion() {
             return newVersion;
         }
@@ -63,8 +55,24 @@ public class CheckAppUpdateReponse extends BaseReponse{
             return message;
         }
 
+        public String getAndroidRateUrl() {
+            return androidRateUrl;
+        }
+
+        public void setAndroidRateUrl(String androidRateUrl) {
+            this.androidRateUrl = androidRateUrl;
+        }
+
         public void setMessage(String message) {
             this.message = message;
+        }
+
+        public String getAndroidDownloadUrl() {
+            return androidDownloadUrl;
+        }
+
+        public void setAndroidDownloadUrl(String androidDownloadUrl) {
+            this.androidDownloadUrl = androidDownloadUrl;
         }
     }
 }

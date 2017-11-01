@@ -13,6 +13,7 @@
    />
     <TextView
         style="@style/tv_car_jiaoyi"
+        android:id="@+id/tv_goumai_state"
         android:layout_marginRight="10dp"
       />
 </RelativeLayout>

@@ -1,8 +1,11 @@
 package com.shenyu.laikaword.module.launch;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
@@ -36,7 +39,13 @@ public  class WelcomePageActivity extends LKWordBaseActivity {
     public int bindLayout() {
         return R.layout.activity_welcome_page;
     }
-
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getWindow().setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    }
     @Override
     protected void onPause() {
         super.onPause();

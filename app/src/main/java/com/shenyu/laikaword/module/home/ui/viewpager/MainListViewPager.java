@@ -19,13 +19,12 @@ import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.helper.GridSpacingItemDecoration;
 import com.shenyu.laikaword.module.login.ui.activity.LoginActivity;
 import com.shenyu.laikaword.module.goods.order.ui.activity.ConfirmOrderActivity;
-import com.shenyu.laikaword.module.goods.ShopDateilActivity;
+import com.shenyu.laikaword.ui.web.ShopDateilActivity;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBusSubscriber;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxSubscriptions;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
-import com.squareup.picasso.Picasso;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
@@ -80,8 +79,8 @@ public class MainListViewPager extends BaseViewPager {
                 holder.setText(R.id.tv_main_shop_name, listBean.getGoodsName());
 //                holder.setText(R.id.tv_main_shop_original_price, "￥"+listBean.getOriginPrice());
                 holder.setText(R.id.tv_main_shop_price, "￥"+listBean.getDiscountPrice());
-                holder.setText(R.id.tv_main_shop_surplus, StringUtil.formatIntger(listBean.getStock())>5?"":"还剩"+StringUtil.formatIntger(listBean.getStock()));
-                holder.setText(R.id.tv_main_shop_seller,listBean.getNickName()+" 出售");
+                holder.setText(R.id.tv_main_shop_surplus, StringUtil.formatIntger(listBean.getStock())>=5?"":"还剩"+StringUtil.formatIntger(listBean.getStock())+"张");
+                holder.setText(R.id.tv_main_shop_seller,listBean.getNickName());
                 holder.setText(R.id.tv_mian_shop_discount,listBean.getDiscount()+"折");
                 holder.setOnClickListener(R.id.tv_main_shop_purchase, new View.OnClickListener() {
           @Override

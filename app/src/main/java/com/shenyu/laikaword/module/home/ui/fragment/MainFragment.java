@@ -86,7 +86,7 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
         tabs.post(new Runnable() {
             @Override
             public void run() {
-                TabLayoutHelper.setIndicator(tabs, 25, 25);
+                TabLayoutHelper.setIndicator(tabs, 20, 20);
             }
         });
         smartRefreshLayout.setEnableRefresh(true);
@@ -173,7 +173,7 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
        List<BannerBean> dataList = new ArrayList<>();
        if (null!=bannerBeans&&bannerBeans.size()>0) {
            for (ShopMainReponse.PayloadBean.BannerBean bannerBean:bannerBeans) {
-               dataList.add(new BannerBean(R.mipmap.pager_one,bannerBean.getImageUrl() , "desc", bannerBean.getLink()));
+               dataList.add(new BannerBean(R.mipmap.defaul_icon,bannerBean.getImageUrl() , "desc", bannerBean.getLink()));
            }
            bannerHelper.startBanner(dataList, new BannerHelper.OnItemClickListener() {
                @Override
@@ -245,6 +245,8 @@ public void onClick(View v){
         setViewpagerTopData(shopBeanReponse.getPayload().getBanner());
         SPUtil.saveObject(Constants.MAIN_SHOP_KEY,shopBeanReponse);
         RxBus.getDefault().post(new Event(EventType.ACTION_MAIN_SETDATE,shopBeanReponse.getPayload().getGoods()));
+        if (null!=shopBeanReponse.getPayload().getEntranceList())
+            if (shopBeanReponse.getPayload().getEntranceList().size()>0)
         RxBus.getDefault().post(new Event(EventType.ACTION_LFET_DATA,shopBeanReponse.getPayload().getEntranceList()));
         data.addAll(shopBeanReponse.getPayload().getNotice());
         setNoticeView();

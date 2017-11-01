@@ -55,7 +55,6 @@
 <com.shenyu.laikaword.ui.view.widget.CircleImageView
     android:layout_width="180dp"
     android:layout_height="180dp"
-    android:src="@mipmap/xxxx"
     app:border_width="3dp"
     app:border_color="@android:color/holo_red_dark"
     app:leftBottom_corner_radius="0dp"

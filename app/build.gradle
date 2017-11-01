@@ -1,4 +1,30 @@
 apply plugin: 'com.android.application'
+
+def releaseTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+}
+
+def gitVersionCode() {
+    def cmd = 'git rev-list HEAD --first-parent --count'
+    cmd.execute().text.trim().toInteger()
+}
+
+def gitVersionTag() {
+    def cmd = 'git describe --tags'
+    def version = cmd.execute().text.trim()
+
+    def pattern = "-(\\d+)-g"
+    def matcher = version =~ pattern
+
+    if (matcher) {
+        version = version.substring(0, matcher.start()) + "." + matcher[0][1]
+    } else {
+        version = version + ".0"
+    }
+
+    return version
+}
+
 android {
     signingConfigs {
         release {
@@ -20,8 +46,6 @@ android {
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
-
-
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         ndk {
@@ -42,23 +66,53 @@ android {
     buildTypes {
         release {
             signingConfig signingConfigs.release
-            minifyEnabled false
-            shrinkResources false
+            minifyEnabled true
+            shrinkResources true
+            zipAlignEnabled true
+            debuggable true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
             signingConfig signingConfigs.release
         }
 
     }
+
+
+    productFlavors {
+        dev {
+            manifestPlaceholders = [channel: "dev"]
+        }
+        official {
+            manifestPlaceholders = [channel: "official"]
+        }
+        xiaomi {
+            manifestPlaceholders = [channel: "xiaomi"]
+        }
+        wandoujia {
+            manifestPlaceholders = [channel: "wandoujia"]
+        }
+        "360" {
+            manifestPlaceholders = [channel: "360"]
+        }
+    }
+//    //自定义apk安装包名
+//    applicationVariants.all { variant ->
+//        variant.mergedFlavor.versionCode = gitVersionCode()
+//        variant.mergedFlavor.versionName = gitVersionTag()
+//        variant.outputs.each { output ->
+//            output.outputFile = new File(
+//                    output.outputFile.parent + "/${variant.buildType.name}",
+//                    "HelloWord-${variant.buildType.name}-v${variant.versionName}-${variant.productFlavors[0].name}-${releaseTime()}.apk".toLowerCase())
+//        }
+//    }
+
 }
 
 dependencies {
     //noinspection GradleCompatible
     implementation 'com.android.support:support-v4:26.0.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.0', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
     implementation 'com.android.support:appcompat-v7:26.0.0'
     testImplementation 'junit:junit:4.12'
     implementation 'com.jakewharton:butterknife:8.8.0'
@@ -106,7 +160,6 @@ dependencies {
     implementation 'com.trello.rxlifecycle2:rxlifecycle:2.2.0'
     compile 'com.aliyun.dpa:oss-android-sdk:2.4.3'
     implementation 'com.squareup.okio:okio:1.13.0'
-    implementation 'com.trello.rxlifecycle2:rxlifecycle-navi:2.2.0'
     // If you want to use Android Lifecycle for providers
     compile 'com.trello.rxlifecycle2:rxlifecycle-android-lifecycle:2.2.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'

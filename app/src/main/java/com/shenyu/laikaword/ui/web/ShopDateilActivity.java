@@ -1,4 +1,4 @@
-package com.shenyu.laikaword.module.goods;
+package com.shenyu.laikaword.ui.web;
 
 import android.content.Context;
 import android.net.Uri;

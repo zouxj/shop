@@ -75,18 +75,16 @@
                 style="@style/ly_layout">
                 <TextView
                     android:id="@+id/tv_biaoti"
-                    android:text="开户地址"
+                    android:text="开户地址:"
                     android:layout_centerVertical="true"
                     style="@style/bank_add_one"/>
                 <TextView
-                    android:lines="1"
+                    android:layout_toRightOf="@+id/tv_biaoti"
+                    android:layout_centerVertical="true"
                     android:id="@+id/et_add_bank_address"
                     android:hint="请选择地址"
-                    android:layout_height="match_parent"
                     style="@style/bank_add_edite"
-                    android:layout_width="200dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true" />
+                  />
                 <ImageView
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
@@ -115,8 +113,10 @@
             />
     </LinearLayout>
     <TextView
-        android:padding="5dp"
+        android:padding="10dp"
+        android:paddingLeft="12dp"
         android:textColor="@color/orange"
+        android:textSize="@dimen/text_size_12sp"
         android:layout_width="match_parent"
         android:text="@string/bank_delete_miaosu"
         android:layout_height="48dp" />

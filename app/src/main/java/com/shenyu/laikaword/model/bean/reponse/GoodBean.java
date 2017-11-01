@@ -15,8 +15,15 @@ public class GoodBean implements Serializable{
     private String originPrice;
     private String discountPrice;
     private String stock;
+    private String sellerAvatar;
 
+    public String getSellerAvatar() {
+        return sellerAvatar;
+    }
 
+    public void setSellerAvatar(String sellerAvatar) {
+        this.sellerAvatar = sellerAvatar;
+    }
 
     public String getGoodsId() {
         return goodsId;

@@ -55,7 +55,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
                     SPUtil.putString(Constants.TOKEN,model.getPayload().getToken());
                     SPUtil.saveObject(Constants.LOGININFO_KEY,model);
                     ToastUtil.showToastShort("登录成功");
-                    IntentLauncher.with(mActivity).launch(MainActivity.class);
+                    IntentLauncher.with(mActivity).launchFinishCpresent(MainActivity.class);
 
                 }else{
                     //TODO 登陆失败
@@ -128,7 +128,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
                         mvpView.showUser(model);
                         SPUtil.saveObject(Constants.LOGININFO_KEY,model);
                         SPUtil.putString(Constants.TOKEN,model.getPayload().getToken());
-                        IntentLauncher.with(mActivity).launch(MainActivity.class);
+                        IntentLauncher.with(mActivity).launchFinishCpresent(MainActivity.class);
                     }else {
                         ToastUtil.showToastShort(model.getError().getMessage());
                     }

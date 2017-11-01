@@ -9,8 +9,8 @@
 
     <TextView
         android:text="账户余额"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="42dp"
-        android:layout_marginLeft="26dp"
         android:textSize="@dimen/text_size_15sp"
         android:textColor="@color/color_999"
         android:layout_width="wrap_content"

@@ -108,8 +108,7 @@ public class BoundPhoneActivity extends LKWordBaseActivity {
                                     DialogHelper.makeUpdate(mActivity, "温馨提示", "绑定手机成功,请前往设置支付密码", "取消", "去设置", true, new DialogHelper.ButtonCallback() {
                                         @Override
                                         public void onNegative(Dialog dialog) {
-                                            IntentLauncher.with(BoundPhoneActivity.this).put("phone",phone).launch(SetPassWordMsgCodeActivity.class);
-                                            finish();
+                                            IntentLauncher.with(BoundPhoneActivity.this).put("phone",phone).launchFinishCpresent(SetPassWordMsgCodeActivity.class);
                                         }
 
                                         @Override
@@ -120,7 +119,7 @@ public class BoundPhoneActivity extends LKWordBaseActivity {
                                     }).show();
 
                                 }else {
-                                    IntentLauncher.with(BoundPhoneActivity.this).launch(AcountBdingSuccessActivity.class);
+                                    IntentLauncher.with(BoundPhoneActivity.this).launchFinishCpresent(AcountBdingSuccessActivity.class);
                                 }
                             }else {
                                 ToastUtil.showToastShort(model.getError().getMessage());
