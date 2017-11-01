@@ -16,7 +16,6 @@ import com.shenyu.laikaword.module.launch.LaiKaApplication;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.model.bean.reponse.LoginReponse;
-import com.shenyu.laikaword.common.CircleTransform;
 import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.di.module.MineModule;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBusSubscriber;
@@ -25,10 +24,8 @@ import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
 import com.shenyu.laikaword.module.us.appsetting.updateus.UpdateUserNameActivity;
-import com.squareup.picasso.Picasso;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.LogUtil;
-import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
@@ -144,7 +141,7 @@ public class UserInfoActivity extends LKWordBaseActivity  implements UserInfoVie
         }
         if (requestCode == MPermissionSettingsDialog.DEFAULT_SETTINGS_REQ_CODE) {
             // Do something after user returned from app settings screen, like showing a Toast.
-           ToastUtil.showToastShort(R.string.returned_from_app_settings_to_activity+"");
+           ToastUtil.showToastShort(R.string.write_external_storage +"");
         }
     }
 

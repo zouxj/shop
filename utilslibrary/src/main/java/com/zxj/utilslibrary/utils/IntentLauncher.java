@@ -112,4 +112,5 @@ public class IntentLauncher {
             mIntent = null;
         }
     }
+
 }

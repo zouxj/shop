@@ -149,6 +149,6 @@
         <attr name="errorBackgroundColor" format="color"/>
     </declare-styleable>
     <style name="LaikaAppTheme" parent="Theme.AppCompat.Light.DarkActionBar" tools:ignore="DuplicateDefinition">
-        <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowDisablePreview" tools:ignore="NewApi">false</item>
     </style>
 </resources>

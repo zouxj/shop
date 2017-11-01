@@ -20,7 +20,15 @@
         android:text="来卡商城1.0"
         android:layout_marginTop="48dp"
         android:layout_height="wrap_content" />
-
+    <TextView
+        android:id="@+id/tv_new_version"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:drawablePadding="2dp"
+        android:textColor="@color/app_theme_red"
+        android:textSize="@dimen/text_size_12sp"
+        android:layout_height="wrap_content" />
     <LinearLayout
         android:layout_marginTop="57dp"
         android:background="@color/white"
@@ -48,9 +56,29 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:paddingBottom="10dp"
-        android:orientation="vertical"
         android:layout_weight="1"
         android:layout_height="wrap_content">
+        <TextView
+            android:layout_marginBottom="55dp"
+            android:layout_width="wrap_content"
+            android:textColor="@color/color_999"
+            android:textSize="@dimen/text_size_14sp"
+            android:text="@string/service_date"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_marginBottom="80dp"
+            android:textColor="@color/color_999"
+            android:textSize="@dimen/text_size_18sp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:text="@string/service_number"
+            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView" />
+
         <TextView
             android:layout_width="wrap_content"
             android:textColor="@color/color_999"
@@ -58,7 +86,7 @@
             android:textSize="10sp"
             android:layout_marginBottom="15dp"
             android:layout_alignParentBottom="true"
-            android:text="神羽网络科技 版权所有"
+            android:text="@string/copy_info"
             android:layout_height="wrap_content" />
 
         <TextView
@@ -67,7 +95,7 @@
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
             android:layout_width="wrap_content"
-            android:text="Copyright@2017 ShenYu.All Rights Resvered"
+            android:text="@string/copy_date"
             android:layout_height="wrap_content" />
     </RelativeLayout>
 </LinearLayout>

@@ -242,6 +242,8 @@ public void onClick(View v){
 
     @Override
     public void showShop(ShopMainReponse shopBeanReponse) {
+
+
         setViewpagerTopData(shopBeanReponse.getPayload().getBanner());
         SPUtil.saveObject(Constants.MAIN_SHOP_KEY,shopBeanReponse);
         RxBus.getDefault().post(new Event(EventType.ACTION_MAIN_SETDATE,shopBeanReponse.getPayload().getGoods()));
@@ -251,6 +253,37 @@ public void onClick(View v){
         data.addAll(shopBeanReponse.getPayload().getNotice());
         setNoticeView();
         mainPresenter.timeTask();
+        //        {"移动卡", "京东卡", "联通卡", "电信卡"};
+        for (int j=0;j<4;j++) {
+            for (int i = 0; i < shopBeanReponse.getPayload().getGoods().size(); i++) {
+                if (shopBeanReponse.getPayload().getGoods().get(i).getType().equals("yd")) {
+                    if (shopBeanReponse.getPayload().getGoods().get(i).getList().size()>0) {
+                        viewpager.setCurrentItem(0);
+                        return;
+                    }
+
+
+                }
+                if (shopBeanReponse.getPayload().getGoods().get(i).getType().equals("jd")) {
+                    if (shopBeanReponse.getPayload().getGoods().get(i).getList().size()>0){
+                        viewpager.setCurrentItem(1);
+                        return;
+                    }
+                }
+                if (shopBeanReponse.getPayload().getGoods().get(i).getType().equals("lt")) {
+                    if (shopBeanReponse.getPayload().getGoods().get(i).getList().size()>0){
+                        viewpager.setCurrentItem(2);
+                        return;
+                    }
+                }
+                if (shopBeanReponse.getPayload().getGoods().get(i).getType().equals("dx")) {
+                    if (shopBeanReponse.getPayload().getGoods().get(i).getList().size()>0){
+                        viewpager.setCurrentItem(3);
+                        return;
+                    }
+                }
+            }
+        }
     }
 
     @Override

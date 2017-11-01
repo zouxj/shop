@@ -10,6 +10,7 @@ import android.widget.FrameLayout;
 
 import com.leo618.mpermission.MPermission;
 import com.leo618.mpermission.MPermissionSettingsDialog;
+import com.shenyu.laikaword.helper.UpdateManager;
 import com.shenyu.laikaword.module.launch.LaiKaApplication;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
@@ -164,7 +165,7 @@ public class MainActivity extends LKWordBaseActivity implements  MPermission.Per
     public void getMPermission(){
         if (MPermission.hasPermissions(this, Manifest.permission.READ_PHONE_STATE,Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             // Have permission, do the thing!
-
+            new UpdateManager(mActivity).gerNewVersion(false);
 //          ToastUtil.showToastShort("TODO: Camera things");
         } else {
             // Ask for one permission
@@ -189,7 +190,7 @@ public class MainActivity extends LKWordBaseActivity implements  MPermission.Per
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == MPermissionSettingsDialog.DEFAULT_SETTINGS_REQ_CODE) {
             // Do something after user returned from app settings screen, like showing a Toast.
-            ToastUtil.showToastShort(R.string.returned_from_app_settings_to_activity+"");
+            ToastUtil.showToastShort(R.string.write_external_storage +"");
         }
     }
 
@@ -199,7 +200,7 @@ public class MainActivity extends LKWordBaseActivity implements  MPermission.Per
         switch (requestCode) {
             //相机获取权限返回结果
             case Constants.READ_EXTERNAL_STORAGE:
-                getMPermission();
+                new UpdateManager(mActivity).gerNewVersion(false);
                 break;
         }
     }

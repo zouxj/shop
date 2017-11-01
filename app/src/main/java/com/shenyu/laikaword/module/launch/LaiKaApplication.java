@@ -8,7 +8,6 @@ import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.di.component.AppComponent;
 import com.shenyu.laikaword.di.component.DaggerAppComponent;
 import com.shenyu.laikaword.di.module.AppModule;
-import com.squareup.leakcanary.LeakCanary;
 import com.taobao.sophix.PatchStatus;
 import com.taobao.sophix.SophixManager;
 import com.taobao.sophix.listener.PatchLoadStatusListener;
@@ -56,7 +55,6 @@ public class LaiKaApplication extends MultiDexApplication {
         CrashReport.initCrashReport(getApplicationContext(), "1ab960f148", false);
 //        CrashReport.testJavaCrash();
         //leak配置
-        LeakCanary.install(this);
         //微信登录
          iwxapi = WXAPIFactory.createWXAPI(this, Constants.WX_APPID,false);
         iwxapi.registerApp(Constants.WX_APPID);

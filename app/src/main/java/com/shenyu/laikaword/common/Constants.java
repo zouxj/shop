@@ -12,8 +12,17 @@ public class Constants {
     /**
      * URL Host
      */
-    public final static String HOST="http://t.shop.comingcard.com/MApi/";
-    public final static String HOSTDOWN_URL="http://t.shop.comingcard.com/";
+    public static String HOST="http://t.shop.comingcard.com/";
+    static {
+        if (true){
+
+
+        }
+    }
+    public final static String HOSTDOWN_URL=HOST;
+    public static String API_URL =HOST+ "MApi/";
+    public static String webURL = HOST+"view/detail/detail.html?goodsId=";
+
     /**
      * xml存在key
      */
@@ -45,6 +54,7 @@ public class Constants {
     //SharedPreferences保存信息KEY
     public static final String LOGININFO_KEY ="USERINFO_LOGIN";
     public static final String MAIN_SHOP_KEY ="MAIN_SHOP_KEY";
+    public  static String VERSION_NEW ="";
     public static synchronized LoginReponse getLoginReponse(){
      LoginReponse loginReponse = (LoginReponse) SPUtil.readObject(Constants.LOGININFO_KEY);
         return loginReponse;

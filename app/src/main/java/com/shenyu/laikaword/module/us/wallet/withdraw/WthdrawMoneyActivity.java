@@ -13,6 +13,7 @@ import com.jakewharton.rxbinding.widget.RxTextView;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.base.BaseReponse;
+import com.shenyu.laikaword.model.bean.reponse.BankInfoReponse;
 import com.shenyu.laikaword.model.bean.reponse.LoginReponse;
 import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.helper.DialogHelper;
@@ -95,6 +96,28 @@ public class WthdrawMoneyActivity extends LKWordBaseActivity {
         if (StringUtil.validText(yue))
         tvAccountYue.setText(yue);
         subscribeEvent();
+
+        retrofitUtils.addSubscription(RetrofitUtils.apiStores.getBankCard(), new ApiCallback<BankInfoReponse>() {
+            @Override
+            public void onSuccess(BankInfoReponse model) {
+                if (model.isSuccess()&&model.getPayload().size()>0) {
+                    bankName=model.getPayload().get(0).getBankName()+"("+ StringUtil.getBankNumber(model.getPayload().get(0).getCardNo())+")";
+                    tvBankType.setText(bankName);
+                    carID = model.getPayload().get(0).getCardId();
+                }
+
+            }
+
+            @Override
+            public void onFailure(String msg) {
+
+            }
+
+            @Override
+            public void onFinish() {
+                loadViewHelper.closeLoadingDialog();
+            }
+        });
     }
 
     /**
@@ -206,6 +229,7 @@ public class WthdrawMoneyActivity extends LKWordBaseActivity {
                 break;
             case R.id.tv_select_bank:
                 Intent intent = new Intent(this,SelectBankIDActivity.class);
+                intent.putExtra("carID",carID);
                 startActivityForResult(intent,0);
                 break;
             case R.id.tv_all_tixian:

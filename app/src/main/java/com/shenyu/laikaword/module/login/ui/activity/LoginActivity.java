@@ -155,7 +155,7 @@ public class LoginActivity extends LKWordBaseActivity implements LoginView,MPerm
         }
         if (requestCode == MPermissionSettingsDialog.DEFAULT_SETTINGS_REQ_CODE) {
             // Do something after user returned from app settings screen, like showing a Toast.
-            ToastUtil.showToastShort(R.string.returned_from_app_settings_to_activity+"");
+            ToastUtil.showToastShort(R.string.write_external_storage +"");
         }
         super.onActivityResult(requestCode, resultCode, data);
     }

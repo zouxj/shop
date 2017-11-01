@@ -42,7 +42,7 @@ public class ShopDateilActivity extends LKWordBaseActivity {
         webSettings.setJavaScriptEnabled(true);
         // 设置允许JS弹窗
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
-        String webURL = "http://t.shop.comingcard.com/view/detail/detail.html?goodsId="+goodBean.getGoodsId();
+        String webURL = Constants.webURL+goodBean.getGoodsId();
 //      String webURL = "http://comingcard.com";
         // 先载入JS代码
         // 格式规定为:file:///android_asset/文件名.html

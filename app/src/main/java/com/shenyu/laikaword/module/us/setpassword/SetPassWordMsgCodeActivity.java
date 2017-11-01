@@ -18,6 +18,7 @@ import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
+import com.zxj.utilslibrary.utils.ToastUtil;
 
 import butterknife.BindView;
 import rx.functions.Action1;
@@ -74,7 +75,7 @@ public class SetPassWordMsgCodeActivity extends LKWordBaseActivity {
             @Override
             public void call(CharSequence charSequence) {
                 if (charSequence.toString().length()==6){
-                    retrofitUtils.addSubscription(RetrofitUtils.apiStores.validateSMSCode("validateSMSCode", charSequence.toString()), new ApiCallback<MsgCodeReponse>() {
+                    retrofitUtils.addSubscription(RetrofitUtils.apiStores.validateSMSCode("setTransactionPIN", charSequence.toString()), new ApiCallback<MsgCodeReponse>() {
                         @Override
                         public void onSuccess(MsgCodeReponse model) {
                             if (model.isSuccess()) {
@@ -85,12 +86,14 @@ public class SetPassWordMsgCodeActivity extends LKWordBaseActivity {
                                     IntentLauncher.with(mActivity).put("codeToken", model.getPayload().getSMSToken()).launch(SetPassWordOneActivity.class);
                                     finish();
                                 }
+                            }else {
+                                ToastUtil.showToastShort(model.getError().getMessage());
                             }
                         }
 
                         @Override
                         public void onFailure(String msg) {
-
+                            ToastUtil.showToastShort(msg);
                         }
 
                         @Override

@@ -20,7 +20,7 @@ public class ApiClient {
     public static Retrofit retrofit() {
         if (mRetrofit == null) {
             mRetrofit = new Retrofit.Builder()
-                    .baseUrl(Constants.HOST)
+                    .baseUrl(Constants.API_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .client(OkHttp3Utils.getmOkHttpClient())

@@ -178,6 +178,7 @@ public class DownLoadService extends Service {
             intentForInstall.setDataAndType(apkUri, "application/vnd.android.package-archive");
 
            mContext.startActivity(intentForInstall);
+           Constants.VERSION_NEW=null;
 
 
 

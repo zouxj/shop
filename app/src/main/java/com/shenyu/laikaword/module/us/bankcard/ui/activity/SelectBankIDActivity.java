@@ -49,9 +49,10 @@ public class SelectBankIDActivity extends LKWordBaseActivity {
     public int bindLayout() {
         return R.layout.activity_usr_card;
     }
-
+    int selectedPosition=-5;
     @Override
     public void initView() {
+
         setToolBarTitle("我的银行卡");
         setToolBarRight(null,R.mipmap.add_icon);
         mToolbarSubTitle.setOnClickListener(new View.OnClickListener() {
@@ -64,35 +65,38 @@ public class SelectBankIDActivity extends LKWordBaseActivity {
         recyclerView.addItemDecoration(new RecycleViewDivider(this,LinearLayoutManager.HORIZONTAL,1, UIUtil.getColor(R.color.divider)));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         CommonAdapter commonAdapter=  new CommonAdapter<BankInfoReponse.PayloadBean>(R.layout.item_card_list,payload) {
-             int selectedPosition=-5;
+
             @Override
-            protected void convert(final ViewHolder holder, final BankInfoReponse.PayloadBean str, final int position) {
+            protected void convert(final ViewHolder holder, final BankInfoReponse.PayloadBean payloadBean, final int position) {
                 CheckBox checkBox = holder.getView(R.id.cb_bank_name);
-                holder.setText(R.id.tv_card_bank,str.getBankName()+"("+ StringUtil.getBankNumber(str.getCardNo())+")");
-                checkBox.setChecked(selectedPosition==position?true:false);
+                if (payloadBean.getCardId().equals(carID)){
+                    selectedPosition=position;
+                }
+                    checkBox.setChecked(payloadBean.getCardId().equals(carID)&&selectedPosition==position);
+                holder.setText(R.id.tv_card_bank,payloadBean.getBankName()+"("+ StringUtil.getBankNumber(payloadBean.getCardNo())+")");
                 holder.setOnClickListener(R.id.item_ck, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         if (selectedPosition!=position){
                             //先取消上个item的勾选状态
                             if (selectedPosition!=-5) {
-                                holder.itemView.setSelected(false);
-                                emptyWrapper.notifyItemChanged(selectedPosition);
                                 carID = null;
                                 carName=null;
+                                holder.itemView.setSelected(false);
+                                emptyWrapper.notifyItemChanged(selectedPosition);
                             }
                             //设置新Item的勾选状态
                             selectedPosition = position;
+                            carID = payloadBean.getCardId();
+                            carName=payloadBean.getBankName()+"("+ StringUtil.getBankNumber(payloadBean.getCardNo())+")";
                             holder.itemView.setSelected(true);
-                            carID = str.getCardId();
-                            carName=str.getBankName()+"("+ StringUtil.getBankNumber(str.getCardNo())+")";
                             emptyWrapper.notifyItemChanged(selectedPosition);
 
                         }else if (selectedPosition==position){
-                            selectedPosition = -5; //选择的position赋值给参数，
-                            holder.itemView.setSelected(false);
                             carID = null;
                             carName=null;
+                            selectedPosition = -5; //选择的position赋值给参数，
+                            holder.itemView.setSelected(false);
                             emptyWrapper.notifyItemChanged(position);//刷新当前点击item
                         }
                     }
@@ -157,6 +161,7 @@ public class SelectBankIDActivity extends LKWordBaseActivity {
     }
 
     protected void initData() {
+       carID= getIntent().getStringExtra("carID");
         loadViewHelper.showLoadingDialog(this);
         retrofitUtils.addSubscription(RetrofitUtils.apiStores.getBankCard(), new ApiCallback<BankInfoReponse>() {
             @Override
