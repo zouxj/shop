@@ -73,7 +73,6 @@ public class MainPresenter extends BasePresenter<MainView> {
      * 下拉刷新
      */
     public void loadRefresh(LifecycleTransformer lifecycleTransformer){
-        mvpView.isLoading();
         addSubscription(lifecycleTransformer,apiStores.getMainShop(), new ApiCallback<ShopMainReponse>() {
             @Override
             public void onSuccess(ShopMainReponse model) {
@@ -101,44 +100,28 @@ public class MainPresenter extends BasePresenter<MainView> {
     /**
      * 定时刷新页面
      */
-    public void timeTask(){
-        Observable.interval(30000,30000, TimeUnit.MILLISECONDS).take(Integer.MAX_VALUE).observeOn(Schedulers.io()).flatMap(new Function<Long, ObservableSource<ShopMainReponse>>() {
+    public void timeTask(LifecycleTransformer lifecycleTransformer){
+        Observable.interval(30000,30000, TimeUnit.MILLISECONDS).compose(lifecycleTransformer).take(Integer.MAX_VALUE).observeOn(Schedulers.io()).flatMap(new Function<Long, ObservableSource<ShopMainReponse>>() {
 
             @Override
             public ObservableSource<ShopMainReponse> apply(Long aLong) throws Exception {
                 return RetrofitUtils.getRetrofitUtils().apiStores.getMainShop();
             }
-        }).subscribe(new Observer<ShopMainReponse>() {
+        }).subscribe(new ApiCallback<ShopMainReponse>() {
             @Override
-            public void onSubscribe(Disposable d) {
-
-            }
-
-            @Override
-            public void onNext(ShopMainReponse shopMainReponse) {
+            public void onSuccess(ShopMainReponse shopMainReponse) {
                 SPUtil.saveObject(Constants.MAIN_SHOP_KEY,shopMainReponse);
                 RxBus.getDefault().post(new Event(EventType.ACTION_MAIN_SETDATE,shopMainReponse.getPayload().getGoods()));
             }
 
             @Override
-            public void onError(Throwable e) {
+            public void onFailure(String msg) {
 
             }
 
             @Override
-            public void onComplete() {
+            public void onFinish() {
 
-            }
-        });
-    }
-
-    /**
-     * 移除任务
-     */
-    public void romveTask(){
-//        if (null!=rxSubscriptions) {
-//            rxSubscriptions.unsubscribe();
-//            rxSubscriptions=null;
-//        }
+            }});
     }
 }

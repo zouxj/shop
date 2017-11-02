@@ -153,27 +153,24 @@ public class UserInfoPresenter extends BasePresenter<UserInfoView> {
                         return null;
                     }
                 }
-            }), new Observer<BaseReponse>() {
-                @Override
-                public void onSubscribe(Disposable d) {
+            }), new ApiCallback<BaseReponse>() {
 
-                }
                 @Override
-                public void onNext(BaseReponse model) {
+                public void onSuccess(BaseReponse model) {
                     if (model.isSuccess()) {
-                    mvpView.upadteHeadFinsh(true);
-                }else {
-                    mvpView.upadteHeadFinsh(false);
-                }
-                }
-
-                @Override
-                public void onError(Throwable e) {
-                    mvpView.upadteHeadFinsh(false);
+                        mvpView.upadteHeadFinsh(true);
+                    }else {
+                        mvpView.upadteHeadFinsh(false);
+                    }
                 }
 
                 @Override
-                public void onComplete() {
+                public void onFailure(String msg) {
+                    ToastUtil.showToastShort(msg);
+                }
+
+                @Override
+                public void onFinish() {
 
                 }
             });

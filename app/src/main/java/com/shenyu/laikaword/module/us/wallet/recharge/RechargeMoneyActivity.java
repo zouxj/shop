@@ -20,6 +20,7 @@ import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
 import com.zxj.parlibary.resultlistener.OnAliPayListener;
 import com.zxj.parlibary.resultlistener.QqPayListener;
+import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
@@ -110,7 +111,7 @@ public class RechargeMoneyActivity extends LKWordBaseActivity {
                                 public void onNext(String resultInfo) {
                                     if (resultInfo.equals("9000")) {
                                         RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_REQUEST, null));
-                                        ToastUtil.showToastShort("支付成功");
+                                        IntentLauncher.with(RechargeMoneyActivity.this).put("pay_type",type+"").put("money",rechargeRbNum.getText().toString().trim()).launchFinishCpresent(RechargeSuccessActivity.class);
                                     }
                                     else if(resultInfo.equals("8000"))
                                         ToastUtil.showToastShort("支付失败");

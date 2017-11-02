@@ -13,6 +13,7 @@ import com.jakewharton.rxbinding.widget.RxTextView;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.base.BaseReponse;
+import com.shenyu.laikaword.model.bean.reponse.AddressReponse;
 import com.shenyu.laikaword.model.bean.reponse.BankInfoReponse;
 import com.shenyu.laikaword.model.bean.reponse.LoginReponse;
 import com.shenyu.laikaword.common.Constants;
@@ -32,6 +33,7 @@ import com.shenyu.laikaword.module.us.setpassword.SetPassWordMsgCodeActivity;
 import com.shenyu.laikaword.module.us.wallet.remaining.UserRemainingActivity;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.LogUtil;
+import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
@@ -73,6 +75,7 @@ public class WthdrawMoneyActivity extends LKWordBaseActivity {
     String yue;
     @Override
     public void doBusiness(Context context) {
+
         Observable.combineLatest(RxTextView.textChanges(etTixianNum), RxTextView.textChanges(tvBankType), new Func2<CharSequence, CharSequence, Boolean>() {
             @Override
             public Boolean call(CharSequence charSequence, CharSequence charSequence2) {
@@ -94,7 +97,7 @@ public class WthdrawMoneyActivity extends LKWordBaseActivity {
 
          yue = getIntent().getStringExtra("acountyue");
         if (StringUtil.validText(yue))
-        tvAccountYue.setText(yue);
+        tvAccountYue.setText("账户余额：￥"+yue);
         subscribeEvent();
 
         retrofitUtils.addSubscription(RetrofitUtils.apiStores.getBankCard(), new ApiCallback<BankInfoReponse>() {
@@ -247,8 +250,12 @@ public class WthdrawMoneyActivity extends LKWordBaseActivity {
             if(bundle!=null)
                 bankName=bundle.getString("bankName");
                 carID = bundle.getString("carID");
-                if (StringUtil.validText(bankName))
-                tvBankType.setText(bankName);
+                if (StringUtil.validText(bankName)) {
+                    tvBankType.setText(bankName);
+                }else {
+                    carID=null;
+                    tvBankType.setText("");
+                }
         }
     }
     private void subscribeEvent() {

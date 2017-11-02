@@ -14,6 +14,7 @@
         style="@style/bank_add_one"/>
     <EditText
         android:hint="姓名"
+        android:layout_marginLeft="47dp"
         android:id="@+id/edit_name"
         style="@style/bank_add_edite"
         android:maxLength="10"

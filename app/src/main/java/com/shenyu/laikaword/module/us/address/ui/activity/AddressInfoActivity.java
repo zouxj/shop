@@ -112,8 +112,7 @@ public class AddressInfoActivity extends LKWordBaseActivity {
                                     @Override
                                     public void onSuccess(BaseReponse model) {
                                         if (model.isSuccess()){
-                                            payload.remove(position);
-                                            emptyWrapper.notifyDataSetChanged();
+                                            RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_ADDRESS, null));
                                         }
                                     }
 
@@ -150,29 +149,31 @@ public class AddressInfoActivity extends LKWordBaseActivity {
                 });
             }
         };
-         emptyWrapper = new EmptyWrapper<AddressReponse.PayloadBean>(commonAdapter);
-        emptyWrapper.setEmptyView(R.layout.empty_view);
+         emptyWrapper = new EmptyWrapper(commonAdapter);
+        emptyWrapper.setEmptyView(R.layout.empty_view,UIUtil.getString(R.string.address_empty));
         rlAddressList.setAdapter(emptyWrapper);
     }
 
     protected void initData() {
-        RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.getAddress(), new ApiCallback<AddressReponse>() {
+        RetrofitUtils.getRetrofitUtils().setLifecycleTransformer(this.bindToLifecycle()).addSubscription(RetrofitUtils.apiStores.getAddress(), new ApiCallback<AddressReponse>() {
             @Override
             public void onSuccess(AddressReponse model) {
                 int j=0;
                 if (model.isSuccess()){
+                    payload.clear();
+                    payload.addAll(model.getPayload());
+                    emptyWrapper.notifyDataSetChanged();
                     for (AddressReponse.PayloadBean payloadBean:model.getPayload()) {
                         if (payloadBean.getDefaultX()==1) {
                             j=1;
                             SPUtil.saveObject(Constants.SAVA_ADDRESS,payloadBean);
+                            break;
                         }
                     }
                     if (j==0){
                         SPUtil.removeSp(Constants.SAVA_ADDRESS);
                     }
-                    payload.clear();
-                    payload.addAll(model.getPayload());
-                    emptyWrapper.notifyDataSetChanged();
+
                 }
             }
 
@@ -205,6 +206,7 @@ public class AddressInfoActivity extends LKWordBaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        RxSubscriptions.remove(mRxSub);
     }
 
     public void request(AddressReponse.PayloadBean payloadBean, final int def){

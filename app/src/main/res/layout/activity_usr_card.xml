@@ -19,6 +19,7 @@
     android:background="@color/app_theme_red"
     android:layout_width="match_parent"
     android:text="确认"
+    android:visibility="gone"
     android:gravity="center"
     android:textSize="@dimen/text_size_18sp"
     android:textColor="@color/white"

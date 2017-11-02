@@ -7,7 +7,7 @@
     <string name="read_camere">需要使用存储权限</string>
     <string name="read_exteranl_storage">需要使用存储权限</string>
     <string name="read_phone_state">需要获取本机电话识别权限</string>
-    <string name="rationale_read_external">This app needs access to your camera so you can take hotfix.</string>
+    <string name="rationale_read_external">需要使用存储权限</string>
     <string name="rationale_location_contacts">This app needs access to your location and contacts to know where and who you are.</string>
     <string name="rationale_sms">This app needs access to your sms to read all your great messages.</string>
     <string name="write_external_storage">需要使用存储权限</string>
@@ -22,6 +22,13 @@
     <string name="service_number">客服QQ:800185927</string>
     <string name="service_date">服务时间: 09:00-17:30</string>
     <string name="copy_info">神羽网络科技 版权所有</string>
-    <string name="copy_date">Copyright@2017 ShenYu.All Rights Reserved</string>
+    <string name="copy_date">Copyright©2017 ShenYu.All Rights Reserved</string>
+    <string name="shop_empty">此种卡暂时已被售空</string>
+    <string name="message_empty">暂时还没有任何消息~</string>
+    <string name="bank_empty">hi～快去开启您的刷卡生涯吧～～</string>
+    <string name="address_empty">暂时还没有地址，快去添加吧~</string>
+    <string name="goumai_empty">您好，目前还没有相关的订单～</string>
+    <string name="money_empty">暂时没有余额明细~</string>
+    <string name="pager_empty">这卡包是空的哦</string>
 
 </resources>

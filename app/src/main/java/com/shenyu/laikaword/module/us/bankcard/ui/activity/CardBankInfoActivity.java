@@ -78,7 +78,7 @@ public class CardBankInfoActivity extends LKWordBaseActivity {
             }
         };
          emptyWrapper = new EmptyWrapper(commonAdapter);
-        emptyWrapper.setEmptyView(R.layout.empty_view);
+        emptyWrapper.setEmptyView(R.layout.empty_view,UIUtil.getString(R.string.bank_empty));
         recyclerView.setAdapter(emptyWrapper);
     }
 

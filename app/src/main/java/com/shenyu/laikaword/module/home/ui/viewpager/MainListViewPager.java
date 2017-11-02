@@ -81,7 +81,9 @@ public class MainListViewPager extends BaseViewPager {
                 holder.setText(R.id.tv_main_shop_price, "￥"+listBean.getDiscountPrice());
                 holder.setText(R.id.tv_main_shop_surplus, StringUtil.formatIntger(listBean.getStock())>=5?"":"还剩"+StringUtil.formatIntger(listBean.getStock())+"张");
                 holder.setText(R.id.tv_main_shop_seller,listBean.getNickName());
-                holder.setText(R.id.tv_mian_shop_discount,listBean.getDiscount()+"折");
+                StringBuilder sb = new StringBuilder(listBean.getDiscount());//构造一个StringBuilder对象
+                sb.insert(1, ".");//在指定的
+                holder.setText(R.id.tv_mian_shop_discount,sb.toString()+"折");
                 holder.setOnClickListener(R.id.tv_main_shop_purchase, new View.OnClickListener() {
           @Override
      public void onClick(View view) {
@@ -103,7 +105,7 @@ public class MainListViewPager extends BaseViewPager {
         }
         };
         emptyWrappe = new EmptyWrapper(commonAdapter);
-        emptyWrappe.setEmptyView(R.layout.empty_view);
+        emptyWrappe.setEmptyView(R.layout.empty_view,UIUtil.getString(R.string.shop_empty));
         subscribeEvent();
         recycleView.setAdapter(emptyWrappe);
 

@@ -47,7 +47,7 @@ public class PurchaseListFragment extends IKWordBaseFragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
          adapter = new PurchaseItemAdapter(payload);
         emptyWrapper =new EmptyWrapper(adapter);
-        emptyWrapper.setEmptyView(R.layout.empty_view);
+        emptyWrapper.setEmptyView(R.layout.empty_view,"哇哦，篮子暂时是空的～");
         recyclerView.setAdapter(emptyWrapper);
     }
 

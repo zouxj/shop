@@ -13,6 +13,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * 提现成功
+ */
 public class WthdrawDetailsActivity extends LKWordBaseActivity {
 
 
@@ -40,7 +43,6 @@ public class WthdrawDetailsActivity extends LKWordBaseActivity {
     public void doBusiness(Context context) {
             String money = getIntent().getStringExtra("money");
         String bankName = getIntent().getStringExtra("bankName");
-        String carID = getIntent().getStringExtra("carID");
         tvCard.setText(bankName);
         tvMoeny.setText("￥"+money);
     }

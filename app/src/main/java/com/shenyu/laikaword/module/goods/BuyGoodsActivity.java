@@ -55,7 +55,7 @@ public class BuyGoodsActivity extends LKWordBaseActivity {
                 holder.setText(R.id.tv_goumai_indent_no,"订单编号:"+payloadBean.getOrderNo());
                 TextView textoriginalPrice = holder.getView(R.id.tv_goumai_shop_original_price);
                 textoriginalPrice.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-                holder.setText(R.id.tv_goumai_state,payloadBean.getPayStatus().equals("0")?"待付款":"交易成功");
+                holder.setText(R.id.tv_goumai_state,payloadBean.getPayStatus().equals("0")?"交易失败":"交易成功");
                 holder.setText(R.id.tv_goumai_time, DateTimeUtil.formatDate(Long.parseLong(payloadBean.getCreateTime()),"yyyy-MM-dd HH:mm:ss"));
                 if (payloadBean.getGoods()!=null) {
                     if (payloadBean.getGoods().size() > 0) {
@@ -69,7 +69,8 @@ public class BuyGoodsActivity extends LKWordBaseActivity {
             }
         };
          emptyWrapper = new EmptyWrapper(commonAdapter);
-        emptyWrapper.setEmptyView(R.layout.empty_view);
+        emptyWrapper.setEmptyView(R.layout.empty_view,UIUtil.getString(R.string.goumai_empty));
+
         recyclerView.setAdapter(emptyWrapper);
     }
 

@@ -19,7 +19,6 @@ import io.reactivex.disposables.Disposable;
 
 
 public class PaySuccessActivity extends LKWordBaseActivity {
-    private RxTask rxTask;
     @Override
     public int bindLayout() {
         return R.layout.activity_pay_success;
@@ -44,8 +43,7 @@ public class PaySuccessActivity extends LKWordBaseActivity {
 
     @Override
     public void doBusiness(Context context) {
-         rxTask = new RxTask();
-        rxTask.addSubscription(this.bindToLifecycle(),Observable.interval(3000, TimeUnit.MILLISECONDS).take(1), new Observer() {
+        new RxTask().addSubscription(this.bindToLifecycle(),Observable.interval(3000, TimeUnit.MILLISECONDS).take(1), new Observer() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -76,6 +74,5 @@ public class PaySuccessActivity extends LKWordBaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        rxTask.onUnsubscribe();
     }
 }

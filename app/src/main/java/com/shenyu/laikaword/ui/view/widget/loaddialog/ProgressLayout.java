@@ -362,7 +362,7 @@ public class ProgressLayout extends RelativeLayout {
     private void setLoadingView() {
         if (loadingStateRelativeLayout == null) {
             view = inflater.inflate(R.layout.progress_loading_view, null);
-            loadingStateRelativeLayout = (RelativeLayout) view.findViewById(R.id.loadingStateRelativeLayout);
+            loadingStateRelativeLayout =  view.findViewById(R.id.loadingStateRelativeLayout);
             loadingStateRelativeLayout.setTag(TAG_LOADING);
 
             loadingStateProgressBar = (ProgressBar) view.findViewById(R.id.loadingStateProgressBar);

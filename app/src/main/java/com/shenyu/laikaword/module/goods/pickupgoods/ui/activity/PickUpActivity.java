@@ -3,6 +3,7 @@ package com.shenyu.laikaword.module.goods.pickupgoods.ui.activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
 import android.view.Gravity;
@@ -71,6 +72,7 @@ public class PickUpActivity extends LKWordBaseActivity {
     @Override
     public void initView() {
         setToolBarTitle("申请提货");
+        tvGoumaiCount.setText("提货数量");
         avZj.setOnAmountChangeListener(new AmountView.OnAmountChangeListener() {
             @Override
             public void onAmountChange(View view, int amount) {
@@ -82,12 +84,17 @@ public class PickUpActivity extends LKWordBaseActivity {
 
     @Override
     public void doBusiness(Context context) {
+
+        payloadBean= (AddressReponse.PayloadBean) SPUtil.readObject("SAVA_ADDRESS");
+        if (payloadBean!=null){
+            Spanned dizhi= Html.fromHtml("<font color='#333333' >"+payloadBean.getReceiveName()+payloadBean.getPhone()+"</font><br/><font color='#999999' >"+payloadBean.getProvince()+payloadBean.getCity()+payloadBean.getDetail()+"</font>");
+            tvTihuoTianxia.setGravity(Gravity.CENTER);
+            tvTihuoTianxia.setText(dizhi);
+
+        }
         List<String> titles = new ArrayList<String>();
-
         titles.add("提货申请");
-
         titles.add("提货中");
-
         titles.add("提货完成");
 
         setStepTitles.setStepTitles(titles);
@@ -95,7 +102,7 @@ public class PickUpActivity extends LKWordBaseActivity {
         if (null!=bean){
             ImageUitls.loadImg(bean.getGoodsImage(),ivTihuoImg);
             tvTihuoName.setText(bean.getGoodsName());
-                tvTihuoCount.setText("数量:" + StringUtil.formatIntger(bean.getQuantity()));
+                tvTihuoCount.setText("数量:" + StringUtil.formatIntger(bean.getQuantity())+"张");
                 avZj.setGoods_storage(StringUtil.formatIntger(bean.getQuantity()));
                 tvTihuoAll.setText("1张");
 
@@ -105,6 +112,8 @@ public class PickUpActivity extends LKWordBaseActivity {
             Spanned dizhi = Html.fromHtml("<font color='#333333' >" + payloadBean.getReceiveName() + payloadBean.getPhone() + "</font><br/><font color='#999999' >" + payloadBean.getProvince() + payloadBean.getCity() + payloadBean.getDetail() + "</font>");
             tvTihuoTianxia.setGravity(Gravity.CENTER);
             tvTihuoTianxia.setText(dizhi);
+        }else {
+            tvTihuoTianxia.setText("");
         }
     }
 
@@ -120,6 +129,9 @@ public class PickUpActivity extends LKWordBaseActivity {
             case R.id.tv_tihuo_tianxia:
                 //TODO 去选择收货地址
                 Intent intent = new Intent(PickUpActivity.this,SelectAddressActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("payloadBean",payloadBean);
+                intent.putExtras(bundle);
                 startActivityForResult(intent,Constants.REQUEST_ADDRESS);
                 break;
             case R.id.tv_tihuo_all_select:
@@ -142,7 +154,6 @@ public class PickUpActivity extends LKWordBaseActivity {
                     public void onNegative(Dialog dialog) {
                         Intent intent = new Intent(PickUpActivity.this,SelectAddressActivity.class);
                         startActivityForResult(intent,Constants.REQUEST_ADDRESS);
-
                     }
 
                     @Override
@@ -159,7 +170,6 @@ public class PickUpActivity extends LKWordBaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (resultCode == RESULT_OK) {
             //判断是哪一个的回调
             if (requestCode == Constants.REQUEST_ADDRESS) {
@@ -168,6 +178,8 @@ public class PickUpActivity extends LKWordBaseActivity {
             Spanned dizhi= Html.fromHtml("<font color='#333333' >"+payloadBean.getReceiveName()+payloadBean.getPhone()+"</font><br/><font color='#999999' >"+payloadBean.getProvince()+payloadBean.getCity()+payloadBean.getDetail()+"</font>");
             tvTihuoTianxia.setGravity(Gravity.CENTER);
             tvTihuoTianxia.setText(dizhi);
+        }else {
+            tvTihuoTianxia.setText("");
         }
             }
         }

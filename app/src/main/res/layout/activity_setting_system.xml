@@ -50,6 +50,24 @@
 
     </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/set_clear"
+        style="@style/ly_layout">
+
+        <TextView
+            style="@style/bank_add_one"
+            android:layout_centerVertical="true"
+            android:text="清理缓存"
+            />
+        <ImageView
+            android:layout_marginRight="14dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:background="@mipmap/right_back"
+            android:layout_height="wrap_content" />
+        <include layout="@layout/line_bottom_view"/>
+    </RelativeLayout>
+    <RelativeLayout
         android:id="@+id/set_rl_about"
         style="@style/ly_layout">
 

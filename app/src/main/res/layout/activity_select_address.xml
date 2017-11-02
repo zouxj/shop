@@ -21,6 +21,7 @@
         android:layout_width="match_parent"
         android:background="@color/app_theme_red"
         android:text="确认"
+        android:visibility="gone"
         android:textColor="@color/white"
         android:textSize="@dimen/text_size_15sp"
         android:gravity="center"

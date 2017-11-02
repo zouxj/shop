@@ -31,7 +31,7 @@ public final class UpdateManager {
         this.mContext = context;
     }
     public void    gerNewVersion(final boolean toast){
-        RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.checkUpdate(1, DeviceInfo.getSystemVersion()), new ApiCallback<CheckAppUpdateReponse>() {
+        RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.checkUpdate(0, DeviceInfo.getSystemVersion()), new ApiCallback<CheckAppUpdateReponse>() {
             @Override
             public void onSuccess(final CheckAppUpdateReponse model) {
                 if (model.isSuccess()&&model.getPayload()!=null) {

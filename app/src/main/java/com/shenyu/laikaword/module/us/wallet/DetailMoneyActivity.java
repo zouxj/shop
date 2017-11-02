@@ -69,7 +69,7 @@ public class DetailMoneyActivity extends LKWordBaseActivity {
             }
 
         });
-        emptyWrapper.setEmptyView(R.layout.empty_view);
+        emptyWrapper.setEmptyView(R.layout.empty_view,UIUtil.getString(R.string.money_empty));
         recyclerView.setAdapter(emptyWrapper);
     }
 

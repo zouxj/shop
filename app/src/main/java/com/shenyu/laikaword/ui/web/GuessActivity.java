@@ -2,33 +2,31 @@ package com.shenyu.laikaword.ui.web;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.net.Uri;
-import android.util.Log;
+import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.ViewGroup;
-import android.webkit.WebChromeClient;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
-import com.shenyu.laikaword.common.Constants;
-import com.shenyu.laikaword.model.bean.reponse.LoginReponse;
-import com.shenyu.laikaword.module.goods.order.ui.activity.ConfirmOrderActivity;
-import com.shenyu.laikaword.module.login.ui.activity.LoginActivity;
+import com.shenyu.laikaword.ui.view.widget.ProgressWebView;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.LogUtil;
-import com.zxj.utilslibrary.utils.SPUtil;
-import com.zxj.utilslibrary.utils.ToastUtil;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class GuessActivity extends LKWordBaseActivity {
     @BindView(R.id.wb_load)
-    WebView wbLoad;
+    ProgressWebView wbLoad;
     String webURL;
+    @BindView(R.id.toolbar_title)
+    TextView toolbarTitle;
+
     @Override
     public int bindLayout() {
         return R.layout.activity_guess;
@@ -37,14 +35,14 @@ public class GuessActivity extends LKWordBaseActivity {
     @Override
     public void initView() {
         initWebView();
-         webURL = getIntent().getStringExtra("weburl");
+        webURL = getIntent().getStringExtra("weburl");
         wbLoad.loadUrl(webURL);
 
     }
 
     @SuppressLint("NewApi")
-   private void initWebView(){
-       WebSettings webSettings = wbLoad.getSettings();
+    private void initWebView() {
+        WebSettings webSettings = wbLoad.getSettings();
         webSettings.setUserAgentString("laikashopapp");
         webSettings.setAllowContentAccess(true);
         webSettings.setAppCacheEnabled(false);
@@ -69,13 +67,20 @@ public class GuessActivity extends LKWordBaseActivity {
         // 设置允许JS弹窗
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
 
-}
+    }
+
     @SuppressLint("WrongConstant")
     @Override
     public void doBusiness(Context context) {
         wbLoad.requestFocus();
         wbLoad.setScrollBarStyle(0);
-        wbLoad.setWebViewClient(new WebViewClient(){
+        wbLoad.setInterReceivedTitle(new ProgressWebView.InterReceivedTitle() {
+            @Override
+            public void setTitile(String titile) {
+                toolbarTitle.setText(titile);
+            }
+        });
+        wbLoad.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 // 步骤2：根据协议的参数，判断是否是所需要的url
@@ -84,10 +89,10 @@ public class GuessActivity extends LKWordBaseActivity {
 //                Uri uri = Uri.parse(url);
                 // 如果url的协议 = 预先约定的 js 协议app://goOrder
                 // 就解析往下解析参数
-                LogUtil.i("webView",url);
-               String aliPay="https://qr.alipay.com";
-               String qqPay = "https://myun.tenpay.com/mqq/pay/qrcode";
-                if (url.contains(aliPay)||url.contains(qqPay)){
+                LogUtil.i("webView", url);
+                String aliPay = "https://qr.alipay.com";
+                String qqPay = "https://myun.tenpay.com/mqq/pay/qrcode";
+                if (url.contains(aliPay) || url.contains(qqPay)) {
                     IntentLauncher.with(GuessActivity.this).launchViews(url);
                     return true;
                 }
@@ -137,6 +142,7 @@ public class GuessActivity extends LKWordBaseActivity {
             wbLoad = null;
         }
     }
+
     //点击返回上一页面而不是退出浏览器
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -146,5 +152,14 @@ public class GuessActivity extends LKWordBaseActivity {
         }
 
         return super.onKeyDown(keyCode, event);
+    }
+
+    @OnClick(R.id.toolbar_left)
+    public void onViewClicked() {
+        if(wbLoad.canGoBack()){
+            wbLoad.goBack(); // goBack()表示返回WebV
+        }else {
+            finish();
+        }
     }
 }

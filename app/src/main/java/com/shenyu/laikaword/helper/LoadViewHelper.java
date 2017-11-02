@@ -69,8 +69,7 @@ public class LoadViewHelper {
         if (loadingView != null) {
             loadingView.setVisibility(View.GONE);
         }
-        loadingView = (ProgressLayout) LayoutInflater.from(activity).inflate(
-                R.layout.include_empty_view, null);
+        loadingView = (ProgressLayout) LayoutInflater.from(activity).inflate(R.layout.include_empty_view, null);
         loadingView.showError(onClickListener);
         ((ViewGroup) activity.getWindow().getDecorView()).addView(loadingView);
 

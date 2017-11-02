@@ -89,6 +89,7 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
                 TabLayoutHelper.setIndicator(tabs, 20, 20);
             }
         });
+        smartRefreshLayout.setHeaderHeight(45);
         smartRefreshLayout.setEnableRefresh(true);
         smartRefreshLayout.setEnableLoadmore(false);
         smartRefreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
@@ -96,7 +97,7 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
         smartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-                refreshlayout.finishRefresh(2000);
+                refreshlayout.finishRefresh(1500);
                 mainPresenter.loadRefresh(MainFragment.this.bindToLifecycle());
 //                ToastUtil.showToastShort("正在刷新...");
             }
@@ -229,11 +230,11 @@ public void onClick(View v){
 
     @Override
     public void loadFailure() {
-        smartRefreshLayout.setVisibility(View.GONE);
+//        smartRefreshLayout.setVisibility(View.GONE);
         loadViewHelper.showErrorResert(getActivity(), new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                smartRefreshLayout.setVisibility(View.VISIBLE);
+//                smartRefreshLayout.setVisibility(View.VISIBLE);
                 mainPresenter.requestData(MainFragment.this.bindToLifecycle());
             }
         });
@@ -252,7 +253,7 @@ public void onClick(View v){
         RxBus.getDefault().post(new Event(EventType.ACTION_LFET_DATA,shopBeanReponse.getPayload().getEntranceList()));
         data.addAll(shopBeanReponse.getPayload().getNotice());
         setNoticeView();
-        mainPresenter.timeTask();
+        mainPresenter.timeTask(this.bindToLifecycle());
         //        {"移动卡", "京东卡", "联通卡", "电信卡"};
         for (int j=0;j<4;j++) {
             for (int i = 0; i < shopBeanReponse.getPayload().getGoods().size(); i++) {
@@ -354,6 +355,5 @@ public void onClick(View v){
         super.onDestroy();
         bannerHelper.onDestroy();
         mainPresenter.detachView();
-        mainPresenter.romveTask();
     }
 }

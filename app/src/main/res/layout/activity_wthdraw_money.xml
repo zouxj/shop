@@ -22,7 +22,7 @@
         android:textSize="@dimen/text_size_14sp"
         android:textColor="@color/color_333"
         android:layout_width="wrap_content"
-        android:text="到账银行"
+        android:text="到账银行卡"
         android:layout_height="wrap_content" />
 
     <RelativeLayout
@@ -79,6 +79,7 @@
                 android:maxLength="12"
                 android:inputType="numberDecimal"
                 android:lines="1"
+                android:hint="请输入提现金额"
                 android:id="@+id/et_tixian_num"
                 android:layout_width="160dp"
                 android:background="@null"

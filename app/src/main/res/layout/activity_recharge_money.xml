@@ -85,6 +85,7 @@
             android:id="@+id/recharge_rb_qqpay"
              android:layout_marginLeft="12dp"
             android:text="QQ钱包"
+            android:visibility="gone"
             android:button="@null"
             android:paddingLeft="15dp"
             android:background="@drawable/seletor_appy_chongzhi_type"

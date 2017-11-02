@@ -14,7 +14,7 @@ import com.shenyu.laikaword.R;
 
 public class ProgressWebView extends WebView {
     private ProgressBar progressbar;
-
+    private InterReceivedTitle interReceivedTitle;
     public ProgressWebView(Context context, AttributeSet attrs) {
         super(context, attrs);
         progressbar = new ProgressBar(context, null,
@@ -55,6 +55,20 @@ public class ProgressWebView extends WebView {
             super.onProgressChanged(view, newProgress);
         }
 
+        @Override
+        public void onReceivedTitle(WebView view, String title) {
+            super.onReceivedTitle(view, title);
+            if (null!=interReceivedTitle){
+                interReceivedTitle.setTitile(title);
+            }
+        }
+    }
 
+    public void setInterReceivedTitle(InterReceivedTitle interReceivedTitle){
+            this.interReceivedTitle = interReceivedTitle;
+    }
+
+    public interface InterReceivedTitle{
+        void setTitile(String titile);
     }
 }

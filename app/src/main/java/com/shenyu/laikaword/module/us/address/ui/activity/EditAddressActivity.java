@@ -157,8 +157,9 @@ public class EditAddressActivity extends LKWordBaseActivity {
                         public void onSuccess(BaseReponse model) {
                             if (model.isSuccess()) {
                                 loadViewHelper.closeLoadingDialog();
-                                ToastUtil.showToastShort("添加成功");
                                 RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_ADDRESS, null));
+                                ToastUtil.showToastShort("添加成功");
+                                finish();
                             } else {
                                 ToastUtil.showToastShort(model.getError().getMessage());
                                 loadViewHelper.closeLoadingDialog();

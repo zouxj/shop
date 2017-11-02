@@ -254,7 +254,7 @@ public class ConfirmOrderActivity extends LKWordBaseActivity implements ConfirmO
 //            tvMainShopOriginalPrice.setText(goodBean.getOriginPrice());
 //            tvMainShopOriginalPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             tvMainShopPrice.setText("￥"+goodBean.getDiscountPrice());
-            tvMainShopPurchase.setText("剩余数量 :" + goodBean.getStock()+"张");
+            tvMainShopPurchase.setText("剩余数量" + goodBean.getStock()+"张");
             if (StringUtil.validText(goodBean.getDiscountPrice()))
                 priceCount.setText(StringUtil.m2(count * (StringUtil.formatDouble(goodBean.getDiscountPrice()))));
             if (StringUtil.validText(goodBean.getStock()))

@@ -1,11 +1,19 @@
-<com.scwang.smartrefresh.layout.SmartRefreshLayout
+<LinearLayout
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <include
+        layout="@layout/include_top_title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
     android:id="@+id/refreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-<android.support.design.widget.CoordinatorLayout
+    <android.support.design.widget.CoordinatorLayout
     android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -21,12 +29,6 @@
             android:orientation="vertical"
             android:layout_height="wrap_content">
 
-
-        <include
-            layout="@layout/include_top_title"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            tools:ignore="IncludeLayoutParam" />
 
         <include
             layout="@layout/layout_banner"
@@ -87,4 +89,5 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 </android.support.design.widget.CoordinatorLayout>
-</com.scwang.smartrefresh.layout.SmartRefreshLayout>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</LinearLayout>

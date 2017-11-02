@@ -80,11 +80,12 @@ android {
                     fileName = "app_v${defaultConfig.versionName}_${packageTime()}_${variant.productFlavors[0].name}_beta.apk"
                 }
             }
-           outputFileName = fileName
-            }
+            outputFileName = fileName
+        }
     }
 
 }
+
 
 dependencies {
     //noinspection GradleCompatible

@@ -4,7 +4,9 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.model.adapter.ViewHolder;
 
 /**
@@ -17,6 +19,7 @@ public class EmptyWrapper<T> extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private RecyclerView.Adapter mInnerAdapter;
     private View mEmptyView;
     private int mEmptyLayoutId;
+    private String empty;
 
 
     public EmptyWrapper(RecyclerView.Adapter adapter)
@@ -42,6 +45,7 @@ public class EmptyWrapper<T> extends RecyclerView.Adapter<RecyclerView.ViewHolde
             {
                 holder = ViewHolder.createViewHolder(parent, mEmptyLayoutId);
             }
+            holder.setText(R.id.tv_empty,empty);
             return holder;
         }
         return mInnerAdapter.onCreateViewHolder(parent, viewType);
@@ -110,14 +114,16 @@ public class EmptyWrapper<T> extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
 
 
-    public void setEmptyView(View emptyView)
-    {
-        mEmptyView = emptyView;
-    }
+//    public void setEmptyView(View emptyView,String empty)
+//    {
+//        mEmptyView=emptyView;
+//        this.empty=empty;
+//    }
 
-    public void setEmptyView(int layoutId)
+    public void setEmptyView(int layoutId,String empty)
     {
         mEmptyLayoutId = layoutId;
+        this.empty=empty;
     }
 
 }

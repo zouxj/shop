@@ -1,7 +1,9 @@
 package com.shenyu.laikaword.ui.web;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
+import android.os.Build;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -31,6 +33,7 @@ public class ShopDateilActivity extends LKWordBaseActivity {
         return R.layout.activity_shop_dateil;
     }
 
+    @SuppressLint("NewApi")
     @Override
     public void initView() {
         setToolBarTitle("商品详情");
@@ -42,6 +45,12 @@ public class ShopDateilActivity extends LKWordBaseActivity {
         webSettings.setJavaScriptEnabled(true);
         // 设置允许JS弹窗
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
+        webSettings.setDomStorageEnabled(true);
+        webSettings.setAllowFileAccess(true);
+        webSettings.setAppCacheEnabled(true);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+            webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        }
         String webURL = Constants.webURL+goodBean.getGoodsId();
 //      String webURL = "http://comingcard.com";
         // 先载入JS代码

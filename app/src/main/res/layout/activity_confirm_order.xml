@@ -185,10 +185,11 @@
         android:text="提示:亲爱的用户,点击支付后请于1分钟内完成支付"
         android:textColor="@color/app_theme_red"
         android:paddingLeft="10dp"
+        android:background="@color/main_bg_gray"
         android:gravity="bottom"
+        android:layout_weight="1"
         android:textSize="@dimen/text_size_12sp"
         android:layout_width="match_parent"
-        android:layout_weight="1"
         android:layout_height="match_parent" />
     <RelativeLayout
         android:background="@color/white"
@@ -218,14 +219,16 @@
             />
         <TextView
             android:id="@+id/tv_to_pay"
-            android:layout_alignParentRight="true"
             android:layout_width="144dp"
             android:text="去支付"
             android:background="@color/app_theme_red"
             android:textSize="17sp"
             android:gravity="center"
             android:textColor="@color/white"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
 
     </RelativeLayout>
 </LinearLayout>

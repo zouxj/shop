@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.model.adapter.CommonAdapter;
@@ -27,6 +28,8 @@ import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +44,8 @@ public class SelectBankIDActivity extends LKWordBaseActivity {
 
     @BindView(R.id.card_cy_list)
     RecyclerView recyclerView;
+    @BindView(R.id.tv_commit_selector)
+    TextView tvCommitSelectBank;
     private String carID;
     private String carName;
     private List<BankInfoReponse.PayloadBean> payload=new ArrayList<>();
@@ -72,7 +77,14 @@ public class SelectBankIDActivity extends LKWordBaseActivity {
                 if (payloadBean.getCardId().equals(carID)){
                     selectedPosition=position;
                 }
-                    checkBox.setChecked(payloadBean.getCardId().equals(carID)&&selectedPosition==position);
+                if (selectedPosition==-1){
+                    tvCommitSelectBank.setEnabled(false);
+                    tvCommitSelectBank.setBackgroundColor(UIUtil.getColor(R.color.main_bg_gray));
+                }else {
+                    tvCommitSelectBank.setEnabled(true);
+                    tvCommitSelectBank.setBackgroundColor(UIUtil.getColor(R.color.app_theme_red));
+                }
+                checkBox.setChecked(payloadBean.getCardId().equals(carID)&&selectedPosition==position);
                 holder.setText(R.id.tv_card_bank,payloadBean.getBankName()+"("+ StringUtil.getBankNumber(payloadBean.getCardNo())+")");
                 holder.setOnClickListener(R.id.item_ck, new View.OnClickListener() {
                     @Override
@@ -104,7 +116,7 @@ public class SelectBankIDActivity extends LKWordBaseActivity {
             }
         };
          emptyWrapper = new EmptyWrapper(commonAdapter);
-        emptyWrapper.setEmptyView(R.layout.empty_view);
+        emptyWrapper.setEmptyView(R.layout.empty_view,UIUtil.getString(R.string.money_empty));
         recyclerView.setAdapter(emptyWrapper);
     }
     @OnClick(R.id.tv_commit_selector)
@@ -167,9 +179,12 @@ public class SelectBankIDActivity extends LKWordBaseActivity {
             @Override
             public void onSuccess(BankInfoReponse model) {
                 if (model.isSuccess()) {
-                    payload.clear();
-                    payload.addAll(model.getPayload());
-                    emptyWrapper.notifyDataSetChanged();
+                    if (model.getPayload()!=null&&model.getPayload().size()>0) {
+                        tvCommitSelectBank.setVisibility(View.VISIBLE);
+                        payload.clear();
+                        payload.addAll(model.getPayload());
+                        emptyWrapper.notifyDataSetChanged();
+                    }
                 }
 
             }

@@ -2,11 +2,14 @@ package com.shenyu.laikaword.module.us.address.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.model.adapter.CommonAdapter;
@@ -36,6 +39,8 @@ import rx.android.schedulers.AndroidSchedulers;
 public class SelectAddressActivity extends LKWordBaseActivity {
 
 
+    @BindView(R.id.bt_ok_address)
+    TextView btOkAddress;
     @BindView(R.id.re_cy_view)
     RecyclerView reCyView;
     private List<AddressReponse.PayloadBean> payload = new ArrayList<>();
@@ -58,13 +63,14 @@ public class SelectAddressActivity extends LKWordBaseActivity {
     CommonAdapter<AddressReponse.PayloadBean> commonAdapter;
     Intent intent;
     Bundle bundle;
-    int selectedPosition =-1;
+    static int selectedPosition =-1;
 
     @Override
     public void doBusiness(Context context) {
           intent = getIntent();
           bundle = new Bundle();
         commonAdapter = new CommonAdapter<AddressReponse.PayloadBean>(R.layout.item_select_address, payload) {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             protected void convert(final ViewHolder holder, final AddressReponse.PayloadBean payloadBean, final int position) {
                 CheckBox checkBox = holder.getView(R.id.ck_select_address);
@@ -72,6 +78,13 @@ public class SelectAddressActivity extends LKWordBaseActivity {
                 holder.setText(R.id.tv_select_phone, payloadBean.getPhone());
                 holder.setText(R.id.tv_select_name, payloadBean.getReceiveName());
                 checkBox.setChecked(selectedPosition == position);
+                if (selectedPosition==-1){
+                    btOkAddress.setEnabled(false);
+                    btOkAddress.setBackgroundColor(UIUtil.getColor(R.color.main_bg_gray));
+                }else {
+                    btOkAddress.setEnabled(true);
+                    btOkAddress.setBackgroundColor(UIUtil.getColor(R.color.app_theme_red));
+                }
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -101,10 +114,11 @@ public class SelectAddressActivity extends LKWordBaseActivity {
             }
         };
         emptyWrapper = new EmptyWrapper<AddressReponse.PayloadBean>(commonAdapter);
-        emptyWrapper.setEmptyView(R.layout.empty_view);
+        emptyWrapper.setEmptyView(R.layout.empty_view,UIUtil.getString(R.string.bank_empty));
         reCyView.setAdapter(emptyWrapper);
         initData();
         subscribeEvent();
+
 
     }
 
@@ -118,7 +132,7 @@ public class SelectAddressActivity extends LKWordBaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()){
             case R.id.rl_toolbar_subtitle:
-                IntentLauncher.with(this).launchFinishCpresent(AddressInfoActivity.class);
+                IntentLauncher.with(this).launch(AddressInfoActivity.class);
                 break;
             case R.id.bt_ok_address:
                 setResult(RESULT_OK, intent);
@@ -153,22 +167,32 @@ public class SelectAddressActivity extends LKWordBaseActivity {
         RxSubscriptions.add(mRxSub);
     }
     public void initData() {
-        retrofitUtils.addSubscription(RetrofitUtils.apiStores.getAddress(), new ApiCallback<AddressReponse>() {
+     final AddressReponse.PayloadBean payloadBean = (AddressReponse.PayloadBean) getIntent().getSerializableExtra("payloadBean");
+        retrofitUtils.setLifecycleTransformer(this.bindToLifecycle()).addSubscription(RetrofitUtils.apiStores.getAddress(), new ApiCallback<AddressReponse>() {
             @Override
             public void onSuccess(AddressReponse model) {
                 if (model.isSuccess()) ;
                 {
-                    payload.clear();
-                    payload.addAll(model.getPayload());
-                    for (int i = 0; i < payload.size(); i++) {
-                        if (payload.get(i).getDefaultX() == 1) {
-                            selectedPosition = i;
-                            bundle.putSerializable("address", payload.get(i));
-                            intent.putExtras(bundle);
-                        }
+                    if (model.getPayload()!=null&&model.getPayload().size()>0){
+                        btOkAddress.setVisibility(View.VISIBLE);
+                        payload.clear();
+                        payload.addAll(model.getPayload());
+                        emptyWrapper.notifyDataSetChanged();
 
+                        for (int i = 0; i < payload.size(); i++) {
+                            if (payloadBean!=null) {
+                                if (payload.get(i).getAddressId().equals(payloadBean.getAddressId())) {
+                                    selectedPosition = i;
+                                    bundle.putSerializable("address", payload.get(i));
+                                    intent.putExtras(bundle);
+                                }
+                            }
+
+                        }
                     }
-                    emptyWrapper.notifyDataSetChanged();
+
+
+
                 }
             }
 

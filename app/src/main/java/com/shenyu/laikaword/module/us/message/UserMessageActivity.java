@@ -64,7 +64,7 @@ public class UserMessageActivity extends LKWordBaseActivity {
 
         };
          emptyWrapper = new EmptyWrapper(commonAdapter);
-        emptyWrapper.setEmptyView(R.layout.empty_view);
+        emptyWrapper.setEmptyView(R.layout.empty_view,UIUtil.getString(R.string.message_empty));
         rvItem.setAdapter(emptyWrapper);
         loadData();
     }
@@ -90,12 +90,10 @@ public class UserMessageActivity extends LKWordBaseActivity {
 
             @Override
             public void onFailure(String msg) {
-                layoutContent.setVisibility(View.GONE);
                 loadViewHelper.showErrorResert(UserMessageActivity.this, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         loadData();
-                        layoutContent.setVisibility(View.VISIBLE);
                     }
                 });
             }

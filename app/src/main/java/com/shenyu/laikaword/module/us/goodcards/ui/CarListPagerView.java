@@ -112,7 +112,7 @@ public class CarListPagerView extends BaseViewPager<CarPagerReponse> {
         recyclerView.addItemDecoration(new RecycleViewDivider(mActivity, LinearLayoutManager.HORIZONTAL,(int) UIUtil.dp2px(5),UIUtil.getColor(R.color.main_bg_gray)));
         recyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
         EmptyWrapper emptyWrapper = new EmptyWrapper(commonAdapter);
-        emptyWrapper.setEmptyView(R.layout.empty_view);
+        emptyWrapper.setEmptyView(R.layout.empty_view,UIUtil.getString(R.string.pager_empty));
         recyclerView.setAdapter(emptyWrapper);
     }
 }
