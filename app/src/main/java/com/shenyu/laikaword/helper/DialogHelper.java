@@ -108,7 +108,7 @@ public  final  class DialogHelper {
         TextView tvCancel = (TextView)view.findViewById(R.id.tv_cancel);
 
         tvTitle.setText(title);
-        tvMsg.setText(msg);
+
 
         if(!TextUtils.isEmpty(positiveText)){
             tvOk.setText(positiveText);
@@ -211,7 +211,7 @@ public  final  class DialogHelper {
         TextView tvMoney = view.findViewById(R.id.tv_money);
         if (StringUtil.validText(money)){
             tvMoney.setVisibility(View.VISIBLE);
-            tvMoney.setText(money);
+            tvMoney.setText("￥"+money);
         }else {
             tvMoney.setVisibility(View.GONE);
         }

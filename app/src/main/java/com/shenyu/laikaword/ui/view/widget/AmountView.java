@@ -8,6 +8,7 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,9 +21,9 @@ import com.shenyu.laikaword.R;
 
 public class AmountView extends LinearLayout implements View.OnClickListener, TextWatcher {
     private static final String TAG = "AmountView";
-    TextView btnDecrease;
+    Button btnDecrease;
     public  EditText etAmount;
-    TextView btnIncrease;
+    Button btnIncrease;
     private int amount = 1; //购买数量
     private int goods_storage = 1; //商品库存
     private OnAmountChangeListener mListener;

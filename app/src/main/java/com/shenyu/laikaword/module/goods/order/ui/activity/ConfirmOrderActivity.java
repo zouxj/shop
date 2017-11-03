@@ -77,6 +77,7 @@ public class ConfirmOrderActivity extends LKWordBaseActivity implements ConfirmO
     TextView tvZhegou;
     @BindView(R.id.tv_price_count)
     TextView priceCount;
+    private String moneyD;
     private String payType;//支付类型
     private int payFlogType = 5;
     private int count = 1;//购买数量
@@ -104,7 +105,8 @@ public class ConfirmOrderActivity extends LKWordBaseActivity implements ConfirmO
                     }
                     count = amount;
                     Double count = Double.parseDouble(mGoodBean.getDiscountPrice());
-                    priceCount.setText(StringUtil.m2(count*amount));
+                    moneyD=StringUtil.m2(count*amount);
+                    priceCount.setText("￥"+moneyD);
                 }
             }
         });
@@ -185,7 +187,7 @@ public class ConfirmOrderActivity extends LKWordBaseActivity implements ConfirmO
         switch (view.getId()) {
             case R.id.tv_to_pay:
                 //TODO 去支付
-                mConfirmOrderPresenter.cofirmPay(this.bindToLifecycle(),payFlogType,count,priceCount.getText().toString().trim());
+                mConfirmOrderPresenter.cofirmPay(this.bindToLifecycle(),payFlogType,count,moneyD);
                 break;
         }
     }
@@ -256,7 +258,8 @@ public class ConfirmOrderActivity extends LKWordBaseActivity implements ConfirmO
             tvMainShopPrice.setText("￥"+goodBean.getDiscountPrice());
             tvMainShopPurchase.setText("剩余数量" + goodBean.getStock()+"张");
             if (StringUtil.validText(goodBean.getDiscountPrice()))
-                priceCount.setText(StringUtil.m2(count * (StringUtil.formatDouble(goodBean.getDiscountPrice()))));
+                moneyD=StringUtil.m2(count * (StringUtil.formatDouble(goodBean.getDiscountPrice())));
+                priceCount.setText("￥"+moneyD);
             if (StringUtil.validText(goodBean.getStock()))
                 mAmountView.setGoods_storage(StringUtil.formatIntger(goodBean.getStock()));
         }

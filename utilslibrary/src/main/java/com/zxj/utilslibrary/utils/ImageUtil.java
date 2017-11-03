@@ -632,7 +632,7 @@ public class ImageUtil {
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(path, options);
         int inSampleSize = 1;
-        int maxSize = 3000;
+        int maxSize = 300;
         if (options.outWidth > maxSize || options.outHeight > maxSize) {
             int widthScale = (int) Math.ceil(options.outWidth * 1.0 / maxSize);
             int heightScale = (int) Math.ceil(options.outHeight * 1.0 / maxSize);

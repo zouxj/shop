@@ -148,7 +148,11 @@
         <attr name="errorButtonTextColor" format="color"/>
         <attr name="errorBackgroundColor" format="color"/>
     </declare-styleable>
-    <style name="LaikaAppTheme" parent="Theme.AppCompat.Light.DarkActionBar" tools:ignore="DuplicateDefinition">
-        <item name="android:windowDisablePreview" tools:ignore="NewApi">false</item>
+    <style name="LaikaAppTheme"  parent="@android:style/Theme.NoTitleBar.Fullscreen" tools:ignore="DuplicateDefinition">
+        <item name="android:windowBackground" tools:ignore="NewApi">@mipmap/start_icon</item>
+    </style>
+    <style name="WelcomeContentOverlay" parent="@android:style/Theme.NoTitleBar.Fullscreen">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@mipmap/start_icon</item>
     </style>
 </resources>

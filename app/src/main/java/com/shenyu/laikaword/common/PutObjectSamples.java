@@ -49,6 +49,7 @@ public class PutObjectSamples {
       return  Observable.create(new ObservableOnSubscribe<String>() {
           @Override
           public void subscribe(final ObservableEmitter<String> observableEmitter) throws Exception {
+
               OSSAsyncTask task = oss.asyncPutObject(put, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
                   @Override
                   public void onSuccess(PutObjectRequest request, PutObjectResult result) {

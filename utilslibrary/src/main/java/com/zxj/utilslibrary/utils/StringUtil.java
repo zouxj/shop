@@ -118,7 +118,7 @@ public class StringUtil {
         return time < 10 ? "0" + time : String.valueOf(time);
     }
     public static String m2(Double value) {
-                 DecimalFormat df = new DecimalFormat("#.00");
+                 DecimalFormat df = new DecimalFormat("######0.00");
                    return  df.format(value);
           }
 

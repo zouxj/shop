@@ -17,7 +17,11 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.tencent.tauth.Tencent;
 import com.zxj.utilslibrary.AndroidUtilsCore;
 import com.zxj.utilslibrary.utils.ActivityManageUtil;
+import com.zxj.utilslibrary.utils.DeviceInfo;
 import com.zxj.utilslibrary.utils.PackageManagerUtil;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import cn.jpush.android.api.JPushInterface;
 
@@ -52,8 +56,33 @@ public class LaiKaApplication extends MultiDexApplication {
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
         //Buglly配置
-        CrashReport.initCrashReport(getApplicationContext(), "1ab960f148", false);
+//        CrashReport.initCrashReport(getApplicationContext(), "1ab960f148", false);
 //        CrashReport.testJavaCrash();
+        CrashReport.UserStrategy strategy = new CrashReport.UserStrategy(this);
+//...在这里设置strategy的属性，在bugly初始化时传入
+        strategy.setAppVersion(PackageManagerUtil.getVersionCode()+"");      //App的版本
+        strategy.setAppPackageName("com.shenyu.laikaword");  //App的包名
+        strategy.setCrashHandleCallback(new CrashReport.CrashHandleCallback() {
+            public Map<String, String> onCrashHandleStart(int crashType, String errorType,
+                                                          String errorMessage, String errorStack) {
+                LinkedHashMap<String, String> map = new LinkedHashMap();
+                map.put("Key", "Value");
+                return map;
+            }
+
+            @Override
+            public byte[] onCrashHandleStart2GetExtraDatas(int crashType, String errorType,
+                                                           String errorMessage, String errorStack) {
+                try {
+                    return "Extra data.".getBytes("UTF-8");
+                } catch (Exception e) {
+                    return null;
+                }
+            }
+
+        });
+        CrashReport.initCrashReport(this, "1ab960f148", true, strategy);
+
         //leak配置
         //微信登录
          iwxapi = WXAPIFactory.createWXAPI(this, Constants.WX_APPID,false);

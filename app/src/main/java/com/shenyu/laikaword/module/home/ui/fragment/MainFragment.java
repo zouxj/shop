@@ -180,7 +180,6 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
                @Override
                public void onItemClick(BannerBean bean) {
                    IntentLauncher.with(getActivity()).put("weburl",bean.getDetailurl()).launch(GuessActivity.class);
-//                    IntentLauncher.with(getActivity()).launchViews(bean.getDetailurl());
                }
            });
        }
@@ -230,11 +229,10 @@ public void onClick(View v){
 
     @Override
     public void loadFailure() {
-//        smartRefreshLayout.setVisibility(View.GONE);
         loadViewHelper.showErrorResert(getActivity(), new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                smartRefreshLayout.setVisibility(View.VISIBLE);
+                loadViewHelper.showLoadingDialog(getActivity());
                 mainPresenter.requestData(MainFragment.this.bindToLifecycle());
             }
         });

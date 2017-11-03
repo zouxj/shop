@@ -61,8 +61,8 @@ public class WthdrawMoneyActivity extends LKWordBaseActivity {
     TextView tvTixianing;
     @BindView(R.id.tv_bank_type)
     TextView tvBankType;
-    String carID;
-
+    private String carID;
+    private String bankName =null;
     @Override
     public int bindLayout() {
         return R.layout.activity_wthdraw_money;
@@ -108,12 +108,10 @@ public class WthdrawMoneyActivity extends LKWordBaseActivity {
                     tvBankType.setText(bankName);
                     carID = model.getPayload().get(0).getCardId();
                 }
-
             }
 
             @Override
             public void onFailure(String msg) {
-
             }
 
             @Override
@@ -129,9 +127,9 @@ public class WthdrawMoneyActivity extends LKWordBaseActivity {
     @SuppressLint("NewApi")
     public Boolean isJyan(){
         Boolean bool = false;
-        String bankName = etTixianNum.getText().toString().trim();
+        String wthdrawMoney = etTixianNum.getText().toString().trim();
         String bankStr = tvBankType.getText().toString().trim();
-        if (StringUtil.validText(bankStr)&&StringUtil.validText(bankName)) {
+        if (StringUtil.validText(bankStr)&&StringUtil.validText(wthdrawMoney)) {
             if (StringUtil.formatDouble(etTixianNum.getText().toString().trim())>StringUtil.formatDouble(yue)){
                 ToastUtil.showToastShort("余额不够");
                 bool =false;
@@ -144,7 +142,6 @@ public class WthdrawMoneyActivity extends LKWordBaseActivity {
             }
         }
         else {
-//            ToastUtil.showToastShort("请选择银行和请输入正确的金额");
             bool =false;
         }
 
@@ -169,7 +166,6 @@ public class WthdrawMoneyActivity extends LKWordBaseActivity {
                             IntentLauncher.with(mActivity).launch(BoundPhoneActivity.class);
                             return;
                         }
-
                         @Override
                         public void onPositive(Dialog dialog) {
 
@@ -236,11 +232,11 @@ public class WthdrawMoneyActivity extends LKWordBaseActivity {
                 startActivityForResult(intent,0);
                 break;
             case R.id.tv_all_tixian:
-                etTixianNum.setText(tvAccountYue.getText().toString().trim());
+                etTixianNum.setText(yue);
                 break;
         }
     }
-    String bankName =null;
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

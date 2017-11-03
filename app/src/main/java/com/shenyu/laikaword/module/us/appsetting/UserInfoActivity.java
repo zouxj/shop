@@ -29,6 +29,7 @@ import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
+import java.io.File;
 import java.util.List;
 
 import javax.inject.Inject;

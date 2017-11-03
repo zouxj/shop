@@ -134,9 +134,10 @@ public class UserInfoPresenter extends BasePresenter<UserInfoView> {
         mvpView.upadteHeadImgStart();
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String newImageFileName = FileStorageUtil.getAppCacheDirPath() + timeStamp + ".JPG";
+
         //压缩图片
         String  imgUrl = ImageUtil.compressImage(filePath, newImageFileName);
-        LogUtil.i(new File(imgUrl).length()+"___file");
+        LogUtil.i("compressImg",new File(imgUrl).length()/1024);
         if (null!=imgSTSReponse) {
             final LoginReponse loginReponse = Constants.getLoginReponse();
             //想将图片上传阿里云服务器

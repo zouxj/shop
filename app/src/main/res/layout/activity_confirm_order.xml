@@ -163,8 +163,8 @@
         android:layout_marginTop="9dp"
         android:layout_width="match_parent"
         android:orientation="vertical"
-        android:layout_height="228dp">
-<TextView
+        android:layout_height="wrap_content">
+        <TextView
     android:layout_width="match_parent"
     android:gravity="center_vertical"
     android:text="支付方式"
@@ -185,8 +185,9 @@
         android:text="提示:亲爱的用户,点击支付后请于1分钟内完成支付"
         android:textColor="@color/app_theme_red"
         android:paddingLeft="10dp"
+        android:paddingTop="10dp"
         android:background="@color/main_bg_gray"
-        android:gravity="bottom"
+        android:gravity="top"
         android:layout_weight="1"
         android:textSize="@dimen/text_size_12sp"
         android:layout_width="match_parent"
@@ -200,12 +201,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:gravity="center"
-            android:layout_marginLeft="109dp"
+            android:layout_marginLeft="100dp"
             android:layout_centerVertical="true"
             android:textSize="@dimen/text_size_13sp"
             android:layout_height="wrap_content"
             android:textColor="@color/color_666"
-            android:text="合计："
+            android:text="合计： "
             />
         <TextView
             android:id="@+id/tv_price_count"

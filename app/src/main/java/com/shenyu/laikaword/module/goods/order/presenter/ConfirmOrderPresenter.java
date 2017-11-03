@@ -111,7 +111,7 @@ public class ConfirmOrderPresenter extends BasePresenter<ConfirmOrderView> {
     }
 
     private void yuePay(final LifecycleTransformer lifecycleTransformermr, final int type, final int count, final String zecount, LoginReponse loginReponse) {
-        if (StringUtil.validText(loginReponse.getPayload().getBindPhone())&&loginReponse.getPayload().getIsSetTransactionPIN()==0){
+        if (count>=1000&&StringUtil.validText(loginReponse.getPayload().getBindPhone())&&loginReponse.getPayload().getIsSetTransactionPIN()==0){
             DialogHelper.makeUpdate(mActivity, "温馨提示", "您尚未设置支付密码", "取消", "去设置", false, new DialogHelper.ButtonCallback() {
                 @Override
                 public void onNegative(Dialog dialog) {

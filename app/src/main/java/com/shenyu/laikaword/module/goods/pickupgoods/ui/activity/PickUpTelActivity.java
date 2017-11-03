@@ -69,6 +69,7 @@ public class PickUpTelActivity extends LKWordBaseActivity {
     CarPagerReponse.Bean bean;
     @Override
     public void initView() {
+        tvGoumaiCount.setText("提货数量");
         tv_bottom.setText("充值金额:");
         avZj.setOnAmountChangeListener(new AmountView.OnAmountChangeListener() {
             @Override

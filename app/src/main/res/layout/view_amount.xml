@@ -10,7 +10,7 @@
 
 
 
-    <TextView
+    <Button
         android:id="@+id/btnDecrease"
         android:layout_width="0dp"
         android:layout_height="match_parent"
@@ -36,7 +36,7 @@
 
 
 
-    <TextView
+    <Button
         android:id="@+id/btnIncrease"
         android:layout_width="0dp"
         android:layout_height="match_parent"

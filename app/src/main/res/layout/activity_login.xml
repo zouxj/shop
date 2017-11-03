@@ -10,10 +10,10 @@
     <ImageView
         android:layout_marginTop="31dp"
         android:id="@+id/iv_login_close"
-        android:layout_marginLeft="15dp"
-        android:layout_width="wrap_content"
-        android:background="@mipmap/login_close_icon"
-        android:layout_height="wrap_content" />
+        android:layout_width="45dp"
+        android:scaleType="center"
+        android:src="@mipmap/login_close_icon"
+        android:layout_height="45dp" />
     <TextView
         android:layout_width="wrap_content"
         android:text="登录"
@@ -52,21 +52,20 @@
                 android:layout_gravity="center_vertical"
                 android:background="@color/login_bg"
                 android:layout_height="@dimen/y25" />
-            <EditText
+            <com.shenyu.laikaword.ui.view.widget.ClearEditText
                 android:layout_marginLeft="@dimen/x5"
                 android:id="@+id/et_use_phone"
                 android:hint="请输入手机号"
                 android:textSize="@dimen/text_size_14sp"
                 android:textColorHint="@color/color_ccc"
                 android:layout_gravity="center_vertical"
-                android:layout_width="@dimen/x180"
+                android:layout_width="match_parent"
+                android:paddingRight="5dp"
                 android:layout_height="@dimen/x35"
                 android:maxLength="11"
                android:background="@null"
                 android:inputType="phone"
-                tools:layout_editor_absoluteX="85dp"
-                tools:layout_editor_absoluteY="97dp"
-                tools:ignore="MissingConstraints" />
+              />
 
         </LinearLayout>
 

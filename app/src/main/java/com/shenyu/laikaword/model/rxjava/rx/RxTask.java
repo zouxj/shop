@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import rx.functions.Func1;
 
@@ -46,16 +47,16 @@ public class RxTask {
 
     }
 
-    public static rx.Observable<Integer> countdown(int time) {
+    public static Observable<Long> countdown(LifecycleTransformer lifecycleTransformer,int time) {
         if (time < 0) time = 0;
         final int countTime = time;
-        return rx.Observable.interval(0, 1, TimeUnit.SECONDS)
-                .subscribeOn(rx.android.schedulers.AndroidSchedulers.mainThread())
-                .observeOn(rx.android.schedulers.AndroidSchedulers.mainThread())
-                .map(new Func1<Long, Integer>() {
+        return Observable.interval(0, 1, TimeUnit.SECONDS).compose(lifecycleTransformer)
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map(new Function<Long,Long>() {
                     @Override
-                    public Integer call(Long increaseTime) {
-                        return countTime - increaseTime.intValue();
+                    public Long apply(Long o) throws Exception {
+                        return countTime - o;
                     }
                 })
                 .take(countTime + 1);
