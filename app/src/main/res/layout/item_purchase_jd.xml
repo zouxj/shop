@@ -93,6 +93,17 @@
     <TextView
         android:id="@+id/tv_purchase_order_number"
         android:paddingLeft="35dp"
+        android:text="快递单号"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/text_size_12sp"
+        android:textColor="@color/color_999"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        />
+    <TextView
+        android:id="@+id/tv_jingd_order_number"
+        android:paddingLeft="35dp"
+        android:text="京东单号："
         android:gravity="center_vertical"
         android:textSize="@dimen/text_size_12sp"
         android:textColor="@color/color_999"

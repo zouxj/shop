@@ -102,25 +102,21 @@ public class BoundPhoneActivity extends LKWordBaseActivity {
                     public void onSuccess(BaseReponse model) {
                             if (model.isSuccess()){
                                 RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_REQUEST, null));
-                                LoginReponse loginReponse = Constants.getLoginReponse();
-                                if (loginReponse.getPayload().getIsSetTransactionPIN()==0){
-
-                                    DialogHelper.makeUpdate(mActivity, "温馨提示", "绑定手机成功,请前往设置支付密码", "取消", "去设置", true, new DialogHelper.ButtonCallback() {
-                                        @Override
-                                        public void onNegative(Dialog dialog) {
-                                            IntentLauncher.with(BoundPhoneActivity.this).put("phone",phone).launchFinishCpresent(SetPassWordMsgCodeActivity.class);
-                                        }
-
-                                        @Override
-                                        public void onPositive(Dialog dialog) {
-                                            finish();
-
-                                        }
-                                    }).show();
-
-                                }else {
                                     IntentLauncher.with(BoundPhoneActivity.this).launchFinishCpresent(AcountBdingSuccessActivity.class);
-                                }
+//                                    DialogHelper.makeUpdate(mActivity, "温馨提示", "绑定手机成功,请前往设置支付密码", "取消", "去设置", true, new DialogHelper.ButtonCallback() {
+//                                        @Override
+//                                        public void onNegative(Dialog dialog) {
+//                                            IntentLauncher.with(BoundPhoneActivity.this).put("phone",phone).launchFinishCpresent(SetPassWordMsgCodeActivity.class);
+//                                        }
+//
+//                                        @Override
+//                                        public void onPositive(Dialog dialog) {
+//
+//
+//                                        }
+//                                    }).show();
+
+
                             }else {
                                 ToastUtil.showToastShort(model.getError().getMessage());
                             }

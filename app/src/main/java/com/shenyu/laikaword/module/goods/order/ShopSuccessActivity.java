@@ -18,7 +18,7 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
 
-public class PaySuccessActivity extends LKWordBaseActivity {
+public class ShopSuccessActivity extends LKWordBaseActivity {
     @Override
     public int bindLayout() {
         return R.layout.activity_pay_success;
@@ -26,15 +26,18 @@ public class PaySuccessActivity extends LKWordBaseActivity {
 
     @Override
     public void initView() {
-        setToolBarTitle("支付完成");
+        setToolBarTitle("购买成功");
 
     }
 
-    @OnClick(R.id.tv_back_main)
+    @OnClick({R.id.tv_back_main,R.id.tv_sq_check_state})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.tv_back_main:
-                IntentLauncher.with(PaySuccessActivity.this).launchFinishCpresent(MainActivity.class);
+                IntentLauncher.with(ShopSuccessActivity.this).launchFinishCpresent(MainActivity.class);
+                break;
+            case R.id.tv_sq_check_state:
+                IntentLauncher.with(ShopSuccessActivity.this).launchFinishCpresent(CardPackageActivity.class);
                 break;
         }
     }
@@ -51,7 +54,7 @@ public class PaySuccessActivity extends LKWordBaseActivity {
 
             @Override
             public void onNext(Object o) {
-                IntentLauncher.with(PaySuccessActivity.this).launchFinishCpresent(CardPackageActivity.class);
+                IntentLauncher.with(ShopSuccessActivity.this).launchFinishCpresent(CardPackageActivity.class);
             }
 
             @Override

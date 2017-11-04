@@ -1,5 +1,6 @@
 package com.shenyu.laikaword.module.goods.pickupgoods.ui.activity;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
 import android.widget.EditText;
@@ -13,9 +14,11 @@ import com.shenyu.laikaword.helper.ImageUitls;
 import com.shenyu.laikaword.model.bean.reponse.CarPagerReponse;
 import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.helper.DialogHelper;
+import com.shenyu.laikaword.model.bean.reponse.LoginReponse;
 import com.shenyu.laikaword.model.net.api.ApiCallback;
 import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
 import com.shenyu.laikaword.di.component.ShopCommponent;
+import com.shenyu.laikaword.module.us.setpassword.SetPassWordMsgCodeActivity;
 import com.shenyu.laikaword.ui.view.widget.AmountView;
 import com.squareup.picasso.Picasso;
 import com.zxj.utilslibrary.utils.IntentLauncher;
@@ -131,6 +134,21 @@ public class PickUpTelActivity extends LKWordBaseActivity {
                     ToastUtil.showToastShort("请输入正确手机号码");
                     return;
                 }
+                LoginReponse loginReponse= Constants.getLoginReponse();
+               if (loginReponse.getPayload().getIsSetTransactionPIN()==0){
+                DialogHelper.makeUpdate(mActivity, "温馨提示", "您尚未设置支付密码", "取消", "去设置", false, new DialogHelper.ButtonCallback() {
+                    @Override
+                    public void onNegative(Dialog dialog) {
+                        IntentLauncher.with(mActivity).launch(SetPassWordMsgCodeActivity.class);
+                    }
+
+                    @Override
+                    public void onPositive(Dialog dialog) {
+
+                    }
+                }).show();
+                return;
+            }
                     Map<String,String> param = new HashMap<>();
                     param.put("packageId",bean.getPackageId());
                     param.put("quantity",count+"");

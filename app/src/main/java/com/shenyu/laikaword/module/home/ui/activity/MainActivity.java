@@ -26,6 +26,7 @@ import com.shenyu.laikaword.model.rxjava.rxbus.RxSubscriptions;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
+import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.zxj.utilslibrary.utils.ActivityManageUtil;
 import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.SPUtil;
@@ -87,7 +88,7 @@ public class MainActivity extends LKWordBaseActivity implements  MPermission.Per
                             drawerLayout.openDrawer(frameLeft);
                             break;
                             case EventType.ACTION_UPDATA_USER_REQUEST:
-                                retrofitUtils.setLifecycleTransformer(MainActivity.this.bindToLifecycle()).addSubscription(RetrofitUtils.apiStores.getUserInfo(), new ApiCallback<BaseReponse>() {
+                                retrofitUtils.setLifecycleTransformer(bindUntilEvent(ActivityEvent.DESTROY)).addSubscription(RetrofitUtils.apiStores.getUserInfo(), new ApiCallback<BaseReponse>() {
                                     @Override
                                     public void onSuccess(BaseReponse loginReponse) {
                                         if (loginReponse.isSuccess()){

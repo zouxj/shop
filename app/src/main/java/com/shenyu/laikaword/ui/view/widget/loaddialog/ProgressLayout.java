@@ -480,7 +480,6 @@ public class ProgressLayout extends RelativeLayout {
     private void hideEmptyView() {
         if (emptyStateRelativeLayout != null) {
             emptyStateRelativeLayout.setVisibility(GONE);
-
             //Restore the background color if not TRANSPARENT
             if (emptyStateBackgroundColor != Color.TRANSPARENT) {
                 this.setBackgroundDrawable(currentBackground);;

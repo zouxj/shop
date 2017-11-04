@@ -1,5 +1,6 @@
 package com.shenyu.laikaword.module.us.appsetting;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -24,6 +25,7 @@ import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
 import com.shenyu.laikaword.module.us.appsetting.updateus.UpdateUserNameActivity;
+import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
@@ -109,7 +111,15 @@ public class UserInfoActivity extends LKWordBaseActivity  implements UserInfoVie
         switch (view.getId()) {
             case R.id.set_change_user_head:
                 //TODO 更换头像
-                userInfoPresenter.updateImg(this.bindToLifecycle());
+                if (MPermission.hasPermissions(this, Manifest.permission.CAMERA)&&MPermission.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            // Have permission, do the thing!
+                userInfoPresenter.updateImg(bindUntilEvent(ActivityEvent.DESTROY));
+//          ToastUtil.showToastShort("TODO: Camera things");
+        } else {
+            // Ask for one permission
+            MPermission.requestPermissions(this, "使用摄像头需要"+UIUtil.getString(R.string.read_camere), Constants.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE);
+        }
+
                 break;
             case R.id.set_rl_user_acount_bd:
                 //TODO 更换名字
@@ -137,7 +147,7 @@ public class UserInfoActivity extends LKWordBaseActivity  implements UserInfoVie
                 }
             }
             if (!TextUtils.isEmpty(filePath)) {
-                userInfoPresenter.upladHeadImg(filePath);
+                userInfoPresenter.upladHeadImg(filePath,bindUntilEvent(ActivityEvent.DESTROY));
             }
         }
         if (requestCode == MPermissionSettingsDialog.DEFAULT_SETTINGS_REQ_CODE) {
@@ -167,11 +177,14 @@ public class UserInfoActivity extends LKWordBaseActivity  implements UserInfoVie
         switch (requestCode) {
             //相机获取权限返回结果
             case Constants.READ_EXTERNAL_STORAGE:
-                userInfoPresenter.cameraTask();
+                userInfoPresenter.updateImg(bindUntilEvent(ActivityEvent.DESTROY));
+                LogUtil.i("READ_EXTERNAL_STORAGE","cameraTask");
                 break;
             //相获取权限返回结果
+
             case Constants.RC_PHOTO_PERM:
-                userInfoPresenter.photoTask();
+                userInfoPresenter.updateImg(bindUntilEvent(ActivityEvent.DESTROY));
+                LogUtil.i("RC_PHOTO_PERM","photoTask");
                 break;
         }
     }

@@ -46,7 +46,7 @@ public interface ApiStores {
     Observable<ShopMainReponse> getMainShop();
     //获取短信验证码
     @GET("common/getSMSCode")
-    Observable<ShopMainReponse> getSMCode(@Query("phone")String phone,@Query("codeType")String codeType);
+    Observable<BaseReponse> getSMCode(@Query("phone")String phone,@Query("codeType")String codeType);
     @FormUrlEncoded
     @POST("user/setAddress")
     Observable<BaseReponse> setAddress(@FieldMap Map<String, String> map);//设置请求地址

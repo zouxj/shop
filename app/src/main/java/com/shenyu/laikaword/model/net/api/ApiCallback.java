@@ -71,16 +71,14 @@ public abstract class ApiCallback<M> implements Observer<M> {
     public void onNext(M model) {
         BaseReponse apiModel = (BaseReponse) model;
         if (null!=apiModel.getError()&&apiModel.getError().getCode() == ErrorCode.code) {
-
             ToastUtil.showToastShort(apiModel.getError().getMessage()+"请重新登录");
             //TODO do things
             SPUtil.removeSp(Constants.LOGININFO_KEY);
             RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER, null));
-            onFinish();
         }else {
             onSuccess(model);
         }
-
+        onFinish();
 
     }
 

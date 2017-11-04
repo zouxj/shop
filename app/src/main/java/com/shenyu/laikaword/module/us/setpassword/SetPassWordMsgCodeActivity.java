@@ -56,11 +56,6 @@ public class SetPassWordMsgCodeActivity extends LKWordBaseActivity {
             final String phone = loginReponse.getPayload().getBindPhone();
             if (StringUtil.validText(phone)) {
                 tvSendMsgPhone.setText(Html.fromHtml("<b>" + StringUtil.formatPhoneNumber(phone) + "</b>"));
-            }else {
-                String phones =getIntent().getStringExtra("phone");
-                if (StringUtil.validText(phones)){
-                    tvSendMsgPhone.setText(Html.fromHtml("<b>" + StringUtil.formatPhoneNumber(phones) + "</b>"));
-                }
             }
             SendMsgHelper.sendMsg(this.bindToLifecycle(),tvDownTime,phone,"setTransactionPIN");
             tvDownTime.setOnClickListener(new View.OnClickListener() {
@@ -80,11 +75,9 @@ public class SetPassWordMsgCodeActivity extends LKWordBaseActivity {
                         public void onSuccess(MsgCodeReponse model) {
                             if (model.isSuccess()) {
                                 if (typeActivity != null && typeActivity.equals("RESERT")) {
-                                    IntentLauncher.with(mActivity).put("typeActivity", typeActivity).put("codeToken", model.getPayload().getSMSToken()).launch(SetPassWordOneActivity.class);
-                                    finish();
+                                    IntentLauncher.with(mActivity).put("typeActivity", typeActivity).put("codeToken", model.getPayload().getSMSToken()).launchFinishCpresent(SetPassWordOneActivity.class);
                                 } else {
-                                    IntentLauncher.with(mActivity).put("codeToken", model.getPayload().getSMSToken()).launch(SetPassWordOneActivity.class);
-                                    finish();
+                                    IntentLauncher.with(mActivity).put("codeToken", model.getPayload().getSMSToken()).launchFinishCpresent(SetPassWordOneActivity.class);
                                 }
                             }else {
                                 ToastUtil.showToastShort(model.getError().getMessage());

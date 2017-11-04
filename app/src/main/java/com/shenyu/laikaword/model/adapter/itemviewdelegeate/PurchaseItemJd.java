@@ -49,6 +49,7 @@ public class PurchaseItemJd  implements ItemViewDelegate<PickUpGoodsReponse.Payl
         holder.setText(R.id.tv_purchase_shop_name,payloadBean.getGoodsName());
         holder.setText(R.id.tv_purchase_countmun,"X"+payloadBean.getQuantity());
         holder.setText(R.id.tv_purchase_number,"编号:"+payloadBean.getExtractId());
+        holder.setText(R.id.tv_jingd_order_number,"京东单号:" + payloadBean.getExpressId());
         ImageUitls.loadImg(payloadBean.getGoodsImage(),(ImageView) holder.getView(R.id.img_purchase_img));
 
     }

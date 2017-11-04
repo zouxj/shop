@@ -13,7 +13,7 @@ public class PurchaseViewPagerAdapter extends BaseViewPagerAdapter {
 
     public PurchaseViewPagerAdapter(FragmentManager fm) {
         super(fm);
-        mlist = new String[]{"提货中","已提货"};
+        mlist = new String[]{"提货中","已发货"};
     }
 
     @Override

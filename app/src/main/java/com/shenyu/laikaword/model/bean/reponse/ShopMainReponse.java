@@ -135,9 +135,17 @@ public class ShopMainReponse extends BaseReponse implements Serializable {
              * imageUrl : https://comingcard.com/resource/images/guess_banner1.jpg
              * link : http://comingcard.com
              */
-
+            private String rollSecond;
             private String imageUrl;
             private String link;
+
+            public String getRollSecond() {
+                return rollSecond;
+            }
+
+            public void setRollSecond(String rollSecond) {
+                this.rollSecond = rollSecond;
+            }
 
             public String getImageUrl() {
                 return imageUrl;

@@ -256,12 +256,12 @@ public class ConfirmOrderActivity extends LKWordBaseActivity implements ConfirmO
 //            tvMainShopOriginalPrice.setText(goodBean.getOriginPrice());
 //            tvMainShopOriginalPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             tvMainShopPrice.setText("￥"+goodBean.getDiscountPrice());
-            tvMainShopPurchase.setText("剩余数量" + goodBean.getStock()+"张");
+            tvMainShopPurchase.setText("剩余数量：" + goodBean.getStock()+"张");
             if (StringUtil.validText(goodBean.getDiscountPrice()))
                 moneyD=StringUtil.m2(count * (StringUtil.formatDouble(goodBean.getDiscountPrice())));
                 priceCount.setText("￥"+moneyD);
             if (StringUtil.validText(goodBean.getStock()))
-                mAmountView.setGoods_storage(StringUtil.formatIntger(goodBean.getStock()));
+                mAmountView.setGoods_storage(StringUtil.formatIntger(goodBean.getStock())>5?5:StringUtil.formatIntger(goodBean.getStock()));
         }
     }
     private void subscribeEvent() {

@@ -9,7 +9,7 @@ import com.shenyu.laikaword.model.bean.reponse.LoginReponse;
 import com.shenyu.laikaword.model.bean.reponse.PayInfoReponse;
 import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.helper.PayHelper;
-import com.shenyu.laikaword.module.goods.order.PaySuccessActivity;
+import com.shenyu.laikaword.module.goods.order.ShopSuccessActivity;
 import com.shenyu.laikaword.module.us.setpassword.SetPassWordMsgCodeActivity;
 import com.shenyu.laikaword.module.us.appsetting.acountbind.BoundPhoneActivity;
 import com.shenyu.laikaword.module.goods.order.view.ConfirmOrderView;
@@ -17,6 +17,7 @@ import com.shenyu.laikaword.model.net.api.ApiCallback;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
+import com.shenyu.laikaword.module.us.wallet.recharge.RechargeMoneyActivity;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.zxj.parlibary.resultlistener.OnAliPayListener;
 import com.zxj.utilslibrary.utils.IntentLauncher;
@@ -34,6 +35,7 @@ import java.util.Map;
 public class ConfirmOrderPresenter extends BasePresenter<ConfirmOrderView> {
 
     private Activity mActivity;
+    private LoginReponse loginReponse;
     public ConfirmOrderPresenter(Activity activity,ConfirmOrderView confirmOrderView){
         this.mvpView = confirmOrderView;
         this.mActivity=activity;
@@ -43,7 +45,7 @@ public class ConfirmOrderPresenter extends BasePresenter<ConfirmOrderView> {
     //订单支付
     public void cofirmPay(LifecycleTransformer lifecycleTransformer,final int type, final int count, final String zecount){
         //TODO 根据支付类型去实现支付方式
-        LoginReponse loginReponse = Constants.getLoginReponse();
+         loginReponse = Constants.getLoginReponse();
         if (null!=loginReponse){
             if (!StringUtil.validText(loginReponse.getPayload().getBindPhone())){
                 //第一步查看有没有绑定手机
@@ -51,7 +53,6 @@ public class ConfirmOrderPresenter extends BasePresenter<ConfirmOrderView> {
                     @Override
                     public void onNegative(Dialog dialog) {
                         IntentLauncher.with(mActivity).launch(BoundPhoneActivity.class);
-                        return;
                     }
 
                     @Override
@@ -62,7 +63,7 @@ public class ConfirmOrderPresenter extends BasePresenter<ConfirmOrderView> {
             }else {
                 switch (type){
                     case 5:
-                        yuePay(lifecycleTransformer,type, count, zecount, loginReponse);
+                        yuePay(lifecycleTransformer,type, count, zecount);
                         //TODO 余额支付
                         break;
                     case 3:
@@ -87,11 +88,9 @@ public class ConfirmOrderPresenter extends BasePresenter<ConfirmOrderView> {
                         break;
                     case 1:
                         //TODO 微信支付
-
-                        //                PayHelper.wechatPay(mActivity, new OnWechatPayListener() {
+                        // PayHelper.wechatPay(mActivity, new OnWechatPayListener() {
 //                    @Override
 //                    public void onPaySuccess(int errorCode) {
-//
 //                    }
 //
 //                    @Override
@@ -110,8 +109,22 @@ public class ConfirmOrderPresenter extends BasePresenter<ConfirmOrderView> {
 
     }
 
-    private void yuePay(final LifecycleTransformer lifecycleTransformermr, final int type, final int count, final String zecount, LoginReponse loginReponse) {
-        if (count>=1000&&StringUtil.validText(loginReponse.getPayload().getBindPhone())&&loginReponse.getPayload().getIsSetTransactionPIN()==0){
+    private void yuePay(final LifecycleTransformer lifecycleTransformermr, final int type, final int count, final String zecount) {
+        Double money = StringUtil.formatDouble(loginReponse.getPayload().getMoney());
+        if (money<StringUtil.formatDouble(zecount)) {
+            //TODO 判断余额是否够，不够提示去充值
+            DialogHelper.makeUpdate(mActivity, "温馨提示", "您的余额不够，请前往充值", "取消", "去充值", false, new DialogHelper.ButtonCallback() {
+                @Override
+                public void onNegative(Dialog dialog) {
+                    IntentLauncher.with(mActivity).launch(RechargeMoneyActivity.class);
+                }
+
+                @Override
+                public void onPositive(Dialog dialog) {
+
+                }
+            }).show();
+        }else if (loginReponse.getPayload().getIsSetTransactionPIN()==0){
             DialogHelper.makeUpdate(mActivity, "温馨提示", "您尚未设置支付密码", "取消", "去设置", false, new DialogHelper.ButtonCallback() {
                 @Override
                 public void onNegative(Dialog dialog) {
@@ -123,7 +136,7 @@ public class ConfirmOrderPresenter extends BasePresenter<ConfirmOrderView> {
 
                 }
             }).show();
-        }else if(StringUtil.validText(loginReponse.getPayload().getBindPhone())&&loginReponse.getPayload().getIsSetTransactionPIN()!=0){
+        }else if(loginReponse.getPayload().getIsSetTransactionPIN()!=0){
             //TODO 设置了密码和绑定手机,去输入校验
             DialogHelper.setInputDialog(mActivity, true,zecount, new DialogHelper.LinstenrText() {
                 @Override
@@ -163,7 +176,7 @@ public class ConfirmOrderPresenter extends BasePresenter<ConfirmOrderView> {
                             public void onNext(String resultInfo) {
                                 if (resultInfo.equals("9000")) {
                                     RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_REQUEST, null));
-                                    IntentLauncher.with(mActivity).launch(PaySuccessActivity.class);
+                                    IntentLauncher.with(mActivity).launch(ShopSuccessActivity.class);
                                 }
                                 else if (resultInfo.equals("8000"))
                                     ToastUtil.showToastShort("支付结果确认中");
@@ -195,7 +208,7 @@ public class ConfirmOrderPresenter extends BasePresenter<ConfirmOrderView> {
      * 初始化数据
      */
     public void initData(){
-        LoginReponse loginReponse = Constants.getLoginReponse();
+        loginReponse  = Constants.getLoginReponse();
          goodBean = (GoodBean)mActivity. getIntent().getSerializableExtra("order");
         mvpView.showData(loginReponse,goodBean);
     }
@@ -217,7 +230,7 @@ public class ConfirmOrderPresenter extends BasePresenter<ConfirmOrderView> {
             public void onSuccess(PayInfoReponse model) {
                 if (model.isSuccess()) {
                     RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_REQUEST, null));
-                    IntentLauncher.with(mActivity).launchFinishCpresent(PaySuccessActivity.class);
+                    IntentLauncher.with(mActivity).launchFinishCpresent(ShopSuccessActivity.class);
                 }
                 else
                     ToastUtil.showToastShort(model.getError().getMessage());

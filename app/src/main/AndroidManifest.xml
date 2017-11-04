@@ -29,6 +29,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".module.launch.StartActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/LaikaAppTheme"
             >
             <intent-filter>
@@ -133,7 +134,7 @@
             android:launchMode="singleTop"
             android:taskAffinity="com.shenyu.laikaword.wxapi.WXEntryActivity" />
         <activity android:name=".module.goods.order.ui.activity.ConfirmOrderActivity" />
-        <activity android:name=".module.goods.order.PaySuccessActivity" />
+        <activity android:name=".module.goods.order.ShopSuccessActivity" />
         <activity android:name=".module.us.bankcard.ui.activity.CardBankInfoActivity" />
         <activity android:name=".module.us.address.ui.activity.AddressInfoActivity" />
         <activity android:name=".module.us.address.ui.activity.EditAddressActivity" />

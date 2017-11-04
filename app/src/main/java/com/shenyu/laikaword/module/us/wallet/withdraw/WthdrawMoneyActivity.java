@@ -13,14 +13,10 @@ import com.jakewharton.rxbinding.widget.RxTextView;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.base.BaseReponse;
-import com.shenyu.laikaword.model.bean.reponse.AddressReponse;
 import com.shenyu.laikaword.model.bean.reponse.BankInfoReponse;
 import com.shenyu.laikaword.model.bean.reponse.LoginReponse;
 import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.helper.DialogHelper;
-import com.shenyu.laikaword.module.goods.order.PaySuccessActivity;
-import com.shenyu.laikaword.module.goods.pickupgoods.ui.activity.PickUpSuccessActivity;
-import com.shenyu.laikaword.module.us.appsetting.acountbind.BoundPhoneActivity;
 import com.shenyu.laikaword.module.us.bankcard.ui.activity.SelectBankIDActivity;
 import com.shenyu.laikaword.model.net.api.ApiCallback;
 import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
@@ -30,10 +26,8 @@ import com.shenyu.laikaword.model.rxjava.rxbus.RxSubscriptions;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
 import com.shenyu.laikaword.module.us.setpassword.SetPassWordMsgCodeActivity;
-import com.shenyu.laikaword.module.us.wallet.remaining.UserRemainingActivity;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.LogUtil;
-import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
@@ -158,22 +152,6 @@ public class WthdrawMoneyActivity extends LKWordBaseActivity {
         switch (view.getId()) {
             case R.id.tv_tixianing:
                 LoginReponse loginReponse = Constants.getLoginReponse();
-                if (!StringUtil.validText(loginReponse.getPayload().getBindPhone())){
-                    //第一步查看有没有绑定手机
-                    DialogHelper.makeUpdate(mActivity, "温馨提示", "你尚未绑定手机号码!请前往绑定?", "取消", "去绑定", false, new DialogHelper.ButtonCallback() {
-                        @Override
-                        public void onNegative(Dialog dialog) {
-                            IntentLauncher.with(mActivity).launch(BoundPhoneActivity.class);
-                            return;
-                        }
-                        @Override
-                        public void onPositive(Dialog dialog) {
-
-                        }
-                    }).show();
-                    return;
-                }
-
                 if (StringUtil.validText(loginReponse.getPayload().getBindPhone())&&loginReponse.getPayload().getIsSetTransactionPIN()==0) {
                     DialogHelper.makeUpdate(mActivity, "温馨提示", "您尚未设置支付密码", "取消", "去设置", false, new DialogHelper.ButtonCallback() {
                         @Override
@@ -188,7 +166,6 @@ public class WthdrawMoneyActivity extends LKWordBaseActivity {
                     }).show();
                     return;
                 }
-
                 String moeny = etTixianNum.getText().toString().trim();
                 moeny=StringUtil.m2(StringUtil.formatDouble(moeny));
                 final String finalMoeny = moeny;

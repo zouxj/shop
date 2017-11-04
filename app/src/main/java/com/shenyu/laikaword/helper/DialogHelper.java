@@ -104,6 +104,7 @@ public  final  class DialogHelper {
 
         TextView tvTitle = (TextView)view.findViewById(R.id.tv_title);
         TextView tvMsg  = (TextView)view.findViewById(R.id.tv_msg);
+        tvMsg.setText(msg);
         TextView tvOk = (TextView)view.findViewById(R.id.tv_ok);
         TextView tvCancel = (TextView)view.findViewById(R.id.tv_cancel);
 

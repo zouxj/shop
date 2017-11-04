@@ -1,5 +1,6 @@
 package com.shenyu.laikaword.module.login.ui.activity;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -138,7 +139,15 @@ public class LoginActivity extends LKWordBaseActivity implements LoginView,MPerm
                 loginPresenter.loginQQ(iLoginListener);
                 break;
             case R.id.tv_wechat_login:
-                loginPresenter.loginWx();
+                if (MPermission.hasPermissions(mActivity, Manifest.permission.READ_PHONE_STATE)) {
+                    // Have permission, do the thing!
+                    loginPresenter.loginWx();
+
+                } else {
+                    // Ask for one permission
+                    MPermission.requestPermissions(mActivity,"微信登录需要获取"+ UIUtil.getString(R.string.read_phone_state), com.shenyu.laikaword.common.Constants.READ_PHONE_STATE, Manifest.permission.READ_PHONE_STATE);
+                }
+
                 break;
             case R.id.iv_login_close:
                 //TODO 退出登录

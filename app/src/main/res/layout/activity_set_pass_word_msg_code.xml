@@ -27,6 +27,7 @@
         android:layout_marginTop="36dp"
         android:maxLength="6"
         android:inputType="number"
+        android:gravity="center"
         android:textCursorDrawable="@drawable/color_cursor"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/edite_bottom"

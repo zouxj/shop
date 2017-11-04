@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.ui.view.widget.loaddialog.ProgressLayout;
@@ -72,6 +73,17 @@ public class LoadViewHelper {
         loadingView = (ProgressLayout) LayoutInflater.from(activity).inflate(R.layout.include_empty_view, null);
         loadingView.showError(onClickListener);
         ((ViewGroup) activity.getWindow().getDecorView()).addView(loadingView);
+    }
+    LinearLayout linearLayout;
 
+    public void  maskView(Activity activity){
+        linearLayout= (LinearLayout) LayoutInflater.from(activity).inflate(R.layout.masking_layout, null);
+        linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                linearLayout.setVisibility(View.GONE);
+            }
+        });
+        ((ViewGroup) activity.getWindow().getDecorView()).addView(linearLayout);
     }
 }

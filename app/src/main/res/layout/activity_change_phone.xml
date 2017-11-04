@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,45 +8,44 @@
 <include layout="@layout/toolbar_layout"/>
 
     <LinearLayout
-        android:layout_marginTop="49dp"
+        android:layout_marginTop="31dp"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_centerHorizontal="true"
         android:orientation="vertical"
         android:layout_height="wrap_content">
-        <LinearLayout
+        <com.shenyu.laikaword.ui.view.widget.ClearEditText
             android:layout_width="310dp"
-            android:layout_height="45dp"
+            android:layout_height="48dp"
             android:background="@drawable/bg_login_rectangle"
             android:orientation="horizontal">
             <TextView
-                android:layout_marginLeft="@dimen/x6"
-                android:layout_width="wrap_content"
-                android:text="+ 86"
+                android:layout_marginLeft="5dp"
+                android:layout_width="26dp"
+                android:text="+86"
+                android:gravity="center"
+                android:layout_gravity="center"
                 android:textColor="@color/color_666"
                 android:textSize="@dimen/text_size_14sp"
-                android:drawablePadding="@dimen/x5"
-                android:layout_gravity="center_vertical"
-                android:drawableRight="@mipmap/login_phone"
                 android:layout_height="wrap_content" />
 
             <TextView
                 android:layout_width="1dp"
-                android:layout_marginLeft="@dimen/x5"
+                android:layout_marginLeft="5dp"
                 android:layout_gravity="center_vertical"
                 android:background="@color/login_bg"
-                android:layout_height="@dimen/y25" />
+                android:layout_height="10dp" />
             <EditText
                 android:textCursorDrawable="@drawable/color_cursor"
-                android:layout_marginLeft="@dimen/x5"
+                android:layout_marginLeft="5dp"
                 android:id="@+id/et_use_phone"
                 android:hint="请输入手机号"
-                android:textSize="@dimen/text_size_14sp"
+                android:textSize="@dimen/text_size_15sp"
                 android:textColor="@color/color_333"
                 android:textColorHint="@color/color_ccc"
                 android:layout_gravity="center_vertical"
-                android:layout_width="@dimen/x180"
-                android:layout_height="@dimen/x35"
+                android:layout_width="98dp"
+                android:layout_height="35dp"
                 android:maxLength="11"
                 android:background="@null"
                 android:inputType="phone"
@@ -55,19 +53,19 @@
                 tools:layout_editor_absoluteY="97dp"
                 tools:ignore="MissingConstraints" />
 
-        </LinearLayout>
+        </com.shenyu.laikaword.ui.view.widget.ClearEditText>
 
         <RelativeLayout
-            android:layout_height="45dp"
+            android:layout_height="48dp"
             android:layout_width="310dp"
-            android:layout_marginTop="@dimen/y10"
+            android:layout_marginTop="11dp"
             android:background="@drawable/bg_login_rectangle"
             >
             <EditText
                 android:textCursorDrawable="@drawable/color_cursor"
                 android:id="@+id/et_user_msg_code"
-                android:layout_width="@dimen/x180"
-                android:layout_height="@dimen/x35"
+                android:layout_width="131dp"
+                android:layout_height="35dp"
                 android:layout_centerVertical="true"
                 android:maxLength="6"
                 android:textSize="@dimen/text_size_14sp"
@@ -94,9 +92,9 @@
 
 
         <TextView
-            android:layout_marginTop="@dimen/x35"
+            android:layout_marginTop="37dp"
             android:id="@+id/bt_login"
-            android:layout_height="45dp"
+            android:layout_height="43dp"
             android:layout_width="310dp"
             android:gravity="center"
             android:text="确认"

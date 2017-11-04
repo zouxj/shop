@@ -153,10 +153,18 @@
           android:layout_centerVertical="true"
           android:layout_alignParentRight="true"
           >
-
       </com.shenyu.laikaword.ui.view.widget.AmountView>
-
+      <TextView
+          android:textSize="10sp"
+          android:layout_alignParentRight="true"
+          android:text="每次限购5张"
+          android:gravity="center"
+          android:layout_alignParentBottom="true"
+          android:textColor="@color/color_999"
+          android:layout_width="96dp"
+          android:layout_height="wrap_content" />
   </RelativeLayout>
+
     </LinearLayout>
     <LinearLayout
         android:background="@color/white"

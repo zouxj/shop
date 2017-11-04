@@ -58,7 +58,7 @@ public class UserInfoPresenter extends BasePresenter<UserInfoView> {
     private  Uri imageUri;
     ImgSTSReponse imgSTSReponse;
      String objectKey;
-     private LifecycleTransformer mLifecycleTransformer;
+//     private LifecycleTransformer mLifecycleTransformer;
     public UserInfoPresenter(Activity activity,UserInfoView userInfoView){
         this.activity=activity;
         this.mvpView=userInfoView;
@@ -66,8 +66,8 @@ public class UserInfoPresenter extends BasePresenter<UserInfoView> {
 
     //点击头像
     public void updateImg(LifecycleTransformer lifecycleTransformer){
-        this.mLifecycleTransformer=lifecycleTransformer;
-        getImgSts();
+//        this.mLifecycleTransformer=lifecycleTransformer;
+        getImgSts(lifecycleTransformer);
         DialogHelper.takePhoto(activity, new DialogHelper.TakePhotoListener() {
             @Override
             public void takeByPhoto() {
@@ -88,9 +88,9 @@ public class UserInfoPresenter extends BasePresenter<UserInfoView> {
     /**
      * 第一次获取上传图片的
      */
-    private void getImgSts() {
+    private void getImgSts(LifecycleTransformer lifecycleTransformer) {
         if (i==0) {
-            addSubscription(mLifecycleTransformer, RetrofitUtils.getRetrofitUtils().apiStores.getSTS(), new ApiCallback<ImgSTSReponse>() {
+            addSubscription( lifecycleTransformer,RetrofitUtils.getRetrofitUtils().apiStores.getSTS(), new ApiCallback<ImgSTSReponse>() {
                 @Override
                 public void onSuccess(ImgSTSReponse model) {
                     if (model.isSuccess()) {
@@ -129,7 +129,7 @@ public class UserInfoPresenter extends BasePresenter<UserInfoView> {
         return filePath;
     }
     //上传头像
-    public void upladHeadImg( String filePath){
+    public void upladHeadImg( String filePath,LifecycleTransformer lifecycleTransformer){
         //提示状态开始上传
         mvpView.upadteHeadImgStart();
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
@@ -142,7 +142,7 @@ public class UserInfoPresenter extends BasePresenter<UserInfoView> {
             final LoginReponse loginReponse = Constants.getLoginReponse();
             //想将图片上传阿里云服务器
             objectKey=  "a-"+System.currentTimeMillis()+"-"+((int)(Math.random()*9+1)*100000)+".png";
-            new RxTask().addSubscription(mLifecycleTransformer, new PutObjectSamples(imgSTSReponse, imgUrl, objectKey).uploadImg().flatMap(new Function<String, ObservableSource<BaseReponse>>() {
+            new RxTask().addSubscription(lifecycleTransformer, new PutObjectSamples(imgSTSReponse, imgUrl, objectKey).uploadImg().flatMap(new Function<String, ObservableSource<BaseReponse>>() {
                 @Override
                 public ObservableSource<BaseReponse> apply(String result) throws Exception {
                     if (result.equals("200")) {
@@ -209,14 +209,8 @@ public class UserInfoPresenter extends BasePresenter<UserInfoView> {
      */
     @AfterPermissionGranted(Constants.READ_EXTERNAL_STORAGE)
     public void cameraTask() {
-        if (MPermission.hasPermissions(activity, Manifest.permission.CAMERA)&&MPermission.hasPermissions(activity, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            // Have permission, do the thing!
-            dispatchTakePictureIntent();
-//          ToastUtil.showToastShort("TODO: Camera things");
-        } else {
-            // Ask for one permission
-            MPermission.requestPermissions(activity, "使用摄像头需要"+UIUtil.getString(R.string.read_camere), Constants.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE);
-        }
+        dispatchTakePictureIntent();
+
     }
 
     /**
@@ -268,13 +262,7 @@ public class UserInfoPresenter extends BasePresenter<UserInfoView> {
     //相册获取
     @AfterPermissionGranted(Constants.RC_PHOTO_PERM)
     public void photoTask(){
-        if (MPermission.hasPermissions(activity, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            // Have permission, do the thing!
-            selectImage();
-        } else {
-            // Ask for one permission
-            MPermission.requestPermissions(activity, UIUtil.getString(R.string.read_phone_state), Constants.RC_PHOTO_PERM, Manifest.permission.READ_EXTERNAL_STORAGE);
-        }
+        selectImage();
     }
 
     public void initUserData(){

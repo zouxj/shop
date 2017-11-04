@@ -3,6 +3,7 @@ package com.shenyu.laikaword.module.home.ui.fragment;
 
 import android.annotation.SuppressLint;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
 import android.view.View;
@@ -29,6 +30,7 @@ import com.shenyu.laikaword.helper.TabLayoutHelper;
 import com.shenyu.laikaword.di.module.MainModule;
 import com.shenyu.laikaword.module.home.presenter.MainPresenter;
 import com.shenyu.laikaword.module.home.view.MainView;
+import com.shenyu.laikaword.module.launch.WelcomePageActivity;
 import com.shenyu.laikaword.module.us.message.UserMessageActivity;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBusSubscriber;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxSubscriptions;
@@ -37,9 +39,12 @@ import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 import com.shenyu.laikaword.ui.view.widget.UPMarqueeView;
 import com.shenyu.laikaword.ui.web.GuessActivity;
+import com.trello.rxlifecycle2.android.ActivityEvent;
+import com.trello.rxlifecycle2.android.FragmentEvent;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.SPUtil;
+import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
 import java.util.ArrayList;
@@ -113,6 +118,7 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
         initViewpagerTop(view);
         subscribeEvent();
 
+
     }
     private void subscribeEvent() {
         RxSubscriptions.remove(mRxSub);
@@ -154,6 +160,14 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
             ImageUitls.loadImgRound(loginReponse.getPayload().getAvatar(), headImg);
 
         }
+        /**
+         * 判断第一次进入app,选择进入
+         */
+        if (!StringUtil.validText(SPUtil.getString("start_app", ""))) {
+            //TODO 第一次登录
+            loadViewHelper.maskView(getActivity());
+            SPUtil.putString("start_app", "one");
+        }
     }
     /**
      * 初始化头部效果
@@ -176,6 +190,7 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
            for (ShopMainReponse.PayloadBean.BannerBean bannerBean:bannerBeans) {
                dataList.add(new BannerBean(R.mipmap.defaul_icon,bannerBean.getImageUrl() , "desc", bannerBean.getLink()));
            }
+           bannerHelper.setLockTime(10000);
            bannerHelper.startBanner(dataList, new BannerHelper.OnItemClickListener() {
                @Override
                public void onItemClick(BannerBean bean) {
@@ -251,7 +266,7 @@ public void onClick(View v){
         RxBus.getDefault().post(new Event(EventType.ACTION_LFET_DATA,shopBeanReponse.getPayload().getEntranceList()));
         data.addAll(shopBeanReponse.getPayload().getNotice());
         setNoticeView();
-        mainPresenter.timeTask(this.bindToLifecycle());
+        mainPresenter.timeTask(this.bindUntilEvent(FragmentEvent.DESTROY));
         //        {"移动卡", "京东卡", "联通卡", "电信卡"};
         for (int j=0;j<4;j++) {
             for (int i = 0; i < shopBeanReponse.getPayload().getGoods().size(); i++) {

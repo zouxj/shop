@@ -56,9 +56,13 @@ public class BannerHelper {
     private OnPageChangeListener onPageChangeListener;
     private boolean isAutoPlay = false;
     private  int poitSize=10;
+    private int lockTime=3000;
     private BannerHelper() {
     }
 
+    public void setLockTime(int lockTime){
+        this.lockTime=lockTime;
+    }
     public void setPoitSize(int poitSize){
         this.poitSize=poitSize;
     }
@@ -239,13 +243,13 @@ public class BannerHelper {
         public void run() {
             int item = mBannerViewpager.getCurrentItem();
             mBannerViewpager.setCurrentItem((++item) % mBannerList.size(), true);
-            postDelayed(mLoopShowTask, 3000);
+            postDelayed(mLoopShowTask, lockTime);
         }
 
         public void start() {
             stop();
             if (isAutoPlay)
-                mLoopShowTask.postDelayed(mLoopShowTask, 3000);
+                mLoopShowTask.postDelayed(mLoopShowTask, lockTime);
 
 
         }

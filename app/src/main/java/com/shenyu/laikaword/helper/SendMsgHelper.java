@@ -39,7 +39,7 @@ public final class SendMsgHelper {
      * 发送短信验证码
      * @param mSend
      */
-    public static  void sendMsg(final LifecycleTransformer lifecycleTransformer, final TextView mSend, final String phone, final String codeTpe){
+    public static  void sendMsg( LifecycleTransformer lifecycleTransforme,final TextView mSend, final String phone, final String codeTpe){
         if (!StringUtil.validText(phone)){
             ToastUtil.showToastShort("请输入手机号");
             return;
@@ -61,7 +61,7 @@ public final class SendMsgHelper {
 
             @Override
             public void onFailure(String msg) {
-
+                ToastUtil.showToastShort("短信发送失败"+msg);
             }
 
             @Override

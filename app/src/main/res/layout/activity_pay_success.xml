@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context="com.shenyu.laikaword.module.goods.order.PaySuccessActivity">
+    tools:context="com.shenyu.laikaword.module.goods.order.ShopSuccessActivity">
 <include layout="@layout/toolbar_layout"/>
 
     <TextView
@@ -17,7 +17,7 @@
     
     <TextView
         android:layout_width="wrap_content"
-        android:text="支付成功"
+        android:text="购买成功"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="19dp"
         android:textColor="@color/color_333"
@@ -32,16 +32,21 @@
         android:textColor="@color/color_999"
         android:textSize="@dimen/text_size_12sp"
         android:layout_height="wrap_content" />
-    
-    <TextView
-        android:id="@+id/tv_back_main"
-        android:layout_width="306dp"
-        android:textColor="@color/app_theme_red"
-        android:textSize="@dimen/text_size_15sp"
-        android:layout_marginTop="63dp"
-        android:text="返回首页"
-        android:gravity="center"
-        android:background="@drawable/bg_paysuccess_border_rectangle"
+    <LinearLayout
+        android:layout_marginTop="154dp"
         android:layout_gravity="center_horizontal"
-        android:layout_height="48dp" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_sq_check_state"
+            style="@style/tv_operation_finsh"
+            android:text="我的卡包"
+            />
+        <TextView
+            android:layout_marginLeft="29dp"
+            android:id="@+id/tv_back_main"
+            style="@style/tv_operation_finsh"
+            android:text="返回首页"
+            />
+    </LinearLayout>
 </LinearLayout>

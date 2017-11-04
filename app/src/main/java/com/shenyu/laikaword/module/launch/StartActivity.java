@@ -65,7 +65,6 @@ public class StartActivity extends RxActivity {
         if (!StringUtil.validText(SPUtil.getString("start_app", ""))) {
             //TODO 第一次登录
             IntentLauncher.with(this).launch(WelcomePageActivity.class);
-            SPUtil.putString("start_app", "one");
             finish();
         } else {
             RetrofitUtils.getRetrofitUtils().setLifecycleTransformer(this.bindToLifecycle()).addSubscription(RetrofitUtils.apiStores.appStartUp(), new ApiCallback<StartBannerGuangKReponse>() {

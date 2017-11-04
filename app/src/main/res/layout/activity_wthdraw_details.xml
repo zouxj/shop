@@ -57,7 +57,7 @@
             <TextView
                 style="@style/bank_add_one"
                 android:layout_centerVertical="true"
-                android:text="存储卡"
+                android:text="储蓄卡"
                 />
             <TextView
                 android:id="@+id/tv_card"

@@ -86,13 +86,8 @@ public class LoginPresenter extends BasePresenter<LoginView> {
 
     //微信登录
     public void loginWx(){
-        if (MPermission.hasPermissions(mActivity, Manifest.permission.READ_PHONE_STATE)) {
-            // Have permission, do the thing!
-            loginWX();
-        } else {
-            // Ask for one permission
-            MPermission.requestPermissions(mActivity,"微信登录需要获取"+ UIUtil.getString(R.string.read_phone_state), Constants.READ_PHONE_STATE, Manifest.permission.READ_PHONE_STATE);
-        }
+        loginWX();
+
 
     }
     public void loginWX(){

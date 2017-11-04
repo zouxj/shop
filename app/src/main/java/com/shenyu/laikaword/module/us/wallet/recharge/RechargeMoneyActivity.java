@@ -1,6 +1,7 @@
 package com.shenyu.laikaword.module.us.wallet.recharge;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
 import android.widget.EditText;
@@ -11,6 +12,9 @@ import android.widget.TextView;
 import com.jakewharton.rxbinding.widget.RxTextView;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
+import com.shenyu.laikaword.common.Constants;
+import com.shenyu.laikaword.helper.DialogHelper;
+import com.shenyu.laikaword.model.bean.reponse.LoginReponse;
 import com.shenyu.laikaword.model.bean.reponse.PayInfoReponse;
 import com.shenyu.laikaword.helper.PayHelper;
 import com.shenyu.laikaword.model.net.api.ApiCallback;
@@ -18,9 +22,11 @@ import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
+import com.shenyu.laikaword.module.us.appsetting.acountbind.BoundPhoneActivity;
 import com.zxj.parlibary.resultlistener.OnAliPayListener;
 import com.zxj.parlibary.resultlistener.QqPayListener;
 import com.zxj.utilslibrary.utils.IntentLauncher;
+import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
@@ -71,37 +77,27 @@ public class RechargeMoneyActivity extends LKWordBaseActivity {
     public void onClick(View view){
         switch (view.getId()){
             case R.id.recharge_tv_next:
+                LoginReponse loginReponse = Constants.getLoginReponse();
+                if (null!=loginReponse){
+                    if (!StringUtil.validText(loginReponse.getPayload().getBindPhone())) {
+                        //第一步查看有没有绑定手机
+                        DialogHelper.makeUpdate(mActivity, "温馨提示", "你尚未绑定手机号码!请前往绑定?", "取消", "去绑定", false, new DialogHelper.ButtonCallback() {
+                            @Override
+                            public void onNegative(Dialog dialog) {
+                                IntentLauncher.with(mActivity).launch(BoundPhoneActivity.class);
+
+                            }
+
+                            @Override
+                            public void onPositive(Dialog dialog) {
+
+                            }
+                        }).show();
+                        return;
+                    }
+
+                }
                 if (type==3){
-                    //阿里支付
-//                    RetrofitUtils.getRetrofitUtils().apiStores.rechargeMoney(rechargeRbNum.getText().toString().trim(), type).flatMap(new Func1<PayInfoReponse, Observable<String>>() {
-//                        @Override
-//                        public Observable<String> call(final PayInfoReponse payInfoReponse) {
-//                            return Observable.create(new Observable.OnSubscribe<String>() {
-//                                @Override
-//                                public void call(final Subscriber<? super String> subscriber) {
-//                                    PayHelper.aliPaySafely(payInfoReponse.getPayload().getPayInfo(),RechargeMoneyActivity.this, new OnAliPayListener() {
-//                                        @Override
-//                                        public void onNext(String resultInfo) {
-//                                            subscriber.onNext(resultInfo);
-//                                            subscriber.onCompleted();
-//                                        }
-//                                    });
-//                                }
-//                            });
-//                        }
-//                    }).subscribeOn(Schedulers.io())
-//                       .observeOn(AndroidSchedulers.mainThread())
-//                            .subscribe(new Action1<String>() {
-//                                @Override
-//                                public void call(String resultInfo) {
-//                                    if (resultInfo.equals("9000"))
-//                                        ToastUtil.showToastShort("支付成功");
-//                                    else if(resultInfo.equals("8000"))
-//                                        ToastUtil.showToastShort("支付结果确认中");
-//                                    else
-//                                        ToastUtil.showToastShort("支付失败");
-//                                }
-//                    });
                    retrofitUtils.addSubscription(RetrofitUtils.apiStores.rechargeMoney(rechargeRbNum.getText().toString().trim(), type), new ApiCallback<PayInfoReponse>() {
                         @Override
                         public void onSuccess(PayInfoReponse model) {
