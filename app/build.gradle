@@ -43,8 +43,8 @@ android {
     buildTypes {
         release {
             signingConfig signingConfigs.release
-            minifyEnabled false
-            shrinkResources false
+            minifyEnabled true
+            shrinkResources true
             zipAlignEnabled true
             debuggable true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -139,4 +139,5 @@ dependencies {
     // If you want to use Android Lifecycle for providers
     compile 'com.trello.rxlifecycle2:rxlifecycle-android-lifecycle:2.2.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    compile 'com.umeng.analytics:analytics:latest.integration'
 }

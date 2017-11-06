@@ -64,8 +64,7 @@ public class StartActivity extends RxActivity {
 //去掉Activity上面的状态栏
         if (!StringUtil.validText(SPUtil.getString("start_app", ""))) {
             //TODO 第一次登录
-            IntentLauncher.with(this).launch(WelcomePageActivity.class);
-            finish();
+            IntentLauncher.with(this).launchFinishCpresent(WelcomePageActivity.class);
         } else {
             RetrofitUtils.getRetrofitUtils().setLifecycleTransformer(this.bindToLifecycle()).addSubscription(RetrofitUtils.apiStores.appStartUp(), new ApiCallback<StartBannerGuangKReponse>() {
                 @Override
@@ -111,29 +110,29 @@ public class StartActivity extends RxActivity {
 
                 }
             });
+
+            Observable.interval(3, TimeUnit.SECONDS).take(1).compose(this.<Long>bindToLifecycle()).subscribe(new Observer<Long>() {
+                @Override
+                public void onSubscribe(Disposable d) {
+
+                }
+
+                @Override
+                public void onNext(Long aLong) {
+
+                }
+
+                @Override
+                public void onError(Throwable e) {
+
+                }
+
+                @Override
+                public void onComplete() {
+                    IntentLauncher.with(StartActivity.this).launchFinishCpresent(MainActivity.class);
+                }
+            });
         }
-        Observable.interval(3, TimeUnit.SECONDS).take(1).compose(this.<Long>bindToLifecycle()).subscribe(new Observer<Long>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-
-            }
-
-            @Override
-            public void onNext(Long aLong) {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onComplete() {
-                IntentLauncher.with(StartActivity.this).launchFinishCpresent(MainActivity.class);
-            }
-        });
-
     }
 
 

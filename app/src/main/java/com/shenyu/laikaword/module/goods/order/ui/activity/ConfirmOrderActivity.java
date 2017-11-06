@@ -251,10 +251,10 @@ public class ConfirmOrderActivity extends LKWordBaseActivity implements ConfirmO
         }
         if (goodBean != null) {
             ImageUitls.loadImg(goodBean.getGoodsImage(),imgOrder);
-            tvZhegou.setText(goodBean.getDiscount() + "折");
+            StringBuilder sb = new StringBuilder(goodBean.getDiscount());//构造一个StringBuilder对象
+            sb.insert(1, ".");//在指定的
+            tvZhegou.setText(sb+ "折");
             tvShopName.setText(goodBean.getGoodsName());
-//            tvMainShopOriginalPrice.setText(goodBean.getOriginPrice());
-//            tvMainShopOriginalPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             tvMainShopPrice.setText("￥"+goodBean.getDiscountPrice());
             tvMainShopPurchase.setText("剩余数量：" + goodBean.getStock()+"张");
             if (StringUtil.validText(goodBean.getDiscountPrice()))

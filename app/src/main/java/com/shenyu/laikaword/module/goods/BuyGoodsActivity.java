@@ -45,7 +45,6 @@ public class BuyGoodsActivity extends LKWordBaseActivity {
     public void initView() {
         setToolBarTitle("我的购买");
         payload = new ArrayList<>();
-
         recyclerView.addItemDecoration(new RecycleViewDivider(this,LinearLayoutManager.HORIZONTAL,(int) UIUtil.dp2px(9),UIUtil.getColor(R.color.main_bg_gray)));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         CommonAdapter commonAdapter=    new CommonAdapter<OrderListReponse.PayloadBean>(R.layout.item_goods,payload) {
@@ -55,7 +54,8 @@ public class BuyGoodsActivity extends LKWordBaseActivity {
                 holder.setText(R.id.tv_goumai_indent_no,"订单编号:"+payloadBean.getOrderNo());
                 TextView textoriginalPrice = holder.getView(R.id.tv_goumai_shop_original_price);
                 textoriginalPrice.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-                holder.setText(R.id.tv_goumai_state,payloadBean.getPayStatus().equals("0")?"交易失败":"交易成功");
+
+                holder.setText(R.id.tv_goumai_state,payloadBean.getPayStatus().equals("1")?"交易成功":"交易失败");
                 holder.setText(R.id.tv_goumai_time, DateTimeUtil.formatDate(Long.parseLong(payloadBean.getCreateTime()),"yyyy-MM-dd HH:mm:ss"));
                 if (payloadBean.getGoods()!=null) {
                     if (payloadBean.getGoods().size() > 0) {

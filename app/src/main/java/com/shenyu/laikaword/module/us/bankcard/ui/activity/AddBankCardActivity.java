@@ -74,7 +74,7 @@ public class AddBankCardActivity extends LKWordBaseActivity implements AddBankVi
                     @Override
                     public Boolean call(CharSequence charSequence, CharSequence charSequence2, CharSequence charSequence3, CharSequence charSequence4, CharSequence charSequence5) {
                            return StringUtil.validText(charSequence.toString().trim()) && StringUtil.validText(charSequence2.toString().trim()) &&
-                                StringUtil.validText(charSequence3.toString().trim()) && StringUtil.validText(charSequence4.toString().trim())&&StringUtil.validText(charSequence5.toString().trim())&&bankNo(charSequence.toString());
+                                StringUtil.validText(charSequence3.toString().trim()) && StringUtil.validText(charSequence4.toString().trim())&&StringUtil.validText(charSequence5.toString().trim())&&StringUtil.validText(charSequence.toString());
                     }
                 }).subscribe(new Action1<Boolean>() {
             @SuppressLint("NewApi")
@@ -109,6 +109,7 @@ public class AddBankCardActivity extends LKWordBaseActivity implements AddBankVi
             case R.id.bt_add_bank:
                 //TODO 保存下发
                     getValue();
+                    bankNo(cardNum);
                     addBankPresenter.setAddRequest(this.bindToLifecycle(),cardNum, bankName, bankZhangName, bankUserName, bankProvince, bankCity);
                 break;
 
@@ -177,6 +178,7 @@ public class AddBankCardActivity extends LKWordBaseActivity implements AddBankVi
         bankName = etAddBankYinhang.getText().toString().trim();
         bankZhangName = editTextZhang.getText().toString().trim();
         bankUserName = etUserName.getText().toString().trim();
+
     }
 
     @Override

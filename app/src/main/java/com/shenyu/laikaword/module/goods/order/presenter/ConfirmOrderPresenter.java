@@ -169,25 +169,25 @@ public class ConfirmOrderPresenter extends BasePresenter<ConfirmOrderView> {
         addSubscription(lifecycleTransformer,apiStores.createOrder(param), new ApiCallback<PayInfoReponse>() {
                 @Override
                 public void onSuccess(PayInfoReponse model) {
-                    if (model.isSuccess())
-                        PayHelper.aliPaySafely(model.getPayload().getPayInfo(),mActivity, new OnAliPayListener() {
+                    if (model.isSuccess()) {
+                        PayHelper.aliPaySafely(model.getPayload().getPayInfo(), mActivity, new OnAliPayListener() {
 
                             @Override
                             public void onNext(String resultInfo) {
                                 if (resultInfo.equals("9000")) {
                                     RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_REQUEST, null));
                                     IntentLauncher.with(mActivity).launch(ShopSuccessActivity.class);
-                                }
-                                else if (resultInfo.equals("8000"))
+                                } else if (resultInfo.equals("8000"))
                                     ToastUtil.showToastShort("支付结果确认中");
-                                else if(resultInfo.equals("6001"))
+                                else if (resultInfo.equals("6001"))
                                     ToastUtil.showToastShort("支付取消");
                                 else
                                     ToastUtil.showToastShort("支付失败");
                             }
                         });
-                    else
+                    }else {
                         ToastUtil.showToastShort(model.getError().getMessage());
+                    }
 
                 }
 
@@ -232,8 +232,9 @@ public class ConfirmOrderPresenter extends BasePresenter<ConfirmOrderView> {
                     RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_REQUEST, null));
                     IntentLauncher.with(mActivity).launchFinishCpresent(ShopSuccessActivity.class);
                 }
-                else
+                else {
                     ToastUtil.showToastShort(model.getError().getMessage());
+                }
 
             }
 

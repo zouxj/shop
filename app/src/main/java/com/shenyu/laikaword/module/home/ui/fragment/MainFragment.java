@@ -31,6 +31,8 @@ import com.shenyu.laikaword.di.module.MainModule;
 import com.shenyu.laikaword.module.home.presenter.MainPresenter;
 import com.shenyu.laikaword.module.home.view.MainView;
 import com.shenyu.laikaword.module.launch.WelcomePageActivity;
+import com.shenyu.laikaword.module.login.ui.activity.LoginActivity;
+import com.shenyu.laikaword.module.us.appsetting.UserInfoActivity;
 import com.shenyu.laikaword.module.us.message.UserMessageActivity;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBusSubscriber;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxSubscriptions;
@@ -206,7 +208,13 @@ public void onClick(View v){
             RxBus.getDefault().post(new Event(EventType.ACTION_OPONE_LEFT,""));
             break;
         case R.id.iv_message:
-            IntentLauncher.with(getActivity()).launch(UserMessageActivity.class);
+            LoginReponse loginReponse = Constants.getLoginReponse();
+            if (null!=loginReponse) {
+                IntentLauncher.with(getActivity()).launch(UserMessageActivity.class);
+            }else{
+                IntentLauncher.with(getActivity()).launch(LoginActivity.class);
+            }
+
             break;
     }
 }

@@ -75,10 +75,9 @@ public abstract class ApiCallback<M> implements Observer<M> {
             //TODO do things
             SPUtil.removeSp(Constants.LOGININFO_KEY);
             RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER, null));
-        }else {
-            onSuccess(model);
         }
-        onFinish();
+        onSuccess(model);
+
 
     }
 

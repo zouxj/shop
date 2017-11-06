@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.ui.view.widget.ProgressWebView;
+import com.umeng.analytics.MobclickAgent;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.LogUtil;
 
@@ -39,6 +40,7 @@ public class GuessActivity extends LKWordBaseActivity {
         wbLoad.loadUrl(webURL);
 
     }
+
 
     @SuppressLint("NewApi")
     private void initWebView() {
@@ -121,6 +123,7 @@ public class GuessActivity extends LKWordBaseActivity {
     protected void onResume() {
         super.onResume();
         wbLoad.onResume();
+        MobclickAgent.onPageStart("GuessActivity");
     }
 
     @SuppressLint("NewApi")
@@ -128,6 +131,7 @@ public class GuessActivity extends LKWordBaseActivity {
     protected void onPause() {
         super.onPause();
         wbLoad.onPause();
+        MobclickAgent.onPageEnd("GuessActivity");
     }
 
     @Override

@@ -17,6 +17,7 @@ import com.shenyu.laikaword.model.net.api.ApiCallback;
 import com.shenyu.laikaword.module.login.view.LoginView;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.trello.rxlifecycle2.LifecycleTransformer;
+import com.umeng.analytics.MobclickAgent;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
@@ -52,6 +53,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
             public void onSuccess(LoginReponse model) {
                 if (model.isSuccess()){
                     //TODO 登录成功
+                    MobclickAgent.onProfileSignIn(model.getPayload().getBindPhone());
                     SPUtil.putString(Constants.TOKEN,model.getPayload().getToken());
                     SPUtil.saveObject(Constants.LOGININFO_KEY,model);
                     ToastUtil.showToastShort("登录成功");
@@ -120,6 +122,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
                 @Override
                 public void onSuccess(LoginReponse model) {
                     if (model.isSuccess()){
+                        MobclickAgent.onProfileSignIn("qq",model.getPayload().getUserId());
                         mvpView.showUser(model);
                         SPUtil.saveObject(Constants.LOGININFO_KEY,model);
                         SPUtil.putString(Constants.TOKEN,model.getPayload().getToken());

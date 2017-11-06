@@ -17,6 +17,7 @@ import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+import com.umeng.analytics.MobclickAgent;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.SPUtil;
@@ -111,6 +112,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                                 @Override
                                 public void onSuccess(LoginReponse model) {
                                     if (model.isSuccess()) {
+                                        MobclickAgent.onProfileSignIn("WX",model.getPayload().getUserId());
                                         SPUtil.saveObject(Constants.LOGININFO_KEY, model);
                                         SPUtil.putString(Constants.TOKEN, model.getPayload().getToken());
                                         IntentLauncher.with(WXEntryActivity.this).launch(MainActivity.class);

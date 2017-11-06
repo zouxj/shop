@@ -15,6 +15,7 @@ import com.tencent.bugly.crashreport.CrashReport;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.tencent.tauth.Tencent;
+import com.umeng.analytics.MobclickAgent;
 import com.zxj.utilslibrary.AndroidUtilsCore;
 import com.zxj.utilslibrary.utils.ActivityManageUtil;
 import com.zxj.utilslibrary.utils.DeviceInfo;
@@ -53,6 +54,7 @@ public class LaiKaApplication extends MultiDexApplication {
      */
     public void initSdk(){
         //极光配置
+        MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
         //Buglly配置

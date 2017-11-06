@@ -135,10 +135,12 @@
 -keep class com.google.gson.stream.** { *; }
 -keepattributes EnclosingMethod
 -keep class com.shenyu.laikaword.model.bean.reponse.**{*;}
--keep class com.shenyu.laikaword.model.bean.common.JsonBean
--keep class com.zxj.utilslibrary.utils.JsonUtils
+-keep class com.shenyu.laikaword.model.bean.common.**{*;}
+-keep class com.shenyu.laikaword.model.net.api.**{*;}
 
--keep class com.shenyu.laikaword.helper.CityDataHelper
+#-keep class com.zxj.utilslibrary.utils.JsonUtils
+#
+#-keep class com.shenyu.laikaword.helper.CityDataHelper
 #okhttp3
 -dontwarn com.squareup.okhttp3.**
 -keep class com.squareup.okhttp3.** { *;}
@@ -217,3 +219,18 @@
 -keep class com.tencent.open.PKDialog {*;}
 -keep class com.tencent.open.PKDialog$*
 -keep class com.tencent.open.PKDialog$* {*;}
+#-dontwarn com.tencent.stat.**
+#-keep class com.tencent.stat.** {*;}
+#-dontwarn com.tencent.**
+#-keep class com.-dontwarn com.tencent.stat.**
+#-keep class com.tencent.stat.** {*;}tencent.** {*;}
+-keepclassmembers class * {
+   public <init> (org.json.JSONObject);
+}
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+-keep public class [com.shenyu.laikaword].R$*{
+public static final int *;
+}

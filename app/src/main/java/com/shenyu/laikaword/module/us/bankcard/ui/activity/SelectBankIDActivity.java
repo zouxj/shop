@@ -23,6 +23,7 @@ import com.shenyu.laikaword.model.rxjava.rxbus.RxBusSubscriber;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxSubscriptions;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
+import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
@@ -116,7 +117,7 @@ public class SelectBankIDActivity extends LKWordBaseActivity {
             }
         };
          emptyWrapper = new EmptyWrapper(commonAdapter);
-        emptyWrapper.setEmptyView(R.layout.empty_view,UIUtil.getString(R.string.money_empty));
+        emptyWrapper.setEmptyView(R.layout.empty_view,UIUtil.getString(R.string.bank_empty));
         recyclerView.setAdapter(emptyWrapper);
     }
     @OnClick(R.id.tv_commit_selector)
@@ -175,7 +176,7 @@ public class SelectBankIDActivity extends LKWordBaseActivity {
     protected void initData() {
        carID= getIntent().getStringExtra("carID");
         loadViewHelper.showLoadingDialog(this);
-        retrofitUtils.addSubscription(RetrofitUtils.apiStores.getBankCard(), new ApiCallback<BankInfoReponse>() {
+        retrofitUtils.setLifecycleTransformer(bindUntilEvent(ActivityEvent.DESTROY)).addSubscription(RetrofitUtils.apiStores.getBankCard(), new ApiCallback<BankInfoReponse>() {
             @Override
             public void onSuccess(BankInfoReponse model) {
                 if (model.isSuccess()) {

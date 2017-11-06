@@ -45,6 +45,7 @@ public class Constants {
     public static final String QQ_APPID="101425071";
     public static final String WX_APPID="wx72f8cc7bb98bfa4d";
     public static final String KEY_VALUE="124uj13nejk31h4u3faenfiu3h923jalkd";
+    public static final String UMENG_ID="59ffd891aed1797aa8000196";
     public static synchronized String getToken() {
         return SPUtil.getString(TOKEN,"");
     }
