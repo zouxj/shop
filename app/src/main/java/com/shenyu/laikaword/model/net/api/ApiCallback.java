@@ -57,11 +57,10 @@ public abstract class ApiCallback<M> implements Observer<M> {
             onFailure(msg);
 
         } else {
-            onFailure(e.getMessage());
+            onFailure("网络异常");
 
         }
 
-        onFailure(e.getMessage());
 
     }
 

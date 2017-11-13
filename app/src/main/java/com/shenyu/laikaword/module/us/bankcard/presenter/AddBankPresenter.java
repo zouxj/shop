@@ -83,8 +83,9 @@ public class AddBankPresenter extends BasePresenter<AddBankView> {
             public void onSuccess(BaseReponse model) {
                     if (!model.isSuccess())
                         ToastUtil.showToastShort(model.getError().getMessage());
+                    else
                 mvpView.loadFinished();
-            }
+        }
 
 
             @Override
@@ -93,7 +94,7 @@ public class AddBankPresenter extends BasePresenter<AddBankView> {
             }
             @Override
             public void onFinish() {
-                mvpView.loadFinished();
+//                mvpView.loadFinished();
             }
         });
 

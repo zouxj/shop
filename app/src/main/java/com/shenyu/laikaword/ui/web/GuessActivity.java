@@ -2,6 +2,7 @@ package com.shenyu.laikaword.ui.web;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.ViewGroup;
@@ -47,7 +48,8 @@ public class GuessActivity extends LKWordBaseActivity {
         WebSettings webSettings = wbLoad.getSettings();
         webSettings.setUserAgentString("laikashopapp");
         webSettings.setAllowContentAccess(true);
-        webSettings.setAppCacheEnabled(false);
+        webSettings.setAppCacheEnabled(true);
+        webSettings.setAllowFileAccess(true);
         webSettings.setLoadWithOverviewMode(true);
 //       webSettings.setUseWideViewPort(true); //将图片调整到适合webview的大小
 //       webSettings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
@@ -68,6 +70,9 @@ public class GuessActivity extends LKWordBaseActivity {
         webSettings.setJavaScriptEnabled(true);
         // 设置允许JS弹窗
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+            webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        }
 
     }
 

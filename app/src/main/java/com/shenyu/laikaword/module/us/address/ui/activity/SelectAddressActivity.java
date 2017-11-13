@@ -63,7 +63,7 @@ public class SelectAddressActivity extends LKWordBaseActivity {
     CommonAdapter<AddressReponse.PayloadBean> commonAdapter;
     Intent intent;
     Bundle bundle;
-    static int selectedPosition =-1;
+     int selectedPosition =-1;
 
     @Override
     public void doBusiness(Context context) {

@@ -1,6 +1,5 @@
 package com.shenyu.laikaword.module.us.appsetting;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -8,25 +7,16 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
-
-import com.alibaba.sdk.android.oss.ClientException;
-import com.alibaba.sdk.android.oss.ServiceException;
 import com.leo618.mpermission.AfterPermissionGranted;
-import com.leo618.mpermission.MPermission;
-import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.BasePresenter;
 import com.shenyu.laikaword.base.BaseReponse;
 import com.shenyu.laikaword.common.PutObjectSamples;
 import com.shenyu.laikaword.model.bean.reponse.ImgSTSReponse;
 import com.shenyu.laikaword.model.bean.reponse.LoginReponse;
 import com.shenyu.laikaword.common.Constants;
-import com.shenyu.laikaword.Interactor.ProgressCallback;
 import com.shenyu.laikaword.model.net.api.ApiCallback;
 import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
 import com.shenyu.laikaword.model.rxjava.rx.RxTask;
-import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
-import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
-import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.zxj.utilslibrary.utils.FileStorageUtil;
 import com.zxj.utilslibrary.utils.ImageUtil;
@@ -41,8 +31,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import io.reactivex.ObservableSource;
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Function;
 
 import static com.shenyu.laikaword.common.Constants.REQUEST_IMAGE_CAPTURE;

@@ -45,7 +45,7 @@ public class DetailMoneyActivity extends LKWordBaseActivity {
 
     @Override
     public void initView() {
-        setToolBarTitle("资金明细");
+        setToolBarTitle("余额明细");
         smartRefreshLayout.setEnableRefresh(false);
         smartRefreshLayout.setEnableLoadmore(true);
         smartRefreshLayout.setRefreshFooter(new ClassicsFooter(mActivity));

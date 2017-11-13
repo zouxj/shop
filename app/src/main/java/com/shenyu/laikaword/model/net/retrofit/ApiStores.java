@@ -100,7 +100,7 @@ public interface ApiStores {
     @GET("user/messageList")//获取消息
     Observable<MessageReponse> messageList();
     @GET("order/myOrderList")//购买记录
-    Observable<OrderListReponse> myOrderList();
+    Observable<OrderListReponse> myOrderList(@Query("page") int page,@Query("pageSize") int pageSize);
     @FormUrlEncoded
     @POST("account/rechargemoney")//余额充值
     Observable<PayInfoReponse> rechargeMoney(@Field("money") String money, @Field("payWay") int payWay);

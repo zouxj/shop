@@ -109,7 +109,9 @@ public class AddBankCardActivity extends LKWordBaseActivity implements AddBankVi
             case R.id.bt_add_bank:
                 //TODO 保存下发
                     getValue();
-                    bankNo(cardNum);
+                   if (!bankNo(cardNum))
+                        ToastUtil.showToastShort("请输入正确的卡号");
+                       else
                     addBankPresenter.setAddRequest(this.bindToLifecycle(),cardNum, bankName, bankZhangName, bankUserName, bankProvince, bankCity);
                 break;
 
@@ -138,12 +140,12 @@ public class AddBankCardActivity extends LKWordBaseActivity implements AddBankVi
         }
     }
     private   boolean bankNo(String bankNO){
-        if (StringUtil.checkBankCard(bankNO))
+        if (StringUtil.validText(bankNO)&&bankNO.length()>=16)
             return true;
-            else {
-                ToastUtil.showToastShort("请输入正确的银行卡号");
-            return false;
-        }
+        else
+        return false;
+
+
     }
 
 
@@ -160,8 +162,8 @@ public class AddBankCardActivity extends LKWordBaseActivity implements AddBankVi
     @Override
     public void loadFinished() {
         loadViewHelper.closeLoadingDialog();
-        RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_BANK, null));
         ToastUtil.showToastShort("添加成功");
+        RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_BANK, null));
         finish();
     }
 

@@ -112,14 +112,12 @@ public class UserInfoActivity extends LKWordBaseActivity  implements UserInfoVie
             case R.id.set_change_user_head:
                 //TODO 更换头像
                 if (MPermission.hasPermissions(this, Manifest.permission.CAMERA)&&MPermission.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            // Have permission, do the thing!
-                userInfoPresenter.updateImg(bindUntilEvent(ActivityEvent.DESTROY));
+                  userInfoPresenter.updateImg(bindUntilEvent(ActivityEvent.DESTROY));
 //          ToastUtil.showToastShort("TODO: Camera things");
         } else {
             // Ask for one permission
             MPermission.requestPermissions(this, "使用摄像头需要"+UIUtil.getString(R.string.read_camere), Constants.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE);
         }
-
                 break;
             case R.id.set_rl_user_acount_bd:
                 //TODO 更换名字
@@ -177,15 +175,15 @@ public class UserInfoActivity extends LKWordBaseActivity  implements UserInfoVie
         switch (requestCode) {
             //相机获取权限返回结果
             case Constants.READ_EXTERNAL_STORAGE:
-                userInfoPresenter.updateImg(bindUntilEvent(ActivityEvent.DESTROY));
-                LogUtil.i("READ_EXTERNAL_STORAGE","cameraTask");
+                ToastUtil.showToastShort(R.string.write_external_storage +"");
+//                userInfoPresenter.updateImg(bindUntilEvent(ActivityEvent.DESTROY));
+//                LogUtil.i("READ_EXTERNAL_STORAGE","cameraTask");
                 break;
             //相获取权限返回结果
-
-            case Constants.RC_PHOTO_PERM:
-                userInfoPresenter.updateImg(bindUntilEvent(ActivityEvent.DESTROY));
-                LogUtil.i("RC_PHOTO_PERM","photoTask");
-                break;
+//            case Constants.READ_EXTERNAL_STORAGE:
+//                userInfoPresenter.updateImg(bindUntilEvent(ActivityEvent.DESTROY));
+//                LogUtil.i("RC_PHOTO_PERM","photoTask");
+//                break;
         }
     }
 

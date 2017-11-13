@@ -83,6 +83,7 @@ public  class WelcomePageActivity extends LKWordBaseActivity {
     }
     private void initData() {
         //test data
+        mBannerHelper.setCirculate(false);
         final List<BannerBean> dataList = new ArrayList<>();
         dataList.add(new BannerBean(R.mipmap.pager_weclome_one, "", null, null));
         dataList.add(new BannerBean(R.mipmap.pager_weclome_two, "", null, null));

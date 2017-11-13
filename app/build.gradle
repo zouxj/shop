@@ -54,20 +54,40 @@ android {
         }
 
     }
-    flavorDimensions "color"
+    flavorDimensions "laikashop"
     productFlavors {
-        dev {
-            manifestPlaceholders = [channel: "dev"]
-            dimension "color"
+        anbei {
+            manifestPlaceholders = [channel: "anbei"]
+            dimension "laikashop"
         }
-        official {
-            manifestPlaceholders = [channel: "official"]
-            dimension "color"
+        anfei {
+            manifestPlaceholders = [channel: "anfei"]
+            dimension "laikashop"
         }
 
-        wandoujia {
-            manifestPlaceholders = [channel: "wandoujia"]
-            dimension "color"
+        androidgoin {
+            manifestPlaceholders = [channel: "androidgoin"]
+            dimension "laikashop"
+        }
+        pc6 {
+            manifestPlaceholders = [channel: "pc6"]
+            dimension "laikashop"
+        }
+        yingyongbao {
+            manifestPlaceholders = [channel: "yingyongbao"]
+            dimension "laikashop"
+        }
+        vivo {
+            manifestPlaceholders = [channel: "vivo"]
+            dimension "laikashop"
+        }
+        huawei {
+            manifestPlaceholders = [channel: "huawei"]
+            dimension "laikashop"
+        }
+        s360 {
+            manifestPlaceholders = [channel: "360"]
+            dimension "laikashop"
         }
     }
     applicationVariants.all { variant ->

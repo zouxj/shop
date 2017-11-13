@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
 import com.squareup.picasso.Picasso;
+import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
@@ -57,6 +58,10 @@ public class BannerHelper {
     private boolean isAutoPlay = false;
     private  int poitSize=10;
     private int lockTime=3000;
+    /**
+     * 是否无线循坏
+     */
+    private Boolean mCirculate=true;
     private BannerHelper() {
     }
 
@@ -266,8 +271,11 @@ public class BannerHelper {
         public int getCount() {
             if (mBannerList.size() == 1) {
                 return 1;
-            } else {
+            } else if (mCirculate){
                 return Integer.MAX_VALUE;
+
+            }else {
+                return mBannerList.size();
             }
         }
 
@@ -294,8 +302,8 @@ public class BannerHelper {
             ImageView iv = new ImageView(mBannerRootLayout.getContext());
             iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
             iv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-
             BannerBean item = mBannerList.get(position % mBannerList.size());
+            LogUtil.i(position % mBannerList.size()+"______________");
             //TODO use img loader here to load net img
 //            iv.setImageResource(item.getTestImgResId());
            if (StringUtil.validText(item.getImgurl())) {
@@ -335,6 +343,11 @@ public void setOnPageChangeListener(OnPageChangeListener onPageChangeListener){
      */
     public interface OnItemClickListener {
         void onItemClick(BannerBean bean);
+    }
+
+
+    public void setCirculate(boolean circulate){
+        this.mCirculate=circulate;
     }
     public void setIsAuto(boolean auto){
         this.isAutoPlay = auto;

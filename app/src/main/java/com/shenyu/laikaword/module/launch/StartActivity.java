@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
+import com.shenyu.laikaword.helper.ImageUitls;
 import com.shenyu.laikaword.model.bean.reponse.StartBannerGuangKReponse;
 import com.shenyu.laikaword.model.net.api.ApiCallback;
 import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
@@ -74,7 +75,9 @@ public class StartActivity extends RxActivity {
                         imageView.setVisibility(View.VISIBLE);
                         textView.setVisibility(View.VISIBLE);
                         String url = payload.getImageUrl();
-                        Picasso.with(UIUtil.getContext()).load(url).placeholder(R.mipmap.start_icon).error(R.mipmap.start_icon).into(imageView);
+                        if (StringUtil.validText(url)) {
+                            Picasso.with(UIUtil.getContext()).load(url).placeholder(R.mipmap.start_icon).error(R.mipmap.start_icon).into(imageView);
+                        }
                         RxTask.countdown(StartActivity.this.bindToLifecycle(), 3).subscribe(new Observer<Long>() {
                             @Override
                             public void onSubscribe(Disposable d) {

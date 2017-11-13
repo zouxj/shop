@@ -33,7 +33,6 @@ public class WthdrawDetailsActivity extends LKWordBaseActivity {
 
     @Override
     public void initView() {
-        super.initView();
         setTitle("提现详情");
         setToolBarLeft(0,"",View.GONE);
         tvWthdrawTime.setText(DateTimeUtil.formatDate(DateTimeUtil.getEndDayOfTomorrow(),"yyyy-MM-dd HH:mm:ss"));

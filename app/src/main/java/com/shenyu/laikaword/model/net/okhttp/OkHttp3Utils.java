@@ -20,7 +20,7 @@ public class OkHttp3Utils {
     private static OkHttpClient mOkHttpClient;
     //    private static SSLSocketFactory sslSocketFactory;
     //设置缓存目录
-    private static File cacheDirectory = new File(FileStorageUtil.getAppCacheDirPath(), "MyCache");
+    private static File cacheDirectory = new File(FileStorageUtil.getAppCacheDirPath(), "LaikaCache");
     private static Cache cache = new Cache(cacheDirectory, 10 * 1024 * 1024);
 
     /**
@@ -77,7 +77,12 @@ public class OkHttp3Utils {
                     loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
                     //设置 Debug Log 模式
                     builder.addInterceptor(loggingInterceptor);
+//                    builder.addInterceptor(new CacheControlIntercepter());
+//                    builder.addNetworkInterceptor(new CacheControlIntercepter());
                     builder.addInterceptor(new CommonParamntercepter());
+                    builder.retryOnConnectionFailure(true);// 设置进行连接失败重试
+//                    builder.cache(cache);
+
                     mOkHttpClient = builder.build();
 
                 }

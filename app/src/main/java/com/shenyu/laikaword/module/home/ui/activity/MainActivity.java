@@ -201,6 +201,7 @@ public class MainActivity extends LKWordBaseActivity implements  MPermission.Per
         switch (requestCode) {
             //相机获取权限返回结果
             case Constants.READ_EXTERNAL_STORAGE:
+//                ToastUtil.showToastShort(R.string.write_external_storage +"");
                 new UpdateManager(mActivity).gerNewVersion(false);
                 break;
         }

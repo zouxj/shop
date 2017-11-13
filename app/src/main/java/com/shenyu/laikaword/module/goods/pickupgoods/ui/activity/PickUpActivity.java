@@ -86,7 +86,6 @@ public class PickUpActivity extends LKWordBaseActivity {
 
     @Override
     public void doBusiness(Context context) {
-
         payloadBean= (AddressReponse.PayloadBean) SPUtil.readObject("SAVA_ADDRESS");
         if (payloadBean!=null){
             Spanned dizhi= Html.fromHtml("<font color='#333333' >"+payloadBean.getReceiveName()+payloadBean.getPhone()+"</font><br/><font color='#999999' >"+payloadBean.getProvince()+payloadBean.getCity()+payloadBean.getDetail()+"</font>");

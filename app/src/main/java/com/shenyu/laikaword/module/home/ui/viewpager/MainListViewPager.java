@@ -41,7 +41,6 @@ import rx.android.schedulers.AndroidSchedulers;
 
 public class MainListViewPager extends BaseViewPager {
 
-
     RecyclerView recycleView;
     CommonAdapter commonAdapter;
     EmptyWrapper emptyWrappe;
@@ -119,11 +118,11 @@ public class MainListViewPager extends BaseViewPager {
 private void  setData(int position){
         if (null==goods)
         return;
+        listBeans.clear();
         switch (position){
         case 0:
         for (ShopMainReponse.PayloadBean.GoodsBean goodsBeans:goods){
         if (goodsBeans.getType().equals("yd")){
-        listBeans.clear();
         listBeans.addAll(goodsBeans.getList());
         }
         }
@@ -131,7 +130,6 @@ private void  setData(int position){
         case 1:
         for (ShopMainReponse.PayloadBean.GoodsBean goodsBeans:goods){
         if (goodsBeans.getType().equals("jd")){
-        listBeans.clear();
         listBeans.addAll(goodsBeans.getList());
         }
         }
@@ -139,7 +137,6 @@ private void  setData(int position){
         case 2:
         for (ShopMainReponse.PayloadBean.GoodsBean goodsBeans:goods){
         if (goodsBeans.getType().equals("lt")){
-        listBeans.clear();
         listBeans.addAll(goodsBeans.getList());
         }
         }
@@ -147,14 +144,12 @@ private void  setData(int position){
         case 3:
         for (ShopMainReponse.PayloadBean.GoodsBean goodsBeans:goods){
         if (goodsBeans.getType().equals("dx")){
-        listBeans.clear();
         listBeans.addAll(goodsBeans.getList());
         }
         }
         break;
-
         }
-    emptyWrappe.notifyDataSetChanged();
+     emptyWrappe.notifyDataSetChanged();
         }
 
 private void subscribeEvent() {

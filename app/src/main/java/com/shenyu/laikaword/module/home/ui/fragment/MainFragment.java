@@ -252,13 +252,14 @@ public void onClick(View v){
 
     @Override
     public void loadFailure() {
-        loadViewHelper.showErrorResert(getActivity(), new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                loadViewHelper.showLoadingDialog(getActivity());
-                mainPresenter.requestData(MainFragment.this.bindToLifecycle());
-            }
-        });
+        loadViewHelper.closeLoadingDialog();
+//        loadViewHelper.showErrorResert(getActivity(), new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                loadViewHelper.showLoadingDialog(getActivity());
+//                mainPresenter.requestData(MainFragment.this.bindToLifecycle());
+//            }
+//        });
     }
 
 

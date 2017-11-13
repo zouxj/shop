@@ -32,7 +32,7 @@
             android:id="@+id/tv_tihuo_tianxia"
             android:textSize="@dimen/text_size_17sp"
             android:layout_width="150dp"
-            android:hint="13266834341"
+            android:hint="请输入电话号码"
             android:layout_height="25dp" />
 
     </LinearLayout>

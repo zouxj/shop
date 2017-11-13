@@ -15,6 +15,7 @@ import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.helper.UpdateManager;
+import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
@@ -29,8 +30,6 @@ import butterknife.OnClick;
  * 关于我们
  */
 public class AboutAppActivity extends LKWordBaseActivity implements MPermission.PermissionCallbacks {
-
-
     @BindView(R.id.tv_new_version)
     TextView tvNewVersion;
     @Override
@@ -54,7 +53,7 @@ public class AboutAppActivity extends LKWordBaseActivity implements MPermission.
     public void setupActivityComponent() {
 
     }
-
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == MPermissionSettingsDialog.DEFAULT_SETTINGS_REQ_CODE) {
             // Do something after user returned from app settings screen, like showing a Toast.
@@ -72,7 +71,6 @@ public class AboutAppActivity extends LKWordBaseActivity implements MPermission.
                     // Have permission, do the thing!
                   new UpdateManager(mActivity).gerNewVersion(true);
 
-
                     //TODO去更新
                 } else {
                     // Ask for one permission
@@ -86,7 +84,7 @@ public class AboutAppActivity extends LKWordBaseActivity implements MPermission.
                 Intent intentpf = new Intent(Intent.ACTION_VIEW,uri);
                 intentpf.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intentpf);
-                break;
+            break;
         }
     }
 
@@ -109,6 +107,7 @@ public class AboutAppActivity extends LKWordBaseActivity implements MPermission.
         switch (requestCode) {
             //安装权限
             case Constants.INTALL_APK:
+//                LogUtil.i("获取到了到了权限");
                 new UpdateManager(mActivity).gerNewVersion(true);
             break;
         }

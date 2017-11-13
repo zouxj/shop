@@ -188,6 +188,7 @@ public class LoginActivity extends LKWordBaseActivity implements LoginView,MPerm
         switch (requestCode) {
             //相机获取权限返回结果
             case com.shenyu.laikaword.common.Constants.READ_PHONE_STATE:
+//                ToastUtil.showToastShort(R.string.write_external_storage +"");
                 loginPresenter.loginWx();
                 break;
         }
