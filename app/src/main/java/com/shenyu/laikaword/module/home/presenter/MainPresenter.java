@@ -1,32 +1,27 @@
 package com.shenyu.laikaword.module.home.presenter;
 
-import android.widget.ImageView;
-
-import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.BasePresenter;
+import com.shenyu.laikaword.model.bean.reponse.GoodBean;
+import com.shenyu.laikaword.model.bean.reponse.GoodsBean;
+import com.shenyu.laikaword.model.bean.reponse.GoodsListReponse;
 import com.shenyu.laikaword.module.home.view.MainView;
 import com.shenyu.laikaword.model.bean.reponse.ShopMainReponse;
-import com.shenyu.laikaword.common.CircleTransform;
 import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.model.net.api.ApiCallback;
 import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
-import com.squareup.picasso.Picasso;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.zxj.utilslibrary.utils.SPUtil;
-import com.zxj.utilslibrary.utils.StringUtil;
-import com.zxj.utilslibrary.utils.UIUtil;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Function;
-import io.reactivex.internal.observers.FullArbiterObserver;
 import io.reactivex.schedulers.Schedulers;
 
 
@@ -61,14 +56,64 @@ public class MainPresenter extends BasePresenter<MainView> {
         });
 
     }
-    public void onLoadMore(){
-//        List<String> moreList = new ArrayList<>();
-//        for (int i=0;i<10;i++){
-//            moreList.add("more"+i);
-//        }
-//        mvpView.loadMore(moreList);
-    }
 
+    /**
+     * 上拉加载更多
+     * @param lifecycleTransformer
+     * @return
+     */
+    int page =2;
+    public  void  onLoadMore(LifecycleTransformer lifecycleTransformer,int type){
+        String types = null;
+        switch (type){
+            case 0:
+                types="yd";
+                break;
+            case 1:
+                types="jd";
+                break;
+            case 2:
+                types="lt";
+                break;
+            case 3:
+                types="dx";
+                break;
+        }
+        addSubscription(lifecycleTransformer,apiStores.getGoodsList(types,page,20), new ApiCallback<GoodsListReponse>() {
+            @Override
+            public void onSuccess(GoodsListReponse model) {
+                List<GoodBean> list=new ArrayList<>();
+                if (model.isSuccess()&&model.getPayload()!=null&&model.getPayload().size()>0) {
+                    for (GoodsListReponse.PayloadBean payloadBean:model.getPayload()){
+                        GoodBean goodBean = new GoodBean();
+                        goodBean.setDiscount(payloadBean.getDiscount());
+                        goodBean.setDiscountPrice(payloadBean.getDiscountPrice());
+                        goodBean.setGoodsId(payloadBean.getGoodsId());
+                        goodBean.setGoodsImage(payloadBean.getGoodsImage());
+                        goodBean.setNickName(payloadBean.getNickName());
+                        goodBean.setStock(payloadBean.getStock());
+                        goodBean.setSellerAvatar(payloadBean.getSellerAvatar());
+                        goodBean.setGoodsName(payloadBean.getNickName());
+                        goodBean.setOriginPrice(payloadBean.getOriginPrice());
+                        list.add(goodBean);
+                    }
+                   page++;
+
+                }
+                mvpView.loadMore(list);
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                mvpView.loadFailure();
+            }
+
+            @Override
+            public void onFinish() {
+                mvpView.loadFinished();
+            }
+        });
+    }
     /**
      * 下拉刷新
      */
@@ -77,6 +122,7 @@ public class MainPresenter extends BasePresenter<MainView> {
             @Override
             public void onSuccess(ShopMainReponse model) {
                 if (model.isSuccess()) {
+                    page=2;
                     SPUtil.saveObject(Constants.MAIN_SHOP_KEY,model);
                     RxBus.getDefault().post(new Event(EventType.ACTION_MAIN_SETDATE,model.getPayload().getGoods()));
                 }

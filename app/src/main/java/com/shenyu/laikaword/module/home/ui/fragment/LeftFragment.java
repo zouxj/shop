@@ -147,7 +147,7 @@ public class LeftFragment extends IKWordBaseFragment {
         LoginReponse loginReponse = Constants.getLoginReponse();
         if (null!=loginReponse&&loginReponse.getPayload()!=null){
             ImageUitls.loadImgRound(loginReponse.getPayload().getAvatar(),tvUserHead);
-       tvUserName.setText(loginReponse.getPayload().getNickname());
+             tvUserName.setText(loginReponse.getPayload().getNickname());
         }
     }
 

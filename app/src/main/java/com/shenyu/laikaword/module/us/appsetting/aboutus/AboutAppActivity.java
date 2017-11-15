@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
@@ -15,15 +14,12 @@ import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.helper.UpdateManager;
-import com.zxj.utilslibrary.utils.LogUtil;
+import com.zxj.utilslibrary.utils.PackageManagerUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
-
 import java.util.List;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -32,6 +28,8 @@ import butterknife.OnClick;
 public class AboutAppActivity extends LKWordBaseActivity implements MPermission.PermissionCallbacks {
     @BindView(R.id.tv_new_version)
     TextView tvNewVersion;
+    @BindView(R.id.tv_version)
+    TextView tvVersion;
     @Override
     public int bindLayout() {
         return R.layout.activity_about_app;
@@ -40,6 +38,7 @@ public class AboutAppActivity extends LKWordBaseActivity implements MPermission.
     @Override
     public void initView() {
         setToolBarTitle("关于我们");
+        tvVersion.setText("来卡商城:"+PackageManagerUtil.getVersionName(UIUtil.getContext()));
     }
 
     @Override

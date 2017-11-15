@@ -14,7 +14,7 @@ import com.shenyu.laikaword.helper.UpdateManager;
 import com.shenyu.laikaword.module.launch.LaiKaApplication;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
-import com.shenyu.laikaword.base.BaseReponse;
+import com.shenyu.laikaword.model.bean.reponse.BaseReponse;
 import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.di.module.MainModule;
 import com.shenyu.laikaword.module.home.ui.fragment.LeftFragment;

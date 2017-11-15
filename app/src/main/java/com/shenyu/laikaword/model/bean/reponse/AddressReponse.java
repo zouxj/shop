@@ -4,7 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
-import com.shenyu.laikaword.base.BaseReponse;
 
 import java.io.Serializable;
 import java.util.List;

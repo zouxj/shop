@@ -23,7 +23,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 26
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -56,6 +56,10 @@ android {
     }
     flavorDimensions "laikashop"
     productFlavors {
+        baidu {
+            manifestPlaceholders = [channel: "baidu"]
+            dimension "laikashop"
+        }
         anbei {
             manifestPlaceholders = [channel: "anbei"]
             dimension "laikashop"
@@ -87,6 +91,14 @@ android {
         }
         s360 {
             manifestPlaceholders = [channel: "360"]
+            dimension "laikashop"
+        }
+        oppo{
+            manifestPlaceholders = [channel: "oppo"]
+            dimension "laikashop"
+        }
+        ali{
+            manifestPlaceholders = [channel: "ali"]
             dimension "laikashop"
         }
     }
@@ -136,9 +148,7 @@ dependencies {
     //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
     compile 'com.tencent.bugly:nativecrashreport:latest.release'
     //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
-    compile('com.aliyun.ams:alicloud-android-hotfix:3.0.9') {
-        exclude(module: 'alicloud-android-utdid')
-    }
+    compile 'com.aliyun.ams:alicloud-android-hotfix:3.0.9'
     compile 'com.github.hotchemi:permissionsdispatcher-processor:2.3.1'
     annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:2.3.1'
     implementation 'com.squareup.picasso:picasso:2.5.2'
@@ -158,7 +168,5 @@ dependencies {
     implementation 'com.squareup.okio:okio:1.13.0'
     compile 'com.trello.rxlifecycle2:rxlifecycle-android-lifecycle:2.2.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-
-
     compile 'com.umeng.analytics:analytics:latest.integration'
 }

@@ -1,7 +1,5 @@
 package com.shenyu.laikaword.model.bean.reponse;
 
-import com.shenyu.laikaword.base.BaseReponse;
-
 import java.io.Serializable;
 import java.util.List;
 

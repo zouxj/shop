@@ -1,10 +1,11 @@
 package com.shenyu.laikaword.model.net.retrofit;
 
-import com.shenyu.laikaword.base.BaseReponse;
+import com.shenyu.laikaword.model.bean.reponse.BaseReponse;
 import com.shenyu.laikaword.model.bean.reponse.AddressReponse;
 import com.shenyu.laikaword.model.bean.reponse.BankInfoReponse;
 import com.shenyu.laikaword.model.bean.reponse.CarPagerReponse;
 import com.shenyu.laikaword.model.bean.reponse.CheckAppUpdateReponse;
+import com.shenyu.laikaword.model.bean.reponse.GoodsListReponse;
 import com.shenyu.laikaword.model.bean.reponse.ImgSTSReponse;
 import com.shenyu.laikaword.model.bean.reponse.LoginReponse;
 import com.shenyu.laikaword.model.bean.reponse.MessageReponse;
@@ -86,7 +87,7 @@ public interface ApiStores {
     @POST("user/validateTransactionPIN")//校验支付密码
     Observable<BaseReponse> validateTransactionPIN(@Field("transactionPIN") String transactionPIN);
     @GET("goods/list")//请求商品列表
-    Observable<ShopMainReponse> getGoodsList();
+    Observable<GoodsListReponse> getGoodsList(@Query("type") String type, @Query("page") int page, @Query("pageSize") int pageSize);
     @GET("common/getSTS")//获取图片上传STS
     Observable<ImgSTSReponse> getSTS();
     @GET("order/cardPack")//获取卡包

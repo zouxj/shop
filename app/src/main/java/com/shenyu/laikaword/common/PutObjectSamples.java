@@ -13,17 +13,13 @@ import com.alibaba.sdk.android.oss.common.auth.OSSStsTokenCredentialProvider;
 import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
 import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
-import com.shenyu.laikaword.Interactor.ProgressCallback;
-import com.shenyu.laikaword.base.BaseReponse;
 import com.shenyu.laikaword.model.bean.reponse.ImgSTSReponse;
 import com.zxj.utilslibrary.utils.LogUtil;
-import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.Observer;
 
 /**
  * Created by shenyu_zxjCode on 2017/10/26 0026.

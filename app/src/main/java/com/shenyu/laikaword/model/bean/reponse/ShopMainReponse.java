@@ -1,7 +1,5 @@
 package com.shenyu.laikaword.model.bean.reponse;
 
-import com.shenyu.laikaword.base.BaseReponse;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -190,60 +188,52 @@ public class ShopMainReponse extends BaseReponse implements Serializable {
             }
         }
 
-        public  class GoodsBean extends OnErrorNotImplementedException implements Serializable {
-            /**
-             * type : dx
-             * name : 电信卡
-             * weight : 1
-             * list : [{"goodsId":"1","goodsName":"测试商品","goodsImage":"https://t.comingcard.com/resource/images/yd-100.jpg","discount":"9.5","nickName":"卖家昵称","originPrice":"100","discountPrice":"95","stock":"100"},{"goodsId":"1","goodsName":"测试商品","goodsImage":"https://t.comingcard.com/resource/images/yd-100.jpg","discount":"9.5","nickName":"卖家昵称","originPrice":"100","discountPrice":"95","stock":"100"},{"goodsId":"1","goodsName":"测试商品","goodsImage":"https://t.comingcard.com/resource/images/yd-100.jpg","discount":"9.5","nickName":"卖家昵称","originPrice":"100","discountPrice":"95","stock":"100"},{"goodsId":"1","goodsName":"测试商品","goodsImage":"https://t.comingcard.com/resource/images/yd-100.jpg","discount":"9.5","nickName":"卖家昵称","originPrice":"100","discountPrice":"95","stock":"100"},{"goodsId":"1","goodsName":"测试商品","goodsImage":"https://t.comingcard.com/resource/images/yd-100.jpg","discount":"9.5","nickName":"卖家昵称","originPrice":"100","discountPrice":"95","stock":"100"},{"goodsId":"1","goodsName":"测试商品","goodsImage":"https://t.comingcard.com/resource/images/yd-100.jpg","discount":"9.5","nickName":"卖家昵称","originPrice":"100","discountPrice":"95","stock":"100"},{"goodsId":"1","goodsName":"测试商品","goodsImage":"https://t.comingcard.com/resource/images/yd-100.jpg","discount":"9.5","nickName":"卖家昵称","originPrice":"100","discountPrice":"95","stock":"100"},{"goodsId":"1","goodsName":"测试商品","goodsImage":"https://t.comingcard.com/resource/images/yd-100.jpg","discount":"9.5","nickName":"卖家昵称","originPrice":"100","discountPrice":"95","stock":"100"},{"goodsId":"1","goodsName":"测试商品","goodsImage":"https://t.comingcard.com/resource/images/yd-100.jpg","discount":"9.5","nickName":"卖家昵称","originPrice":"100","discountPrice":"95","stock":"100"},{"goodsId":"1","goodsName":"测试商品","goodsImage":"https://t.comingcard.com/resource/images/yd-100.jpg","discount":"9.5","nickName":"卖家昵称","originPrice":"100","discountPrice":"95","stock":"100"}]
-             */
+    }
 
-            private String type;
-            private String name;
-            private String weight;
-            private List<GoodBean> list;
+    public static class GoodsBean  implements Serializable {
+        /**
+         * type : dx
+         * name : 电信卡
+         * weight : 1
+         * list : [{"goodsId":"1","goodsName":"测试商品","goodsImage":"https://t.comingcard.com/resource/images/yd-100.jpg","discount":"9.5","nickName":"卖家昵称","originPrice":"100","discountPrice":"95","stock":"100"},{"goodsId":"1","goodsName":"测试商品","goodsImage":"https://t.comingcard.com/resource/images/yd-100.jpg","discount":"9.5","nickName":"卖家昵称","originPrice":"100","discountPrice":"95","stock":"100"},{"goodsId":"1","goodsName":"测试商品","goodsImage":"https://t.comingcard.com/resource/images/yd-100.jpg","discount":"9.5","nickName":"卖家昵称","originPrice":"100","discountPrice":"95","stock":"100"},{"goodsId":"1","goodsName":"测试商品","goodsImage":"https://t.comingcard.com/resource/images/yd-100.jpg","discount":"9.5","nickName":"卖家昵称","originPrice":"100","discountPrice":"95","stock":"100"},{"goodsId":"1","goodsName":"测试商品","goodsImage":"https://t.comingcard.com/resource/images/yd-100.jpg","discount":"9.5","nickName":"卖家昵称","originPrice":"100","discountPrice":"95","stock":"100"},{"goodsId":"1","goodsName":"测试商品","goodsImage":"https://t.comingcard.com/resource/images/yd-100.jpg","discount":"9.5","nickName":"卖家昵称","originPrice":"100","discountPrice":"95","stock":"100"},{"goodsId":"1","goodsName":"测试商品","goodsImage":"https://t.comingcard.com/resource/images/yd-100.jpg","discount":"9.5","nickName":"卖家昵称","originPrice":"100","discountPrice":"95","stock":"100"},{"goodsId":"1","goodsName":"测试商品","goodsImage":"https://t.comingcard.com/resource/images/yd-100.jpg","discount":"9.5","nickName":"卖家昵称","originPrice":"100","discountPrice":"95","stock":"100"},{"goodsId":"1","goodsName":"测试商品","goodsImage":"https://t.comingcard.com/resource/images/yd-100.jpg","discount":"9.5","nickName":"卖家昵称","originPrice":"100","discountPrice":"95","stock":"100"},{"goodsId":"1","goodsName":"测试商品","goodsImage":"https://t.comingcard.com/resource/images/yd-100.jpg","discount":"9.5","nickName":"卖家昵称","originPrice":"100","discountPrice":"95","stock":"100"}]
+         */
 
-            public GoodsBean(String message, Throwable e) {
-                super(message, e);
-            }
-
-            public GoodsBean(Throwable e) {
-                super(e);
-            }
+        private String type;
+        private String name;
+        private String weight;
+        private List<GoodBean> list;
 
 
-            public String getType() {
-                return type;
-            }
+        public String getType() {
+            return type;
+        }
 
-            public void setType(String type) {
-                this.type = type;
-            }
+        public void setType(String type) {
+            this.type = type;
+        }
 
-            public String getName() {
-                return name;
-            }
+        public String getName() {
+            return name;
+        }
 
-            public void setName(String name) {
-                this.name = name;
-            }
+        public void setName(String name) {
+            this.name = name;
+        }
 
-            public String getWeight() {
-                return weight;
-            }
+        public String getWeight() {
+            return weight;
+        }
 
-            public void setWeight(String weight) {
-                this.weight = weight;
-            }
+        public void setWeight(String weight) {
+            this.weight = weight;
+        }
 
-            public List<GoodBean> getList() {
-                return list;
-            }
+        public List<GoodBean> getList() {
+            return list;
+        }
 
-            public void setList(List<GoodBean> list) {
-                this.list = list;
-            }
-
-
-        }}
+        public void setList(List<GoodBean> list) {
+            this.list = list;
+        }
+    }
 }

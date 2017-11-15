@@ -1,7 +1,6 @@
 package com.shenyu.laikaword.model.bean.reponse;
 
 import com.google.gson.annotations.SerializedName;
-import com.shenyu.laikaword.base.BaseReponse;
 
 import java.util.List;
 

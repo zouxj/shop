@@ -234,3 +234,5 @@
 -keep public class [com.shenyu.laikaword].R$*{
 public static final int *;
 }
+-keep class com.zxj.utilslibrary$*
+-keep class com.zxj.utilslibrary$* {*;}

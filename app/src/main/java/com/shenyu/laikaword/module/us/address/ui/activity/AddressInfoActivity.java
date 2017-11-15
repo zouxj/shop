@@ -13,7 +13,7 @@ import com.shenyu.laikaword.model.adapter.CommonAdapter;
 import com.shenyu.laikaword.model.adapter.ViewHolder;
 import com.shenyu.laikaword.model.adapter.wrapper.EmptyWrapper;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
-import com.shenyu.laikaword.base.BaseReponse;
+import com.shenyu.laikaword.model.bean.reponse.BaseReponse;
 import com.shenyu.laikaword.model.bean.reponse.AddressReponse;
 import com.shenyu.laikaword.helper.DialogHelper;
 import com.shenyu.laikaword.helper.RecycleViewDivider;
@@ -251,7 +251,5 @@ public class AddressInfoActivity extends LKWordBaseActivity {
         });
 
     }
-
-
 
 }

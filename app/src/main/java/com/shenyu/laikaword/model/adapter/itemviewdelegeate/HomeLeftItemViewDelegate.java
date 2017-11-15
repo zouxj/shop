@@ -61,34 +61,54 @@ public class HomeLeftItemViewDelegate implements ItemViewDelegate<ShopMainRepons
             @Override
             public void onClick(View view) {
                 LoginReponse loginReponse = (LoginReponse) SPUtil.readObject(Constants.LOGININFO_KEY);
-                if (null==loginReponse) {
-                    IntentLauncher.with(mActivity).launch(LoginActivity.class);
-                    return;
-                }
                 switch (position){
                     case 0:
                         //TODO 我的余额
+                        if (null==loginReponse) {
+                            IntentLauncher.with(mActivity).launch(LoginActivity.class);
+                            return;
+                        }
                         IntentLauncher.with(mActivity).launch(UserRemainingActivity.class);
                         break;
                     case 1:
                         //TODO 我的购买
+                        if (null==loginReponse) {
+                            IntentLauncher.with(mActivity).launch(LoginActivity.class);
+                            return;
+                        }
                         IntentLauncher.with(mActivity).launch(BuyGoodsActivity.class);
                         break;
                     case 2:
                         //TODO 我的提货
+                        if (null==loginReponse) {
+                            IntentLauncher.with(mActivity).launch(LoginActivity.class);
+                            return;
+                        }
                         IntentLauncher.with(mActivity).launch(PurchaseCardActivity.class);
                         break;
                     case 3:
                         //TODO 我的卡包
+                        if (null==loginReponse) {
+                            IntentLauncher.with(mActivity).launch(LoginActivity.class);
+                            return;
+                        }
                         IntentLauncher.with(mActivity).launch(CardPackageActivity.class);
                         break;
                     case 4:
                         //TODO 我的银行卡
+                        if (null==loginReponse) {
+                            IntentLauncher.with(mActivity).launch(LoginActivity.class);
+                            return;
+                        }
                         IntentLauncher.with(mActivity).launch(CardBankInfoActivity.class);
 
                         break;
                     case 5:
                         //TODO 我的地址
+                        if (null==loginReponse) {
+                            IntentLauncher.with(mActivity).launch(LoginActivity.class);
+                            return;
+                        }
                         IntentLauncher.with(mActivity).launch(AddressInfoActivity.class);
                         break;
                     default:

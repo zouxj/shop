@@ -32,6 +32,8 @@ import com.zxj.utilslibrary.utils.UIUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 
@@ -44,7 +46,7 @@ public class MainListViewPager extends BaseViewPager {
     RecyclerView recycleView;
     CommonAdapter commonAdapter;
     EmptyWrapper emptyWrappe;
-    List<ShopMainReponse.PayloadBean.GoodsBean> goods;
+    List<ShopMainReponse.GoodsBean> goods;
     List<GoodBean> listBeans=new ArrayList<>();
     private int mType=0;
     private Subscription mRxSub;
@@ -99,8 +101,6 @@ public class MainListViewPager extends BaseViewPager {
         IntentLauncher.with(mActivity).putObjectString("GoodBean",listBean).launch(ShopDateilActivity.class);
         }
         });
-
-
         }
         };
         emptyWrappe = new EmptyWrapper(commonAdapter);
@@ -121,35 +121,35 @@ private void  setData(int position){
         listBeans.clear();
         switch (position){
         case 0:
-        for (ShopMainReponse.PayloadBean.GoodsBean goodsBeans:goods){
+        for (ShopMainReponse.GoodsBean goodsBeans:goods){
         if (goodsBeans.getType().equals("yd")){
         listBeans.addAll(goodsBeans.getList());
         }
         }
         break;
         case 1:
-        for (ShopMainReponse.PayloadBean.GoodsBean goodsBeans:goods){
+        for (ShopMainReponse.GoodsBean goodsBeans:goods){
         if (goodsBeans.getType().equals("jd")){
         listBeans.addAll(goodsBeans.getList());
         }
         }
         break;
         case 2:
-        for (ShopMainReponse.PayloadBean.GoodsBean goodsBeans:goods){
+        for (ShopMainReponse.GoodsBean goodsBeans:goods){
         if (goodsBeans.getType().equals("lt")){
         listBeans.addAll(goodsBeans.getList());
         }
         }
         break;
         case 3:
-        for (ShopMainReponse.PayloadBean.GoodsBean goodsBeans:goods){
+        for (ShopMainReponse.GoodsBean goodsBeans:goods){
         if (goodsBeans.getType().equals("dx")){
         listBeans.addAll(goodsBeans.getList());
         }
         }
         break;
         }
-     emptyWrappe.notifyDataSetChanged();
+        emptyWrappe.notifyDataSetChanged();
         }
 
 private void subscribeEvent() {
@@ -157,17 +157,25 @@ private void subscribeEvent() {
         mRxSub = RxBus.getDefault().toObservable(Event.class)
         .observeOn(AndroidSchedulers.mainThread()).subscribe(new RxBusSubscriber<Event>() {
 @Override
-protected void onEvent(Event myEvent) {
+    protected void onEvent(Event myEvent) {
         switch (myEvent.event) {
         case EventType.ACTION_LODE_MORE://上拉加载更多
-//                        listBeans.addAll((List)eventType.object);
+            Map<Integer,List> listMap = (Map) myEvent.object;
+            List<GoodBean> goodBeans= listMap.get(mType);
+            if(goodBeans!=null) {
+                for (GoodBean goodBean : goodBeans) {
+                    listBeans.add(goodBean);
+                }
+                emptyWrappe.notifyDataSetChanged();
+            }
         break;
         case EventType.ACTION_PULL_REFRESH://下拉刷新
-//                        listBeans.clear();
-//                        listBeans.addAll((List)eventType.object);
+            goods = (List<ShopMainReponse.GoodsBean>) myEvent.object;
+            if (null != goods && goods.size() > 0)
+                setData(mType);
         break;
         case EventType.ACTION_MAIN_SETDATE:
-        goods = (List<ShopMainReponse.PayloadBean.GoodsBean>) myEvent.object;
+        goods = (List<ShopMainReponse.GoodsBean>) myEvent.object;
         if (null != goods && goods.size() > 0)
         setData(mType);
         break;

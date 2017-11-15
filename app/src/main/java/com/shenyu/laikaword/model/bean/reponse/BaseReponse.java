@@ -1,4 +1,4 @@
-package com.shenyu.laikaword.base;
+package com.shenyu.laikaword.model.bean.reponse;
 
 /**
  * Created by shenyu_zxjCode on 2017/9/21 0021.

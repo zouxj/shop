@@ -11,7 +11,7 @@ import com.shenyu.laikaword.model.adapter.CommonAdapter;
 import com.shenyu.laikaword.model.adapter.ViewHolder;
 import com.shenyu.laikaword.model.adapter.wrapper.EmptyWrapper;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
-import com.shenyu.laikaword.base.BaseReponse;
+import com.shenyu.laikaword.model.bean.reponse.BaseReponse;
 import com.shenyu.laikaword.model.bean.reponse.BankInfoReponse;
 import com.shenyu.laikaword.helper.RecycleViewDivider;
 import com.shenyu.laikaword.model.net.api.ApiCallback;

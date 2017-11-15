@@ -90,6 +90,7 @@ public class ToastUtil {
         mToast = new Toast(AndroidUtilsCore.getContext());
         mToast.setDuration(duration);
         mToast.setGravity(gravity, 0, Gravity.BOTTOM == gravity ? 150 : 0);
+//        mToast.setText(msg);
         // 设置Toast文字
         TextView tv = new TextView(AndroidUtilsCore.getContext());
         int dpPaddingLR = (int) UIUtil.dp2px(20);
@@ -99,7 +100,7 @@ public class ToastUtil {
         tv.setText(msg);
         tv.setTextColor(Color.WHITE);
         tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSp);
-        // Toast文字TextView容器
+//         Toast文字TextView容器
         LinearLayout mLayout = new LinearLayout(AndroidUtilsCore.getContext());
         GradientDrawable shape = new GradientDrawable();
         shape.setColor(Color.parseColor(bgColor));
@@ -113,7 +114,7 @@ public class ToastUtil {
         mLayout.setLayoutParams(params);
         mLayout.setGravity(Gravity.CENTER);
         mLayout.addView(tv);
-        // 将自定义View覆盖Toast的View
+//         将自定义View覆盖Toast的View
         mToast.setView(mLayout);
         return mToast;
     }

@@ -9,7 +9,7 @@ import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import com.leo618.mpermission.AfterPermissionGranted;
 import com.shenyu.laikaword.base.BasePresenter;
-import com.shenyu.laikaword.base.BaseReponse;
+import com.shenyu.laikaword.model.bean.reponse.BaseReponse;
 import com.shenyu.laikaword.common.PutObjectSamples;
 import com.shenyu.laikaword.model.bean.reponse.ImgSTSReponse;
 import com.shenyu.laikaword.model.bean.reponse.LoginReponse;

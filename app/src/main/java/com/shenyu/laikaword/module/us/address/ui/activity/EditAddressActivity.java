@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.jakewharton.rxbinding.widget.RxTextView;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
-import com.shenyu.laikaword.base.BaseReponse;
+import com.shenyu.laikaword.model.bean.reponse.BaseReponse;
 import com.shenyu.laikaword.model.bean.reponse.AddressReponse;
 import com.shenyu.laikaword.helper.CityDataHelper;
 import com.shenyu.laikaword.Interactor.IOptionPickerVierCallBack;

@@ -14,7 +14,9 @@ import android.widget.TextView;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.shenyu.laikaword.helper.ImageUitls;
 import com.shenyu.laikaword.module.launch.LaiKaApplication;
@@ -47,10 +49,13 @@ import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
+import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -89,34 +94,33 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
 
     @Override
     public void initView(View view){
-
-        tabs.post(new Runnable() {
-            @Override
-            public void run() {
-                TabLayoutHelper.setIndicator(tabs, 20, 20);
-            }
-        });
+        if (tabs!=null) {
+            tabs.post(new Runnable() {
+                @Override
+                public void run() {
+                    TabLayoutHelper.setIndicator(tabs, 20, 20);
+                }
+            });
+        }
         smartRefreshLayout.setHeaderHeight(45);
         smartRefreshLayout.setEnableRefresh(true);
-        smartRefreshLayout.setEnableLoadmore(false);
+        smartRefreshLayout.setEnableLoadmore(true);
         smartRefreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
-//        smartRefreshLayout.setRefreshFooter(new ClassicsFooter(getActivity()));
+        smartRefreshLayout.setRefreshFooter(new ClassicsFooter(getActivity()));
         smartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
                 refreshlayout.finishRefresh(1500);
                 mainPresenter.loadRefresh(MainFragment.this.bindToLifecycle());
-//                ToastUtil.showToastShort("正在刷新...");
             }
         });
-//        smartRefreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
-//            @Override
-//            public void onLoadmore(RefreshLayout refreshlayout) {
-//                refreshlayout.finishLoadmore(2000);
-//                mainPresenter.onLoadMore();
-////                ToastUtil.showToastShort("正在加载...");
-//            }
-//        });
+        smartRefreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                refreshlayout.finishLoadmore(1500);
+                mainPresenter.onLoadMore(MainFragment.this.bindToLifecycle(),viewpager.getCurrentItem());
+            }
+        });
         initViewpagerTop(view);
         subscribeEvent();
 
@@ -225,7 +229,6 @@ public void onClick(View v){
 
     @Override
     public void requestData() {
-
         mainPresenter.requestData(this.bindToLifecycle());
     }
     private void setupViewPager() {
@@ -265,7 +268,6 @@ public void onClick(View v){
 
     @Override
     public void showShop(ShopMainReponse shopBeanReponse) {
-
 
         setViewpagerTopData(shopBeanReponse.getPayload().getBanner());
         SPUtil.saveObject(Constants.MAIN_SHOP_KEY,shopBeanReponse);
@@ -311,7 +313,14 @@ public void onClick(View v){
 
     @Override
     public void loadMore(List list) {
-        RxBus.getDefault().post(new Event(EventType.ACTION_LODE_MORE,list));
+    if (list.size()<=0) {
+        ToastUtil.showToastShort("没有更多数据了!");
+    }
+    else {
+        Map<Integer, List> listMap = new HashMap<>();
+        listMap.put(viewpager.getCurrentItem(), list);
+        RxBus.getDefault().post(new Event(EventType.ACTION_LODE_MORE, listMap));
+    }
     }
 
     @Override

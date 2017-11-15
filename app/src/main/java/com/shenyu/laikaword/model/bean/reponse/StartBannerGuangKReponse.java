@@ -1,7 +1,5 @@
 package com.shenyu.laikaword.model.bean.reponse;
 
-import com.shenyu.laikaword.base.BaseReponse;
-
 /**
  * Created by shenyu_zxjCode on 2017/10/27 0027.
  */

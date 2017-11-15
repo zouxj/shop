@@ -70,7 +70,7 @@ public class StartActivity extends RxActivity {
             RetrofitUtils.getRetrofitUtils().setLifecycleTransformer(this.bindToLifecycle()).addSubscription(RetrofitUtils.apiStores.appStartUp(), new ApiCallback<StartBannerGuangKReponse>() {
                 @Override
                 public void onSuccess(StartBannerGuangKReponse model) {
-                    if (model.isSuccess()) {
+                    if (model.isSuccess()&&null!=model.getPayload()&&StringUtil.validText(model.getPayload().getImageUrl())&&StringUtil.validText(model.getPayload().getImageUrl())) {
                         payload = model.getPayload();
                         imageView.setVisibility(View.VISIBLE);
                         textView.setVisibility(View.VISIBLE);
@@ -100,6 +100,8 @@ public class StartActivity extends RxActivity {
                             }
                         });
 
+                    }else {
+//                        IntentLauncher.with(StartActivity.this).launchFinishCpresent(MainActivity.class);
                     }
                 }
 
@@ -114,7 +116,7 @@ public class StartActivity extends RxActivity {
                 }
             });
 
-            Observable.interval(3, TimeUnit.SECONDS).take(1).compose(this.<Long>bindToLifecycle()).subscribe(new Observer<Long>() {
+            Observable.interval(4, TimeUnit.SECONDS).take(1).compose(this.<Long>bindToLifecycle()).subscribe(new Observer<Long>() {
                 @Override
                 public void onSubscribe(Disposable d) {
 

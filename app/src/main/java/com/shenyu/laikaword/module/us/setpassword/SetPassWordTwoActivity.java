@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
-import com.shenyu.laikaword.base.BaseReponse;
+import com.shenyu.laikaword.model.bean.reponse.BaseReponse;
 import com.shenyu.laikaword.model.net.api.ApiCallback;
 import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;

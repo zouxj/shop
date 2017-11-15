@@ -20,7 +20,7 @@
     <!-- Required -->
     <uses-permission android:name="com.shenyu.laikaword.permission.JPUSH_MESSAGE" />
     <meta-data android:value="59ffd891aed1797aa8000196" android:name="UMENG_APPKEY"/>
-    <meta-data android:value="Channel ID" android:name="UMENG_CHANNEL"/>
+    <meta-data android:value="baidu" android:name="UMENG_CHANNEL"/>
     <application
         android:name=".module.launch.LaiKaApplication"
         android:allowBackup="true"

@@ -1,12 +1,10 @@
 package com.shenyu.laikaword.module.us.bankcard.presenter;
 
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.jakewharton.rxbinding.widget.RxTextView;
 import com.shenyu.laikaword.base.BasePresenter;
-import com.shenyu.laikaword.base.BaseReponse;
-import com.shenyu.laikaword.helper.SendMsgHelper;
+import com.shenyu.laikaword.model.bean.reponse.BaseReponse;
 import com.shenyu.laikaword.model.net.api.ApiCallback;
 import com.shenyu.laikaword.module.us.bankcard.view.AddBankView;
 import com.trello.rxlifecycle2.LifecycleTransformer;

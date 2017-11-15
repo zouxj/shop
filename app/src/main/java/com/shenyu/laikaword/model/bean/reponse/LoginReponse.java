@@ -3,8 +3,6 @@ package com.shenyu.laikaword.model.bean.reponse;
 import android.annotation.SuppressLint;
 import android.os.Parcel;
 
-import com.shenyu.laikaword.base.BaseReponse;
-
 import java.io.Serializable;
 
 /**

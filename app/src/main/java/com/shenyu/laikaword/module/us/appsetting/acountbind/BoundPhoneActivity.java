@@ -1,7 +1,6 @@
 package com.shenyu.laikaword.module.us.appsetting.acountbind;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
 import android.widget.EditText;
@@ -10,12 +9,8 @@ import android.widget.TextView;
 import com.jakewharton.rxbinding.widget.RxTextView;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
-import com.shenyu.laikaword.base.BaseReponse;
-import com.shenyu.laikaword.model.bean.reponse.LoginReponse;
-import com.shenyu.laikaword.common.Constants;
-import com.shenyu.laikaword.helper.DialogHelper;
+import com.shenyu.laikaword.model.bean.reponse.BaseReponse;
 import com.shenyu.laikaword.helper.SendMsgHelper;
-import com.shenyu.laikaword.module.us.setpassword.SetPassWordMsgCodeActivity;
 import com.shenyu.laikaword.model.net.api.ApiCallback;
 import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;

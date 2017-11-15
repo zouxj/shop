@@ -3,12 +3,9 @@ package com.shenyu.laikaword.helper;
 import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
-import com.shenyu.laikaword.base.BaseReponse;
-import com.shenyu.laikaword.model.bean.reponse.ShopMainReponse;
+import com.shenyu.laikaword.model.bean.reponse.BaseReponse;
 import com.shenyu.laikaword.model.net.api.ApiCallback;
 import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
-import com.shenyu.laikaword.model.rxjava.rx.RxTask;
-import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
@@ -18,15 +15,11 @@ import com.zxj.utilslibrary.utils.UIUtil;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
-import io.reactivex.schedulers.Schedulers;
-import rx.functions.Action0;
-import rx.functions.Func1;
 
 
 /**

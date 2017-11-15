@@ -1,6 +1,6 @@
 package com.shenyu.laikaword.model.net.api;
 
-import com.shenyu.laikaword.base.BaseReponse;
+import com.shenyu.laikaword.model.bean.reponse.BaseReponse;
 import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.model.net.retrofit.ErrorCode;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;

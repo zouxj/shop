@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
-import com.shenyu.laikaword.base.BaseReponse;
+import com.shenyu.laikaword.model.bean.reponse.BaseReponse;
 import com.shenyu.laikaword.helper.ImageUitls;
 import com.shenyu.laikaword.model.bean.reponse.CarPagerReponse;
 import com.shenyu.laikaword.common.Constants;
@@ -17,14 +17,11 @@ import com.shenyu.laikaword.helper.DialogHelper;
 import com.shenyu.laikaword.model.bean.reponse.LoginReponse;
 import com.shenyu.laikaword.model.net.api.ApiCallback;
 import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
-import com.shenyu.laikaword.di.component.ShopCommponent;
 import com.shenyu.laikaword.module.us.setpassword.SetPassWordMsgCodeActivity;
 import com.shenyu.laikaword.ui.view.widget.AmountView;
-import com.squareup.picasso.Picasso;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
-import com.zxj.utilslibrary.utils.UIUtil;
 import com.zxj.utilslibrary.widget.countdownview.step.StepView;
 
 import java.util.ArrayList;

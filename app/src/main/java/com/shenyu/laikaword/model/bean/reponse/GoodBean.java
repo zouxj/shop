@@ -17,6 +17,8 @@ public class GoodBean implements Serializable{
     private String stock;
     private String sellerAvatar;
 
+
+
     public String getSellerAvatar() {
         return sellerAvatar;
     }

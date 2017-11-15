@@ -25,6 +25,7 @@ import com.shenyu.laikaword.model.rxjava.rxbus.RxBusSubscriber;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxSubscriptions;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
+import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
@@ -134,10 +135,10 @@ public class SelectAddressActivity extends LKWordBaseActivity {
             case R.id.rl_toolbar_subtitle:
                 IntentLauncher.with(this).launch(AddressInfoActivity.class);
                 break;
-            case R.id.bt_ok_address:
-                setResult(RESULT_OK, intent);
-                finish();
-                break;
+//            case R.id.bt_ok_address:
+//                setResult(RESULT_OK, intent);
+//                finish();
+//                break;
         }
 
     }
@@ -168,13 +169,21 @@ public class SelectAddressActivity extends LKWordBaseActivity {
     }
     public void initData() {
      final AddressReponse.PayloadBean payloadBean = (AddressReponse.PayloadBean) getIntent().getSerializableExtra("payloadBean");
-        retrofitUtils.setLifecycleTransformer(this.bindToLifecycle()).addSubscription(RetrofitUtils.apiStores.getAddress(), new ApiCallback<AddressReponse>() {
+        retrofitUtils.setLifecycleTransformer(bindUntilEvent(ActivityEvent.DESTROY)).addSubscription(RetrofitUtils.apiStores.getAddress(), new ApiCallback<AddressReponse>() {
             @Override
             public void onSuccess(AddressReponse model) {
                 if (model.isSuccess()) ;
                 {
                     if (model.getPayload()!=null&&model.getPayload().size()>0){
                         btOkAddress.setVisibility(View.VISIBLE);
+                        btOkAddress.setText("确认");
+                        btOkAddress.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                setResult(RESULT_OK, intent);
+                                finish();
+                            }
+                        });
                         payload.clear();
                         payload.addAll(model.getPayload());
                         emptyWrapper.notifyDataSetChanged();
@@ -189,6 +198,21 @@ public class SelectAddressActivity extends LKWordBaseActivity {
                             }
 
                         }
+                    }else {
+                        bundle.putSerializable("address", null);
+                        intent.putExtras(bundle);
+                        setResult(RESULT_OK, intent);
+                        payload.clear();
+                        payload.addAll(model.getPayload());
+                        emptyWrapper.notifyDataSetChanged();
+                        btOkAddress.setVisibility(View.VISIBLE);
+                        btOkAddress.setText("添加新地址");
+                        btOkAddress.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                IntentLauncher.with(SelectAddressActivity.this).launch(EditAddressActivity.class);
+                            }
+                        });
                     }
 
 
@@ -208,6 +232,10 @@ public class SelectAddressActivity extends LKWordBaseActivity {
         });
     }
 
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//    }
 
     @Override
     protected void onDestroy() {

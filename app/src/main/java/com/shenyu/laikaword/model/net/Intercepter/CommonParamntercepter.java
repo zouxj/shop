@@ -5,6 +5,7 @@ import com.zxj.utilslibrary.utils.DeviceInfo;
 import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.PackageManagerUtil;
 import com.zxj.utilslibrary.utils.SignUtil;
+import com.zxj.utilslibrary.utils.UIUtil;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -52,7 +53,7 @@ public   class CommonParamntercepter implements Interceptor {
         //添加公共参数
         HttpUrl httpUrl = request.url()
                 .newBuilder()
-                .addQueryParameter("appVersion", PackageManagerUtil.getVersionName())
+                .addQueryParameter("appVersion", PackageManagerUtil.getVersionName(UIUtil.getContext()))
                 .addQueryParameter("deviceVersion", DeviceInfo.getSystemVersion())
                 .addQueryParameter("system", "android")
                 .addQueryParameter("timestamp", String.valueOf(System.currentTimeMillis()))
@@ -94,7 +95,7 @@ public   class CommonParamntercepter implements Interceptor {
                     .addEncoded("system", "android")
                     .addEncoded("device",DeviceInfo.getSystemModel())
                     .addEncoded("deviceVersion", DeviceInfo.getSystemVersion())
-                    .addEncoded("appVersion", PackageManagerUtil.getVersionName())
+                    .addEncoded("appVersion", PackageManagerUtil.getVersionName(UIUtil.getContext()))
                     .addEncoded("timestamp",String.valueOf(System.currentTimeMillis()))
                     .build();
             Map<String, String> bodyMap = new HashMap<>();
