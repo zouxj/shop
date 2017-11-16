@@ -23,7 +23,7 @@ public final class TabLayoutHelper {
     @SuppressLint("NewApi")
     public static  void setIndicator(TabLayout tabs, int leftDip, int rightDip) {
         Class<?> tabLayout = tabs.getClass();
-        tabs.setElevation(0);
+//        tabs.setElevation(0);
         Field tabStrip = null;
         try {
             tabStrip = tabLayout.getDeclaredField("mTabStrip");

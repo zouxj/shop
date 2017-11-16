@@ -10,6 +10,7 @@ import com.shenyu.laikaword.helper.LoadViewHelper;
 import com.shenyu.laikaword.Interactor.IBaseFragment;
 import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxSubscriptions;
+import com.trello.rxlifecycle2.components.support.RxFragment;
 import com.zxj.utilslibrary.utils.LogUtil;
 
 import butterknife.ButterKnife;
@@ -19,7 +20,7 @@ import rx.Subscription;
 /**
  * Fragment基类
  */
-public abstract class IKWordBaseFragment extends com.trello.rxlifecycle2.components.support.RxFragment implements IBaseFragment {
+public abstract class IKWordBaseFragment extends RxFragment implements IBaseFragment {
     protected final String TAG = this.getClass().getSimpleName();
     protected View mContentView = null;
     private Unbinder unbinder;

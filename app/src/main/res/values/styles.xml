@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/app_theme_red</item>
         <item name="colorPrimaryDark">@color/app_theme_red</item>
         <item name="colorAccent">@color/app_theme_red</item>
+
     </style>
 
 
@@ -154,5 +155,9 @@
     <style name="WelcomeContentOverlay" parent="@android:style/Theme.NoTitleBar.Fullscreen">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@mipmap/start_icon</item>
+    </style>
+    <style name="MainTheme" parent="AppTheme">
+        <item name="android:windowTranslucentStatus" tools:ignore="NewApi">true</item>
+        <item name="android:windowTranslucentNavigation" tools:ignore="NewApi">false</item>
     </style>
 </resources>

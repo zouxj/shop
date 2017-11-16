@@ -53,7 +53,6 @@ public class GuessActivity extends LKWordBaseActivity {
         webSettings.setLoadWithOverviewMode(true);
 //       webSettings.setUseWideViewPort(true); //将图片调整到适合webview的大小
 //       webSettings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
-        //
         webSettings.setBuiltInZoomControls(true);
         webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
         webSettings.setUseWideViewPort(true);
@@ -70,7 +69,7 @@ public class GuessActivity extends LKWordBaseActivity {
         webSettings.setJavaScriptEnabled(true);
         // 设置允许JS弹窗
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
             webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
         }
 

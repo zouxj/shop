@@ -1,14 +1,17 @@
 package com.shenyu.laikaword.module.home.ui.fragment;
 
 import android.annotation.SuppressLint;
+import android.os.Build;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.helper.ImageUitls;
+import com.shenyu.laikaword.helper.StatusBarManager;
 import com.shenyu.laikaword.model.adapter.MultiItemTypeAdapter;
 import com.shenyu.laikaword.base.IKWordBaseFragment;
 import com.shenyu.laikaword.model.adapter.itemviewdelegeate.HomeLeftItemViewDelegate;
@@ -23,6 +26,7 @@ import com.shenyu.laikaword.model.rxjava.rxbus.RxSubscriptions;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
+import com.zxj.utilslibrary.utils.DeviceInfo;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
@@ -43,6 +47,8 @@ public class LeftFragment extends IKWordBaseFragment {
     ImageView tvUserHead;
     @BindView(R.id.rc_left_view)
     RecyclerView rcLeftView;
+    @BindView(R.id.ly_user_head)
+            LinearLayout leftLayout;
     List<ShopMainReponse.EntranceListBean> dataList = new ArrayList<>();
     MultiItemTypeAdapter<ShopMainReponse.EntranceListBean> commonAdapter;
     public static final int[] leftData={
@@ -58,6 +64,13 @@ public class LeftFragment extends IKWordBaseFragment {
 
     @Override
     public void initView(View view) {
+        StatusBarManager statusBarManager = new StatusBarManager(getActivity(),UIUtil.getColor(R.color.app_theme_red));
+        int statusBarHeight=  statusBarManager.getStatusBarHeight();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT&&Build.VERSION.SDK_INT <Build.VERSION_CODES.LOLLIPOP) {
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) leftLayout.getLayoutParams();
+            params.topMargin=statusBarHeight;
+            leftLayout.setLayoutParams(params);
+        }
         rcLeftView.setLayoutManager(new LinearLayoutManager(getActivity()));
         commonAdapter=  new MultiItemTypeAdapter(dataList) ;
         commonAdapter.addItemViewDelegate(new HomeLeftItemViewDelegate(getActivity()));

@@ -54,8 +54,7 @@
         <activity android:name=".module.login.ui.activity.LoginActivity" />
         <activity
             android:name=".module.home.ui.activity.MainActivity"
-            android:theme="@style/Main_AppTheme"
-            android:windowSoftInputMode="stateHidden" />
+            android:theme="@style/AppTheme" />
         <activity android:name=".module.launch.WelcomePageActivity" />
 
         <receiver

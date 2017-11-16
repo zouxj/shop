@@ -48,9 +48,11 @@ public class ShopDateilActivity extends LKWordBaseActivity {
         webSettings.setDomStorageEnabled(true);
         webSettings.setAllowFileAccess(true);
         webSettings.setAppCacheEnabled(true);
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
             webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
         }
+
         String webURL = Constants.webURL+goodBean.getGoodsId();
 //      String webURL = "http://comingcard.com";
         // 先载入JS代码

@@ -14,7 +14,7 @@ public class Constants {
      */
     public static String HOST="http://t.shop.comingcard.com/";
     static {
-        if (true){
+        if (false){
             HOST="https://api.buycardlife.com/";
         }
     }
@@ -50,7 +50,6 @@ public class Constants {
         return SPUtil.getString(TOKEN,"");
     }
     public static String WXSTATE="WX_LOGIN";
-
     //SharedPreferences保存信息KEY
     public static final String LOGININFO_KEY ="USERINFO_LOGIN";
     public static final String MAIN_SHOP_KEY ="MAIN_SHOP_KEY";

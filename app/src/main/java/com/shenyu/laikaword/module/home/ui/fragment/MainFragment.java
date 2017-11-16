@@ -2,13 +2,19 @@ package com.shenyu.laikaword.module.home.ui.fragment;
 
 
 import android.annotation.SuppressLint;
+import android.os.Build;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
@@ -19,6 +25,7 @@ import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.shenyu.laikaword.helper.ImageUitls;
+import com.shenyu.laikaword.helper.StatusBarManager;
 import com.shenyu.laikaword.module.launch.LaiKaApplication;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.model.adapter.MainViewPagerAdapter;
@@ -45,6 +52,7 @@ import com.shenyu.laikaword.ui.view.widget.UPMarqueeView;
 import com.shenyu.laikaword.ui.web.GuessActivity;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.android.FragmentEvent;
+import com.zxj.utilslibrary.utils.DeviceInfo;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.SPUtil;
@@ -86,6 +94,8 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
     BannerHelper bannerHelper;
     @BindView(R.id.bt_top_img)
     ImageView headImg;
+    @BindView(R.id.id_title)
+    RelativeLayout relativeLayout;
 
     @Override
     public int bindLayout() {
@@ -94,6 +104,15 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
 
     @Override
     public void initView(View view){
+
+        StatusBarManager statusBarManager = new StatusBarManager(getActivity(),UIUtil.getColor(R.color.app_theme_red));
+            int statusBarHeight=  statusBarManager.getStatusBarHeight();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT&&Build.VERSION.SDK_INT <Build.VERSION_CODES.LOLLIPOP) {
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) relativeLayout.getLayoutParams();
+            params.topMargin=statusBarHeight;
+            relativeLayout.setLayoutParams(params);
+        }
         if (tabs!=null) {
             tabs.post(new Runnable() {
                 @Override
@@ -206,7 +225,7 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
        }
    }
 @OnClick({R.id.bt_top_img,R.id.iv_message})
-public void onClick(View v){
+    public void onClick(View v){
     switch (v.getId()){
         case R.id.bt_top_img:
             RxBus.getDefault().post(new Event(EventType.ACTION_OPONE_LEFT,""));

@@ -3,9 +3,14 @@ package com.shenyu.laikaword.module.home.ui.activity;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 
 import com.leo618.mpermission.MPermission;
@@ -28,12 +33,14 @@ import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.zxj.utilslibrary.utils.ActivityManageUtil;
+import com.zxj.utilslibrary.utils.DeviceInfo;
 import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -64,9 +71,6 @@ public class MainActivity extends LKWordBaseActivity implements  MPermission.Per
 
     @Override
     public void initView() {
-
-////        ActionBarDrawerToggle actionBarDrawerToggle=new ActionBarDrawerToggle(this,drawerLayout,mToolbar,0,1);
-//        actionBarDrawerToggle.syncState(); drawerLayout.setDrawerListener(actionBarDrawerToggle);
 
     }
 
@@ -206,4 +210,15 @@ public class MainActivity extends LKWordBaseActivity implements  MPermission.Per
                 break;
         }
     }
+    // 通过反射获取状态栏高度
+      public  int getStatusBarHeight(Context context) {
+        try {            Class<?> c = Class.forName("com.android.internal.R$dimen");
+            Object obj = c.newInstance();
+            Field field = c.getField("status_bar_height");
+            int x = Integer.parseInt(field.get(obj).toString());
+            return context.getResources().getDimensionPixelSize(x);
+        } catch (Exception e) {
+            e.printStackTrace();        }
+        return 0;    }
+
 }
