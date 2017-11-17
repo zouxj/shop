@@ -1,6 +1,5 @@
 package com.shenyu.laikaword.module.launch;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,8 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
-import com.shenyu.laikaword.base.LKWordBaseActivity;
-import com.shenyu.laikaword.helper.ImageUitls;
 import com.shenyu.laikaword.model.bean.reponse.StartBannerGuangKReponse;
 import com.shenyu.laikaword.model.net.api.ApiCallback;
 import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
@@ -32,8 +29,6 @@ import butterknife.OnClick;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
-import rx.Subscriber;
-import rx.functions.Action0;
 
 /**
  * 启动页
@@ -76,7 +71,7 @@ public class StartActivity extends RxActivity {
                         textView.setVisibility(View.VISIBLE);
                         String url = payload.getImageUrl();
                         if (StringUtil.validText(url)) {
-                            Picasso.with(UIUtil.getContext()).load(url).placeholder(R.mipmap.start_icon).error(R.mipmap.start_icon).into(imageView);
+                            Picasso.with(UIUtil.getContext()).load(url).placeholder(R.mipmap.start_img).error(R.mipmap.start_img).into(imageView);
                         }
                         RxTask.countdown(StartActivity.this.bindToLifecycle(), 3).subscribe(new Observer<Long>() {
                             @Override

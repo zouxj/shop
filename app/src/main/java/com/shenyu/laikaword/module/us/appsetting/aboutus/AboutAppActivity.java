@@ -3,6 +3,8 @@ package com.shenyu.laikaword.module.us.appsetting.aboutus;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -30,6 +32,7 @@ public class AboutAppActivity extends LKWordBaseActivity implements MPermission.
     TextView tvNewVersion;
     @BindView(R.id.tv_version)
     TextView tvVersion;
+
     @Override
     public int bindLayout() {
         return R.layout.activity_about_app;
@@ -62,9 +65,17 @@ public class AboutAppActivity extends LKWordBaseActivity implements MPermission.
     }
 
 
-    @OnClick({R.id.tv_check_update, R.id.tv_get_pignfen})
+    @OnClick({R.id.tv_check_update, R.id.tv_get_pignfen,R.id.textView})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.textView:
+                //TODO 跳转应用
+                if (checkApkExist(this, "com.tencent.mobileqq")){
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("mqqwpa://im/chat?chat_type=wpa&uin=800185927&version=1")));
+                }else{
+                    ToastUtil.showToastShort("本机未安装QQ应用");
+                }
+                break;
             case R.id.tv_check_update:
                 if (MPermission.hasPermissions(AboutAppActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                     // Have permission, do the thing!
@@ -112,5 +123,15 @@ public class AboutAppActivity extends LKWordBaseActivity implements MPermission.
         }
     }
 
-
+    public boolean checkApkExist(Context context, String packageName) {
+        if (packageName == null || "".equals(packageName))
+            return false;
+        try {
+            ApplicationInfo info = context.getPackageManager().getApplicationInfo(packageName,
+                    PackageManager.GET_UNINSTALLED_PACKAGES);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+    }
 }

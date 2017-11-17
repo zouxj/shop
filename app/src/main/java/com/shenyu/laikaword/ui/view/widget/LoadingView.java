@@ -96,18 +96,27 @@ public class LoadingView extends LinearLayout implements View.OnClickListener  {
         setVisibility(View.VISIBLE);
         switch (status){
             case NO_DATA:
-                imgState.setBackground(UIUtil.getDrawable(R.mipmap.nothing));
+                if (Build.VERSION.SDK_INT> Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
+                    imgState.setBackground(UIUtil.getDrawable(R.mipmap.nothing));
+                else
+                    imgState.setBackgroundResource(R.mipmap.nothing);
                 tvStateText.setText("没有数据");
                 //TODO 没有数据
                 break;
             case ERROR_DATA:
-                imgState.setBackground(UIUtil.getDrawable(R.mipmap.net_error_icon));
+                if (Build.VERSION.SDK_INT> Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
+                    imgState.setBackground(UIUtil.getDrawable(R.mipmap.net_error_icon));
+                else
+                    imgState.setBackgroundResource(R.mipmap.net_error_icon);
                 tvStateText.setText("服务器异常");
                 //TODO 服务器异常
                 break;
             case NO_NETWORK:
                 //TODO 网络异常
-                imgState.setBackground(UIUtil.getDrawable(R.mipmap.wrong));
+                if (Build.VERSION.SDK_INT> Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
+                    imgState.setBackground(UIUtil.getDrawable(R.mipmap.wrong));
+                else
+                    imgState.setBackgroundResource(R.mipmap.wrong);
                 tvStateText.setText("网络异常");
                 break;
             case GONE:

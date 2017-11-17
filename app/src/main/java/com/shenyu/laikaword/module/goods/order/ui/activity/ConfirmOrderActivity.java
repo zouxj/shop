@@ -3,6 +3,7 @@ package com.shenyu.laikaword.module.goods.order.ui.activity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Paint;
+import android.os.Build;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -133,7 +134,7 @@ public class ConfirmOrderActivity extends LKWordBaseActivity implements ConfirmO
                     holder.setText(R.id.tv_pay_type, strings);
                 }
 
-                holder.setBackground(R.id.iv_pay, UIUtil.getDrawable(payIconList[position]));
+                holder.setBackground(R.id.iv_pay, payIconList[position]);
                 CheckBox checkBox = holder.getView(R.id.cb_pay_type);
                 checkBox.setChecked((position == selectedPosition ? true : false));
                 holder.setOnClickListener(R.id.item_ck, new View.OnClickListener() {
@@ -246,7 +247,10 @@ public class ConfirmOrderActivity extends LKWordBaseActivity implements ConfirmO
             userAount = loginReponse.getPayload().getMoney();
         } else {
             imgeHead.setImageBitmap(null);
-            imgeHead.setBackground(UIUtil.getDrawable(R.mipmap.left_user_icon));
+            if (Build.VERSION.SDK_INT> Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
+                imgeHead.setBackground(UIUtil.getDrawable(R.mipmap.left_user_icon));
+            else
+                imgeHead.setBackgroundResource(R.mipmap.left_user_icon);
             tvName.setText("");
         }
         if (goodBean != null) {

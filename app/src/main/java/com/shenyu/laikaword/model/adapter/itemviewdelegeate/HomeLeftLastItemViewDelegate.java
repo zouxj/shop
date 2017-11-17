@@ -39,7 +39,7 @@ public class HomeLeftLastItemViewDelegate implements ItemViewDelegate<ShopMainRe
     @Override
     public void convert(ViewHolder holder, final ShopMainReponse.EntranceListBean entranceListBean, final int position) {
         holder.setText(R.id.tv_left_menu,entranceListBean.getTitle());
-        holder.setBackground(R.id.img_left_menu,UIUtil.getDrawable(entranceListBean.getImgUrl()));
+        holder.setBackground(R.id.img_left_menu,entranceListBean.getImgUrl());
         holder.itemView.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {

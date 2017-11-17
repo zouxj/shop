@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -81,10 +82,16 @@ public class WthdrawMoneyActivity extends LKWordBaseActivity {
             public void call(Boolean o) {
                 if (o) {
                     tvTixianing.setEnabled(true);
-                    tvTixianing.setBackground(UIUtil.getDrawable(R.drawable.bg_bt_login_rectangle_light));
+                    if (Build.VERSION.SDK_INT> Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
+                        tvTixianing.setBackground(UIUtil.getDrawable(R.drawable.bg_bt_login_rectangle_light));
+                    else
+                        tvTixianing.setBackgroundResource(R.drawable.bg_bt_login_rectangle_light);
                 }else {
                     tvTixianing.setEnabled(false);
-                    tvTixianing.setBackground(UIUtil.getDrawable(R.drawable.bg_gray_icon));
+                    if (Build.VERSION.SDK_INT> Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
+                        tvTixianing.setBackground(UIUtil.getDrawable(R.drawable.bg_gray_icon));
+                    else
+                        tvTixianing.setBackgroundResource(R.drawable.bg_gray_icon);
                 }
             }
         });

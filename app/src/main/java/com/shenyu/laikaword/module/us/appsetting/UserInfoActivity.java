@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
@@ -223,7 +224,10 @@ public class UserInfoActivity extends LKWordBaseActivity  implements UserInfoVie
             ImageUitls.loadImgRound(loginReponse.getPayload().getAvatar(),setChangeUserHead);
         }else{
             changeTvName.setText("");
-            setChangeUserHead.setBackground(UIUtil.getDrawable(R.mipmap.left_user_icon));
+            if (Build.VERSION.SDK_INT> Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
+                setChangeUserHead.setBackground(UIUtil.getDrawable(R.mipmap.left_user_icon));
+            else
+                setChangeUserHead.setBackgroundResource(R.mipmap.left_user_icon);
         }
     }
 

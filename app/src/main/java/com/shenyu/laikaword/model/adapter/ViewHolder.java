@@ -120,10 +120,14 @@ public class ViewHolder extends RecyclerView.ViewHolder {
         return this;
     }
     @SuppressLint("NewApi")
-    public ViewHolder setBackground(int viewId, Drawable background)
+    public ViewHolder setBackground(int viewId, int resID)
     {
         View view = getView(viewId);
-        view.setBackground(background);
+        if (Build.VERSION.SDK_INT> Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
+            view.setBackground(UIUtil.getDrawable(resID));
+        else
+            view.setBackgroundResource(resID);
+
         return this;
     }
 

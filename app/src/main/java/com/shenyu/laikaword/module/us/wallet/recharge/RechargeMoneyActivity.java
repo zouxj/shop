@@ -3,6 +3,7 @@ package com.shenyu.laikaword.module.us.wallet.recharge;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.os.Build;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -157,11 +158,17 @@ public class RechargeMoneyActivity extends LKWordBaseActivity {
             public void call(CharSequence charSequence) {
               if (null!=charSequence.toString().trim()&&charSequence.toString().trim().length()>0) {
                   rechargeTvNext.setEnabled(true);
-                  rechargeTvNext.setBackground(UIUtil.getDrawable(R.drawable.bg_bt_login_rectangle_light));
+                  if (Build.VERSION.SDK_INT> Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
+                      rechargeTvNext.setBackground(UIUtil.getDrawable(R.drawable.bg_bt_login_rectangle_light));
+                  else
+                      rechargeTvNext.setBackgroundResource(R.drawable.bg_bt_login_rectangle_light);
               }
               else {
                   rechargeTvNext.setEnabled(false);
-                  rechargeTvNext.setBackground(UIUtil.getDrawable(R.drawable.bg_gray_icon));
+                  if (Build.VERSION.SDK_INT> Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
+                      rechargeTvNext.setBackground(UIUtil.getDrawable(R.drawable.bg_gray_icon));
+                  else
+                      rechargeTvNext.setBackgroundResource(R.drawable.bg_gray_icon);
 
               }
             }

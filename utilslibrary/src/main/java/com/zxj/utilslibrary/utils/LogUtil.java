@@ -8,7 +8,7 @@ import android.util.Log;
  */
 
 public class LogUtil {
-    private static boolean DEBUG = true;
+    private static boolean DEBUG = false;
     private static final String TAG = "shenyu";
 
     /**

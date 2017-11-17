@@ -107,7 +107,11 @@ public abstract class LKWordBaseActivity extends RxAppCompatActivity implements 
       if (null!=rightTitle)
       mToolbarSubTitle.setText(rightTitle);
       if (bgDrawable!=0)
-      mToolbarSubTitle.setBackground(UIUtil.getDrawable(bgDrawable));
+          if (Build.VERSION.SDK_INT> Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
+              mToolbarSubTitle.setBackground(UIUtil.getDrawable(bgDrawable));
+          else
+              mToolbarSubTitle.setBackgroundResource(bgDrawable);
+
   }
     /**
      * 设置头部标题
@@ -140,9 +144,10 @@ public abstract class LKWordBaseActivity extends RxAppCompatActivity implements 
 /// 这一步必须要做,否则不会显示.  
             bgDrawable.setBounds(0, 0, bgDrawable.getMinimumWidth(),bgDrawable.getMinimumHeight());
             mLeftTitile.setCompoundDrawables(bgDrawable,null,null,null);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            if (Build.VERSION.SDK_INT> Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
                 mLeftTitile.setBackground(UIUtil.getDrawable(drawableID));
-            }
+            else
+                mLeftTitile.setBackgroundResource(drawableID);
 
 
         }

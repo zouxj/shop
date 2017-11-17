@@ -109,7 +109,10 @@ public class LeftFragment extends IKWordBaseFragment {
                                 }else{
                                     tvUserName.setText("未登录");
                                     tvUserHead.setImageBitmap(null);
-                                    tvUserHead.setBackground(UIUtil.getDrawable(R.mipmap.left_user_icon));
+                                    if (Build.VERSION.SDK_INT> Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
+                                        tvUserHead.setBackground(UIUtil.getDrawable(R.mipmap.left_user_icon));
+                                    else
+                                        tvUserHead.setBackgroundResource(R.mipmap.left_user_icon);
                                 }
                                 break;
                             case EventType.ACTION_LFET_DATA:

@@ -2,6 +2,7 @@ package com.shenyu.laikaword.module.us.appsetting.acountbind;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Build;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -62,10 +63,16 @@ public class BoundPhoneActivity extends LKWordBaseActivity {
             public void call(Boolean aBoolean) {
                 if (aBoolean) {
                     btLogin.setEnabled(true);
-                    btLogin.setBackground(UIUtil.getDrawable(R.drawable.bg_bt_login_rectangle_light));
+                    if (Build.VERSION.SDK_INT> Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
+                        btLogin.setBackground(UIUtil.getDrawable(R.drawable.bg_bt_login_rectangle_light));
+                    else
+                        btLogin.setBackgroundResource(R.drawable.bg_bt_login_rectangle_light);
                 } else {
                     btLogin.setEnabled(false);
-                    btLogin.setBackground(UIUtil.getDrawable(R.drawable.bg_bt_login_rectangle));
+                    if (Build.VERSION.SDK_INT> Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
+                        btLogin.setBackground(UIUtil.getDrawable(R.drawable.bg_bt_login_rectangle));
+                    else
+                        btLogin.setBackgroundResource(R.drawable.bg_bt_login_rectangle);
                 }
             }
         });

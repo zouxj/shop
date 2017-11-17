@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.EditText;
@@ -112,10 +113,16 @@ public class LoginActivity extends LKWordBaseActivity implements LoginView,MPerm
     public void canLogin(boolean canLogin) {
         if (canLogin) {
             btLogin.setEnabled(true);
-            btLogin.setBackground(UIUtil.getDrawable(R.drawable.bg_bt_login_rectangle_light));
+            if (Build.VERSION.SDK_INT> Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
+                btLogin.setBackground(UIUtil.getDrawable(R.drawable.bg_bt_login_rectangle_light));
+            else
+                btLogin.setBackgroundResource(R.drawable.bg_bt_login_rectangle_light);
         } else {
             btLogin.setEnabled(false);
-            btLogin.setBackground(UIUtil.getDrawable(R.drawable.bg_bt_login_rectangle));
+            if (Build.VERSION.SDK_INT> Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
+                btLogin.setBackground(UIUtil.getDrawable(R.drawable.bg_bt_login_rectangle));
+            else
+                btLogin.setBackgroundResource(R.drawable.bg_bt_login_rectangle);
         }
     }
 

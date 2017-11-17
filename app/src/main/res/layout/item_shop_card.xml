@@ -6,7 +6,6 @@
     <ImageView
         android:id="@+id/iv_car"
         android:layout_width="wrap_content"
-        android:src="@mipmap/jingdong_icon"
         android:layout_height="wrap_content" />
 
     <RelativeLayout

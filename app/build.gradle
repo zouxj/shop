@@ -101,6 +101,18 @@ android {
             manifestPlaceholders = [channel: "ali"]
             dimension "laikashop"
         }
+        xiaomi{
+            manifestPlaceholders = [channel: "xiaomi"]
+            dimension "laikashop"
+        }
+        leshi{
+            manifestPlaceholders = [channel: "leshi"]
+            dimension "laikashop"
+        }
+        chuizi{
+            manifestPlaceholders = [channel: "chuizi"]
+            dimension "laikashop"
+        }
     }
     applicationVariants.all { variant ->
         variant.outputs.all {
@@ -169,4 +181,5 @@ dependencies {
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     compile 'com.umeng.analytics:analytics:latest.integration'
     implementation 'com.android.support:support-v4:26.0.0-beta1'
+
 }

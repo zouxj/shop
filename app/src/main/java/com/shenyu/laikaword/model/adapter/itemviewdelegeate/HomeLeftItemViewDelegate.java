@@ -2,6 +2,7 @@ package com.shenyu.laikaword.model.adapter.itemviewdelegeate;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.os.Build;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -52,7 +53,10 @@ public class HomeLeftItemViewDelegate implements ItemViewDelegate<ShopMainRepons
 
         if (position<=5&&entranceListBean.getImgUrl()!=0) {
             imageView.setImageBitmap(null);
-            imageView.setBackground(UIUtil.getDrawable(entranceListBean.getImgUrl()));
+            if (Build.VERSION.SDK_INT> Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
+                imageView.setBackground(UIUtil.getDrawable(entranceListBean.getImgUrl()));
+            else
+                imageView.setBackgroundResource(entranceListBean.getImgUrl());
         }
             if (position>5&&StringUtil.validText(entranceListBean.getIconURL()))
                 ImageUitls.loadImg(entranceListBean.getIconURL(), imageView);

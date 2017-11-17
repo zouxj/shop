@@ -159,7 +159,10 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
                                     ImageUitls.loadImgRound(loginReponse.getPayload().getAvatar(),headImg);
                                 }else {
                                     headImg.setImageBitmap(null);
-                                    headImg.setBackground(UIUtil.getDrawable(R.mipmap.left_user_icon));
+                                    if (Build.VERSION.SDK_INT> Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
+                                        headImg.setBackground(UIUtil.getDrawable(R.mipmap.left_user_icon));
+                                    else
+                                        headImg.setBackgroundResource(R.mipmap.left_user_icon);
                                 }
                                 break;
                         }
