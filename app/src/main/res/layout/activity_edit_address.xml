@@ -100,7 +100,7 @@
         style="@style/ly_layout">
         <TextView
             android:layout_centerVertical="true"
-            android:text="设置默认"
+            android:text="设为默认"
             android:layout_marginLeft="14dp"
             style="@style/bank_add_one"/>
         <CheckBox

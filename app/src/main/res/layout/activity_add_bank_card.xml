@@ -61,9 +61,10 @@
                     android:text="银      行:" />
                 <EditText
                     android:textCursorDrawable="@drawable/color_cursor"
-                    android:maxLength="10"
+                    android:maxLength="12"
                     android:lines="1"
-                    android:hint="请输入银行昵称"
+                    android:hint="请输入开户银行名称"
+                    android:layout_width="150dp"
                     android:id="@+id/et_add_bank_yinhang"
                     android:layout_height="match_parent"
                     style="@style/bank_add_edite"

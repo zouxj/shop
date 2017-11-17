@@ -290,7 +290,6 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
 
     @Override
     public void showShop(ShopMainReponse shopBeanReponse) {
-
         setViewpagerTopData(shopBeanReponse.getPayload().getBanner());
         SPUtil.saveObject(Constants.MAIN_SHOP_KEY,shopBeanReponse);
         RxBus.getDefault().post(new Event(EventType.ACTION_MAIN_SETDATE,shopBeanReponse.getPayload().getGoods()));
