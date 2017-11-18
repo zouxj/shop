@@ -1,6 +1,12 @@
 package com.shenyu.laikaword.module.home.ui.fragment;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
+import com.shenyu.laikaword.helper.DialogHelper;
 import com.shenyu.laikaword.helper.ImageUitls;
 import com.shenyu.laikaword.helper.StatusBarManager;
 import com.shenyu.laikaword.model.adapter.MultiItemTypeAdapter;
@@ -26,9 +33,11 @@ import com.shenyu.laikaword.model.rxjava.rxbus.RxSubscriptions;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
+import com.shenyu.laikaword.module.us.setpassword.SetPassWordMsgCodeActivity;
 import com.zxj.utilslibrary.utils.DeviceInfo;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.LogUtil;
+import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
 import java.util.ArrayList;
@@ -116,13 +125,7 @@ public class LeftFragment extends IKWordBaseFragment {
                                 }
                                 break;
                             case EventType.ACTION_LFET_DATA:
-                                dataList.clear();
-                                dataList.add(new ShopMainReponse.EntranceListBean("我的余额",leftData[0],null,null,false));
-                                dataList.add(new ShopMainReponse.EntranceListBean("我的购买",leftData[1],null,null,false));
-                                dataList.add(new ShopMainReponse.EntranceListBean("我的提货",leftData[2],null,null,false));
-                                dataList.add(new ShopMainReponse.EntranceListBean("我的卡包",leftData[3],null,null,false));
-                                dataList.add(new ShopMainReponse.EntranceListBean("银行卡",leftData[4],null,null,false));
-                                dataList.add(new ShopMainReponse.EntranceListBean("我的地址",leftData[5],null,null,false));
+                                dataList.remove(dataList.size()-1);
                                 for (ShopMainReponse.EntranceListBean listBean:( List<ShopMainReponse.EntranceListBean> )myEvent.object) {
                                     dataList.add(listBean);
                                 }
@@ -180,7 +183,11 @@ public class LeftFragment extends IKWordBaseFragment {
         dataList.add(new ShopMainReponse.EntranceListBean("我的卡包",leftData[3],null,null,false));
         dataList.add(new ShopMainReponse.EntranceListBean("银行卡",leftData[4],null,null,false));
         dataList.add(new ShopMainReponse.EntranceListBean("我的地址",leftData[5],null,null,false));
+        dataList.add(new ShopMainReponse.EntranceListBean("联系客服",leftData[5],null,null,false));
         dataList.add(new ShopMainReponse.EntranceListBean("系统设置",leftData[6],null,null,false));
         commonAdapter.notifyDataSetChanged();
     }
+
+
+
 }

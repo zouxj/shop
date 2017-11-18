@@ -69,12 +69,7 @@ public class AboutAppActivity extends LKWordBaseActivity implements MPermission.
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.textView:
-                //TODO 跳转应用
-                if (checkApkExist(this, "com.tencent.mobileqq")){
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("mqqwpa://im/chat?chat_type=wpa&uin=800185927&version=1")));
-                }else{
-                    ToastUtil.showToastShort("本机未安装QQ应用");
-                }
+              //TODO 客服电话
                 break;
             case R.id.tv_check_update:
                 if (MPermission.hasPermissions(AboutAppActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
@@ -123,15 +118,5 @@ public class AboutAppActivity extends LKWordBaseActivity implements MPermission.
         }
     }
 
-    public boolean checkApkExist(Context context, String packageName) {
-        if (packageName == null || "".equals(packageName))
-            return false;
-        try {
-            ApplicationInfo info = context.getPackageManager().getApplicationInfo(packageName,
-                    PackageManager.GET_UNINSTALLED_PACKAGES);
-            return true;
-        } catch (PackageManager.NameNotFoundException e) {
-            return false;
-        }
-    }
+
 }

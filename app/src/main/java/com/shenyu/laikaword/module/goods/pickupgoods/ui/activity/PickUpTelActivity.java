@@ -2,11 +2,15 @@ package com.shenyu.laikaword.module.goods.pickupgoods.ui.activity;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.jakewharton.rxbinding.widget.RxTextView;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.model.bean.reponse.BaseReponse;
@@ -31,6 +35,8 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import rx.Subscriber;
+import rx.functions.Action1;
 
 /**
  * 手机卡提货
@@ -60,7 +66,10 @@ public class PickUpTelActivity extends LKWordBaseActivity {
     TextView tvTihuoCommit;
     @BindView(R.id.tv_heji)
     TextView tv_bottom;
+    @BindView(R.id.tv_moren)
+    TextView tvMoren;
     private int count=1;
+    String phone;
 
     @Override
     public int bindLayout() {
@@ -81,6 +90,7 @@ public class PickUpTelActivity extends LKWordBaseActivity {
         });
         setToolBarTitle("提货申请");
         tvTihuoCommit.setText("确认充值");
+
     }
 
     @Override
@@ -101,9 +111,64 @@ public class PickUpTelActivity extends LKWordBaseActivity {
             }
                 tvTihuoAll.setText(StringUtil.m2(StringUtil.formatDouble((bean.getGoodsValue())))+"元");
         tvTihuoTianxia.setText(Constants.getLoginReponse().getPayload().getBindPhone());
+//
+        phone = tvTihuoTianxia.getText().toString().trim().replace(" ", "");
+        if (phone.length()==11) {
+            if (phone.contains("-")) {
+                phone.replace("-", "");
+            }
+            StringBuilder sb = new StringBuilder(phone);
+            phone = sb.substring(0, 3) + " " + sb.substring(4, phone.length() - 3) + " " + sb.substring(phone.length() - 4);
+            tvTihuoTianxia.setText(phone);
         }
+        tvTihuoTianxia.addTextChangedListener(new TextWatcher() {
 
+                                                  @Override
+                                                  public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+                                                  }
+                                                  @Override
+                                                  public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                                                      if (s == null || s.length() == 0)
+                                                          return;
+                                                      StringBuilder sb = new StringBuilder();
+                                                      for (int i = 0; i < s.length(); i++) {
+                                                          if (i != 3 && i != 8 && s.charAt(i) == ' ') {
+                                                              continue;
+                                                          } else {
+                                                              sb.append(s.charAt(i));
+                                                              if ((sb.length() == 4 || sb.length() == 9)
+                                                                      && sb.charAt(sb.length() - 1) != ' ') {
+                                                                  sb.insert(sb.length() - 1, ' ');
+                                                              }
+                                                          }
+                                                      }
+                                                      if (!sb.toString().equals(s.toString())) {
+                                                          int index = start + 1;
+                                                          if (sb.charAt(start) == ' ') {
+                                                              if (before == 0) {
+                                                                  index++;
+                                                              } else {
+                                                                  index--;
+                                                              }
+                                                          } else {
+                                                              if (before == 1) {
+                                                                  index--;
+                                                              }
+                                                          }
+                                                          tvTihuoTianxia.setText(sb.toString());
+                                                          tvTihuoTianxia.setSelection(index);
+                                                      }
+                                                  }
+                                                  @Override
+                                                  public void afterTextChanged(Editable editable) {
+                                                        if (!editable.toString().equals(Constants.getLoginReponse().getPayload().getBindPhone())){
+                                                            tvMoren.setVisibility(View.GONE);
+                                                        }
+                                                  }
+                                              });
+        }
 
 
 
@@ -123,11 +188,12 @@ public class PickUpTelActivity extends LKWordBaseActivity {
                 tvTihuoAll.setText(Double.valueOf(bean.getGoodsValue())*Integer.valueOf(bean.getQuantity())+"元");
                 break;
             case R.id.tv_tihuo_commit:
-                if (!StringUtil.validText(tvTihuoTianxia.getText().toString().trim())) {
+                String      phone = tvTihuoTianxia.getText().toString().trim().replace(" ", "");
+                if (!StringUtil.validText(phone)) {
                     ToastUtil.showToastShort("请输入充值手机号码");
                     return;
                 }
-                if (!StringUtil.isTelNumber(tvTihuoTianxia.getText().toString().trim())) {
+                if (!StringUtil.isTelNumber(phone)) {
                     ToastUtil.showToastShort("请输入正确手机号码");
                     return;
                 }
@@ -146,10 +212,11 @@ public class PickUpTelActivity extends LKWordBaseActivity {
                 }).show();
                 return;
             }
+
                     Map<String,String> param = new HashMap<>();
                     param.put("packageId",bean.getPackageId());
                     param.put("quantity",count+"");
-                     param.put("phone",tvTihuoTianxia.getText().toString().trim());
+                     param.put("phone",phone);
                     requestData(param);
 
                 break;
@@ -161,7 +228,7 @@ public class PickUpTelActivity extends LKWordBaseActivity {
      * @param param
      */
     private void requestData(final Map<String,String> param){
-        DialogHelper.setInputDialog(mActivity, true,"", new DialogHelper.LinstenrText() {
+            DialogHelper.setInputDialog(mActivity, true,"充值号码:"+param.get("phone")+"\n"+"充值金额:"+param.get("quantity")+"元", new DialogHelper.LinstenrText() {
             @Override
             public void onLintenerText(String passWord) {
                 param.put("transactionPIN",passWord);

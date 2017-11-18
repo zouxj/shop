@@ -24,16 +24,26 @@
 
         <EditText
             android:textCursorDrawable="@drawable/color_cursor"
-            android:layout_marginTop="27dp"
+            android:layout_marginTop="5dp"
             android:background="@null"
             android:inputType="phone"
-            android:maxLength="11"
+            android:maxLength="13"
             android:layout_marginLeft="9dp"
             android:id="@+id/tv_tihuo_tianxia"
-            android:textSize="@dimen/text_size_17sp"
-            android:layout_width="150dp"
+            android:textSize="25sp"
+            android:layout_width="200dp"
             android:hint="请输入电话号码"
-            android:layout_height="25dp" />
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_moren"
+            android:layout_marginLeft="9dp"
+            android:layout_width="wrap_content"
+            android:text="默认账户绑定号码"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/color_999"
+            android:textSize="@dimen/text_size_12sp"
+            android:layout_height="wrap_content" />
+        <include layout="@layout/line_view"/>
 
     </LinearLayout>
 

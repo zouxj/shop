@@ -18,6 +18,7 @@ import com.shenyu.laikaword.module.us.setpassword.SetPassWordMsgCodeActivity;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.KeyBoardUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
+import com.zxj.utilslibrary.utils.UIUtil;
 import com.zxj.utilslibrary.widget.countdownview.PayPsdInputView;
 
 /**
@@ -212,7 +213,14 @@ public  final  class DialogHelper {
         TextView tvMoney = view.findViewById(R.id.tv_money);
         if (StringUtil.validText(money)){
             tvMoney.setVisibility(View.VISIBLE);
-            tvMoney.setText("￥"+money);
+            if (money.length()>10) {
+                tvMoney.setTextSize(UIUtil.sp2px(context, 8));
+                tvMoney.setText(money);
+            }
+            else {
+                tvMoney.setTextSize(UIUtil.sp2px(context, 10));
+                tvMoney.setText("￥" + money);
+            }
         }else {
             tvMoney.setVisibility(View.GONE);
         }

@@ -39,6 +39,9 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+/**
+ * 京东卡提货
+ */
 public class PickUpActivity extends LKWordBaseActivity {
 
     @BindView(R.id.step_view)

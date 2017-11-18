@@ -23,6 +23,7 @@ import com.shenyu.laikaword.module.login.presenter.LoginPresenter;
 import com.shenyu.laikaword.module.login.view.LoginView;
 import com.tencent.connect.common.Constants;
 import com.zxj.utilslibrary.utils.LogUtil;
+import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
@@ -59,9 +60,20 @@ public class LoginActivity extends LKWordBaseActivity implements LoginView,MPerm
 
     @Override
     public void doBusiness(Context context) {
+
+
+
         RxTextView.textChanges(etUsePhone).subscribe(new Action1<CharSequence>() {
             @Override
             public void call(CharSequence charSequence) {
+                if (StringUtil.validText(etUsePhone.getText().toString().trim())&&etUsePhone.getText().toString().length()>=11){
+                    tvSendMsgCode.setTextColor(UIUtil.getColor(R.color.app_theme_red));
+                    tvSendMsgCode.setEnabled(true);
+                }
+                else {
+                    tvSendMsgCode.setTextColor(UIUtil.getColor(R.color.color_b0b0));
+                    tvSendMsgCode.setEnabled(false);
+                }
                 loginPresenter.checkInput(charSequence.toString(), etUserMsgCode.getText().toString());
             }
         });
