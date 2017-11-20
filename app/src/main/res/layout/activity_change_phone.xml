@@ -96,7 +96,7 @@
             android:layout_height="43dp"
             android:layout_width="310dp"
             android:gravity="center"
-            android:text="确认"
+            android:text="验证并绑定"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:background="@drawable/bg_bt_login_rectangle_light"

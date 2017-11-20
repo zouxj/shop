@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.common.Constants;
@@ -92,6 +93,7 @@ public class AddressInfoActivity extends LKWordBaseActivity {
             protected void convert(final ViewHolder holder, final AddressReponse.PayloadBean addressReponse, final int position) {
                 holder.setText(R.id.tv_address_name,addressReponse.getReceiveName());
                 holder.setText(R.id.tv_address_tel,addressReponse.getPhone());
+
                 holder.setText(R.id.tv_select_adress, addressReponse.getProvince()+addressReponse.getCity()+addressReponse.getDetail());
                 holder.setOnClickListener(R.id.tv_to_edite_address, new View.OnClickListener() {
                     @Override
@@ -102,6 +104,11 @@ public class AddressInfoActivity extends LKWordBaseActivity {
 
                 CheckBox checkBox = holder.getView(R.id.ck_moren);
                 checkBox.setChecked((addressReponse.getDefaultX()==1));
+                TextView tvMoren= holder.getView(R.id.tv_check_more);
+                if (checkBox.isChecked())
+                    tvMoren.setTextColor(UIUtil.getColor(R.color.app_theme_red));
+                    else
+                    tvMoren.setTextColor(UIUtil.getColor(R.color.color_999));
                 holder.setOnClickListener(R.id.tv_delete_address, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

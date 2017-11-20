@@ -59,7 +59,7 @@ public class HomeLeftItemViewDelegate implements ItemViewDelegate<ShopMainRepons
         holder.setText(R.id.tv_left_menu,entranceListBean.getTitle());
         ImageView imageView=  holder.getView(R.id.img_left_menu);
 
-        if (position<=5&&entranceListBean.getImgUrl()!=0) {
+        if (position<=6&&entranceListBean.getImgUrl()!=0) {
             imageView.setImageBitmap(null);
             if (Build.VERSION.SDK_INT> Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
                 imageView.setBackground(UIUtil.getDrawable(entranceListBean.getImgUrl()));
@@ -125,6 +125,10 @@ public class HomeLeftItemViewDelegate implements ItemViewDelegate<ShopMainRepons
                         break;
                     case 6:
                         //TODO QQ客服
+                        if (null==loginReponse) {
+                            IntentLauncher.with(mActivity).launch(LoginActivity.class);
+                            return;
+                        }
                         toQQServer();
                         break;
                     default:

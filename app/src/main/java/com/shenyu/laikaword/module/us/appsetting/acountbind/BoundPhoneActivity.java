@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.jakewharton.rxbinding.widget.RxTextView;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
+import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.model.bean.reponse.BaseReponse;
 import com.shenyu.laikaword.helper.SendMsgHelper;
 import com.shenyu.laikaword.model.net.api.ApiCallback;
@@ -17,7 +18,9 @@ import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
+import com.shenyu.laikaword.module.home.ui.activity.MainActivity;
 import com.zxj.utilslibrary.utils.IntentLauncher;
+import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
@@ -103,8 +106,11 @@ public class BoundPhoneActivity extends LKWordBaseActivity {
                     @Override
                     public void onSuccess(BaseReponse model) {
                             if (model.isSuccess()){
-                                RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_REQUEST, null));
-                                    IntentLauncher.with(BoundPhoneActivity.this).launchFinishCpresent(AcountBdingSuccessActivity.class);
+                                refreshUser();
+                                IntentLauncher.with(BoundPhoneActivity.this).put("phone",phone).launchFinishCpresent(MainActivity.class);
+//                                RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_REQUEST, null));
+
+//                                    IntentLauncher.with(BoundPhoneActivity.this).launchFinishCpresent(AcountBdingSuccessActivity.class);
 //                                    DialogHelper.makeUpdate(mActivity, "温馨提示", "绑定手机成功,请前往设置支付密码", "取消", "去设置", true, new DialogHelper.ButtonCallback() {
 //                                        @Override
 //                                        public void onNegative(Dialog dialog) {

@@ -128,8 +128,6 @@ public class LaiKaApplication extends MultiDexApplication {
                     }
                 }).initialize();
         // queryAndLoadNewPatch不可放在attachBaseContext 中，否则无网络权限，建议放在后面任意时刻，如onCreate中
-
-
     }
 
     @Override

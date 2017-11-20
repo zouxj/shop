@@ -159,19 +159,20 @@
     android:layout_gravity="center_horizontal"
     android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/tv_qq_login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
 
-        android:background="@mipmap/login_qq_icon" />
 
     <ImageView
     android:id="@+id/tv_wechat_login"
     android:layout_width="wrap_content"
-    android:layout_marginLeft="35dp"
+
     android:background="@mipmap/login_wechat_icon"
     android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/tv_qq_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="35dp"
+        android:background="@mipmap/login_qq_icon" />
 </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

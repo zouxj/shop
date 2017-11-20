@@ -63,7 +63,7 @@ public class LeftFragment extends IKWordBaseFragment {
     public static final int[] leftData={
         R.mipmap.left_money_icon,R.mipmap.left_gouwuchei_icon,
                 R.mipmap.left_tihuo_icon,R.mipmap.left_wodekabao_icon,
-                R.mipmap.left_yinhangka_icon,R.mipmap.left_dizh_icon,R.mipmap.lfet_setting_icon};
+                R.mipmap.left_yinhangka_icon,R.mipmap.left_dizh_icon,R.mipmap.lfet_setting_icon,R.mipmap.kefu_icon};
 
 
     @Override
@@ -183,7 +183,7 @@ public class LeftFragment extends IKWordBaseFragment {
         dataList.add(new ShopMainReponse.EntranceListBean("我的卡包",leftData[3],null,null,false));
         dataList.add(new ShopMainReponse.EntranceListBean("银行卡",leftData[4],null,null,false));
         dataList.add(new ShopMainReponse.EntranceListBean("我的地址",leftData[5],null,null,false));
-        dataList.add(new ShopMainReponse.EntranceListBean("联系客服",leftData[5],null,null,false));
+        dataList.add(new ShopMainReponse.EntranceListBean("联系客服",leftData[7],null,null,false));
         dataList.add(new ShopMainReponse.EntranceListBean("系统设置",leftData[6],null,null,false));
         commonAdapter.notifyDataSetChanged();
     }

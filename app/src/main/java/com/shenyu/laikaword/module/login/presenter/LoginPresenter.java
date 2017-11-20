@@ -15,6 +15,8 @@ import com.shenyu.laikaword.Interactor.BaseUiListener;
 import com.shenyu.laikaword.module.home.ui.activity.MainActivity;
 import com.shenyu.laikaword.model.net.api.ApiCallback;
 import com.shenyu.laikaword.module.login.view.LoginView;
+import com.shenyu.laikaword.module.us.appsetting.acountbind.BoundPhoneActivity;
+import com.shenyu.laikaword.wxapi.WXEntryActivity;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.umeng.analytics.MobclickAgent;
@@ -123,10 +125,13 @@ public class LoginPresenter extends BasePresenter<LoginView> {
                 public void onSuccess(LoginReponse model) {
                     if (model.isSuccess()){
                         MobclickAgent.onProfileSignIn("qq",model.getPayload().getUserId());
-                        mvpView.showUser(model);
-                        SPUtil.saveObject(Constants.LOGININFO_KEY,model);
-                        SPUtil.putString(Constants.TOKEN,model.getPayload().getToken());
-                        IntentLauncher.with(mActivity).launchFinishCpresent(MainActivity.class);
+                        if(!StringUtil.validText(model.getPayload().getBindPhone()))
+                            IntentLauncher.with(mActivity).launch(BoundPhoneActivity.class);
+                        else
+                            IntentLauncher.with(mActivity).launch(MainActivity.class);
+//                        SPUtil.saveObject(Constants.LOGININFO_KEY,model);
+//                        SPUtil.putString(Constants.TOKEN,model.getPayload().getToken());
+//                        IntentLauncher.with(mActivity).launchFinishCpresent(MainActivity.class);
                     }else {
                         ToastUtil.showToastShort(model.getError().getMessage());
                     }

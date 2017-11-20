@@ -11,6 +11,7 @@ import com.shenyu.laikaword.module.home.ui.activity.MainActivity;
 import com.shenyu.laikaword.module.us.appsetting.acountbind.AcountBdingSuccessActivity;
 import com.shenyu.laikaword.model.net.api.ApiCallback;
 import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
+import com.shenyu.laikaword.module.us.appsetting.acountbind.BoundPhoneActivity;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
@@ -21,6 +22,7 @@ import com.umeng.analytics.MobclickAgent;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.SPUtil;
+import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 
 import java.util.HashMap;
@@ -86,9 +88,13 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                                 @Override
                                 public void onSuccess(LoginReponse model) {
                                     if (model.isSuccess()) {
-                                        SPUtil.saveObject(Constants.LOGININFO_KEY, model);
-                                        SPUtil.putString(Constants.TOKEN, model.getPayload().getToken());
-                                        IntentLauncher.with(WXEntryActivity.this).launch(AcountBdingSuccessActivity.class);
+//                                        SPUtil.saveObject(Constants.LOGININFO_KEY, model);
+//                                        SPUtil.putString(Constants.TOKEN, model.getPayload().getToken());
+                                        if(!StringUtil.validText(model.getPayload().getBindPhone()))
+                                            IntentLauncher.with(WXEntryActivity.this).launch(BoundPhoneActivity.class);
+                                        else
+                                            IntentLauncher.with(WXEntryActivity.this).launch(MainActivity.class);
+
                                     } else {
                                         ToastUtil.showToastShort(model.getError().getMessage());
                                         finish();

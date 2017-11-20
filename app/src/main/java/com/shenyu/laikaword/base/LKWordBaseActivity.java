@@ -18,14 +18,23 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.githang.statusbar.StatusBarCompat;
 import com.shenyu.laikaword.R;
+import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.helper.LoadViewHelper;
 import com.shenyu.laikaword.Interactor.IBaseActivity;
+import com.shenyu.laikaword.model.bean.reponse.BaseReponse;
+import com.shenyu.laikaword.model.bean.reponse.LoginReponse;
+import com.shenyu.laikaword.model.net.api.ApiCallback;
 import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
+import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxSubscriptions;
+import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
+import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
+import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.zxj.utilslibrary.utils.ActivityManageUtil;
 import com.zxj.utilslibrary.utils.KeyBoardUtil;
 import com.zxj.utilslibrary.utils.LogUtil;
+import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 import butterknife.ButterKnife;
 import rx.Subscription;
@@ -241,5 +250,31 @@ public abstract class LKWordBaseActivity extends RxAppCompatActivity implements 
         dumpTaskAffinity();
     }
 
+    /**
+     * 刷新用户数据
+     */
+    protected void  refreshUser(){
+        retrofitUtils.setLifecycleTransformer(bindUntilEvent(ActivityEvent.DESTROY)).addSubscription(RetrofitUtils.apiStores.getUserInfo(), new ApiCallback<LoginReponse>() {
+            @Override
+            public void onSuccess(LoginReponse loginReponse) {
+                if (loginReponse.isSuccess()){
+                    SPUtil.putString(Constants.TOKEN,loginReponse.getPayload().getToken());
+                    SPUtil.saveObject(Constants.LOGININFO_KEY,loginReponse);
+                    RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER,null));
+                }
+
+            }
+
+            @Override
+            public void onFailure(String msg) {
+
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        });
+    }
 
 }

@@ -92,26 +92,7 @@ public class MainActivity extends LKWordBaseActivity implements  MPermission.Per
                             drawerLayout.openDrawer(frameLeft);
                             break;
                             case EventType.ACTION_UPDATA_USER_REQUEST:
-                                retrofitUtils.setLifecycleTransformer(bindUntilEvent(ActivityEvent.DESTROY)).addSubscription(RetrofitUtils.apiStores.getUserInfo(), new ApiCallback<BaseReponse>() {
-                                    @Override
-                                    public void onSuccess(BaseReponse loginReponse) {
-                                        if (loginReponse.isSuccess()){
-                                            SPUtil.saveObject(Constants.LOGININFO_KEY,loginReponse);
-                                            RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER,null));
-                                        }
-
-                                    }
-
-                                    @Override
-                                    public void onFailure(String msg) {
-
-                                    }
-
-                                    @Override
-                                    public void onFinish() {
-
-                                    }
-                                });
+                                refreshUser();
                                 break;
                         }
 //            }
