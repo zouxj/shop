@@ -88,13 +88,14 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                                 @Override
                                 public void onSuccess(LoginReponse model) {
                                     if (model.isSuccess()) {
-//                                        SPUtil.saveObject(Constants.LOGININFO_KEY, model);
-//                                        SPUtil.putString(Constants.TOKEN, model.getPayload().getToken());
-                                        if(!StringUtil.validText(model.getPayload().getBindPhone()))
+                                        if(!StringUtil.validText(model.getPayload().getBindPhone())) {
+                                            SPUtil.putString(Constants.TOKEN, model.getPayload().getToken());
                                             IntentLauncher.with(WXEntryActivity.this).launch(BoundPhoneActivity.class);
-                                        else
+                                        }else {
+                                            SPUtil.saveObject(Constants.LOGININFO_KEY, model);
+                                            SPUtil.putString(Constants.TOKEN, model.getPayload().getToken());
                                             IntentLauncher.with(WXEntryActivity.this).launch(MainActivity.class);
-
+                                        }
                                     } else {
                                         ToastUtil.showToastShort(model.getError().getMessage());
                                         finish();

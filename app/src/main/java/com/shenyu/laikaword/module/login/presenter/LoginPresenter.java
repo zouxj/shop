@@ -125,12 +125,15 @@ public class LoginPresenter extends BasePresenter<LoginView> {
                 public void onSuccess(LoginReponse model) {
                     if (model.isSuccess()){
                         MobclickAgent.onProfileSignIn("qq",model.getPayload().getUserId());
-                        if(!StringUtil.validText(model.getPayload().getBindPhone()))
+                        if(!StringUtil.validText(model.getPayload().getBindPhone())) {
+                            SPUtil.putString(Constants.TOKEN, model.getPayload().getToken());
                             IntentLauncher.with(mActivity).launch(BoundPhoneActivity.class);
-                        else
+                        }
+                        else {
+                            SPUtil.saveObject(Constants.LOGININFO_KEY, model);
+                            SPUtil.putString(Constants.TOKEN, model.getPayload().getToken());
                             IntentLauncher.with(mActivity).launch(MainActivity.class);
-//                        SPUtil.saveObject(Constants.LOGININFO_KEY,model);
-//                        SPUtil.putString(Constants.TOKEN,model.getPayload().getToken());
+                        }
 //                        IntentLauncher.with(mActivity).launchFinishCpresent(MainActivity.class);
                     }else {
                         ToastUtil.showToastShort(model.getError().getMessage());
