@@ -7,10 +7,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.common.Constants;
@@ -56,9 +58,19 @@ public class HomeLeftItemViewDelegate implements ItemViewDelegate<ShopMainRepons
     @SuppressLint("NewApi")
     @Override
     public void convert(ViewHolder holder, final ShopMainReponse.EntranceListBean entranceListBean, final int position) {
-        holder.setText(R.id.tv_left_menu,entranceListBean.getTitle());
-        ImageView imageView=  holder.getView(R.id.img_left_menu);
 
+        TextView textView= holder.getView(R.id.tv_left_menu);
+        if (entranceListBean.isDot()){
+            Drawable rightDrawable = UIUtil.getDrawable(R.drawable.cicle_point);
+            rightDrawable.setBounds(0, 0, rightDrawable.getMinimumWidth(), rightDrawable.getMinimumHeight());
+            textView.setCompoundDrawables(null, null, rightDrawable, null);
+
+        }
+        else {
+            textView.setCompoundDrawables(null,null,null,null);
+        }
+        textView.setText(entranceListBean.getTitle());
+        ImageView imageView=  holder.getView(R.id.img_left_menu);
         if (position<=6&&entranceListBean.getImgUrl()!=0) {
             imageView.setImageBitmap(null);
             if (Build.VERSION.SDK_INT> Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
@@ -129,7 +141,14 @@ public class HomeLeftItemViewDelegate implements ItemViewDelegate<ShopMainRepons
                             IntentLauncher.with(mActivity).launch(LoginActivity.class);
                             return;
                         }
-                        toQQServer();
+                        final ShopMainReponse shopMainReponse= (ShopMainReponse) SPUtil.readObject(Constants.MAIN_SHOP_KEY);
+                        if (shopMainReponse!=null) {
+                            String qq = shopMainReponse.getPayload().getContacts().getQq();
+                            if (StringUtil.validText(qq))
+                            toQQServer(qq);
+                        }
+                        else
+                            ToastUtil.showToastShort("此功能暂没开放");
                         break;
                     default:
                         IntentLauncher.with(mActivity).put("weburl",entranceListBean.getUrl()).launch(GuessActivity.class);
@@ -139,13 +158,13 @@ public class HomeLeftItemViewDelegate implements ItemViewDelegate<ShopMainRepons
             }
         });
     }
-    private void toQQServer(){
+    private void toQQServer(final String phone){
         DialogHelper.makeUpdate(mActivity, "温馨提示", "是否跳转至客服QQ聊天窗口", "取消", "确认", false, new DialogHelper.ButtonCallback() {
             @Override
             public void onNegative(Dialog dialog) {
                 //TODO 跳转应用
                 if (checkApkExist(mActivity, "com.tencent.mobileqq")){
-                    mActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("mqqwpa://im/chat?chat_type=wpa&uin=800185927&version=1")));
+                    mActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("mqqwpa://im/chat?chat_type=wpa&uin="+phone+"&version=1")));
                 }else{
                     ToastUtil.showToastShort("本机未安装QQ应用");
                 }

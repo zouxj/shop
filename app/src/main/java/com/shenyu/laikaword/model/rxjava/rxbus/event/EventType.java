@@ -25,4 +25,6 @@ public class EventType {
     //更新银行卡
     public static final int ACTION_UPDATA_USER_REQUEST=0x08;
     public static final int ACTION_LFET_DATA=0x09;
+
+    public static final int CAR_PAGER_REFER=0x09;
 }

@@ -258,7 +258,6 @@ public abstract class LKWordBaseActivity extends RxAppCompatActivity implements 
             @Override
             public void onSuccess(LoginReponse loginReponse) {
                 if (loginReponse.isSuccess()){
-                    SPUtil.putString(Constants.TOKEN,loginReponse.getPayload().getToken());
                     SPUtil.saveObject(Constants.LOGININFO_KEY,loginReponse);
                     RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER,null));
                 }

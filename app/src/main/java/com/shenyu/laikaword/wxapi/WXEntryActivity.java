@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
+import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
+import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
 import com.shenyu.laikaword.module.launch.LaiKaApplication;
 import com.shenyu.laikaword.model.bean.reponse.LoginReponse;
 import com.shenyu.laikaword.common.Constants;
@@ -87,19 +90,19 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                             RetrofitUtils.getRetrofitUtils().setLifecycleTransformer(null).addSubscription(RetrofitUtils.apiStores.partyBind(param), new ApiCallback<LoginReponse>() {
                                 @Override
                                 public void onSuccess(LoginReponse model) {
-                                    if (model.isSuccess()) {
-                                        if(!StringUtil.validText(model.getPayload().getBindPhone())) {
-                                            SPUtil.putString(Constants.TOKEN, model.getPayload().getToken());
-                                            IntentLauncher.with(WXEntryActivity.this).launch(BoundPhoneActivity.class);
-                                        }else {
-                                            SPUtil.saveObject(Constants.LOGININFO_KEY, model);
-                                            SPUtil.putString(Constants.TOKEN, model.getPayload().getToken());
-                                            IntentLauncher.with(WXEntryActivity.this).launch(MainActivity.class);
-                                        }
-                                    } else {
-                                        ToastUtil.showToastShort(model.getError().getMessage());
+//                                    if (model.isSuccess()) {
+//                                        MobclickAgent.onProfileSignIn("WX",model.getPayload().getUserId());
+//                                        SPUtil.saveObject(Constants.LOGININFO_KEY, model);
+//                                        SPUtil.putString(Constants.TOKEN, model.getPayload().getToken());
+//                                        IntentLauncher.with(WXEntryActivity.this).launch(MainActivity.class);
+//                                    } else {
+//                                        ToastUtil.showToastShort(model.getError().getMessage());
+//                                    }
+                                    if (model.isSuccess()){
+                                        RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_REQUEST,null));
                                         finish();
-                                   }
+
+                                    }
                                 }
 
                                 @Override
@@ -118,14 +121,21 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                             RetrofitUtils.getRetrofitUtils().setLifecycleTransformer(null).addSubscription(RetrofitUtils.apiStores.loginWxQQ("WeChat", code, "", ""), new ApiCallback<LoginReponse>() {
                                 @Override
                                 public void onSuccess(LoginReponse model) {
+
                                     if (model.isSuccess()) {
-                                        MobclickAgent.onProfileSignIn("WX",model.getPayload().getUserId());
-                                        SPUtil.saveObject(Constants.LOGININFO_KEY, model);
-                                        SPUtil.putString(Constants.TOKEN, model.getPayload().getToken());
-                                        IntentLauncher.with(WXEntryActivity.this).launch(MainActivity.class);
+                                        if(!StringUtil.validText(model.getPayload().getBindPhone())) {
+                                            SPUtil.putString(Constants.TOKEN, model.getPayload().getToken());
+                                            IntentLauncher.with(WXEntryActivity.this).launch(BoundPhoneActivity.class);
+                                        }else {
+                                            SPUtil.saveObject(Constants.LOGININFO_KEY, model);
+                                            SPUtil.putString(Constants.TOKEN, model.getPayload().getToken());
+                                            IntentLauncher.with(WXEntryActivity.this).launch(MainActivity.class);
+                                        }
                                     } else {
                                         ToastUtil.showToastShort(model.getError().getMessage());
+                                        finish();
                                     }
+
                                 }
 
                                 @Override
@@ -142,7 +152,6 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
                             });
                         }
-
                         //就在这个地方，用网络库什么的或者自己封的网络api，发请求去咯，注意是get请求
                         break;
                     case RETURN_MSG_TYPE_SHARE:

@@ -58,6 +58,14 @@ public class BoundPhoneActivity extends LKWordBaseActivity {
         Observable.combineLatest(textPhone, textCode, new Func2<CharSequence, CharSequence, Boolean>() {
             @Override
             public Boolean call(CharSequence charSequence, CharSequence charSequence2) {
+                        if (StringUtil.validText(charSequence.toString().trim())&&charSequence.toString().length()>=11){
+                            tvSendMsgCode.setTextColor(UIUtil.getColor(R.color.app_theme_red));
+                            tvSendMsgCode.setEnabled(true);
+                        }
+                        else {
+                            tvSendMsgCode.setTextColor(UIUtil.getColor(R.color.color_b0b0));
+                            tvSendMsgCode.setEnabled(false);
+                    }
                 return StringUtil.validText(charSequence.toString()) && StringUtil.validText(charSequence2.toString());
             }
         }).subscribe(new Action1<Boolean>() {
@@ -107,7 +115,7 @@ public class BoundPhoneActivity extends LKWordBaseActivity {
                     public void onSuccess(BaseReponse model) {
                             if (model.isSuccess()){
                                 refreshUser();
-                                IntentLauncher.with(BoundPhoneActivity.this).put("phone",phone).launchFinishCpresent(MainActivity.class);
+                                IntentLauncher.with(BoundPhoneActivity.this).launchFinishCpresent(MainActivity.class);
 //                                RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_REQUEST, null));
 
 //                                    IntentLauncher.with(BoundPhoneActivity.this).launchFinishCpresent(AcountBdingSuccessActivity.class);

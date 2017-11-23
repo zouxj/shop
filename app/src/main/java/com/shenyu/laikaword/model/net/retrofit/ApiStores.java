@@ -114,8 +114,8 @@ public interface ApiStores {
     @FormUrlEncoded
     Observable<BaseReponse> extractPackage(@FieldMap Map<String, String> map);
     @FormUrlEncoded
-    @POST("account/myextract")//下单接口
-    Observable<PickUpGoodsReponse> myextract(@Field("extractStatus") int extractStatus);
+    @POST("account/newMyExtract")// 我的提货接口
+    Observable<PickUpGoodsReponse> newMyExtract(@Field("extractType") int extractType,@Field("page") int page,@Field("pageSize") int pageSize);
     @FormUrlEncoded
     @POST("account/getUserMoneyDetail")//余额明细
     Observable<MoneyDetailReponse> getUserMoneyDetail(@Field("page") int page, @Field("pageSize") int pageSize);

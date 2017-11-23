@@ -27,7 +27,28 @@ public class ShopMainReponse extends BaseReponse implements Serializable {
         this.payload = payload;
     }
 
+    public class Contacts implements Serializable{
+        private String qq;
 
+    public String getQq() {
+        return qq;
+    }
+
+    public void setQq(String qq) {
+        this.qq = qq;
+    }
+    }
+    public class Flag implements Serializable{
+        private String newExtractFlag;
+
+        public String getnewExtractFlag() {
+            return newExtractFlag;
+        }
+
+        public void setnewExtractFlag(String qq) {
+            this.newExtractFlag = qq;
+        }
+    }
     public static class EntranceListBean implements Serializable {
         public EntranceListBean(String title,int imgUrl, String iconURL, String url, boolean dot) {
             this.title = title;
@@ -96,6 +117,24 @@ public class ShopMainReponse extends BaseReponse implements Serializable {
         private List<NoticeBean> notice;
         private List<GoodsBean> goods;
         private List<EntranceListBean> entranceList;
+        private Contacts contacts;
+        private Flag flag;
+
+        public Contacts getContacts() {
+            return contacts;
+        }
+
+        public void setContacts(Contacts contacts) {
+            this.contacts = contacts;
+        }
+
+        public Flag getFlag() {
+            return flag;
+        }
+
+        public void setFlag(Flag flag) {
+            this.flag = flag;
+        }
 
         public List<EntranceListBean> getEntranceList() {
             return entranceList;

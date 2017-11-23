@@ -118,13 +118,15 @@ public class MainPresenter extends BasePresenter<MainView> {
      * 下拉刷新
      */
     public void loadRefresh(LifecycleTransformer lifecycleTransformer){
+        mvpView.isLoading();
         addSubscription(lifecycleTransformer,apiStores.getMainShop(), new ApiCallback<ShopMainReponse>() {
             @Override
             public void onSuccess(ShopMainReponse model) {
                 if (model.isSuccess()) {
+                    mvpView.showShop(model);
                     page=2;
-                    SPUtil.saveObject(Constants.MAIN_SHOP_KEY,model);
-                    RxBus.getDefault().post(new Event(EventType.ACTION_MAIN_SETDATE,model.getPayload().getGoods()));
+//                    SPUtil.saveObject(Constants.MAIN_SHOP_KEY,model);
+//                    RxBus.getDefault().post(new Event(EventType.ACTION_MAIN_SETDATE,model.getPayload().getGoods()));
                 }
             }
 

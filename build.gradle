@@ -23,7 +23,8 @@ allprojects {
         maven {
             url "http://maven.aliyun.com/nexus/content/repositories/releases"
         }
-        maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local/' }
+        maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local/'
+        }
     }
 }
 

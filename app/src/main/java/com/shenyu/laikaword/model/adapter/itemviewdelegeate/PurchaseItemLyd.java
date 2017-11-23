@@ -1,6 +1,7 @@
 package com.shenyu.laikaword.model.adapter.itemviewdelegeate;
 
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.helper.ImageUitls;
@@ -43,7 +44,8 @@ public class PurchaseItemLyd implements ItemViewDelegate<PickUpGoodsReponse.Payl
         holder.setText(R.id.tv_purchase_number,"编号:"+payloadBean.getExtractId());
         ImageUitls.loadImg(payloadBean.getGoodsImage(),(ImageView) holder.getView(R.id.img_purchase_img));
                     holder.setText(R.id.tv_purchase_count,"合计:"+(Double.parseDouble(payloadBean.getGoodsValue())*StringUtil.formatIntger(payloadBean.getQuantity())));
-
+        TextView textView =holder.getView(R.id.tv_status);
+//        textView.setText(PickUpGoodsReponse.Status.getName(StringUtil.formatIntger(payloadBean.getStatus())));
 
     }
 }

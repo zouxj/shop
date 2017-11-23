@@ -7,7 +7,7 @@ import java.util.List;
  * Created by shenyu_zxjCode on 2017/10/20 0020.
  */
 
-public class CarPagerReponse extends BaseReponse {
+public class CarPagerReponse extends BaseReponse implements Serializable{
 
     /**
      * payload : {"yd":{"name":"移动卡","list":[]},"dx":{"name":"电信卡","list":[]},"lt":{"name":"联通卡","list":[]},"jd":{"name":"京东卡","list":[{"packageId":"8","userId":"43","goodsName":"goods1","goodsImage":"http://image.comingcard.com/goods/yd100.png","goodsType":"jd","goodsValue":"100.00","quantity":"28","createTime":"1508478500","imageUrl":null}]}}
@@ -23,7 +23,7 @@ public class CarPagerReponse extends BaseReponse {
         this.payload = payload;
     }
 
-    public static class PayloadBean {
+    public static class PayloadBean implements Serializable {
         /**
          * yd : {"name":"移动卡","list":[]}
          * dx : {"name":"电信卡","list":[]}

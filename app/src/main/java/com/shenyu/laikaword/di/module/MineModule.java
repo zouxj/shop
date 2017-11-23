@@ -28,7 +28,7 @@ public class MineModule {
     private Activity mActivity;
     private FragmentManager fm;
     private  AddBankView AddBankView;
-    private final static String[] mlist= new String[]{"全部","京东卡","移动卡","联通卡","电信卡"};
+    public final static String[] mlist= new String[]{"全部","京东卡","移动卡","联通卡","电信卡"};
     //添加添加地址View
     public MineModule(Context context,AddressView addressView){
         this.addressView=addressView;
@@ -64,7 +64,7 @@ public class MineModule {
     }
     @Provides
     CarPackageViewPagerAdapter provideCarPackageViewPagerAdapter(){
-     return    new CarPackageViewPagerAdapter(mActivity,mlist);
+     return new CarPackageViewPagerAdapter(mActivity,mlist);
     }
     @Provides
     PurchaseViewPagerAdapter providePurchaseViewPagerAdapter(){

@@ -18,7 +18,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
     <TextView
-        android:id="@+id/wl_tv_tiao"
+        android:id="@+id/start_tv_tiao"
         android:layout_marginTop="12dp"
         android:textSize="10sp"
         android:visibility="gone"

@@ -16,7 +16,9 @@ import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.helper.UpdateManager;
+import com.shenyu.laikaword.model.bean.reponse.ShopMainReponse;
 import com.zxj.utilslibrary.utils.PackageManagerUtil;
+import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
@@ -32,6 +34,8 @@ public class AboutAppActivity extends LKWordBaseActivity implements MPermission.
     TextView tvNewVersion;
     @BindView(R.id.tv_version)
     TextView tvVersion;
+    @BindView(R.id.textView)
+    TextView tvQQ;
 
     @Override
     public int bindLayout() {
@@ -42,6 +46,13 @@ public class AboutAppActivity extends LKWordBaseActivity implements MPermission.
     public void initView() {
         setToolBarTitle("关于我们");
         tvVersion.setText("来卡商城:"+PackageManagerUtil.getVersionName(UIUtil.getContext()));
+
+        final ShopMainReponse shopMainReponse= (ShopMainReponse) SPUtil.readObject(Constants.MAIN_SHOP_KEY);
+        if (shopMainReponse!=null) {
+            String qq = shopMainReponse.getPayload().getContacts().getQq();
+            if (StringUtil.validText(qq))
+                tvQQ.setText("客服QQ:"+qq);
+        }
     }
 
     @Override

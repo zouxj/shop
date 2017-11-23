@@ -2,6 +2,7 @@ package com.shenyu.laikaword.model.adapter.itemviewdelegeate;
 
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.helper.ImageUitls;
@@ -44,7 +45,8 @@ public class PurchaseItemJd  implements ItemViewDelegate<PickUpGoodsReponse.Payl
         }
         else
         holder.getView(R.id.tv_purchase_order_number).setVisibility(View.GONE);
-
+        TextView textView =holder.getView(R.id.tv_status);
+        textView.setText( PickUpGoodsReponse.Status.getName(StringUtil.formatIntger(payloadBean.getStatus())));
         holder.setText(R.id.tv_purchase_time, DateTimeUtil.formatDate( Long.parseLong(payloadBean.getCreateTime()),"yyy-MM-dd HH:mm:ss"));
         holder.setText(R.id.tv_purchase_shop_name,payloadBean.getGoodsName());
         holder.setText(R.id.tv_purchase_countmun,"X"+payloadBean.getQuantity());

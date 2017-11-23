@@ -37,7 +37,7 @@ public class StartActivity extends RxActivity {
 
     @BindView(R.id.img_banner)
     ImageView imageView;
-    @BindView(R.id.wl_tv_tiao)
+    @BindView(R.id.start_tv_tiao)
     TextView textView;
     private StartBannerGuangKReponse.PayloadBean payload;
 
@@ -136,7 +136,7 @@ public class StartActivity extends RxActivity {
     }
 
 
-    @OnClick(R.id.wl_tv_tiao)
+    @OnClick(R.id.start_tv_tiao)
     public void onViewClicked() {
         IntentLauncher.with(StartActivity.this).launchFinishCpresent(MainActivity.class);
     }

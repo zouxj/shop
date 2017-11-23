@@ -60,9 +60,6 @@ public class LoginActivity extends LKWordBaseActivity implements LoginView,MPerm
 
     @Override
     public void doBusiness(Context context) {
-
-
-
         RxTextView.textChanges(etUsePhone).subscribe(new Action1<CharSequence>() {
             @Override
             public void call(CharSequence charSequence) {

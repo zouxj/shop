@@ -3,6 +3,8 @@ package com.shenyu.laikaword.module.home.ui.fragment;
 
 import android.annotation.SuppressLint;
 import android.os.Build;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -107,7 +109,6 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
 
         StatusBarManager statusBarManager = new StatusBarManager(getActivity(),UIUtil.getColor(R.color.app_theme_red));
             int statusBarHeight=  statusBarManager.getStatusBarHeight();
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT&&Build.VERSION.SDK_INT <Build.VERSION_CODES.LOLLIPOP) {
             LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) relativeLayout.getLayoutParams();
             params.topMargin=statusBarHeight;
@@ -145,6 +146,7 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
 
 
     }
+
     private void subscribeEvent() {
         RxSubscriptions.remove(mRxSub);
         mRxSub = RxBus.getDefault().toObservable(Event.class)
@@ -180,6 +182,10 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
                 });
         RxSubscriptions.add(mRxSub);
     }
+
+
+
+
     @Override
     public void doBusiness() {
         setupViewPager();
@@ -206,7 +212,6 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
         bannerHelper.setPoitSize(7);
         bannerHelper.setmPointersLayout(Gravity.RIGHT|Gravity.BOTTOM,240,0,15,15);
         bannerHelper.setIsAuto(true);
-
     }
 
     /**
@@ -251,7 +256,7 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
 
     @Override
     public void requestData() {
-        mainPresenter.requestData(this.bindToLifecycle());
+//        mainPresenter.requestData(this.bindToLifecycle());
     }
     private void setupViewPager() {
         // 第二步：为ViewPager设置适配器
@@ -399,6 +404,7 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
     @Override
     public void onResume() {
         super.onResume();
+        smartRefreshLayout.autoRefresh();
         bannerHelper.onResume();
     }
 

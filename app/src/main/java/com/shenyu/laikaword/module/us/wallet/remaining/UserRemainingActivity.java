@@ -29,11 +29,9 @@ import rx.android.schedulers.AndroidSchedulers;
  * 我的余额
  */
 public class UserRemainingActivity extends LKWordBaseActivity {
-
-
     @BindView(R.id.re_tv_sum)
     TextView reTvSum;
-
+    LoginReponse loginReponse;
     @Override
     public int bindLayout() {
         return R.layout.activity_user_remaining;
@@ -41,7 +39,7 @@ public class UserRemainingActivity extends LKWordBaseActivity {
 
     @Override
     public void doBusiness(Context context) {
-      LoginReponse loginReponse = Constants.getLoginReponse();
+       loginReponse = Constants.getLoginReponse();
       if (null!=loginReponse&& StringUtil.validText(loginReponse.getPayload().getMoney()))
           reTvSum.setText("￥"+loginReponse.getPayload().getMoney());
 
@@ -68,7 +66,7 @@ public class UserRemainingActivity extends LKWordBaseActivity {
                 break;
             case R.id.re_bt_withdraw:
                 //TODO 提现
-                IntentLauncher.with(this).put("acountyue", reTvSum.getText().toString().trim()).launch(WthdrawMoneyActivity.class);
+                IntentLauncher.with(this).put("acountyue",loginReponse.getPayload().getMoney()).launch(WthdrawMoneyActivity.class);
                 break;
             case R.id.rl_toolbar_subtitle:
                 //TODO 明细
@@ -89,7 +87,6 @@ public class UserRemainingActivity extends LKWordBaseActivity {
                                     reTvSum.setText("￥"+loginReponse.getPayload().getMoney());
                                 break;
                         }
-//            }
                     }
                     @Override
                     public void onError(Throwable e) {

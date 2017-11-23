@@ -1,5 +1,9 @@
 package com.shenyu.laikaword.model.bean.reponse;
 
+import com.shenyu.laikaword.R;
+import com.zxj.utilslibrary.utils.StringUtil;
+import com.zxj.utilslibrary.utils.UIUtil;
+
 import java.util.List;
 
 /**
@@ -80,6 +84,15 @@ public class PickUpGoodsReponse extends BaseReponse {
         }
 
         public String getStatus() {
+            int index = StringUtil.formatIntger(status);
+            //提货状态，0:初始状态,1:已审核,2:审核不通过,3:发货中,4:已发货,5:发货失败,6:完成,7:关闭
+            if (index==6&&index==4){
+                status="0";
+            }else if (index==2&&index==5&&index==7){
+                status="1";
+            }else if (index==0&&index==1&&index==3){
+                status="2";
+            }
             return status;
         }
 
@@ -183,4 +196,53 @@ public class PickUpGoodsReponse extends BaseReponse {
             this.sendTime = sendTime;
         }
     }
+    public  enum StatusHuF{
+        //提货状态，0:初始状态,1:已审核,2:审核不通过,3:发货中,4:已发货,5:发货失败,6:完成,7:关闭
+        INITIAL("充值成功", 0), CHECKED("充值失败", 1), PASS("充值中", 2);
+        // 成员变量
+        private String name;
+        private int index;
+        // 构造方法
+        private StatusHuF(String name, int index) {
+            this.name = name;
+            this.index = index;
+        }
+        // 普通方法
+        public static String getName(int index) {
+            for (StatusHuF c : StatusHuF.values()) {
+                if (c.getIndex() == index) {
+                    return c.name;
+                }
+            }
+            return null;
+        }
+        public int getIndex() {
+            return index;
+        }
+    }
+
+    public  enum StatusJD{
+        //提货状态，0:初始状态,1:已审核,2:审核不通过,3:发货中,4:已发货,5:发货失败,6:完成,7:关闭
+        INITIAL("发货成功", 0), CHECKED("发货失败", 1), PASS("发货中", 2);
+        // 成员变量
+        private String name;
+        private int index;
+        // 构造方法
+        private StatusJD(String name, int index) {
+            this.name = name;
+            this.index = index;
+        }
+        // 普通方法
+        public static String getName(int index) {
+            for (StatusHuF c : StatusHuF.values()) {
+                if (c.getIndex() == index) {
+                    return c.name;
+                }
+            }
+            return null;
+        }
+        public int getIndex() {
+            return index;
+        }
+        }
 }
