@@ -300,6 +300,7 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
         if (null!=shopBeanReponse.getPayload().getEntranceList())
             if (shopBeanReponse.getPayload().getEntranceList().size()>0)
         RxBus.getDefault().post(new Event(EventType.ACTION_LFET_DATA,shopBeanReponse.getPayload().getEntranceList()));
+        data.clear();
         data.addAll(shopBeanReponse.getPayload().getNotice());
         setNoticeView();
         mainPresenter.timeTask(this.bindUntilEvent(FragmentEvent.DESTROY));
@@ -353,6 +354,7 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
         RxBus.getDefault().post(new Event(EventType.ACTION_PULL_REFRESH,list));
     }
     private void setNoticeView() {
+        views.clear();
         for (int i = 0; i < data.size(); i = i + 2) {
             //设置滚动的单个布局
             LinearLayout moreView = (LinearLayout) UIUtil.inflate(R.layout.marquen_item);
@@ -390,8 +392,9 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
 //            }
             //添加到循环滚动数组里面去
             views.add(moreView);
-            upMarqueeTextView.setViews(views);
         }
+        upMarqueeTextView.removeAllViews();
+        upMarqueeTextView.setViews(views);
     }
 
     @Override

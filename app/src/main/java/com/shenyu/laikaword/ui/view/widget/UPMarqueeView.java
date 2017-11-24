@@ -24,7 +24,7 @@ public class UPMarqueeView extends ViewFlipper  {
 
     private boolean isSetAnimDuration = false;
 
-    private int interval = 2000;
+    private int interval = 3000;
 
     /**
 
@@ -32,7 +32,7 @@ public class UPMarqueeView extends ViewFlipper  {
 
      */
 
-    private int animDuration = 500;
+    private int animDuration = 1000;
 
 
 

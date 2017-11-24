@@ -53,7 +53,6 @@ public class BuyGoodsActivity extends LKWordBaseActivity {
     int page=2;
     @Override
     public void initView() {
-        CollapsingToolbarLayout.LayoutParams layoutParams= (CollapsingToolbarLayout.LayoutParams) getToolbar().getLayoutParams();
         setToolBarTitle("我的购买");
         smartRefreshLayout.setEnableRefresh(false);
         smartRefreshLayout.setEnableLoadmore(true);
