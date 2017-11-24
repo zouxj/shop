@@ -45,8 +45,29 @@ public class PurchaseItemJd  implements ItemViewDelegate<PickUpGoodsReponse.Payl
         }
         else
         holder.getView(R.id.tv_purchase_order_number).setVisibility(View.GONE);
+        int state=  StringUtil.formatIntger(payloadBean.getStatus());
+        int index = 0;
+        //提货状态，0:初始状态,1:已审核,2:审核不通过,3:发货中,4:已发货,5:发货失败,6:完成,7:关闭
+        if (state==6||state==4){
+            index=0;
+        }else if (state==2||state==5||state==7){
+            index=1;
+        }else if (state==0||state==1||state==3){
+            index=2;
+        }
         TextView textView =holder.getView(R.id.tv_status);
-        textView.setText( PickUpGoodsReponse.Status.getName(StringUtil.formatIntger(payloadBean.getStatus())));
+        switch (index){
+            case 0:
+                textView.setTextColor(UIUtil.getColor(R.color.color_green));
+                break;
+            case 1:
+                textView.setTextColor(UIUtil.getColor(R.color.app_theme_red));
+                break;
+            case 2:
+                textView.setTextColor(UIUtil.getColor(R.color.color_yellow));
+                break;
+        }
+        textView.setText(PickUpGoodsReponse.StatusJD.getName(index));
         holder.setText(R.id.tv_purchase_time, DateTimeUtil.formatDate( Long.parseLong(payloadBean.getCreateTime()),"yyy-MM-dd HH:mm:ss"));
         holder.setText(R.id.tv_purchase_shop_name,payloadBean.getGoodsName());
         holder.setText(R.id.tv_purchase_countmun,"X"+payloadBean.getQuantity());

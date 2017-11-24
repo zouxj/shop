@@ -42,8 +42,8 @@ public class UserRemainingActivity extends LKWordBaseActivity {
        loginReponse = Constants.getLoginReponse();
       if (null!=loginReponse&& StringUtil.validText(loginReponse.getPayload().getMoney()))
           reTvSum.setText("￥"+loginReponse.getPayload().getMoney());
-
         subscribeEvent();
+        refreshUser();
     }
 
     @Override

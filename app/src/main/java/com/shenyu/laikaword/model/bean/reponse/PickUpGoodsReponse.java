@@ -84,15 +84,7 @@ public class PickUpGoodsReponse extends BaseReponse {
         }
 
         public String getStatus() {
-            int index = StringUtil.formatIntger(status);
-            //提货状态，0:初始状态,1:已审核,2:审核不通过,3:发货中,4:已发货,5:发货失败,6:完成,7:关闭
-            if (index==6&&index==4){
-                status="0";
-            }else if (index==2&&index==5&&index==7){
-                status="1";
-            }else if (index==0&&index==1&&index==3){
-                status="2";
-            }
+
             return status;
         }
 
@@ -223,7 +215,7 @@ public class PickUpGoodsReponse extends BaseReponse {
 
     public  enum StatusJD{
         //提货状态，0:初始状态,1:已审核,2:审核不通过,3:发货中,4:已发货,5:发货失败,6:完成,7:关闭
-        INITIAL("发货成功", 0), CHECKED("发货失败", 1), PASS("发货中", 2);
+        INITIAL("已发货", 0), CHECKED("发货失败", 1), PASS("待发货", 2);
         // 成员变量
         private String name;
         private int index;
@@ -234,7 +226,7 @@ public class PickUpGoodsReponse extends BaseReponse {
         }
         // 普通方法
         public static String getName(int index) {
-            for (StatusHuF c : StatusHuF.values()) {
+            for (StatusJD c : StatusJD.values()) {
                 if (c.getIndex() == index) {
                     return c.name;
                 }

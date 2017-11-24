@@ -36,10 +36,11 @@ public    class PickUpSuccessActivity extends LKWordBaseActivity {
 
     @OnClick({R.id.tv_sq_check_state, R.id.tv_sq_back_main})
     public void onViewClicked(View view) {
+
         switch (view.getId()) {
             case R.id.tv_sq_check_state:
                 //TODO 查看申请状态
-                IntentLauncher.with(this).launchFinishCpresent(PurchaseCardActivity.class);
+                IntentLauncher.with(this).put("type",getIntent().getStringExtra("type")).launchFinishCpresent(PurchaseCardActivity.class);
                 break;
             case R.id.tv_sq_back_main:
                 //TODO 返回首页

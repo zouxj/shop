@@ -10,6 +10,7 @@ import com.shenyu.laikaword.model.adapter.PurchaseViewPagerAdapter;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.helper.TabLayoutHelper;
 import com.shenyu.laikaword.di.module.MineModule;
+import com.zxj.utilslibrary.utils.StringUtil;
 
 import javax.inject.Inject;
 
@@ -48,6 +49,14 @@ public class PurchaseCardActivity extends LKWordBaseActivity {
 
     @Override
     public void doBusiness(Context context) {
+        String type = getIntent().getStringExtra("type");
+        if (StringUtil.validText(type)) {
+            if (type.equals("JD")) {
+                vpPruchaseCarPack.setCurrentItem(1);
+            } else if (type.equals("HUAFEI")) {
+                vpPruchaseCarPack.setCurrentItem(0);
+            }
+        }
 
 
     }

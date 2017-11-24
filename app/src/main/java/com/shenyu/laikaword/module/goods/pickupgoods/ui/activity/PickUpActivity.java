@@ -214,7 +214,7 @@ public class PickUpActivity extends LKWordBaseActivity {
                     @Override
                     public void onSuccess(BaseReponse model) {
                         if (model.isSuccess())
-                            IntentLauncher.with(PickUpActivity.this).launchFinishCpresent(PickUpSuccessActivity.class);
+                            IntentLauncher.with(PickUpActivity.this).put("type","JD").launchFinishCpresent(PickUpSuccessActivity.class);
                         else
                             ToastUtil.showToastShort(model.getError().getMessage());
                     }
