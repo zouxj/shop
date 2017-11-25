@@ -180,6 +180,4 @@ dependencies {
     compile 'com.trello.rxlifecycle2:rxlifecycle-android-lifecycle:2.2.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     compile 'com.umeng.analytics:analytics:latest.integration'
-    implementation 'com.android.support:support-v4:26.0.0-beta1'
-
 }

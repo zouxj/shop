@@ -4,13 +4,11 @@ import android.app.Dialog;
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.jakewharton.rxbinding.widget.RxTextView;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.model.bean.reponse.BaseReponse;
@@ -35,8 +33,6 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import rx.Subscriber;
-import rx.functions.Action1;
 
 /**
  * 手机卡提货
@@ -199,7 +195,7 @@ public class PickUpTelActivity extends LKWordBaseActivity {
                 }
                 LoginReponse loginReponse= Constants.getLoginReponse();
                if (loginReponse.getPayload().getIsSetTransactionPIN()==0){
-                DialogHelper.makeUpdate(mActivity, "温馨提示", "您尚未设置支付密码", "取消", "去设置", false, new DialogHelper.ButtonCallback() {
+                DialogHelper.commonDialog(mActivity, "温馨提示", "您尚未设置支付密码", "取消", "去设置", false, new DialogHelper.ButtonCallback() {
                     @Override
                     public void onNegative(Dialog dialog) {
                         IntentLauncher.with(mActivity).launch(SetPassWordMsgCodeActivity.class);

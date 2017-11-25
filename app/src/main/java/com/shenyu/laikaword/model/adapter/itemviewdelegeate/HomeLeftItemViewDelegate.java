@@ -159,7 +159,7 @@ public class HomeLeftItemViewDelegate implements ItemViewDelegate<ShopMainRepons
         });
     }
     private void toQQServer(final String phone){
-        DialogHelper.makeUpdate(mActivity, "温馨提示", "是否跳转至客服QQ聊天窗口", "取消", "确认", false, new DialogHelper.ButtonCallback() {
+        DialogHelper.commonDialog(mActivity, "温馨提示", "是否跳转至客服QQ聊天窗口", "取消", "确认", false, new DialogHelper.ButtonCallback() {
             @Override
             public void onNegative(Dialog dialog) {
                 //TODO 跳转应用

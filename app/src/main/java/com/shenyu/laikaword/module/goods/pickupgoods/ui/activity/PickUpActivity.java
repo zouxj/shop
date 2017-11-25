@@ -193,7 +193,7 @@ public class PickUpActivity extends LKWordBaseActivity {
     private void requestData(final Map<String,String> param){
         LoginReponse loginReponse= Constants.getLoginReponse();
         if (loginReponse.getPayload().getIsSetTransactionPIN()==0){
-            DialogHelper.makeUpdate(mActivity, "温馨提示", "您尚未设置支付密码", "取消", "去设置", false, new DialogHelper.ButtonCallback() {
+            DialogHelper.commonDialog(mActivity, "温馨提示", "您尚未设置支付密码", "取消", "去设置", false, new DialogHelper.ButtonCallback() {
                 @Override
                 public void onNegative(Dialog dialog) {
                     IntentLauncher.with(mActivity).launch(SetPassWordMsgCodeActivity.class);

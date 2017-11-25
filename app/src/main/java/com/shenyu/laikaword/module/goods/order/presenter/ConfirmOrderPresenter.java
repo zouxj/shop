@@ -49,7 +49,7 @@ public class ConfirmOrderPresenter extends BasePresenter<ConfirmOrderView> {
         if (null!=loginReponse){
             if (!StringUtil.validText(loginReponse.getPayload().getBindPhone())){
                 //第一步查看有没有绑定手机
-                DialogHelper.makeUpdate(mActivity, "温馨提示", "你尚未绑定手机号码!请前往绑定?", "取消", "去绑定", false, new DialogHelper.ButtonCallback() {
+                DialogHelper.commonDialog(mActivity, "温馨提示", "你尚未绑定手机号码!请前往绑定?", "取消", "去绑定", false, new DialogHelper.ButtonCallback() {
                     @Override
                     public void onNegative(Dialog dialog) {
                         IntentLauncher.with(mActivity).launch(BoundPhoneActivity.class);
@@ -113,7 +113,7 @@ public class ConfirmOrderPresenter extends BasePresenter<ConfirmOrderView> {
         Double money = StringUtil.formatDouble(loginReponse.getPayload().getMoney());
         if (money<StringUtil.formatDouble(zecount)) {
             //TODO 判断余额是否够，不够提示去充值
-            DialogHelper.makeUpdate(mActivity, "温馨提示", "您的余额不够，请前往充值", "取消", "去充值", false, new DialogHelper.ButtonCallback() {
+            DialogHelper.commonDialog(mActivity, "温馨提示", "您的余额不够，请前往充值", "取消", "去充值", false, new DialogHelper.ButtonCallback() {
                 @Override
                 public void onNegative(Dialog dialog) {
                     IntentLauncher.with(mActivity).launch(RechargeMoneyActivity.class);
@@ -125,7 +125,7 @@ public class ConfirmOrderPresenter extends BasePresenter<ConfirmOrderView> {
                 }
             }).show();
         }else if (loginReponse.getPayload().getIsSetTransactionPIN()==0){
-            DialogHelper.makeUpdate(mActivity, "温馨提示", "您尚未设置支付密码", "取消", "去设置", false, new DialogHelper.ButtonCallback() {
+            DialogHelper.commonDialog(mActivity, "温馨提示", "您尚未设置支付密码", "取消", "去设置", false, new DialogHelper.ButtonCallback() {
                 @Override
                 public void onNegative(Dialog dialog) {
                     IntentLauncher.with(mActivity).launch(SetPassWordMsgCodeActivity.class);

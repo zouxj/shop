@@ -11,6 +11,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
@@ -94,7 +95,7 @@ public  final  class DialogHelper {
      * @param callback
      * @return
      */
-    public static Dialog makeUpdate(Context context, String title, String msg , String positiveText, String negativeText, boolean is_must, final ButtonCallback callback){
+    public static Dialog commonDialog(Context context, String title, String msg , String positiveText, String negativeText, boolean is_must, final ButtonCallback callback){
         final Dialog dialog = new Dialog(context,R.style.Dialog);
         if(!is_must) {
             dialog.setCanceledOnTouchOutside(true);
@@ -347,5 +348,65 @@ public  final  class DialogHelper {
         windowParams.width = width;
         window.setAttributes(windowParams);
         dialog.show();
+    }
+
+
+    public static Dialog appupate(Context context, String title, String msg , String negativeText, boolean is_must, final ButtonCallback callback){
+        final Dialog dialog = new Dialog(context,R.style.Dialog);
+        if(!is_must) {
+            dialog.setCanceledOnTouchOutside(true);
+        }else{
+            dialog.setCanceledOnTouchOutside(false);
+        }
+        View view = View.inflate(context,R.layout.app_update_dialog,null);
+        TextView tvMsg  = (TextView)view.findViewById(R.id.tv_msg);
+        tvMsg.setText(msg);
+        TextView tvOk = (TextView)view.findViewById(R.id.bt_commit);
+        ImageView tvCancel = (ImageView)view.findViewById(R.id.tv_cancel);
+
+
+        if(!TextUtils.isEmpty(negativeText)){
+            tvOk.setText(negativeText);
+        }
+
+        tvCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                if(callback!=null){
+                    callback.onPositive(dialog);
+                }
+            }
+        });
+
+        tvOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                if(callback!=null){
+                    callback.onNegative(dialog);
+                }
+            }
+        });
+
+        dialog.setContentView(view);
+        Window window = dialog.getWindow();
+        WindowManager.LayoutParams windowParams = window.getAttributes();
+        int width = (int)(window.getWindowManager().getDefaultDisplay().getWidth()*0.8);
+        windowParams.x = 0;
+        windowParams.width = width;
+
+        window.setAttributes(windowParams);
+
+        dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if(keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0){
+                    return true;
+                }
+                return false;
+            }
+        });
+        return dialog;
     }
 }

@@ -1,24 +1,17 @@
 package com.shenyu.laikaword.helper;
 
-import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 
-import com.leo618.mpermission.MPermission;
-import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.model.bean.reponse.CheckAppUpdateReponse;
 import com.shenyu.laikaword.model.net.api.ApiCallback;
 import com.shenyu.laikaword.model.net.downloadmanager.DownLoadService;
 import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
-import com.shenyu.laikaword.module.us.appsetting.aboutus.AboutAppActivity;
 import com.zxj.utilslibrary.utils.DeviceInfo;
-import com.zxj.utilslibrary.utils.PackageManagerUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
-import com.shenyu.laikaword.helper.DialogHelper;
-import com.zxj.utilslibrary.utils.UIUtil;
 
 /**
  * Created by Administrator on 2017/8/6 0006.
@@ -37,7 +30,7 @@ public final class UpdateManager {
                 if (model.isSuccess()&&model.getPayload()!=null) {
                     if (StringUtil.validText(model.getPayload().getNewVersion())) {
                         Constants.VERSION_NEW = model.getPayload().getNewVersion();
-                        DialogHelper.makeUpdate(mContext, "发现新版本", model.getPayload().getMessage(), "取消", "更新", model.getPayload().getType().equals("2"), new DialogHelper.ButtonCallback() {
+                        DialogHelper.appupate(mContext, "发现新版本", model.getPayload().getMessage(), "立即升级", model.getPayload().getType().equals("2"), new DialogHelper.ButtonCallback() {
                             @Override
                             public void onNegative(Dialog dialog) {
                                 //TODO 去更新

@@ -82,7 +82,7 @@ public class RechargeMoneyActivity extends LKWordBaseActivity {
                 if (null!=loginReponse){
                     if (!StringUtil.validText(loginReponse.getPayload().getBindPhone())) {
                         //第一步查看有没有绑定手机
-                        DialogHelper.makeUpdate(mActivity, "温馨提示", "你尚未绑定手机号码!请前往绑定?", "取消", "去绑定", false, new DialogHelper.ButtonCallback() {
+                        DialogHelper.commonDialog(mActivity, "温馨提示", "你尚未绑定手机号码!请前往绑定?", "取消", "去绑定", false, new DialogHelper.ButtonCallback() {
                             @Override
                             public void onNegative(Dialog dialog) {
                                 IntentLauncher.with(mActivity).launch(BoundPhoneActivity.class);

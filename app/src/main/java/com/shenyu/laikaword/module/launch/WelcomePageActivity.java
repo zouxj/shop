@@ -14,6 +14,7 @@ import com.shenyu.laikaword.di.module.MainModule;
 import com.shenyu.laikaword.helper.BannerBean;
 import com.shenyu.laikaword.helper.BannerHelper;
 import com.shenyu.laikaword.module.home.ui.activity.MainActivity;
+import com.trello.rxlifecycle2.components.RxActivity;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 
 import java.util.ArrayList;
@@ -22,29 +23,30 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
  * Created by shenyu_zxjCode on 2017/10/27 0027.
  */
 
-public  class WelcomePageActivity extends LKWordBaseActivity {
+public  class WelcomePageActivity extends RxActivity {
 
     @BindView(R.id.tv_into_app)
     TextView tvIntoApp;
-    @Inject
+
     BannerHelper mBannerHelper;
 
-    @Override
     public int bindLayout() {
         return R.layout.activity_welcome_page;
     }
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        setContentView(bindLayout());
+        ButterKnife.bind(this);
+        doBusiness();
     }
     @Override
     protected void onPause() {
@@ -66,9 +68,10 @@ public  class WelcomePageActivity extends LKWordBaseActivity {
     }
 
 
-    @Override
-    public void doBusiness(Context context) {
+
+    public void doBusiness() {
         //设置banner样式
+        mBannerHelper=BannerHelper.getInstance();
         mBannerHelper.init(findViewById(R.id.banner_rootlayout));
         mBannerHelper.setIsAuto(false);
         mBannerHelper.setPoitSize(12);
@@ -77,10 +80,7 @@ public  class WelcomePageActivity extends LKWordBaseActivity {
     }
 
 
-    @Override
-    public void setupActivityComponent() {
-        LaiKaApplication.get(this).getAppComponent().plus(new MainModule()).inject(this);
-    }
+
     private void initData() {
         //test data
         mBannerHelper.setCirculate(false);
