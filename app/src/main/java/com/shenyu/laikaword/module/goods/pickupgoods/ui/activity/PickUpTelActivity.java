@@ -109,9 +109,9 @@ public class PickUpTelActivity extends LKWordBaseActivity {
         tvTihuoTianxia.setText(Constants.getLoginReponse().getPayload().getBindPhone());
 //
         phone = tvTihuoTianxia.getText().toString().trim().replace(" ", "");
-        if (phone.length()==11) {
+        if (phone.length()>=11) {
             if (phone.contains("-")) {
-                phone.replace("-", "");
+                phone=  phone.replace("-", "");
             }
             StringBuilder sb = new StringBuilder(phone);
             phone = sb.substring(0, 3) + " " + sb.substring(4, phone.length() - 3) + " " + sb.substring(phone.length() - 4);
@@ -125,22 +125,27 @@ public class PickUpTelActivity extends LKWordBaseActivity {
                                                   }
                                                   @Override
                                                   public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                                                      if (s == null || s.length() == 0)
+                                                      String phone = s.toString().trim();
+                                                      if (phone.length()>=11) {
+                                                          if (phone.contains("-")) {
+                                                              phone=  phone.replace("-", "");
+                                                          }
+                                                      }
+                                                      if (phone  == null || phone.length() == 0)
                                                           return;
                                                       StringBuilder sb = new StringBuilder();
-                                                      for (int i = 0; i < s.length(); i++) {
-                                                          if (i != 3 && i != 8 && s.charAt(i) == ' ') {
+                                                      for (int i = 0; i < phone.length(); i++) {
+                                                          if (i != 3 && i != 8 && phone.charAt(i) == ' ') {
                                                               continue;
                                                           } else {
-                                                              sb.append(s.charAt(i));
+                                                              sb.append(phone.charAt(i));
                                                               if ((sb.length() == 4 || sb.length() == 9)
                                                                       && sb.charAt(sb.length() - 1) != ' ') {
                                                                   sb.insert(sb.length() - 1, ' ');
                                                               }
                                                           }
                                                       }
-                                                      if (!sb.toString().equals(s.toString())) {
+                                                      if (!sb.toString().equals(phone.toString())) {
                                                           int index = start + 1;
                                                           if (sb.charAt(start) == ' ') {
                                                               if (before == 0) {

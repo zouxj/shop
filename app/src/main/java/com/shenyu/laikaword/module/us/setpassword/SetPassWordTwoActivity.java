@@ -26,7 +26,7 @@ public class SetPassWordTwoActivity extends LKWordBaseActivity {
 
     @Override
     public void doBusiness(Context context) {
-      String typeActivity = getIntent().getStringExtra("typeActivity");
+      final String typeActivity = getIntent().getStringExtra("typeActivity");
         if (typeActivity!=null&&typeActivity.equals("RESERT"))
             setToolBarTitle("重置支付密码");
         else
@@ -46,6 +46,10 @@ public class SetPassWordTwoActivity extends LKWordBaseActivity {
                     @Override
                     public void onSuccess(BaseReponse model) {
                         if (model.isSuccess()) {
+                            if (typeActivity!=null&&typeActivity.equals("RESERT"))
+                                ToastUtil.showToastShort("修改密码成功!");
+                            else
+                                ToastUtil.showToastShort("设置密码成功");
                             RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_REQUEST, null));
                             finish();
                         }

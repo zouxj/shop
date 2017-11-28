@@ -247,7 +247,7 @@ public class WthdrawMoneyActivity extends LKWordBaseActivity {
                         switch (myEvent.event) {
                             case EventType.ACTION_UPDATA_USER:
                                 LoginReponse loginReponse = Constants.getLoginReponse();
-                                tvAccountYue.setText(loginReponse.getPayload().getMoney());
+                                tvAccountYue.setText("账户余额：￥"+loginReponse.getPayload().getMoney());
                                 break;
                         }
                         LogUtil.e(TAG, myEvent.event+"____"+"threadType=>"+Thread.currentThread());

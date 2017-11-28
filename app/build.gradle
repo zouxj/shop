@@ -22,8 +22,8 @@ android {
         applicationId "com.shenyu.laikaword"
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 2
-        versionName "1.0.1"
+        versionCode 3
+        versionName "1.0.2"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -49,6 +49,7 @@ android {
             debuggable true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
         debug {
             signingConfig signingConfigs.release
         }

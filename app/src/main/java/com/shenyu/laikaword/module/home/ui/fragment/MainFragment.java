@@ -303,7 +303,7 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
         data.clear();
         data.addAll(shopBeanReponse.getPayload().getNotice());
         setNoticeView();
-        mainPresenter.timeTask(this.bindUntilEvent(FragmentEvent.DESTROY));
+//        mainPresenter.timeTask(this.bindUntilEvent(FragmentEvent.DESTROY));
         //        {"移动卡", "京东卡", "联通卡", "电信卡"};
         for (int j=0;j<4;j++) {
             for (int i = 0; i < shopBeanReponse.getPayload().getGoods().size(); i++) {
