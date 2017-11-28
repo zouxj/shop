@@ -28,6 +28,8 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
+import retrofit2.http.Streaming;
+import retrofit2.http.Url;
 
 /**
  * Created by shenyu_zxjCode on 2017/9/21 0021.
@@ -78,8 +80,9 @@ public interface ApiStores {
     Observable<LoginReponse> getUserInfo();
     @GET("common/checkUpdate")
     Observable<CheckAppUpdateReponse> checkUpdate(@Query("t")int i,@Query("version")String version);
-    @GET("temp/apk.apk")//下载apk
-    Call<ResponseBody> downApk();
+    @Streaming
+    @GET()//下载apk
+    Call<ResponseBody> downApk(@Url String url);
     @FormUrlEncoded
     @POST("common/validateSMSCode")//设置支付密码
     Observable<MsgCodeReponse> validateSMSCode(@Field("codeType") String codeType, @Field("code") String code);

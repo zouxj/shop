@@ -168,6 +168,8 @@
 -keep class com.tencent.mm.** {*;}
 -keep class com.tencent.wxop.stat.**{*;}
 
+
+
 # pickerview
 -dontwarn com.bigkoo.pickerview.**
 -dontwarn com.bigkoo.pickerview.**
@@ -219,11 +221,11 @@
 -keep class com.tencent.open.PKDialog {*;}
 -keep class com.tencent.open.PKDialog$*
 -keep class com.tencent.open.PKDialog$* {*;}
-#-dontwarn com.tencent.stat.**
-#-keep class com.tencent.stat.** {*;}
-#-dontwarn com.tencent.**
-#-keep class com.-dontwarn com.tencent.stat.**
-#-keep class com.tencent.stat.** {*;}tencent.** {*;}
+
+-dontwarn com.tencent.stat.**
+-keep class com.tencent.stat.** {*;}
+-dontwarn com.tencent.**
+-keep class com.tencent.stat.** {*;}
 -keepclassmembers class * {
    public <init> (org.json.JSONObject);
 }

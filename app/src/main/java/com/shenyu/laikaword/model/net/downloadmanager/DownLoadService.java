@@ -40,6 +40,7 @@ public class DownLoadService extends Service {
      * 目标文件存储的文件名
      */
     private String destFileName ="com.shenyu.laika.apk";
+    private String downURL;
     private Context mContext;
     private int preProgress = 0;
     private int NOTIFY_ID = 1000;
@@ -49,6 +50,7 @@ public class DownLoadService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         mContext = this;
+        downURL = intent.getStringExtra("DWONAPKURL");
         loadFile();
         return super.onStartCommand(intent, flags, startId);
     }
@@ -69,7 +71,7 @@ public class DownLoadService extends Service {
                 .baseUrl(Constants.HOSTDOWN_URL)
                 .build()
                 .create(ApiStores.class)
-                .downApk()
+                .downApk(downURL)
                 .enqueue(new FileCallback(destFileDir, System.currentTimeMillis()+"."+destFileName) {
                     @Override
                     public void onSuccess(File file) {

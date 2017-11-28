@@ -353,18 +353,19 @@ public  final  class DialogHelper {
 
     public static Dialog appupate(Context context, String title, String msg , String negativeText, boolean is_must, final ButtonCallback callback){
         final Dialog dialog = new Dialog(context,R.style.Dialog);
-        if(!is_must) {
-            dialog.setCanceledOnTouchOutside(true);
-        }else{
-            dialog.setCanceledOnTouchOutside(false);
-        }
+
         View view = View.inflate(context,R.layout.app_update_dialog,null);
         TextView tvMsg  = (TextView)view.findViewById(R.id.tv_msg);
         tvMsg.setText(msg);
         TextView tvOk = (TextView)view.findViewById(R.id.bt_commit);
         ImageView tvCancel = (ImageView)view.findViewById(R.id.tv_cancel);
-
-
+        if(!is_must) {
+            dialog.setCanceledOnTouchOutside(true);
+//            tvCancel.setVisibility(View.GONE);
+        }else{
+            tvCancel.setVisibility(View.GONE);
+            dialog.setCanceledOnTouchOutside(false);
+        }
         if(!TextUtils.isEmpty(negativeText)){
             tvOk.setText(negativeText);
         }

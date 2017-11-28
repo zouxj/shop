@@ -79,7 +79,6 @@ public class MainActivity extends LKWordBaseActivity implements  MPermission.Per
         getMPermission();
         subscribeEvent();
         initFragment();
-
     }
     private void subscribeEvent() {
         RxSubscriptions.remove(mRxSub);
