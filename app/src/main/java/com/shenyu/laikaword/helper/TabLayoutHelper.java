@@ -22,10 +22,14 @@ public final class TabLayoutHelper {
      */
     @SuppressLint("NewApi")
     public static  void setIndicator(TabLayout tabs, int leftDip, int rightDip) {
+        if (tabs==null)
+            return;
         Class<?> tabLayout = tabs.getClass();
 //        tabs.setElevation(0);
         Field tabStrip = null;
         try {
+            if (tabLayout==null)
+                return;
             tabStrip = tabLayout.getDeclaredField("mTabStrip");
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
@@ -51,7 +55,6 @@ public final class TabLayoutHelper {
             child.setLayoutParams(params);
             child.invalidate();
         }
-
 
     }
 }

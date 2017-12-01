@@ -105,6 +105,9 @@ public class IntentLauncher {
         if (weakReference != null && weakReference.get() != null) {
             Context context = weakReference.get();
             mIntent.setClass(context, cls);
+            if (!(context instanceof Activity)) {
+                mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            }
             context.startActivity(mIntent);
             weakReference.get().finish();
             weakReference.clear();

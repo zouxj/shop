@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.shenyu.laikaword">
-
+    <uses-sdk android:minSdkVersion="8"></uses-sdk>
     <uses-permission android:name="android.permission.MOUNT_FORMAT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -19,8 +19,9 @@
 
     <!-- Required -->
     <uses-permission android:name="com.shenyu.laikaword.permission.JPUSH_MESSAGE" />
-    <meta-data android:value="59ffd891aed1797aa8000196" android:name="UMENG_APPKEY"/>
-    <meta-data android:value="baidu" android:name="UMENG_CHANNEL"/>
+    <!--<meta-data android:value="59ffd891aed1797aa8000196" android:name="UMENG_APPKEY"/>-->
+    <!--<meta-data android:name="UMENG_CHANNEL" android:value="${UMENG_CHANNEL_VALUE}"/>-->
+
     <application
         android:name=".module.launch.LaiKaApplication"
         android:allowBackup="true"
@@ -29,6 +30,7 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".module.launch.StartActivity"
             android:screenOrientation="portrait"
             android:theme="@style/LaikaAppTheme"
@@ -174,6 +176,11 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name=".module.us.wallet.withdraw.WthdrawDetailsActivity" />
         <activity android:name=".module.us.wallet.recharge.RechargeSuccessActivity"></activity>
+
+        <meta-data android:value="59ffd891aed1797aa8000196" android:name="UMENG_APPKEY" ></meta-data>
+        <!--<meta-data android:value="default" android:name="UMENG_CHANNEL"/>-->
+        <meta-data android:value="{UMENG_CHANNEL_VALUE}" android:name="UMENG_CHANNEL"></meta-data>
+
     </application>
 
 </manifest>

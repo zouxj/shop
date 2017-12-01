@@ -2,6 +2,8 @@ package com.shenyu.laikaword.ui.web;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
+import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
 import com.shenyu.laikaword.ui.view.widget.ProgressWebView;
 import com.umeng.analytics.MobclickAgent;
 import com.zxj.utilslibrary.utils.IntentLauncher;
@@ -99,7 +102,12 @@ public class GuessActivity extends LKWordBaseActivity {
                 String aliPay = "https://qr.alipay.com";
                 String qqPay = "https://myun.tenpay.com/mqq/pay/qrcode";
                 if (url.contains(aliPay) || url.contains(qqPay)) {
-                    IntentLauncher.with(GuessActivity.this).launchViews(url);
+                    Intent mIntent =new Intent();
+                    mIntent.setAction("android.intent.action.VIEW");
+//                    mIntent.setClassName("com.android.browser","com.android.browser.BrowserActivity");
+                    Uri content_url = Uri.parse(url);
+                    mIntent.setData(content_url);
+                    startActivity(mIntent);
                     return true;
                 }
 
@@ -127,7 +135,8 @@ public class GuessActivity extends LKWordBaseActivity {
     protected void onResume() {
         super.onResume();
         wbLoad.onResume();
-        MobclickAgent.onPageStart("GuessActivity");
+//        wbLoad.pauseTimers();
+//        MobclickAgent.onPageStart("GuessActivity");
     }
 
     @SuppressLint("NewApi")
@@ -135,7 +144,8 @@ public class GuessActivity extends LKWordBaseActivity {
     protected void onPause() {
         super.onPause();
         wbLoad.onPause();
-        MobclickAgent.onPageEnd("GuessActivity");
+//        wbLoad.resumeTimers();
+//        MobclickAgent.onPageEnd("GuessActivity");
     }
 
     @Override
@@ -144,10 +154,8 @@ public class GuessActivity extends LKWordBaseActivity {
         if (wbLoad != null) {
             wbLoad.loadDataWithBaseURL(null, "", "text/html", "utf-8", null);
             wbLoad.clearHistory();
-
             ((ViewGroup) wbLoad.getParent()).removeView(wbLoad);
             wbLoad.destroy();
-            wbLoad = null;
         }
     }
 

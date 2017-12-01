@@ -130,6 +130,12 @@
 -keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
     rx.internal.util.atomic.LinkedQueueNode consumerNode;
 }
+
+-keepattributes *Annotation*
+-keepattributes *JavascriptInterface*
+-keep public class org.mq.study.webview.webview.DemoJavaScriptInterface$InnerClass{
+    public <methods>;
+}
 # Gson
 -dontwarn sun.misc.**
 -keep class com.google.gson.stream.** { *; }
@@ -138,7 +144,8 @@
 -keep class com.shenyu.laikaword.model.bean.common.**{*;}
 -keep class com.shenyu.laikaword.model.net.api.**{*;}
 
-#-keep class com.zxj.utilslibrary.utils.JsonUtils
+-dontwarn com.zxj.utilslibrary.**
+-keep class com.zxj.utilslibrary.** { *;}
 #
 #-keep class com.shenyu.laikaword.helper.CityDataHelper
 #okhttp3

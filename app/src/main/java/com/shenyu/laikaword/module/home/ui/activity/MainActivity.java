@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentTransaction;
@@ -35,6 +36,7 @@ import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.zxj.utilslibrary.utils.ActivityManageUtil;
 import com.zxj.utilslibrary.utils.DeviceInfo;
 import com.zxj.utilslibrary.utils.LogUtil;
+import com.zxj.utilslibrary.utils.PackageManagerUtil;
 import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
@@ -72,13 +74,16 @@ public class MainActivity extends LKWordBaseActivity implements  MPermission.Per
     @Override
     public void initView() {
 
+
     }
 
     @Override
     public void doBusiness(Context context) {
+
         getMPermission();
         subscribeEvent();
         initFragment();
+
     }
     private void subscribeEvent() {
         RxSubscriptions.remove(mRxSub);
@@ -94,7 +99,6 @@ public class MainActivity extends LKWordBaseActivity implements  MPermission.Per
                                 refreshUser();
                                 break;
                         }
-//            }
                     }
 
                     @Override

@@ -27,4 +27,5 @@ public class EventType {
     public static final int ACTION_LFET_DATA=0x09;
 
     public static final int CAR_PAGER_REFER=0x09;
+    public static final int WEB_PAY=0x010;
 }
