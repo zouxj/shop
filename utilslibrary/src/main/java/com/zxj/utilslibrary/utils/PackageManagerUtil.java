@@ -1,5 +1,6 @@
 package com.zxj.utilslibrary.utils;
 
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -29,10 +30,10 @@ import java.util.zip.ZipFile;
  */
 
     public class PackageManagerUtil {
-    private static final String CHANNEL_KEY = "UMENG_CHANNEL";//默认的通道
+    private static final String CHANNEL_KEY = "";//默认的通道
     private static final String CHANNEL_VERSION_KEY = "1.0.3";//默认的通道的版本号
     private static String mChannel;//channel
-    private static String mDefaultChannel = "vivo";
+    private static String mDefaultChannel = "";
 
         private static final String TAG = PackageManagerUtil.class.getSimpleName();
 
@@ -473,6 +474,39 @@ import java.util.zip.ZipFile;
         return sp.getString(CHANNEL_KEY, "");
     }
 
+    /* 获取渠道名
+     * @param ctx 此处习惯性的设置为activity，实际上context就可以
+     * @return 如果没有获取成功，那么返回值为空
+     */
 
+
+    /**
+     * 获取application中指定的meta-data
+     * @return 如果没有获取成功(没有对应值，或者异常)，则返回值为空
+     */
+    public static String getAppMetaData(Context ctx, String key) {
+        if (ctx == null || TextUtils.isEmpty(key)) {
+            return null;
+        }
+        String resultData = null;
+        try {
+            PackageManager packageManager = ctx.getPackageManager();
+            if (packageManager != null) {
+                ApplicationInfo applicationInfo = packageManager.getApplicationInfo(ctx.getPackageName(), PackageManager.GET_META_DATA);
+                if (applicationInfo != null) {
+                    if (applicationInfo.metaData != null) {
+                        resultData = applicationInfo.metaData.getString(key);
+                    }
+                }
+
+
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
+        return resultData;
+    }
 }
 

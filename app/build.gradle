@@ -61,64 +61,64 @@ android {
     flavorDimensions "laikashop"
     productFlavors {
         baidu {
-            manifestPlaceholders = [channel: "baidu"]
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "baidu"]
             dimension "laikashop"
         }
         anbei {
-            manifestPlaceholders = [channel: "anbei"]
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "anbei"]
             dimension "laikashop"
         }
         anfei {
-            manifestPlaceholders = [channel: "anfei"]
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "anfei"]
             dimension "laikashop"
         }
 
         androidgoin {
-            manifestPlaceholders = [channel: "androidgoin"]
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "androidgoin"]
             dimension "laikashop"
         }
         pc6 {
-            manifestPlaceholders = [channel: "pc6"]
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "pc6"]
             dimension "laikashop"
         }
         yingyongbao {
-            manifestPlaceholders = [channel: "yingyongbao"]
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "yingyongbao"]
             dimension "laikashop"
         }
         vivo {
-            manifestPlaceholders = [channel: "vivo"]
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "vivo"]
             dimension "laikashop"
         }
         huawei {
-            manifestPlaceholders = [channel: "huawei"]
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "huawei"]
             dimension "laikashop"
         }
         s360 {
-            manifestPlaceholders = [channel: "360"]
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "360"]
             dimension "laikashop"
         }
         oppo{
-            manifestPlaceholders = [channel: "oppo"]
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "oppo"]
             dimension "laikashop"
         }
         ali{
-            manifestPlaceholders = [channel: "ali"]
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "ali"]
             dimension "laikashop"
         }
         xiaomi{
-            manifestPlaceholders = [channel: "xiaomi"]
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "xiaomi"]
             dimension "laikashop"
         }
         leshi{
-            manifestPlaceholders = [channel: "leshi"]
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "leshi"]
             dimension "laikashop"
         }
         chuizi{
-            manifestPlaceholders = [channel: "chuizi"]
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "chuizi"]
             dimension "laikashop"
         }
         meizu{
-            manifestPlaceholders = [channel: "meizu"]
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "meizu"]
             dimension "laikashop"
         }
     }

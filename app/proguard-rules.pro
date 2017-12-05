@@ -175,8 +175,6 @@
 -keep class com.tencent.mm.** {*;}
 -keep class com.tencent.wxop.stat.**{*;}
 
-
-
 # pickerview
 -dontwarn com.bigkoo.pickerview.**
 -dontwarn com.bigkoo.pickerview.**
@@ -245,3 +243,18 @@ public static final int *;
 }
 -keep class com.zxj.utilslibrary$*
 -keep class com.zxj.utilslibrary$* {*;}
+
+#不要混淆MySuperBean所有子类的属性与方法
+-keepclasseswithmembers class * extends BasePresenter{
+    <fields>;
+    <methods>;
+}
+
+-keepclasseswithmembers class * extends BaseLoadView{
+    <fields>;
+    <methods>;
+}
+-keepclasseswithmembers class * extends BasePagerAdapter{
+    <fields>;
+    <methods>;
+}

@@ -57,6 +57,5 @@ public class Constants {
     public static synchronized LoginReponse getLoginReponse(){
      LoginReponse loginReponse = (LoginReponse) SPUtil.readObject(Constants.LOGININFO_KEY);
         return loginReponse;
-
     }
 }

@@ -57,7 +57,7 @@ public   class CommonParamntercepter implements Interceptor {
                 .addQueryParameter("deviceVersion", DeviceInfo.getSystemVersion())
                 .addQueryParameter("system", "android")
                 .addQueryParameter("timestamp", String.valueOf(System.currentTimeMillis()))
-                .addQueryParameter("device", DeviceInfo.getSystemModel())
+                .addQueryParameter("device", PackageManagerUtil.getAppMetaData(UIUtil.getContext(),"UMENG_CHANNEL"))
                 .build();
 
         //添加签名

@@ -57,6 +57,7 @@ import com.trello.rxlifecycle2.android.FragmentEvent;
 import com.zxj.utilslibrary.utils.DeviceInfo;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.LogUtil;
+import com.zxj.utilslibrary.utils.PackageManagerUtil;
 import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
@@ -106,6 +107,7 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
 
     @Override
     public void initView(View view){
+
         StatusBarManager statusBarManager = new StatusBarManager(getActivity(),UIUtil.getColor(R.color.app_theme_red));
             int statusBarHeight=  statusBarManager.getStatusBarHeight();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT&&Build.VERSION.SDK_INT <Build.VERSION_CODES.LOLLIPOP) {
