@@ -4,7 +4,7 @@
     android:id="@+id/id_title"
 
     android:minHeight="50dp"
-    android:background="@color/app_theme_red"
+    android:background="@mipmap/top_bg"
     android:layout_height="50dp">
 <ImageView
     android:id="@+id/bt_top_img"

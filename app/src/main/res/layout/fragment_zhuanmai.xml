@@ -1,0 +1,15 @@
+<com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/smart_layout"
+    tools:context="com.shenyu.laikaword.module.us.goodcards.fragment.PurchaseListFragment">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/pirchase_ry_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
+
+</com.scwang.smartrefresh.layout.SmartRefreshLayout>

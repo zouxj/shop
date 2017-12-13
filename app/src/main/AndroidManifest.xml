@@ -2,11 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.shenyu.laikaword">
-    <uses-sdk android:minSdkVersion="8"></uses-sdk>
+
+    <uses-sdk android:minSdkVersion="8" />
+
     <uses-permission android:name="android.permission.MOUNT_FORMAT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -19,24 +20,21 @@
 
     <!-- Required -->
     <uses-permission android:name="com.shenyu.laikaword.permission.JPUSH_MESSAGE" />
-    <!--<meta-data android:value="59ffd891aed1797aa8000196" android:name="UMENG_APPKEY"/>-->
-    <!--<meta-data android:name="UMENG_CHANNEL" android:value="${UMENG_CHANNEL_VALUE}"/>-->
-
     <application
         android:name=".module.launch.LaiKaApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".module.launch.StartActivity"
+        <activity
+            android:name=".module.launch.StartActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/LaikaAppTheme"
-            >
+            android:theme="@style/LaikaAppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -175,9 +173,16 @@
             android:screenOrientation="behind"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name=".module.us.wallet.withdraw.WthdrawDetailsActivity" />
-        <activity android:name=".module.us.wallet.recharge.RechargeSuccessActivity"></activity>
-        <meta-data android:value="59ffd891aed1797aa8000196" android:name="UMENG_APPKEY" ></meta-data>
-        <meta-data  android:name="UMENG_CHANNEL" android:value="${UMENG_CHANNEL_VALUE}"></meta-data>
+        <activity android:name=".module.us.wallet.recharge.RechargeSuccessActivity" />
+
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="59ffd891aed1797aa8000196" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="${UMENG_CHANNEL_VALUE}" />
+
+        <activity android:name=".module.us.zhuanmai.view.ZhuanMaiActivity"/>
     </application>
 
 </manifest>

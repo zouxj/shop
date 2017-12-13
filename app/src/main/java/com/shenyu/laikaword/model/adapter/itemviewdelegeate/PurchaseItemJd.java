@@ -8,7 +8,6 @@ import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.helper.ImageUitls;
 import com.shenyu.laikaword.model.adapter.ViewHolder;
 import com.shenyu.laikaword.model.bean.reponse.PickUpGoodsReponse;
-import com.squareup.picasso.Picasso;
 import com.zxj.utilslibrary.utils.DateTimeUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
@@ -69,9 +68,9 @@ public class PurchaseItemJd  implements ItemViewDelegate<PickUpGoodsReponse.Payl
         }
         textView.setText(PickUpGoodsReponse.StatusJD.getName(index));
         holder.setText(R.id.tv_purchase_time, DateTimeUtil.formatDate( Long.parseLong(payloadBean.getCreateTime()),"yyy-MM-dd HH:mm:ss"));
-        holder.setText(R.id.tv_purchase_shop_name,payloadBean.getGoodsName());
-        holder.setText(R.id.tv_purchase_countmun,"X"+payloadBean.getQuantity());
-        holder.setText(R.id.tv_purchase_number,"编号:"+payloadBean.getExtractId());
+        holder.setText(R.id.tv_zhuanmai_shop_name,payloadBean.getGoodsName());
+        holder.setText(R.id.tv_zhuamai_price,"X"+payloadBean.getQuantity());
+        holder.setText(R.id.zhuanmai_date,"编号:"+payloadBean.getExtractId());
 //        holder.setText(R.id.tv_jingd_order_number,"京东单号:" + payloadBean.getExpressId());
         ImageUitls.loadImg(payloadBean.getGoodsImage(),(ImageView) holder.getView(R.id.img_purchase_img));
 

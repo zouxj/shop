@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="39dp">
         <TextView
-            android:id="@+id/tv_purchase_number"
+            android:id="@+id/zhuanmai_date"
             style="@style/tv_car_goumai"
             android:text="编号:201700531" />
         <TextView
@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="70dp">
             <TextView
-                android:id="@+id/tv_purchase_shop_name"
+                android:id="@+id/tv_zhuanmai_shop_name"
                 android:text="100元移动充值卡"
                 android:textSize="@dimen/text_size_15sp"
                 android:textColor="@color/color_333"
@@ -46,8 +46,8 @@
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:layout_below="@+id/tv_purchase_shop_name"
-                android:id="@+id/tv_purchase_countmun"
+                android:layout_below="@+id/tv_zhuanmai_shop_name"
+                android:id="@+id/tv_zhuamai_price"
                 android:layout_width="wrap_content"
                 android:layout_marginTop="13dp"
                 android:textSize="@dimen/text_size_12sp"

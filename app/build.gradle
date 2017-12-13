@@ -97,27 +97,27 @@ android {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "360"]
             dimension "laikashop"
         }
-        oppo{
+        oppo {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "oppo"]
             dimension "laikashop"
         }
-        ali{
+        ali {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "ali"]
             dimension "laikashop"
         }
-        xiaomi{
+        xiaomi {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "xiaomi"]
             dimension "laikashop"
         }
-        leshi{
+        leshi {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "leshi"]
             dimension "laikashop"
         }
-        chuizi{
+        chuizi {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "chuizi"]
             dimension "laikashop"
         }
-        meizu{
+        meizu {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "meizu"]
             dimension "laikashop"
         }
@@ -138,10 +138,22 @@ android {
 
 }
 
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion '26.0.0'
+            }
+        }
+    }
+}
+
 
 dependencies {
     //noinspection GradleCompatible
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support:support-v4:26.1.0'
     compile 'com.android.support:appcompat-v7:26.0.0'
     testImplementation 'junit:junit:4.12'
     implementation 'com.jakewharton:butterknife:8.8.0'

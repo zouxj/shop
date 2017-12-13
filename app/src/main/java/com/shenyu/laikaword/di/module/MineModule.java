@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import com.shenyu.laikaword.model.adapter.CarPackageViewPagerAdapter;
 import com.shenyu.laikaword.model.adapter.PurchaseViewPagerAdapter;
 import com.shenyu.laikaword.helper.CityDataHelper;
+import com.shenyu.laikaword.model.adapter.ZhuanMaiViewAdapter;
 import com.shenyu.laikaword.module.us.address.presenter.AddPresenter;
 import com.shenyu.laikaword.module.us.address.view.AddressView;
 import com.shenyu.laikaword.module.us.bankcard.presenter.AddBankPresenter;
@@ -73,5 +74,9 @@ public class MineModule {
     @Provides
     AddBankPresenter provideAddBankPresenter(){
         return new AddBankPresenter(AddBankView);
+    }
+    @Provides
+    ZhuanMaiViewAdapter provideZhuanMaiViewAdapter(){
+        return    new ZhuanMaiViewAdapter(fm);
     }
 }

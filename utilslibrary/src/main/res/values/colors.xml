@@ -157,8 +157,9 @@
     <color name="color_ccc">#cccccc</color>
     <color name="color_333">#333333</color>
     <color name="color_666">#666666</color>
-    <color name="app_theme_red">#E03226</color>
-    <color name="app_theme_red_40">#66E03226</color>
+    <!--<color name="app_theme_red">#E03226</color>-->
+    <color name="app_theme_red">#ff7b02</color>
+    <color name="app_theme_red_40">#66ff7b02</color>
     <color name="color_999">#999999</color>
     <color name="main_item_orange">#d8a55c</color>
     <color name="main_bg_gray">#f3f3f3</color>

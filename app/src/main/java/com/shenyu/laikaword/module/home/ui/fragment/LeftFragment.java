@@ -117,7 +117,6 @@ public class LeftFragment extends IKWordBaseFragment {
                                 }
                                 break;
                             case EventType.ACTION_LFET_DATA:
-
                                 initLeftData(( List<ShopMainReponse.EntranceListBean> )myEvent.object);
                                 break;
                         }
@@ -175,7 +174,8 @@ public class LeftFragment extends IKWordBaseFragment {
                     if (StringUtil.validText(shopMainReponse.getPayload().getFlag().getnewExtractFlag()))
             dataList.add(new ShopMainReponse.EntranceListBean("我的卡包",leftData[3],null,null,  shopMainReponse.getPayload().getFlag().getnewExtractFlag().equals("1")));
         }else
-            dataList.add(new ShopMainReponse.EntranceListBean("我的卡包",leftData[3],null,null,false));
+        dataList.add(new ShopMainReponse.EntranceListBean("我的卡包",leftData[3],null,null,false));
+        dataList.add(new ShopMainReponse.EntranceListBean("我的转卖",leftData[3],null,null,false));
         dataList.add(new ShopMainReponse.EntranceListBean("银行卡",leftData[4],null,null,false));
         dataList.add(new ShopMainReponse.EntranceListBean("我的地址",leftData[5],null,null,false));
         dataList.add(new ShopMainReponse.EntranceListBean("联系客服",leftData[7],null,null,false));

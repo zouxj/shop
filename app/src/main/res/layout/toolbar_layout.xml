@@ -4,7 +4,7 @@
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="48dp"
-    android:background="@color/app_theme_red"
+    android:background="@mipmap/top_bg"
     android:minHeight="?attr/actionBarSize">
     <!--自定义toolbar的title 和subtitle -->
     <RelativeLayout

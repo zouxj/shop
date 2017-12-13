@@ -28,6 +28,7 @@ import com.shenyu.laikaword.module.us.bankcard.ui.activity.CardBankInfoActivity;
 import com.shenyu.laikaword.module.us.goodcards.ui.activity.CardPackageActivity;
 import com.shenyu.laikaword.module.goods.pickupgoods.ui.activity.PurchaseCardActivity;
 import com.shenyu.laikaword.module.us.wallet.remaining.UserRemainingActivity;
+import com.shenyu.laikaword.module.us.zhuanmai.view.ZhuanMaiActivity;
 import com.shenyu.laikaword.ui.web.GuessActivity;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.SPUtil;
@@ -119,6 +120,15 @@ public class HomeLeftItemViewDelegate implements ItemViewDelegate<ShopMainRepons
                         IntentLauncher.with(mActivity).launch(CardPackageActivity.class);
                         break;
                     case 4:
+                        //TODO 我的卡包
+//                        ToastUtil.showToastShort("我的转卖");
+                        if (null==loginReponse) {
+                            IntentLauncher.with(mActivity).launch(LoginActivity.class);
+                            return;
+                        }
+                        IntentLauncher.with(mActivity).launch(ZhuanMaiActivity.class);
+                        break;
+                    case 5:
                         //TODO 我的银行卡
                         if (null==loginReponse) {
                             IntentLauncher.with(mActivity).launch(LoginActivity.class);
@@ -127,7 +137,7 @@ public class HomeLeftItemViewDelegate implements ItemViewDelegate<ShopMainRepons
                         IntentLauncher.with(mActivity).launch(CardBankInfoActivity.class);
 
                         break;
-                    case 5:
+                    case 6:
                         //TODO 我的地址
                         if (null==loginReponse) {
                             IntentLauncher.with(mActivity).launch(LoginActivity.class);
@@ -135,7 +145,7 @@ public class HomeLeftItemViewDelegate implements ItemViewDelegate<ShopMainRepons
                         }
                         IntentLauncher.with(mActivity).launch(AddressInfoActivity.class);
                         break;
-                    case 6:
+                    case 7:
                         //TODO QQ客服
                         if (null==loginReponse) {
                             IntentLauncher.with(mActivity).launch(LoginActivity.class);

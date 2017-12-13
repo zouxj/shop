@@ -5,6 +5,7 @@ import com.shenyu.laikaword.module.us.goodcards.ui.activity.CardPackageActivity;
 import com.shenyu.laikaword.module.us.bankcard.ui.activity.AddBankCardActivity;
 import com.shenyu.laikaword.module.goods.pickupgoods.ui.activity.PurchaseCardActivity;
 import com.shenyu.laikaword.module.us.appsetting.UserInfoActivity;
+import com.shenyu.laikaword.module.us.zhuanmai.view.ZhuanMaiActivity;
 
 import dagger.Subcomponent;
 
@@ -18,4 +19,5 @@ public interface MineComponent {
     CardPackageActivity inject(CardPackageActivity carPackActivity);
     PurchaseCardActivity inject(PurchaseCardActivity purchaseCardActivity);
     AddBankCardActivity inject(AddBankCardActivity purchaseCardActivity);
+    ZhuanMaiActivity inject(ZhuanMaiActivity zhuanMaiActivity);
 }
