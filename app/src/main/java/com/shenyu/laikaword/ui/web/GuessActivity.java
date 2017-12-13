@@ -48,13 +48,15 @@ public class GuessActivity extends LKWordBaseActivity {
 
     @SuppressLint("NewApi")
     private void initWebView() {
+        wbLoad.getSettings().setTextZoom(100);
         WebSettings webSettings = wbLoad.getSettings();
         webSettings.setUserAgentString("laikashopapp");
         webSettings.setAllowContentAccess(true);
         webSettings.setAppCacheEnabled(true);
         webSettings.setAllowFileAccess(true);
         webSettings.setLoadWithOverviewMode(true);
-//       webSettings.setUseWideViewPort(true); //将图片调整到适合webview的大小
+       webSettings.setUseWideViewPort(true); //将图片调整到适合webview的大小
+
 //       webSettings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
         webSettings.setBuiltInZoomControls(true);
         webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);

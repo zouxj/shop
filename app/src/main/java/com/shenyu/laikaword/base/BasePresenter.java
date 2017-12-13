@@ -55,10 +55,6 @@ public class BasePresenter<V> {
 
     }
 
-
-
-
-
     public void addSubscription(LifecycleTransformer lifecycleTransformer,Observable observable, Observer subscriber) {
 
                 observable

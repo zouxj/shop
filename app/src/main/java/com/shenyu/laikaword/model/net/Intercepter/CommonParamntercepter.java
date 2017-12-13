@@ -57,7 +57,8 @@ public   class CommonParamntercepter implements Interceptor {
                 .addQueryParameter("deviceVersion", DeviceInfo.getSystemVersion())
                 .addQueryParameter("system", "android")
                 .addQueryParameter("timestamp", String.valueOf(System.currentTimeMillis()))
-                .addQueryParameter("device", PackageManagerUtil.getAppMetaData(UIUtil.getContext(),"UMENG_CHANNEL"))
+                .addQueryParameter("device",DeviceInfo.getSystemModel())
+                .addQueryParameter("channel", PackageManagerUtil.getAppMetaData(UIUtil.getContext(),"UMENG_CHANNEL"))
                 .build();
 
         //添加签名
@@ -97,6 +98,7 @@ public   class CommonParamntercepter implements Interceptor {
                     .addEncoded("deviceVersion", DeviceInfo.getSystemVersion())
                     .addEncoded("appVersion", PackageManagerUtil.getVersionName(UIUtil.getContext()))
                     .addEncoded("timestamp",String.valueOf(System.currentTimeMillis()))
+                    .addEncoded("channel", PackageManagerUtil.getAppMetaData(UIUtil.getContext(),"UMENG_CHANNEL"))
                     .build();
             Map<String, String> bodyMap = new HashMap<>();
             List<String> nameList = new ArrayList<>();

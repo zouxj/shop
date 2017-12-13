@@ -30,6 +30,7 @@ public class ProgressWebView extends WebView {
         //是否可以缩放
         getSettings().setSupportZoom(true);
         getSettings().setBuiltInZoomControls(true);
+        getSettings().setTextZoom(100);
     }
 
 

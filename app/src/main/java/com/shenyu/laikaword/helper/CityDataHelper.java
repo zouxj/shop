@@ -61,7 +61,6 @@ private Thread thread;
          * 注意：如果是添加的JavaBean实体，则实体类需要实现 IPickerViewData 接口，
          * PickerView会通过getPickerViewText方法获取字符串显示出来。
          */
-//        ToastUtil.showToastShort((jsonBean.get(0).getName())+"!!!");
         options1Items = jsonBean;
 
         for (int i=0;i<jsonBean.size();i++){//遍历省份
