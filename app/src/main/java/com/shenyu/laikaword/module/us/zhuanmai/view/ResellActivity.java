@@ -16,7 +16,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 
-public class ZhuanMaiActivity extends LKWordBaseActivity {
+public class ResellActivity extends LKWordBaseActivity {
     @BindView(R.id.tb_pruchase_car_pack)
     TabLayout tbPruchaseCarPack;
     @BindView(R.id.vp_pruchase_car_pack)

@@ -144,6 +144,7 @@
 -keep class com.shenyu.laikaword.model.bean.common.**{*;}
 -keep class com.shenyu.laikaword.model.net.api.**{*;}
 
+-keep class com.shenyu.laikaword.ui.view.widget.**{*;}
 -dontwarn com.zxj.utilslibrary.**
 -keep class com.zxj.utilslibrary.** { *;}
 #

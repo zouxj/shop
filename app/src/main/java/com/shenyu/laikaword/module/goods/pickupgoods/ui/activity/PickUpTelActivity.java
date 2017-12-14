@@ -99,76 +99,85 @@ public class PickUpTelActivity extends LKWordBaseActivity {
         bean = (CarPagerReponse.Bean) getIntent().getSerializableExtra("bean");
             if (null!=bean)
                 avZj.setGoods_storage(StringUtil.formatIntger(bean.getQuantity()));
-        ImageUitls.loadImg(bean.getGoodsImage(),ivTihuoImg);
-            tvTihuoName.setText(bean.getGoodsName());
+                ImageUitls.loadImg(bean.getGoodsImage(),ivTihuoImg);
+                tvTihuoName.setText(bean.getGoodsName());
             if (StringUtil.validText(bean.getQuantity())) {
                 tvTihuoCount.setText("数量:" + StringUtil.formatIntger(bean.getQuantity())+"张");
                 avZj.setGoods_storage(StringUtil.formatIntger(bean.getQuantity()));
             }
                 tvTihuoAll.setText(StringUtil.m2(StringUtil.formatDouble((bean.getGoodsValue())))+"元");
         tvTihuoTianxia.setText(Constants.getLoginReponse().getPayload().getBindPhone());
-//
         phone = tvTihuoTianxia.getText().toString().trim().replace(" ", "");
         if (phone.length()>=11) {
             if (phone.contains("-")) {
                 phone=  phone.replace("-", "");
             }
             StringBuilder sb = new StringBuilder(phone);
-            phone = sb.substring(0, 3) + " " + sb.substring(4, phone.length() - 3) + " " + sb.substring(phone.length() - 4);
+            phone = sb.substring(0, 3) + " " + sb.substring(3, phone.length() - 4) + " " + sb.substring(phone.length() - 4);
             tvTihuoTianxia.setText(phone);
         }
         tvTihuoTianxia.addTextChangedListener(new TextWatcher() {
+               @Override
+               public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-                                                  @Override
-                                                  public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                }
+                 @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                     vaildPhone(s, start, before);
+                }
 
-                                                  }
-                                                  @Override
-                                                  public void onTextChanged(CharSequence s, int start, int before, int count) {
-                                                      String phone = s.toString().trim();
-                                                      if (phone.length()>=11) {
-                                                          if (phone.contains("-")) {
-                                                              phone=  phone.replace("-", "");
-                                                          }
-                                                      }
-                                                      if (phone  == null || phone.length() == 0)
-                                                          return;
-                                                      StringBuilder sb = new StringBuilder();
-                                                      for (int i = 0; i < phone.length(); i++) {
-                                                          if (i != 3 && i != 8 && phone.charAt(i) == ' ') {
-                                                              continue;
-                                                          } else {
-                                                              sb.append(phone.charAt(i));
-                                                              if ((sb.length() == 4 || sb.length() == 9)
-                                                                      && sb.charAt(sb.length() - 1) != ' ') {
-                                                                  sb.insert(sb.length() - 1, ' ');
-                                                              }
-                                                          }
-                                                      }
-                                                      if (!sb.toString().equals(phone.toString())) {
-                                                          int index = start + 1;
-                                                          if (sb.charAt(start) == ' ') {
-                                                              if (before == 0) {
-                                                                  index++;
-                                                              } else {
-                                                                  index--;
-                                                              }
-                                                          } else {
-                                                              if (before == 1) {
-                                                                  index--;
-                                                              }
-                                                          }
-                                                          tvTihuoTianxia.setText(sb.toString());
-                                                          tvTihuoTianxia.setSelection(index);
-                                                      }
-                                                  }
-                                                  @Override
-                                                  public void afterTextChanged(Editable editable) {
-                                                        if (!editable.toString().equals(Constants.getLoginReponse().getPayload().getBindPhone())){
-                                                            tvMoren.setVisibility(View.GONE);
-                                                        }
-                                                  }
-                                              });
+            /**
+             * 修改手机格式
+             * @param s
+             * @param start
+             * @param before
+             */
+            private void vaildPhone(CharSequence s, int start, int before) {
+                String phone = s.toString().trim();
+                if (phone.length()>=11) {
+                    if (phone.contains("-")) {
+                        phone=  phone.replace("-", "");
+                    }
+                }
+                if (phone  == null || phone.length() == 0)
+                    return;
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < phone.length(); i++) {
+                    if (i != 3 && i != 8 && phone.charAt(i) == ' ') {
+                        continue;
+                    } else {
+                        sb.append(phone.charAt(i));
+                        if ((sb.length() == 4 || sb.length() == 9)
+                                && sb.charAt(sb.length() - 1) != ' ') {
+                            sb.insert(sb.length() - 1, ' ');
+                        }
+                    }
+                }
+                if (!sb.toString().equals(phone.toString())) {
+                    int index = start + 1;
+                    if (sb.charAt(start) == ' ') {
+                        if (before == 0) {
+                            index++;
+                        } else {
+                            index--;
+                        }
+                    } else {
+                        if (before == 1) {
+                            index--;
+                        }
+                    }
+                    tvTihuoTianxia.setText(sb.toString());
+                    tvTihuoTianxia.setSelection(index);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+              if (!editable.toString().equals(Constants.getLoginReponse().getPayload().getBindPhone())){
+                       tvMoren.setVisibility(View.GONE);
+                    }
+               }
+           });
         }
 
 
@@ -189,7 +198,7 @@ public class PickUpTelActivity extends LKWordBaseActivity {
                 tvTihuoAll.setText(Double.valueOf(bean.getGoodsValue())*Integer.valueOf(bean.getQuantity())+"元");
                 break;
             case R.id.tv_tihuo_commit:
-                String      phone = tvTihuoTianxia.getText().toString().trim().replace(" ", "");
+                String phone = tvTihuoTianxia.getText().toString().trim().replace(" ", "");
                 if (!StringUtil.validText(phone)) {
                     ToastUtil.showToastShort("请输入充值手机号码");
                     return;

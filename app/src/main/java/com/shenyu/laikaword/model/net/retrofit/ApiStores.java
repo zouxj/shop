@@ -14,8 +14,10 @@ import com.shenyu.laikaword.model.bean.reponse.MsgCodeReponse;
 import com.shenyu.laikaword.model.bean.reponse.OrderListReponse;
 import com.shenyu.laikaword.model.bean.reponse.PayInfoReponse;
 import com.shenyu.laikaword.model.bean.reponse.PickUpGoodsReponse;
+import com.shenyu.laikaword.model.bean.reponse.ResellParticularsReponse;
 import com.shenyu.laikaword.model.bean.reponse.ShopMainReponse;
 import com.shenyu.laikaword.model.bean.reponse.StartBannerGuangKReponse;
+import com.shenyu.laikaword.model.bean.reponse.ZhuanMaiReponse;
 
 import java.util.Map;
 
@@ -127,7 +129,10 @@ public interface ApiStores {
     Observable<LoginReponse> partyBind(@FieldMap Map<String, String> map);
     @GET("common/appStartUp")//启动页
     Observable<StartBannerGuangKReponse> appStartUp();
-
+    @GET("resell/list")// 我的转卖接口
+    Observable<ZhuanMaiReponse> resellList(@Query("status") int status, @Query("page") int page, @Query("pageSize") int pageSize);
+    @GET("resell/detail")// 我的转卖接口
+    Observable<ResellParticularsReponse> resellDetail(@Query("goodsId") String goodsId);
 
 
 }

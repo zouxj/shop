@@ -133,6 +133,16 @@ public class StringUtil {
        return 0;
     }
     /**
+     * 字符串转int
+     * @param num
+     * @return
+     */
+    public static Long formatLong(String num) {
+        if (validText(num))
+            return  Long.valueOf(num);
+        return Long.valueOf(0);
+    }
+    /**
      * 字符串转Double
      * @param num
      * @return

@@ -5,9 +5,11 @@ import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.model.adapter.CommonAdapter;
+import com.shenyu.laikaword.model.adapter.ReslerAdapter;
 import com.shenyu.laikaword.model.adapter.ViewHolder;
 import com.shenyu.laikaword.model.adapter.wrapper.EmptyWrapper;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
@@ -21,6 +23,7 @@ import com.shenyu.laikaword.model.rxjava.rxbus.RxSubscriptions;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
+import com.shenyu.laikaword.ui.view.widget.DeleteRecyclerView;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
@@ -37,7 +40,7 @@ import rx.android.schedulers.AndroidSchedulers;
 public class CardBankInfoActivity extends LKWordBaseActivity {
 
     @BindView(R.id.card_cy_list)
-    RecyclerView recyclerView;
+    DeleteRecyclerView recyclerView;
     CommonAdapter commonAdapter;
     EmptyWrapper emptyWrapper;
     private List<BankInfoReponse.PayloadBean> payload=new ArrayList<>();
@@ -79,7 +82,25 @@ public class CardBankInfoActivity extends LKWordBaseActivity {
         };
          emptyWrapper = new EmptyWrapper(commonAdapter);
         emptyWrapper.setEmptyView(R.layout.empty_view,UIUtil.getString(R.string.bank_empty));
-        recyclerView.setAdapter(emptyWrapper);
+        List<String> data = new ArrayList<>();
+        for (int i=0;i<10;i++){
+            data.add("test");
+        }
+        ReslerAdapter reslerAdapter = new ReslerAdapter(UIUtil.getContext(),data);
+        recyclerView.setAdapter(reslerAdapter);
+        recyclerView.setOnItemClickListener(new DeleteRecyclerView.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+            }
+
+            @Override
+            public void onDeleteClick(int position) {
+                if (deleteBank(payload.get(position).getCardId())) {
+                    payload.remove(position);
+                    emptyWrapper.notifyDataSetChanged();
+                }
+            }
+        });
     }
 
     @Override

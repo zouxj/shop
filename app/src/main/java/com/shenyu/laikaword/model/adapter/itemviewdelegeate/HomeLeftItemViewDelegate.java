@@ -28,7 +28,7 @@ import com.shenyu.laikaword.module.us.bankcard.ui.activity.CardBankInfoActivity;
 import com.shenyu.laikaword.module.us.goodcards.ui.activity.CardPackageActivity;
 import com.shenyu.laikaword.module.goods.pickupgoods.ui.activity.PurchaseCardActivity;
 import com.shenyu.laikaword.module.us.wallet.remaining.UserRemainingActivity;
-import com.shenyu.laikaword.module.us.zhuanmai.view.ZhuanMaiActivity;
+import com.shenyu.laikaword.module.us.zhuanmai.view.ResellActivity;
 import com.shenyu.laikaword.ui.web.GuessActivity;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.SPUtil;
@@ -126,7 +126,7 @@ public class HomeLeftItemViewDelegate implements ItemViewDelegate<ShopMainRepons
                             IntentLauncher.with(mActivity).launch(LoginActivity.class);
                             return;
                         }
-                        IntentLauncher.with(mActivity).launch(ZhuanMaiActivity.class);
+                        IntentLauncher.with(mActivity).launch(ResellActivity.class);
                         break;
                     case 5:
                         //TODO 我的银行卡

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg_gray"
+    android:orientation="vertical"
+    tools:context="com.shenyu.laikaword.module.us.zhuanmai.view.ResellDetailsActivity">
+    <include layout="@layout/toolbar_layout"/>
+    <LinearLayout
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="109dp">
+
+            <ImageView
+                android:id="@+id/img_purchase_img"
+                android:layout_marginLeft="14dp"
+                android:layout_width="106dp"
+                android:layout_gravity="center_vertical"
+                android:layout_height="70dp" />
+            <LinearLayout
+                android:layout_marginLeft="18dp"
+                android:layout_gravity="center_vertical"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_zhuanmai_shop_name"
+                    android:text="100元移动充值卡"
+                    android:textSize="@dimen/text_size_15sp"
+                    android:textColor="@color/color_333"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/tv_zhuamai_price"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:textSize="@dimen/text_size_12sp"
+                    android:textColor="@color/color_333"
+                    android:text="10元/张"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/tv_zhuanmai_count"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:textSize="@dimen/text_size_12sp"
+                    android:textColor="@color/color_333"
+                    android:text="转卖总数24张"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="9dp"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_zhuanmai_time"
+            style="@style/tv_car_goumai"
+            android:layout_marginLeft="14dp"
+            android:gravity="center"
+            android:text="发布时间：2015/12/2"
+            android:layout_height="41dp"
+            android:layout_width="wrap_content"
+            />
+    </LinearLayout>
+<ExpandableListView
+    android:id="@+id/expand_ly"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+</ExpandableListView>
+
+
+
+</LinearLayout>

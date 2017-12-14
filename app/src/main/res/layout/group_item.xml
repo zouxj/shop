@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="41dp"
+    android:minHeight="41dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+<TextView
+    android:id="@+id/tv_zhuan_count"
+    android:layout_width="wrap_content"
+    android:text="转卖总数：24张"
+    android:textSize="13sp"
+    android:layout_centerVertical="true"
+    android:layout_marginLeft="13sp"
+    android:textColor="@color/color_333"
+    android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:orientation="horizontal"
+        android:layout_marginRight="6dp"
+       >
+        <TextView
+            android:id="@+id/tv_more_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="兑换码"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="4dp"
+            android:textColor="@color/color_999"
+            android:textSize="13sp" />
+        <ImageView
+            android:id="@+id/iv_arrow_more"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:src="@mipmap/index_more" />
+    </LinearLayout>
+</RelativeLayout>

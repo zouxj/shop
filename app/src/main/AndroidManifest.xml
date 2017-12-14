@@ -20,6 +20,7 @@
 
     <!-- Required -->
     <uses-permission android:name="com.shenyu.laikaword.permission.JPUSH_MESSAGE" />
+
     <application
         android:name=".module.launch.LaiKaApplication"
         android:allowBackup="true"
@@ -182,7 +183,8 @@
             android:name="UMENG_CHANNEL"
             android:value="${UMENG_CHANNEL_VALUE}" />
 
-        <activity android:name=".module.us.zhuanmai.view.ZhuanMaiActivity"/>
+        <activity android:name=".module.us.zhuanmai.view.ResellActivity" />
+        <activity android:name=".module.us.zhuanmai.view.ResellDetailsActivity"></activity>
     </application>
 
 </manifest>

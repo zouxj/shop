@@ -137,6 +137,13 @@ android {
     }
 
 }
+gradle.taskGraph.whenReady {
+    tasks.each { task ->
+        if (task.name.equals('mockableAndroidJar')) {
+            task.enabled = false
+        }
+    }
+}
 
 configurations.all {
     resolutionStrategy.eachDependency { DependencyResolveDetails details ->
@@ -148,6 +155,8 @@ configurations.all {
         }
     }
 }
+
+
 
 
 dependencies {

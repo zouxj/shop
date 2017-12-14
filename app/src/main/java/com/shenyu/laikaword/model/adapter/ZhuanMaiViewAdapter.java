@@ -3,7 +3,7 @@ package com.shenyu.laikaword.model.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
-import com.shenyu.laikaword.module.us.zhuanmai.view.ZhuanMaiFragment;
+import com.shenyu.laikaword.module.us.zhuanmai.view.ResellFragment;
 
 /**
  * Created by shenyu_zxjCode on 2017/12/13 0013.
@@ -17,7 +17,7 @@ public class ZhuanMaiViewAdapter  extends BaseViewPagerAdapter{
 
         @Override
         public Fragment getItem(int position) {
-            return new ZhuanMaiFragment(position);
+            return new ResellFragment(position);
         }
 
 }
