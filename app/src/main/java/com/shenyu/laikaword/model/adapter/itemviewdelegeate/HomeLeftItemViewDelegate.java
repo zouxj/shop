@@ -72,7 +72,7 @@ public class HomeLeftItemViewDelegate implements ItemViewDelegate<ShopMainRepons
         }
         textView.setText(entranceListBean.getTitle());
         ImageView imageView=  holder.getView(R.id.img_left_menu);
-        if (position<=6&&entranceListBean.getImgUrl()!=0) {
+        if (entranceListBean.getImgUrl()!=0) {
             imageView.setImageBitmap(null);
             if (Build.VERSION.SDK_INT> Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
                 imageView.setBackground(UIUtil.getDrawable(entranceListBean.getImgUrl()));

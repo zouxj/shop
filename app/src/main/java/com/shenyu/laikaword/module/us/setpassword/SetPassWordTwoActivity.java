@@ -30,7 +30,7 @@ public class SetPassWordTwoActivity extends LKWordBaseActivity {
         if (typeActivity!=null&&typeActivity.equals("RESERT"))
             setToolBarTitle("重置支付密码");
         else
-            setToolBarTitle("再次设置密码");
+            setToolBarTitle("设置支付密码");
         String passwordOne = getIntent().getStringExtra("PAYPASSWORD");
         final String codeToken = getIntent().getStringExtra("codeToken");
         KeyBoardUtil.showSoftInput(psdViewPassword);

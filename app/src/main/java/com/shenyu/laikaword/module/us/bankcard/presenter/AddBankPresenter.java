@@ -4,6 +4,7 @@ import android.widget.EditText;
 
 import com.jakewharton.rxbinding.widget.RxTextView;
 import com.shenyu.laikaword.base.BasePresenter;
+import com.shenyu.laikaword.model.bean.reponse.BankReponse;
 import com.shenyu.laikaword.model.bean.reponse.BaseReponse;
 import com.shenyu.laikaword.model.net.api.ApiCallback;
 import com.shenyu.laikaword.module.us.bankcard.view.AddBankView;
@@ -71,6 +72,7 @@ public class AddBankPresenter extends BasePresenter<AddBankView> {
         mapParam.put("name",bankUserName);
         mapParam.put("cardNo",cardNum);
         mapParam.put("bankName",bankName);
+        mapParam.put("bankLogo","");
         mapParam.put("bankDetail",bankZhangName);
         mapParam.put("province",bankProvince);
         mapParam.put("city",bankCity);
@@ -103,5 +105,34 @@ public class AddBankPresenter extends BasePresenter<AddBankView> {
     private  boolean verifEditeText(String nameEditText,String cardNumEditText){
         return StringUtil.checkBankCard(cardNumEditText) &&StringUtil.validText(nameEditText);
     }
+
+    //根据银行卡获取银行卡详情
+    public void getCardAccountInfo(LifecycleTransformer lifecycleTransformer,String cardNum){
+        //TODO 添加银行卡信息
+        mvpView.isLoading();
+        addSubscription(lifecycleTransformer,apiStores.getCardAccountInfo(cardNum), new ApiCallback<BankReponse>() {
+            @Override
+            public void onSuccess(BankReponse model) {
+                if (!model.isSuccess())
+                    ToastUtil.showToastShort(model.getError().getMessage());
+                else
+                    mvpView.loadFinished();
+            }
+
+
+            @Override
+            public void onFailure(String msg) {
+                mvpView.loadFailure();
+            }
+            @Override
+            public void onFinish() {
+//                mvpView.loadFinished();
+            }
+        });
+
+
+
+    }
+
 
 }

@@ -11,8 +11,10 @@ import android.view.animation.LinearInterpolator;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.Scroller;
+import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
+import com.shenyu.laikaword.model.adapter.BaseViewHolder;
 import com.shenyu.laikaword.model.adapter.ViewHolder;
 
 /**
@@ -39,7 +41,7 @@ public class DeleteRecyclerView extends RecyclerView {
     public static final int DEFAULT_TIME = 200;
     private View mItemView;
     private int mPosition;
-    private ImageView mDeleteView;
+    private TextView mDeleteView;
 
     //删除图片的宽度
     private int mMaxLength;
@@ -88,7 +90,7 @@ public class DeleteRecyclerView extends RecyclerView {
                         return false;
                     }
                     //通过baseviewholder获取对应的子View，详情可以看代码
-                    com.shenyu.laikaword.model.adapter.ViewHolder viewHolder = (com.shenyu.laikaword.model.adapter.ViewHolder) getChildViewHolder(view);
+                    BaseViewHolder viewHolder = (BaseViewHolder) getChildViewHolder(view);
 
                     mItemView = viewHolder.getView(R.id.item_layout);
                     mDeleteView = viewHolder.getView(R.id.item_delete);

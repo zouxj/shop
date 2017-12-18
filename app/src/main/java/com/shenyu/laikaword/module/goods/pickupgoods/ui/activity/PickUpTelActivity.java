@@ -238,7 +238,7 @@ public class PickUpTelActivity extends LKWordBaseActivity {
      * @param param
      */
     private void requestData(final Map<String,String> param){
-            DialogHelper.setInputDialog(mActivity, true,"充值号码:"+param.get("phone")+"\n"+"充值金额:"+tvTihuoAll.getText().toString().trim(), new DialogHelper.LinstenrText() {
+            DialogHelper.setInputDialog(mActivity, true,"充值号码:"+param.get("phone")+"\n"+"充值金额:"+tvTihuoAll.getText().toString().trim(), "",new DialogHelper.LinstenrText() {
             @Override
             public void onLintenerText(String passWord) {
                 param.put("transactionPIN",passWord);

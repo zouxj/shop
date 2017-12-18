@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/main_bg_gray"
+    android:layout_height="match_parent"
+    tools:context=".module.us.bankcard.ui.activity.AddBankCardActivity">
+
+
+    <LinearLayout
+        android:layout_below="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:background="@color/white"
+            android:layout_height="48dp">
+            <TextView
+                style="@style/bank_add_one"
+                android:text="银      行:" />
+            <EditText
+                android:textCursorDrawable="@drawable/color_cursor"
+                android:maxLength="12"
+                android:lines="1"
+                android:hint="请输入开户银行名称"
+                android:layout_width="150dp"
+                android:id="@+id/et_add_bank_yinhang"
+                android:layout_height="match_parent"
+                style="@style/bank_add_edite"
+                />
+        </LinearLayout>
+        <include layout="@layout/line_view"/>
+        <RelativeLayout
+            android:id="@+id/bt_select_address_bank"
+            style="@style/ly_layout">
+            <TextView
+                android:id="@+id/tv_biaoti"
+                android:text="开户地址:"
+                android:layout_centerVertical="true"
+                style="@style/bank_add_one"/>
+            <TextView
+                android:layout_toRightOf="@+id/tv_biaoti"
+                android:layout_centerVertical="true"
+                android:id="@+id/et_add_bank_address"
+                android:hint="请选择地址"
+                style="@style/bank_add_edite"
+                />
+            <ImageView
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@mipmap/right_back"
+                android:layout_width="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+        <include layout="@layout/line_view"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:background="@color/white"
+            android:layout_height="48dp">
+            <TextView
+                style="@style/bank_add_one"
+                android:text="开 户 行 :"
+                />
+            <EditText
+                android:textCursorDrawable="@drawable/color_cursor"
+                android:lines="1"
+                android:maxLength="20"
+                android:id="@+id/et_zhihang"
+                style="@style/bank_add_edite"
+                android:hint="如:科技园支行"
+                />
+        </LinearLayout>
+        <TextView
+            android:padding="10dp"
+            android:paddingLeft="12dp"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/orange"
+            android:gravity="center"
+            android:textSize="@dimen/text_size_12sp"
+            android:layout_width="wrap_content"
+            android:text="*请准确填写开户行名称，以确保资金成功提现"
+            android:layout_height="48dp" />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/bt_add_bank"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:background="@color/app_theme_red"
+        android:text="保存"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_15sp"
+        android:gravity="center"
+        android:layout_height="48dp" />
+</RelativeLayout>

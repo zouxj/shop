@@ -45,6 +45,14 @@
         android:background="@color/main_bg_gray"
         android:layout_height="1dp"
        />
+    <TextView
+        android:id="@+id/tv_tishi"
+        android:textSize="12sp"
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:textColor="@color/color_999"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content" />
 
     <com.zxj.utilslibrary.widget.countdownview.PayPsdInputView
         android:id="@+id/psd_view_password"

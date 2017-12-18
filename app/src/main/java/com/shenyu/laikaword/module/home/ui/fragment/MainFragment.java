@@ -99,6 +99,8 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
     ImageView headImg;
     @BindView(R.id.id_title)
     RelativeLayout relativeLayout;
+    @BindView(R.id.tv_point)
+    ImageView ivPoint;
 
     @Override
     public int bindLayout() {
@@ -299,44 +301,44 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
         setViewpagerTopData(shopBeanReponse.getPayload().getBanner());
         SPUtil.saveObject(Constants.MAIN_SHOP_KEY,shopBeanReponse);
         RxBus.getDefault().post(new Event(EventType.ACTION_MAIN_SETDATE,shopBeanReponse.getPayload().getGoods()));
-        if (null!=shopBeanReponse.getPayload().getEntranceList())
-            if (shopBeanReponse.getPayload().getEntranceList().size()>0)
-        RxBus.getDefault().post(new Event(EventType.ACTION_LFET_DATA,shopBeanReponse.getPayload().getEntranceList()));
-        data.clear();
-        data.addAll(shopBeanReponse.getPayload().getNotice());
-        setNoticeView();
-//        mainPresenter.timeTask(this.bindUntilEvent(FragmentEvent.DESTROY));
-        //        {"移动卡", "京东卡", "联通卡", "电信卡"};
-        for (int j=0;j<4;j++) {
-            for (int i = 0; i < shopBeanReponse.getPayload().getGoods().size(); i++) {
+     LogUtil.i("shopInfo",shopBeanReponse.getPayload().getGoods().toString());
+        if (null!=shopBeanReponse.getPayload().getEntranceList()) {
+            if (shopBeanReponse.getPayload().getEntranceList().size() > 0) {
+                ivPoint.setVisibility(shopBeanReponse.getPayload().getFlag().getnewExtractFlag().equals("1") ? View.VISIBLE : View.GONE);
+                RxBus.getDefault().post(new Event(EventType.ACTION_LFET_DATA, shopBeanReponse.getPayload().getEntranceList()));
+            }
+
+            data.clear();
+            data.addAll(shopBeanReponse.getPayload().getNotice());
+            setNoticeView();
+        }
+        for (int i = 0; i < shopBeanReponse.getPayload().getGoods().size(); i++) {
                 if (shopBeanReponse.getPayload().getGoods().get(i).getType().equals("yd")) {
                     if (shopBeanReponse.getPayload().getGoods().get(i).getList().size()>0) {
                         viewpager.setCurrentItem(0);
-                        return;
+                        break;
                     }
-
-
                 }
                 if (shopBeanReponse.getPayload().getGoods().get(i).getType().equals("jd")) {
                     if (shopBeanReponse.getPayload().getGoods().get(i).getList().size()>0){
                         viewpager.setCurrentItem(1);
-                        return;
+                        break;
                     }
                 }
                 if (shopBeanReponse.getPayload().getGoods().get(i).getType().equals("lt")) {
                     if (shopBeanReponse.getPayload().getGoods().get(i).getList().size()>0){
                         viewpager.setCurrentItem(2);
-                        return;
+                        break;
                     }
                 }
                 if (shopBeanReponse.getPayload().getGoods().get(i).getType().equals("dx")) {
                     if (shopBeanReponse.getPayload().getGoods().get(i).getList().size()>0){
                         viewpager.setCurrentItem(3);
-                        return;
+                        break;
                     }
                 }
             }
-        }
+
     }
 
     @Override

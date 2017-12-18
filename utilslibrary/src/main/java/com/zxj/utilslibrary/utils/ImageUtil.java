@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zxj.utilslibrary.AndroidUtilsCore;
+import com.zxj.utilslibrary.R;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -87,7 +88,7 @@ public class ImageUtil {
 
     /** 获得圆形图片 */
     public static Bitmap circleBitmap(Bitmap bitmapimg) {
-        return circleBitmap(bitmapimg, 0xff424242);
+        return circleBitmap(bitmapimg, 0xffffff);
     }
 
     /** 获得圆形图片 */
@@ -100,7 +101,7 @@ public class ImageUtil {
 
         paint.setAntiAlias(true);
         canvas.drawARGB(0, 0, 0, 0);
-        paint.setColor(color);
+        paint.setColor(UIUtil.getColor(R.color.white));
         canvas.drawCircle(bitmapimg.getWidth() / 2, bitmapimg.getHeight() / 2, bitmapimg.getWidth() / 2, paint);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
         canvas.drawBitmap(bitmapimg, rect, rect, paint);

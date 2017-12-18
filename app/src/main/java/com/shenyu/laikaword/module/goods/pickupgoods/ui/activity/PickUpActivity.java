@@ -206,7 +206,7 @@ public class PickUpActivity extends LKWordBaseActivity {
             }).show();
             return;
         }
-        DialogHelper.setInputDialog(mActivity, true,"", new DialogHelper.LinstenrText() {
+        DialogHelper.setInputDialog(mActivity, true,"", "",new DialogHelper.LinstenrText() {
             @Override
             public void onLintenerText(String passWord) {
                 param.put("transactionPIN",passWord);

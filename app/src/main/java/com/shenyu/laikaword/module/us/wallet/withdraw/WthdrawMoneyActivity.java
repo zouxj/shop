@@ -98,7 +98,8 @@ public class WthdrawMoneyActivity extends LKWordBaseActivity {
 
          yue = getIntent().getStringExtra("acountyue");
         if (StringUtil.validText(yue))
-        tvAccountYue.setText("账户余额：￥"+yue);
+            yue=  String.valueOf(StringUtil.m2(StringUtil.formatDouble(yue)-0.5<0.5?0:StringUtil.formatDouble(yue)-0.5));
+        tvAccountYue.setText("可提现金额：￥"+String.valueOf(yue));
         subscribeEvent();
 
         retrofitUtils.addSubscription(RetrofitUtils.apiStores.getBankCard(), new ApiCallback<BankInfoReponse>() {
@@ -176,7 +177,7 @@ public class WthdrawMoneyActivity extends LKWordBaseActivity {
                 String moeny = etTixianNum.getText().toString().trim();
                 moeny=StringUtil.m2(StringUtil.formatDouble(moeny));
                 final String finalMoeny = moeny;
-                DialogHelper.setInputDialog(mActivity, true,moeny
+                DialogHelper.setInputDialog(mActivity, true,moeny,"已扣除手续费0.5元"
                         , new DialogHelper.LinstenrText() {
                     @Override
                     public void onLintenerText(String passWord) {
@@ -184,8 +185,9 @@ public class WthdrawMoneyActivity extends LKWordBaseActivity {
                             @Override
                             public void onSuccess(BaseReponse model) {
                                 if (model.isSuccess()) {
-                                    IntentLauncher.with(WthdrawMoneyActivity.this).put("money", finalMoeny).put("bankName",bankName).put("carID",carID).launchFinishCpresent(WthdrawDetailsActivity.class);
                                     RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_REQUEST, null));
+                                    IntentLauncher.with(WthdrawMoneyActivity.this).put("money", finalMoeny).put("bankName",bankName).put("carID",carID).launchFinishCpresent(WthdrawDetailsActivity.class);
+
                                 } else {
                                     ToastUtil.showToastShort(model.getError().getMessage());
                                 }

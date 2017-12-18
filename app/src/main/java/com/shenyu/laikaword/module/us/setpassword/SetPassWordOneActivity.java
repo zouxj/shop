@@ -28,7 +28,7 @@ public class SetPassWordOneActivity extends LKWordBaseActivity {
     public void initView() {
         typeActivity = getIntent().getStringExtra("typeActivity");
         if (typeActivity!=null&&typeActivity.equals("RESERT"))
-            setToolBarTitle("充值支密码");
+            setToolBarTitle("重置支付密码");
         else
             setToolBarTitle("设置支付密码");
     }

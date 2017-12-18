@@ -60,7 +60,7 @@ public class PurchaseItemJd  implements ItemViewDelegate<PickUpGoodsReponse.Payl
                 textView.setTextColor(UIUtil.getColor(R.color.color_green));
                 break;
             case 1:
-                textView.setTextColor(UIUtil.getColor(R.color.app_theme_red));
+                textView.setTextColor(UIUtil.getColor(R.color.app_theme_reds));
                 break;
             case 2:
                 textView.setTextColor(UIUtil.getColor(R.color.color_yellow));

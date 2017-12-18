@@ -23,10 +23,13 @@ import com.shenyu.laikaword.model.rxjava.rxbus.RxSubscriptions;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
+import com.shenyu.laikaword.module.goods.pickupgoods.ui.activity.PickUpSuccessActivity;
+import com.shenyu.laikaword.module.goods.pickupgoods.ui.activity.PickUpTelActivity;
 import com.shenyu.laikaword.ui.view.widget.DeleteRecyclerView;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
+import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 import com.shenyu.laikaword.helper.DialogHelper;
 
@@ -41,7 +44,7 @@ public class CardBankInfoActivity extends LKWordBaseActivity {
 
     @BindView(R.id.card_cy_list)
     DeleteRecyclerView recyclerView;
-    CommonAdapter commonAdapter;
+     ReslerAdapter reslerAdapter ;
     EmptyWrapper emptyWrapper;
     private List<BankInfoReponse.PayloadBean> payload=new ArrayList<>();
     @Override
@@ -54,40 +57,37 @@ public class CardBankInfoActivity extends LKWordBaseActivity {
         setToolBarTitle("银行卡");
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new RecycleViewDivider(this,LinearLayoutManager.HORIZONTAL, (int) UIUtil.dp2px(1),UIUtil.getColor(R.color.main_bg_gray)));
-        commonAdapter = new CommonAdapter<BankInfoReponse.PayloadBean>(R.layout.item_cardinfo_list,payload) {
-            @Override
-            protected void convert(ViewHolder holder, final BankInfoReponse.PayloadBean payloadBean, final int position) {
-                holder.setText(R.id.tv_bank_no,StringUtil.formatBankNumber(payloadBean.getCardNo()));
-                holder.setText(R.id.tv_card_bank,payloadBean.getBankName());
-                holder.setOnClickListener(R.id.tv_card_num, new  View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        DialogHelper.deleteBankDialog(CardBankInfoActivity.this, "解除绑定后银行卡服务将不可使用,包括快捷支付","解除绑定",new DialogHelper.ButtonCallback() {
-                            @Override
-                            public void onNegative(Dialog dialog) {
-                                if (deleteBank(payloadBean.getCardId())) {
-                                    payload.remove(position);
-                                    emptyWrapper.notifyDataSetChanged();
-                                }
-                            }
+//        commonAdapter = new CommonAdapter<BankInfoReponse.PayloadBean>(R.layout.item_cardinfo_list,payload) {
+//            @Override
+//            protected void convert(ViewHolder holder, final BankInfoReponse.PayloadBean payloadBean, final int position) {
+//                holder.setText(R.id.tv_bank_no,StringUtil.formatBankNumber(payloadBean.getCardNo()));
+//                holder.setText(R.id.tv_card_bank,payloadBean.getBankName());
+//                holder.setOnClickListener(R.id.tv_card_num, new  View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        DialogHelper.deleteBankDialog(CardBankInfoActivity.this, "解除绑定后银行卡服务将不可使用,包括快捷支付","解除绑定",new DialogHelper.ButtonCallback() {
+//                            @Override
+//                            public void onNegative(Dialog dialog) {
+//                                if (deleteBank(payloadBean.getCardId())) {
+//                                    payload.remove(position);
+//                                    emptyWrapper.notifyDataSetChanged();
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onPositive(Dialog dialog) {
+//
+//                            }
+//                        });
+//                    }
+//                });
+//            }
+//        };
 
-                            @Override
-                            public void onPositive(Dialog dialog) {
-
-                            }
-                        });
-                    }
-                });
-            }
-        };
-         emptyWrapper = new EmptyWrapper(commonAdapter);
+        reslerAdapter = new ReslerAdapter(UIUtil.getContext(),payload);
+        emptyWrapper = new EmptyWrapper(reslerAdapter);
         emptyWrapper.setEmptyView(R.layout.empty_view,UIUtil.getString(R.string.bank_empty));
-        List<String> data = new ArrayList<>();
-        for (int i=0;i<10;i++){
-            data.add("test");
-        }
-        ReslerAdapter reslerAdapter = new ReslerAdapter(UIUtil.getContext(),data);
-        recyclerView.setAdapter(reslerAdapter);
+        recyclerView.setAdapter(emptyWrapper);
         recyclerView.setOnItemClickListener(new DeleteRecyclerView.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -96,8 +96,11 @@ public class CardBankInfoActivity extends LKWordBaseActivity {
             @Override
             public void onDeleteClick(int position) {
                 if (deleteBank(payload.get(position).getCardId())) {
-                    payload.remove(position);
-                    emptyWrapper.notifyDataSetChanged();
+                    initData();
+//                    reslerAdapter.removeItem(position);
+//                    emptyWrapper.notifyItemChanged(position);
+//                    payload.remove(position);
+//                    emptyWrapper.notifyDataSetChanged();
                 }
             }
         });
@@ -135,7 +138,7 @@ public class CardBankInfoActivity extends LKWordBaseActivity {
         RxSubscriptions.add(mRxSub);
     }
     protected void initData() {
-        retrofitUtils.addSubscription(RetrofitUtils.apiStores.getBankCard(), new ApiCallback<BankInfoReponse>() {
+        retrofitUtils.setLifecycleTransformer(this.bindToLifecycle()).addSubscription(RetrofitUtils.apiStores.getBankCard(), new ApiCallback<BankInfoReponse>() {
             @Override
             public void onSuccess(BankInfoReponse model) {
                 if (model.isSuccess()) {
@@ -156,17 +159,20 @@ public class CardBankInfoActivity extends LKWordBaseActivity {
 
             }
         });
-        commonAdapter.notifyDataSetChanged();
+        emptyWrapper.notifyDataSetChanged();
     }
 
     @OnClick(R.id.tv_add_bank)
     public void onClick(View view){
         switch (view.getId()){
             case R.id.tv_add_bank:
-                IntentLauncher.with(this).launch(AddBankCardActivity.class);
+                toAddBank();
                 break;
         }
 }
+
+
+
     @Override
     public void setupActivityComponent() {
 

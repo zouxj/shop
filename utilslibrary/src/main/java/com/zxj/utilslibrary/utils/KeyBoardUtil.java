@@ -1,5 +1,6 @@
 package com.zxj.utilslibrary.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -40,6 +41,17 @@ public class KeyBoardUtil {
         InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         return imm.isActive();
     }
-
+    /**
+     * 关闭软键盘
+     */
+    public static  void heideSoftInput(Activity context){
+        if (isActive(context)) {
+            InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm != null) {
+                imm.hideSoftInputFromWindow(context.getWindow().getDecorView().getWindowToken(),
+                        0);
+            }
+        }
+    }
 
 }

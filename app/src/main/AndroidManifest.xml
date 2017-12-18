@@ -184,7 +184,8 @@
             android:value="${UMENG_CHANNEL_VALUE}" />
 
         <activity android:name=".module.us.zhuanmai.view.ResellActivity" />
-        <activity android:name=".module.us.zhuanmai.view.ResellDetailsActivity"></activity>
+        <activity android:name=".module.us.zhuanmai.view.ResellDetailsActivity"
+            ></activity>
     </application>
 
 </manifest>

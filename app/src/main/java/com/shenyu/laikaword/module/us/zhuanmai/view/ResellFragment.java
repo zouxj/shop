@@ -78,7 +78,7 @@ public class ResellFragment extends IKWordBaseFragment {
                 holder.setText(R.id.tv_zhuanmai_no,"编号:"+payloadBean.getResellId());
                 //转卖价格
                 TextView tvZhuanPrice=holder.getView(R.id.tv_zhuamai_price);
-                tvZhuanPrice.setText(Html.fromHtml("<font color= '#999999'>转卖价:</font>"+payloadBean.getDiscountPrice()+"/张"));
+                tvZhuanPrice.setText(Html.fromHtml("<font color= '#999999'>转卖价:</font>"+payloadBean.getDiscountPrice()+"元/张"));
                 //商品名字
                 holder.setText(R.id.tv_zhuanmai_shop_name,payloadBean.getGoodsName());
                 //转卖数量
@@ -87,14 +87,14 @@ public class ResellFragment extends IKWordBaseFragment {
 
                 //已经转卖数量
                 TextView tvZhuanMaiFinsh=holder.getView(R.id.tv_zhuanmaied_count);
-                tvZhuanMaiFinsh.setText(Html.fromHtml("<font color= '#999999'>已转卖:</font>"+(type==2?payloadBean.getOriStock():payloadBean.getStock())+"张"));
+                tvZhuanMaiFinsh.setText(Html.fromHtml("<font color= '#999999'>已转卖:</font>"+(StringUtil.formatIntger(payloadBean.getOriStock())-StringUtil.formatIntger(payloadBean.getStock())))+"张");
 
                 ImageUitls.loadImg(payloadBean.getGoodsImage(),(ImageView) holder.getView(R.id.img_purchase_img));
 
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        IntentLauncher.with(getActivity()).put("goodId",payloadBean.getGoodsId()).launch(ResellDetailsActivity.class);
+                        IntentLauncher.with(getActivity()).put("type",String.valueOf(type)).put("goodId",payloadBean.getGoodsId()).launch(ResellDetailsActivity.class);
                     }
                 });
             }

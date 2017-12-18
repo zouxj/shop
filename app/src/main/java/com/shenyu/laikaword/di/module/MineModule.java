@@ -3,14 +3,19 @@ package com.shenyu.laikaword.di.module;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 
 import com.shenyu.laikaword.model.adapter.CarPackageViewPagerAdapter;
 import com.shenyu.laikaword.model.adapter.PurchaseViewPagerAdapter;
 import com.shenyu.laikaword.helper.CityDataHelper;
 import com.shenyu.laikaword.model.adapter.ZhuanMaiViewAdapter;
+import com.shenyu.laikaword.module.home.ui.fragment.LeftFragment;
+import com.shenyu.laikaword.module.home.ui.fragment.MainFragment;
 import com.shenyu.laikaword.module.us.address.presenter.AddPresenter;
 import com.shenyu.laikaword.module.us.address.view.AddressView;
 import com.shenyu.laikaword.module.us.bankcard.presenter.AddBankPresenter;
+import com.shenyu.laikaword.module.us.bankcard.ui.fragment.AddBankOneFragment;
+import com.shenyu.laikaword.module.us.bankcard.ui.fragment.AddBankTwoFragment;
 import com.shenyu.laikaword.module.us.bankcard.view.AddBankView;
 import com.shenyu.laikaword.module.us.appsetting.UserInfoPresenter;
 import com.shenyu.laikaword.module.us.appsetting.UserInfoView;
@@ -28,7 +33,6 @@ public class MineModule {
     private UserInfoView userInfoView;
     private Activity mActivity;
     private FragmentManager fm;
-    private  AddBankView AddBankView;
     public final static String[] mlist= new String[]{"全部","京东卡","移动卡","联通卡","电信卡"};
     //添加添加地址View
     public MineModule(Context context,AddressView addressView){
@@ -42,12 +46,13 @@ public class MineModule {
     public MineModule(Activity activity){
         this.mActivity =activity;
     }
-    public MineModule(Context context, AddBankView addBankView){
-    this.mContext=context;
-    this.AddBankView = addBankView;
-    }
+
     public MineModule(FragmentManager fm){
         this.fm= fm;
+    }
+    @Provides
+    FragmentTransaction provideFragmentManger(){
+        return fm.beginTransaction();
     }
     @Provides
     AddPresenter provideAddPresenter(){
@@ -72,11 +77,16 @@ public class MineModule {
         return    new PurchaseViewPagerAdapter(fm);
     }
     @Provides
-    AddBankPresenter provideAddBankPresenter(){
-        return new AddBankPresenter(AddBankView);
-    }
-    @Provides
     ZhuanMaiViewAdapter provideZhuanMaiViewAdapter(){
         return    new ZhuanMaiViewAdapter(fm);
+    }
+
+    @Provides
+    AddBankOneFragment provideAddBankOneFragment(){
+        return new AddBankOneFragment();
+    }
+    @Provides
+    AddBankTwoFragment provideAddBankTwoFragment(){
+        return new AddBankTwoFragment();
     }
 }

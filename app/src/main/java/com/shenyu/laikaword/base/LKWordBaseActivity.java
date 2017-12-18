@@ -2,6 +2,7 @@ package com.shenyu.laikaword.base;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import com.githang.statusbar.StatusBarCompat;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.common.Constants;
+import com.shenyu.laikaword.helper.DialogHelper;
 import com.shenyu.laikaword.helper.LoadViewHelper;
 import com.shenyu.laikaword.Interactor.IBaseActivity;
 import com.shenyu.laikaword.model.bean.reponse.BaseReponse;
@@ -29,12 +31,17 @@ import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxSubscriptions;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
+import com.shenyu.laikaword.module.us.bankcard.ui.activity.AddBankCardActivity;
+import com.shenyu.laikaword.module.us.bankcard.ui.activity.CardBankInfoActivity;
+import com.shenyu.laikaword.module.us.setpassword.SetPassWordMsgCodeActivity;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.zxj.utilslibrary.utils.ActivityManageUtil;
+import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.KeyBoardUtil;
 import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.SPUtil;
+import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 import butterknife.ButterKnife;
 import rx.Subscription;
@@ -275,5 +282,51 @@ public abstract class LKWordBaseActivity extends RxAppCompatActivity implements 
             }
         });
     }
+    protected void toAddBank() {
+        LoginReponse loginReponse= Constants.getLoginReponse();
+        if (loginReponse.getPayload().getIsSetTransactionPIN()==0){
+            DialogHelper.commonDialog(mActivity, "温馨提示", "您尚未设置支付密码", "取消", "去设置", false, new DialogHelper.ButtonCallback() {
+                @Override
+                public void onNegative(Dialog dialog) {
+                    IntentLauncher.with(mActivity).launch(SetPassWordMsgCodeActivity.class);
+                }
 
+                @Override
+                public void onPositive(Dialog dialog) {
+
+                }
+            }).show();
+            return;
+        }
+        DialogHelper.setInputDialog(mActivity, true,null,"", new DialogHelper.LinstenrText() {
+            @Override
+            public void onLintenerText(String passWord) {
+                retrofitUtils.setLifecycleTransformer(bindToLifecycle()).addSubscription(RetrofitUtils.apiStores.validateTransactionPIN(passWord), new ApiCallback<BaseReponse>() {
+                    @Override
+                    public void onSuccess(BaseReponse model) {
+                        if (model.isSuccess())
+                            IntentLauncher.with(mActivity).launch(AddBankCardActivity.class);
+                        else
+                            ToastUtil.showToastShort(model.getError().getMessage());
+                    }
+
+                    @Override
+                    public void onFailure(String msg) {
+                        ToastUtil.showToastShort(msg);
+                    }
+
+                    @Override
+                    public void onFinish() {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onWjPassword() {
+
+            }
+        }).show();
+
+    }
 }

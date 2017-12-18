@@ -55,7 +55,7 @@ public class LeftFragment extends IKWordBaseFragment {
     public static final int[] leftData={
         R.mipmap.left_money_icon,R.mipmap.left_gouwuchei_icon,
                 R.mipmap.left_tihuo_icon,R.mipmap.left_wodekabao_icon,
-                R.mipmap.left_yinhangka_icon,R.mipmap.left_dizh_icon,R.mipmap.lfet_setting_icon,R.mipmap.kefu_icon};
+                R.mipmap.left_yinhangka_icon,R.mipmap.left_dizh_icon,R.mipmap.lfet_setting_icon,R.mipmap.kefu_icon,R.mipmap.zhuanmai};
 
 
     @Override
@@ -168,14 +168,11 @@ public class LeftFragment extends IKWordBaseFragment {
         dataList.add(new ShopMainReponse.EntranceListBean("我的余额",leftData[0],null,null,false));
         dataList.add(new ShopMainReponse.EntranceListBean("我的购买",leftData[1],null,null,false));
         dataList.add(new ShopMainReponse.EntranceListBean("我的提货",leftData[2],null,null,false));
-        if (shopMainReponse!=null){
-            if (shopMainReponse.getPayload()!=null)
-                if (shopMainReponse.getPayload().getFlag()!=null)
-                    if (StringUtil.validText(shopMainReponse.getPayload().getFlag().getnewExtractFlag()))
-            dataList.add(new ShopMainReponse.EntranceListBean("我的卡包",leftData[3],null,null,  shopMainReponse.getPayload().getFlag().getnewExtractFlag().equals("1")));
-        }else
-        dataList.add(new ShopMainReponse.EntranceListBean("我的卡包",leftData[3],null,null,false));
-        dataList.add(new ShopMainReponse.EntranceListBean("我的转卖",leftData[3],null,null,false));
+        String flog = "0";
+        if (null!=shopMainReponse)
+                flog=shopMainReponse.getPayload().getFlag().getnewExtractFlag();
+        dataList.add(new ShopMainReponse.EntranceListBean("我的卡包",leftData[3],null,null,   flog.equals("1")));
+        dataList.add(new ShopMainReponse.EntranceListBean("我的转卖",leftData[8],null,null,false));
         dataList.add(new ShopMainReponse.EntranceListBean("银行卡",leftData[4],null,null,false));
         dataList.add(new ShopMainReponse.EntranceListBean("我的地址",leftData[5],null,null,false));
         dataList.add(new ShopMainReponse.EntranceListBean("联系客服",leftData[7],null,null,false));

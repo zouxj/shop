@@ -7,9 +7,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
+import com.shenyu.laikaword.helper.ImageUitls;
 import com.shenyu.laikaword.model.adapter.CommonAdapter;
 import com.shenyu.laikaword.model.adapter.ViewHolder;
 import com.shenyu.laikaword.model.adapter.wrapper.EmptyWrapper;
@@ -64,7 +66,7 @@ public class SelectBankIDActivity extends LKWordBaseActivity {
         mToolbarSubTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                IntentLauncher.with(SelectBankIDActivity.this).launch(AddBankCardActivity.class);
+                toAddBank();
             }
         });
 
@@ -85,8 +87,10 @@ public class SelectBankIDActivity extends LKWordBaseActivity {
                     tvCommitSelectBank.setEnabled(true);
                     tvCommitSelectBank.setBackgroundColor(UIUtil.getColor(R.color.app_theme_red));
                 }
+                ImageUitls.loadImgRound(payload.get(position).getBankLogo(), (ImageView) holder.getView(R.id.iv_bandlog_img),R.mipmap.banklogo);
                 checkBox.setChecked(payloadBean.getCardId().equals(carID)&&selectedPosition==position);
-                holder.setText(R.id.tv_card_bank,payloadBean.getBankName()+"("+ StringUtil.getBankNumber(payloadBean.getCardNo())+")");
+                holder.setText(R.id.tv_card_num,"尾号"+ StringUtil.getBankNumber(payloadBean.getCardNo())+"  储蓄卡");
+                holder.setText(R.id.tv_card_bank,payloadBean.getBankName());
                 holder.setOnClickListener(R.id.item_ck, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

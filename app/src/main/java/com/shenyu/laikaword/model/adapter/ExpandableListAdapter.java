@@ -7,13 +7,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
+import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,10 +27,12 @@ import java.util.Map;
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     private List<String> groupListData=new ArrayList<>();
-    private Map<String,List<String>> paramMap = new HashMap();
-    public ExpandableListAdapter(Map<String,List<String>> map){
+    private Map<String,List<String>> paramMap = new LinkedHashMap<>();
+    private String type="";
+    public ExpandableListAdapter(Map<String,List<String>> map, String type){
        if (map!=null){
            this.paramMap=map;
+           this.type=type;
            for (Map.Entry<String, List<String>> entry : map.entrySet()) {
                groupListData.add(entry.getKey());
            }
@@ -82,9 +87,11 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             groupholder =new GroupHolder();
             groupholder.GrouptextView=view.findViewById(R.id.tv_zhuan_count);
             groupholder.imageView =view.findViewById(R.id.iv_arrow_more);
+            groupholder.layout = view.findViewById(R.id.ly_zhuanmai);
             view.setTag(groupholder);
         }
         groupholder.GrouptextView.setText(groupListData.get(groupPosition));
+        groupholder.layout.setVisibility(groupListData.get(groupPosition).equals("转卖状态: 转卖完成!")?View.GONE:View.VISIBLE);
         if (isExpanded)
             ObjectAnimator.ofFloat( groupholder.imageView , "rotation", 0, 180).start();
         else
@@ -118,6 +125,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
      class GroupHolder{
         TextView GrouptextView;
         ImageView imageView;
+        LinearLayout layout;
     }
 
      class ChildHolder{

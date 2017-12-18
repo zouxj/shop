@@ -1,5 +1,6 @@
 package com.shenyu.laikaword.model.net.retrofit;
 
+import com.shenyu.laikaword.model.bean.reponse.BankReponse;
 import com.shenyu.laikaword.model.bean.reponse.BaseReponse;
 import com.shenyu.laikaword.model.bean.reponse.AddressReponse;
 import com.shenyu.laikaword.model.bean.reponse.BankInfoReponse;
@@ -133,6 +134,10 @@ public interface ApiStores {
     Observable<ZhuanMaiReponse> resellList(@Query("status") int status, @Query("page") int page, @Query("pageSize") int pageSize);
     @GET("resell/detail")// 我的转卖接口
     Observable<ResellParticularsReponse> resellDetail(@Query("goodsId") String goodsId);
+    @FormUrlEncoded
+    @POST("user/getCardAccountInfo")//银行卡鉴权
+    Observable<BankReponse> getCardAccountInfo(@Field("cardNo") String cardNo);
+
 
 
 }

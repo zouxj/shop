@@ -215,7 +215,7 @@ public class PickUpGoodsReponse extends BaseReponse {
 
     public  enum StatusJD{
         //提货状态，0:初始状态,1:已审核,2:审核不通过,3:发货中,4:已发货,5:发货失败,6:完成,7:关闭
-        INITIAL("已发货", 0), CHECKED("发货失败", 1), PASS("待发货", 2);
+        INITIAL("已发货", 0), CHECKED("提货失败", 1), PASS("待发货", 2);
         // 成员变量
         private String name;
         private int index;

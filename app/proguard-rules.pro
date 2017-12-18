@@ -187,6 +187,7 @@
 
 -dontwarn com.shenyu.laikaword.common.**
 -keep class com.shenyu.laikaword.common.**{*;}
+-keep class com.shenyu.laikaword.model.adapter.**{*;}
 
 # 支付宝钱包
 -dontwarn com.alipay.**

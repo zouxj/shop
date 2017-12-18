@@ -43,6 +43,7 @@ public class BankInfoReponse extends BaseReponse{
         private String createTime;
         private String province;
         private String city;
+        private String bankLogo;
         @SerializedName("default")
         private String defaultX;
 
@@ -76,6 +77,14 @@ public class BankInfoReponse extends BaseReponse{
 
         public void setUserName(String userName) {
             this.userName = userName;
+        }
+
+        public String getBankLogo() {
+            return bankLogo;
+        }
+
+        public void setBankLogo(String bankLogo) {
+            this.bankLogo = bankLogo;
         }
 
         public String getBankName() {

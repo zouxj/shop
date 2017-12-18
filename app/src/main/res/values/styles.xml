@@ -48,8 +48,15 @@
         <item name="android:button">@null</item>
         <item name="android:background">@drawable/seletor_appy_type</item>
         <item name="android:layout_gravity">center_vertical</item>
-        <item name="android:layout_height">22dp</item>
-        <item name="android:layout_width">22dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+    <style name="check_box_bank">
+        <item name="android:button">@null</item>
+        <item name="android:background">@drawable/seletor_bank</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_height">12dp</item>
+        <item name="android:layout_width">15dp</item>
     </style>
     <style name="ly_layout">
         <item name="android:background">@color/white</item>

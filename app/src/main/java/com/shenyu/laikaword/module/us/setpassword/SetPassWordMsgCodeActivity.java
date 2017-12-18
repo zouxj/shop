@@ -45,7 +45,10 @@ public class SetPassWordMsgCodeActivity extends LKWordBaseActivity {
     @Override
     public void initView() {
          typeActivity= getIntent().getStringExtra("RESERT");
-        setToolBarTitle("发送验证码");
+        if (typeActivity!=null&&typeActivity.equals("RESERT"))
+            setToolBarTitle("重置支付密码");
+        else
+            setToolBarTitle("设置支付密码");
         tvMsCode.setText(Html.fromHtml("我们已发送<b>验证码<b/>到您的手机"));
     }
 

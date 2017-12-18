@@ -39,7 +39,7 @@ public class ShopMainReponse extends BaseReponse implements Serializable {
     }
     }
     public class Flag implements Serializable{
-        private String newExtractFlag;
+        private String newExtractFlag="";
 
         public String getnewExtractFlag() {
             return newExtractFlag;

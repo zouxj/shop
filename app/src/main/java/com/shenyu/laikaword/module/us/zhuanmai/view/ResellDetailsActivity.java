@@ -20,6 +20,7 @@ import com.zxj.utilslibrary.utils.StringUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -44,7 +45,7 @@ public class ResellDetailsActivity extends LKWordBaseActivity {
     TextView tvZhuanmaiCount;
     @BindView(R.id.tv_zhuanmai_time)
     TextView tvZhuanmaiTime;
-    Map<String, List<String>> map = new HashMap<>();
+    Map<String, List<String>> map = new LinkedHashMap<>();
     @Override
     public int bindLayout() {
         return R.layout.activity_resell_details;
@@ -53,6 +54,7 @@ public class ResellDetailsActivity extends LKWordBaseActivity {
     @Override
     public void doBusiness(Context context) {
         String goodID = getIntent().getStringExtra("goodId");
+        final String  type= getIntent().getStringExtra("type");
         retrofitUtils.addSubscription(RetrofitUtils.apiStores.resellDetail(goodID), new ApiCallback<ResellParticularsReponse>() {
             @Override
             public void onSuccess(ResellParticularsReponse model) {
@@ -60,13 +62,16 @@ public class ResellDetailsActivity extends LKWordBaseActivity {
                     if (model.getPayload() != null) ;
                     ImageUitls.loadImg(model.getPayload().getGoodsImage(),imgPurchaseImg);
                     tvZhuanmaiShopName.setText(model.getPayload().getGoodsName());
-                    tvZhuamaiPrice.setText(Html.fromHtml("<font color= '#999999'>转卖价:</font>"+model.getPayload().getDiscountPrice()+"/张"));
+                    tvZhuamaiPrice.setText(Html.fromHtml("<font color= '#999999'>转卖价:</font>"+model.getPayload().getDiscountPrice()+"元/张"));
                     tvZhuanmaiCount.setText(Html.fromHtml("<font color= '#999999'>转卖总数:</font>"+model.getPayload().getOriStock()+"张"));
                     tvZhuanmaiTime.setText( DateTimeUtil.formatDate(StringUtil.formatLong(model.getPayload().getCreateTime()),"yyyy-MM-dd HH:mm:ss"));
                     map.clear();
                     map.put("转卖总数:" + model.getPayload().getAllCodeList().size()+"张", model.getPayload().getAllCodeList());
-                    map.put("已转卖:" + model.getPayload().getSoldCodeList().size()+"张", model.getPayload().getAllCodeList());
-                    adapter = new com.shenyu.laikaword.model.adapter.ExpandableListAdapter(map);
+                    if (type.equals("2"))
+                        map.put("转卖状态: 转卖完成!" , new ArrayList<String>());
+                    else
+                     map.put("已转卖:" + model.getPayload().getSoldCodeList().size()+"张", model.getPayload().getSoldCodeList());
+                    adapter = new com.shenyu.laikaword.model.adapter.ExpandableListAdapter(map,type);
                     expandableListView.setAdapter(adapter);
                 }
 
@@ -87,7 +92,6 @@ public class ResellDetailsActivity extends LKWordBaseActivity {
     @Override
     public void initView() {
         setToolBarTitle("转卖详情");
-
         expandableListView.setGroupIndicator(null);
         expandableListView.setChildIndicator(null);
 
@@ -97,12 +101,5 @@ public class ResellDetailsActivity extends LKWordBaseActivity {
     @Override
     public void setupActivityComponent() {
 
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }

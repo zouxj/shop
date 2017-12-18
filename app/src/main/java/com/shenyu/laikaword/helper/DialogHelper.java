@@ -1,5 +1,6 @@
 package com.shenyu.laikaword.helper;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -160,8 +161,44 @@ public  final  class DialogHelper {
         });
         return dialog;
     }
+    public static Dialog tDialog(Context context, String msg) {
+        final Dialog dialog = new Dialog(context, R.style.Dialog);
+        dialog.setCanceledOnTouchOutside(true);
+        View view = View.inflate(context, R.layout.dialog_tishi, null);
+        @SuppressLint("WrongViewCast")
+        TextView tvMsg = view.findViewById(R.id.tv_msg);
+        tvMsg.setText(msg);
+        TextView tvOk = (TextView) view.findViewById(R.id.tv_ok);
+        tvOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
 
-    public interface  ButtonCallback {
+        dialog.setContentView(view);
+        Window window = dialog.getWindow();
+        WindowManager.LayoutParams windowParams = window.getAttributes();
+        int width = (int) (window.getWindowManager().getDefaultDisplay().getWidth() * 0.8);
+        windowParams.x = 0;
+        windowParams.width = width;
+
+        window.setAttributes(windowParams);
+
+        dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+                    return true;
+                }
+                return false;
+            }
+        });
+        return dialog;
+
+    }
+
+        public interface  ButtonCallback {
         void onNegative(Dialog dialog);
         void onPositive(Dialog dialog);
     }
@@ -202,7 +239,7 @@ public  final  class DialogHelper {
      * @param linstenrText
      * @return
      */
-    public  static  Dialog setInputDialog(final Activity context, boolean is_must, String money, final LinstenrText linstenrText){
+    public  static  Dialog setInputDialog(final Activity context, boolean is_must, String money,String msg, final LinstenrText linstenrText){
         final Dialog dialog = new Dialog(context,R.style.Dialog);
         if(!is_must) {
             dialog.setCanceledOnTouchOutside(true);
@@ -212,6 +249,8 @@ public  final  class DialogHelper {
         View view = View.inflate(context,R.layout.dialog_input_passwprd,null);
         final PayPsdInputView textPassWord = view.findViewById(R.id.psd_view_password);
         TextView tvMoney = view.findViewById(R.id.tv_money);
+        TextView tvTishi = view.findViewById(R.id.tv_tishi);
+        tvTishi.setText(msg);
         if (StringUtil.validText(money)){
             tvMoney.setVisibility(View.VISIBLE);
             if (money.length()>10) {

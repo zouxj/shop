@@ -12,13 +12,20 @@
     android:orientation="horizontal"
     android:background="@mipmap/left_bg_icon"
     android:layout_height="100dp">
+    <RelativeLayout
+        android:layout_gravity="center_vertical"
+        android:layout_width="48dp"
+        android:layout_marginLeft="9dp"
+        android:layout_height="48dp">
+
     <ImageView
         android:id="@+id/tv_user_head"
-        android:layout_gravity="center_vertical"
         android:src="@mipmap/left_user_icon"
-        android:layout_marginLeft="9dp"
         android:layout_width="48dp"
         android:layout_height="48dp" />
+
+    </RelativeLayout>
+
     <TextView
         android:id="@+id/tv_user_name"
         android:layout_gravity="center_vertical"

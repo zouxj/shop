@@ -138,7 +138,7 @@ public class ConfirmOrderPresenter extends BasePresenter<ConfirmOrderView> {
             }).show();
         }else if(loginReponse.getPayload().getIsSetTransactionPIN()!=0){
             //TODO 设置了密码和绑定手机,去输入校验
-            DialogHelper.setInputDialog(mActivity, true,zecount, new DialogHelper.LinstenrText() {
+            DialogHelper.setInputDialog(mActivity, true,zecount, "",new DialogHelper.LinstenrText() {
                 @Override
                 public void onLintenerText(final String passWord) {
 
