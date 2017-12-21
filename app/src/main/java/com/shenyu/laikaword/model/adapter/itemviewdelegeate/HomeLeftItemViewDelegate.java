@@ -79,7 +79,7 @@ public class HomeLeftItemViewDelegate implements ItemViewDelegate<ShopMainRepons
             else
                 imageView.setBackgroundResource(entranceListBean.getImgUrl());
         }
-            if (position>5&&StringUtil.validText(entranceListBean.getIconURL()))
+            if (StringUtil.validText(entranceListBean.getIconURL()))
                 ImageUitls.loadImg(entranceListBean.getIconURL(), imageView);
 
         holder.itemView.setOnClickListener( new View.OnClickListener() {

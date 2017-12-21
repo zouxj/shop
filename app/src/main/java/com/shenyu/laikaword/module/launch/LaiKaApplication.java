@@ -85,7 +85,7 @@ public class LaiKaApplication extends MultiDexApplication {
             }
 
         });
-//        CrashReport.initCrashReport(this, "1ab960f148", false, strategy);
+        CrashReport.initCrashReport(this, "1ab960f148", false, strategy);
 
         //leak配置
         //微信登录

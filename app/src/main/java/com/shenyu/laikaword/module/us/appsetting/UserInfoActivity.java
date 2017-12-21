@@ -151,7 +151,7 @@ public class UserInfoActivity extends LKWordBaseActivity  implements UserInfoVie
         }
         if (requestCode == MPermissionSettingsDialog.DEFAULT_SETTINGS_REQ_CODE) {
             // Do something after user returned from app settings screen, like showing a Toast.
-           ToastUtil.showToastShort(R.string.write_external_storage +"");
+//           ToastUtil.showToastShort(UIUtil.getString(R.string.write_external_storage));
         }
     }
 
@@ -163,9 +163,6 @@ public class UserInfoActivity extends LKWordBaseActivity  implements UserInfoVie
 
     @Override
     public void onPermissionsDenied(int requestCode, List<String> perms) {
-//        LogUtil.d(TAG, "onPermissionsDenied:" + requestCode + ":" + perms.size());
-        // (Optional) Check whether the user denied any permissions and checked "NEVER ASK AGAIN."
-        // This will display a dialog directing them to enable the permission in app settings.
         if (MPermission.somePermissionPermanentlyDenied(this, perms)) {
             new MPermissionSettingsDialog.Builder(this).build().show();
         }
@@ -176,7 +173,7 @@ public class UserInfoActivity extends LKWordBaseActivity  implements UserInfoVie
         switch (requestCode) {
             //相机获取权限返回结果
             case Constants.READ_EXTERNAL_STORAGE:
-                ToastUtil.showToastShort(R.string.write_external_storage +"");
+//                ToastUtil.showToastShort(UIUtil.getString(R.string.write_external_storage));
 //                userInfoPresenter.updateImg(bindUntilEvent(ActivityEvent.DESTROY));
 //                LogUtil.i("READ_EXTERNAL_STORAGE","cameraTask");
                 break;

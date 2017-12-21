@@ -179,7 +179,7 @@ public class MainActivity extends LKWordBaseActivity implements  MPermission.Per
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == MPermissionSettingsDialog.DEFAULT_SETTINGS_REQ_CODE) {
             // Do something after user returned from app settings screen, like showing a Toast.
-            ToastUtil.showToastShort(R.string.write_external_storage +"");
+//            ToastUtil.showToastShort(UIUtil.getString(R.string.write_external_storage));
         }
     }
 
@@ -189,7 +189,7 @@ public class MainActivity extends LKWordBaseActivity implements  MPermission.Per
         switch (requestCode) {
             //相机获取权限返回结果
             case Constants.READ_EXTERNAL_STORAGE:
-//                ToastUtil.showToastShort(R.string.write_external_storage +"");
+//                ToastUtil.showToastShort(UIUtil.getString(R.string.write_external_storage));
                 new UpdateManager(mActivity).gerNewVersion(false);
                 break;
         }

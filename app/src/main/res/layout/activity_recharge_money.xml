@@ -36,7 +36,7 @@
             android:textColor="@color/color_333"
             android:layout_height="wrap_content" />
         <EditText
-
+            android:textSize="25sp"
             android:textCursorDrawable="@drawable/color_cursor"
             android:id="@+id/recharge_rb_num"
             android:layout_width="160dp"

@@ -49,8 +49,8 @@ public class SelectBankIDActivity extends LKWordBaseActivity {
     RecyclerView recyclerView;
     @BindView(R.id.tv_commit_selector)
     TextView tvCommitSelectBank;
-    private String carID;
-    private String carName;
+    private static String carID;
+    private static String carName;
     private List<BankInfoReponse.PayloadBean> payload=new ArrayList<>();
     EmptyWrapper emptyWrapper;
     @Override
@@ -89,7 +89,11 @@ public class SelectBankIDActivity extends LKWordBaseActivity {
                 }
                 ImageUitls.loadImgRound(payload.get(position).getBankLogo(), (ImageView) holder.getView(R.id.iv_bandlog_img),R.mipmap.banklogo);
                 checkBox.setChecked(payloadBean.getCardId().equals(carID)&&selectedPosition==position);
-                holder.setText(R.id.tv_card_num,"尾号"+ StringUtil.getBankNumber(payloadBean.getCardNo())+"  储蓄卡");
+               if (checkBox.isChecked()){
+                   carID = payloadBean.getCardId();
+                   carName=payloadBean.getBankName()+"("+ StringUtil.getBankNumber(payloadBean.getCardNo())+")";
+               }
+                holder.setText(R.id.tv_card_num,"尾号"+ StringUtil.getBankNumber(payloadBean.getCardNo()));
                 holder.setText(R.id.tv_card_bank,payloadBean.getBankName());
                 holder.setOnClickListener(R.id.item_ck, new View.OnClickListener() {
                     @Override
@@ -130,6 +134,7 @@ public class SelectBankIDActivity extends LKWordBaseActivity {
             case R.id.tv_commit_selector:
                 Intent intent =getIntent();
                 Bundle  bundle =new Bundle();
+                LogUtil.i("carName",carName+"____");
                 bundle.putCharSequence("bankName",carName);
                 bundle.putCharSequence("carID",carID);
                 intent.putExtras(bundle);

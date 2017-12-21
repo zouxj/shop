@@ -113,8 +113,12 @@ public class PickUpTelActivity extends LKWordBaseActivity {
                 phone=  phone.replace("-", "");
             }
             StringBuilder sb = new StringBuilder(phone);
-            phone = sb.substring(0, 3) + " " + sb.substring(3, phone.length() - 4) + " " + sb.substring(phone.length() - 4);
-            tvTihuoTianxia.setText(phone);
+            for (int i=0;i<sb.length();i++){
+                if (i==3||i==8){
+                    sb.insert(i,' ');
+                }
+            }
+            tvTihuoTianxia.setText(sb.toString());
         }
         tvTihuoTianxia.addTextChangedListener(new TextWatcher() {
                @Override

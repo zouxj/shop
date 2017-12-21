@@ -70,7 +70,7 @@ public class AboutAppActivity extends LKWordBaseActivity implements MPermission.
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == MPermissionSettingsDialog.DEFAULT_SETTINGS_REQ_CODE) {
             // Do something after user returned from app settings screen, like showing a Toast.
-            ToastUtil.showToastShort(R.string.write_external_storage + "");
+//            ToastUtil.showToastShort(UIUtil.getString(R.string.write_external_storage));
         }
         super.onActivityResult(requestCode, resultCode, data);
     }

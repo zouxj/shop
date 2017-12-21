@@ -94,15 +94,22 @@ public class CardBankInfoActivity extends LKWordBaseActivity {
             }
 
             @Override
-            public void onDeleteClick(int position) {
-                if (deleteBank(payload.get(position).getCardId())) {
-                    initData();
-//                    reslerAdapter.removeItem(position);
-//                    emptyWrapper.notifyItemChanged(position);
-//                    payload.remove(position);
-//                    emptyWrapper.notifyDataSetChanged();
-                }
+            public void onDeleteClick(final int position) {
+                DialogHelper.deleteBankDialog(CardBankInfoActivity.this, "解除绑定后银行卡服务将不可使用,包括快捷支付","解除绑定",new DialogHelper.ButtonCallback() {
+                    @Override
+                    public void onNegative(Dialog dialog) {
+
+                        deleteBank(payload.get(position).getCardId());
+                    }
+
+                    @Override
+                    public void onPositive(Dialog dialog) {
+
+                    }
+                });
+
             }
+
         });
     }
 
@@ -182,10 +189,13 @@ public class CardBankInfoActivity extends LKWordBaseActivity {
         RetrofitUtils.getRetrofitUtils().setLifecycleTransformer(this.bindToLifecycle()).addSubscription(RetrofitUtils.apiStores.deleteBankCard(cardID), new ApiCallback<BaseReponse>() {
             @Override
             public void onSuccess(BaseReponse model) {
-                if (model.isSuccess())
+                if (model.isSuccess()) {
+                    ToastUtil.showToastShort("成功删除");
+                    initData();
                     deleteBoolean = true;
-                else
-                    deleteBoolean=false;
+                } else {
+                    deleteBoolean = false;
+                }
             }
 
             @Override

@@ -46,7 +46,6 @@ public class UserInfoPresenter extends BasePresenter<UserInfoView> {
     private  Uri imageUri;
     ImgSTSReponse imgSTSReponse;
      String objectKey;
-//     private LifecycleTransformer mLifecycleTransformer;
     public UserInfoPresenter(Activity activity,UserInfoView userInfoView){
         this.activity=activity;
         this.mvpView=userInfoView;
@@ -54,7 +53,6 @@ public class UserInfoPresenter extends BasePresenter<UserInfoView> {
 
     //点击头像
     public void updateImg(LifecycleTransformer lifecycleTransformer){
-//        this.mLifecycleTransformer=lifecycleTransformer;
         getImgSts(lifecycleTransformer);
         DialogHelper.takePhoto(activity, new DialogHelper.TakePhotoListener() {
             @Override

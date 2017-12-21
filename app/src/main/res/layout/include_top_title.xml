@@ -13,6 +13,7 @@
 <ImageView
     android:id="@+id/bt_top_img"
     android:layout_width="30dp"
+    android:layout_centerVertical="true"
     android:src="@mipmap/left_user_icon"
     android:layout_height="30dp"/>
     <ImageView

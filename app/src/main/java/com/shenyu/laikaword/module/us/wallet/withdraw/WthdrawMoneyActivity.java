@@ -98,7 +98,7 @@ public class WthdrawMoneyActivity extends LKWordBaseActivity {
 
          yue = getIntent().getStringExtra("acountyue");
         if (StringUtil.validText(yue))
-            yue=  String.valueOf(StringUtil.m2(StringUtil.formatDouble(yue)-0.5<0.5?0:StringUtil.formatDouble(yue)-0.5));
+            yue=  String.valueOf(StringUtil.m2(StringUtil.formatDouble(yue)-0.5<=0?0:(StringUtil.formatDouble(yue)-0.5)));
         tvAccountYue.setText("可提现金额：￥"+String.valueOf(yue));
         subscribeEvent();
 
@@ -132,11 +132,11 @@ public class WthdrawMoneyActivity extends LKWordBaseActivity {
         String wthdrawMoney = etTixianNum.getText().toString().trim();
         String bankStr = tvBankType.getText().toString().trim();
         if (StringUtil.validText(bankStr)&&StringUtil.validText(wthdrawMoney)) {
-            if (StringUtil.formatDouble(etTixianNum.getText().toString().trim())>StringUtil.formatDouble(yue)){
+            if (StringUtil.formatDouble(wthdrawMoney)>StringUtil.formatDouble(yue)){
                 ToastUtil.showToastShort("余额不够");
                 bool =false;
-            }else if(StringUtil.formatDouble(etTixianNum.getText().toString().trim())<0.5){
-                ToastUtil.showToastShort("提现金额必须大于0.5");
+            }else if(StringUtil.formatDouble(wthdrawMoney)<=0.00){
+                ToastUtil.showToastShort("提现金额必须大于0元");
                 bool =false;
             }
             else{
@@ -218,7 +218,11 @@ public class WthdrawMoneyActivity extends LKWordBaseActivity {
                 startActivityForResult(intent,0);
                 break;
             case R.id.tv_all_tixian:
-                etTixianNum.setText(yue);
+                if(StringUtil.formatDouble(yue)>0) {
+                    etTixianNum.setText(yue);
+                }else {
+                    ToastUtil.showToastShort("余额不够");
+                }
                 break;
         }
     }

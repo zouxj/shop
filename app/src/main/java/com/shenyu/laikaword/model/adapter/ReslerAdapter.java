@@ -37,7 +37,7 @@ public class ReslerAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         BaseViewHolder viewHolder = (BaseViewHolder) holder;
-        viewHolder.setText(R.id.tv_bank_no,"尾号"+ StringUtil.getBankNumber(payload.get(position).getCardNo())+"  储蓄卡");
+        viewHolder.setText(R.id.tv_bank_no,"尾号"+ StringUtil.getBankNumber(payload.get(position).getCardNo()));
         viewHolder.setText(R.id.tv_card_bank,payload.get(position).getBankName());
         ImageUitls.loadImgRound(payload.get(position).getBankLogo(), (ImageView) viewHolder.getView(R.id.iv_bank_log),R.mipmap.banklogo);
     }

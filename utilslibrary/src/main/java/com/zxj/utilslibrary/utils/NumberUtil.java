@@ -3,6 +3,7 @@ package com.zxj.utilslibrary.utils;
 import android.text.TextUtils;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * Created by Administrator on 2017/8/3 0003.
@@ -54,6 +55,7 @@ public class NumberUtil {
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
+
         return -1;
     }
 

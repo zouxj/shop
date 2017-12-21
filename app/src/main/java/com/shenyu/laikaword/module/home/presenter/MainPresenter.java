@@ -93,7 +93,7 @@ public class MainPresenter extends BasePresenter<MainView> {
                         goodBean.setNickName(payloadBean.getNickName());
                         goodBean.setStock(payloadBean.getStock());
                         goodBean.setSellerAvatar(payloadBean.getSellerAvatar());
-                        goodBean.setGoodsName(payloadBean.getNickName());
+                        goodBean.setGoodsName(payloadBean.getGoodsName());
                         goodBean.setOriginPrice(payloadBean.getOriginPrice());
                         list.add(goodBean);
                     }

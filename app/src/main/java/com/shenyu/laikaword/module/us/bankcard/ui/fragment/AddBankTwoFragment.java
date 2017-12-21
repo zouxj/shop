@@ -156,7 +156,7 @@ public class AddBankTwoFragment extends IKWordBaseFragment {
         //TODO 添加银行卡信息
         mapParam.put("name", bankReponse.getPayload().getNickName());
         mapParam.put("cardNo",bankReponse.getPayload().getBankcard());
-        mapParam.put("bankName",bankReponse.getPayload().getName());
+        mapParam.put("bankName",bankReponse.getPayload().getBank());
         mapParam.put("bankDetail",etZhihang.getText().toString().trim());
         mapParam.put("bankLogo",bankReponse.getPayload().getLogo());
         mapParam.put("province",bankProvince);
