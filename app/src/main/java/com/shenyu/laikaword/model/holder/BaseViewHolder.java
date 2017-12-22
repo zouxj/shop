@@ -1,4 +1,4 @@
-package com.shenyu.laikaword.model.adapter;
+package com.shenyu.laikaword.model.holder;
 
 import android.graphics.Bitmap;
 import android.graphics.Paint;
@@ -46,7 +46,7 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
     Object associatedObject;
 
 
-    protected BaseViewHolder(View view) {
+    public BaseViewHolder(View view) {
         super(view);
         this.views = new SparseArray<View>();
         this.childClickViewIds = new HashSet<>();

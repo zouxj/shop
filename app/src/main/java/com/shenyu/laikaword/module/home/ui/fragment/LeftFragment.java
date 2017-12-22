@@ -14,8 +14,8 @@ import com.shenyu.laikaword.helper.ImageUitls;
 import com.shenyu.laikaword.helper.StatusBarManager;
 import com.shenyu.laikaword.model.adapter.MultiItemTypeAdapter;
 import com.shenyu.laikaword.base.IKWordBaseFragment;
-import com.shenyu.laikaword.model.adapter.itemviewdelegeate.HomeLeftItemViewDelegate;
-import com.shenyu.laikaword.model.adapter.itemviewdelegeate.HomeLeftLastItemViewDelegate;
+import com.shenyu.laikaword.model.itemviewdelegeate.HomeLeftItemViewDelegate;
+import com.shenyu.laikaword.model.itemviewdelegeate.HomeLeftLastItemViewDelegate;
 import com.shenyu.laikaword.model.bean.reponse.LoginReponse;
 import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.model.bean.reponse.ShopMainReponse;
@@ -29,7 +29,6 @@ import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.SPUtil;
-import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
 import java.util.ArrayList;

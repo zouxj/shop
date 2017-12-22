@@ -13,8 +13,8 @@ import android.widget.TextView;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.helper.ImageUitls;
 import com.shenyu.laikaword.model.adapter.CommonAdapter;
-import com.shenyu.laikaword.model.adapter.ViewHolder;
-import com.shenyu.laikaword.model.adapter.wrapper.EmptyWrapper;
+import com.shenyu.laikaword.model.holder.ViewHolder;
+import com.shenyu.laikaword.model.wrapper.EmptyWrapper;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.model.bean.reponse.BankInfoReponse;
 import com.shenyu.laikaword.helper.RecycleViewDivider;
@@ -26,12 +26,9 @@ import com.shenyu.laikaword.model.rxjava.rxbus.RxSubscriptions;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
 import com.trello.rxlifecycle2.android.ActivityEvent;
-import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;

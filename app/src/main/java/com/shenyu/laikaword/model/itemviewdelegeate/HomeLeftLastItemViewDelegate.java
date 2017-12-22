@@ -1,18 +1,17 @@
-package com.shenyu.laikaword.model.adapter.itemviewdelegeate;
+package com.shenyu.laikaword.model.itemviewdelegeate;
 
 import android.app.Activity;
 import android.view.View;
 
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.common.Constants;
-import com.shenyu.laikaword.model.adapter.ViewHolder;
+import com.shenyu.laikaword.model.holder.ViewHolder;
 import com.shenyu.laikaword.model.bean.reponse.LoginReponse;
 import com.shenyu.laikaword.model.bean.reponse.ShopMainReponse;
 import com.shenyu.laikaword.module.login.ui.activity.LoginActivity;
 import com.shenyu.laikaword.module.us.appsetting.SettingSystemActivity;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.SPUtil;
-import com.zxj.utilslibrary.utils.UIUtil;
 
 /**
  * Created by shenyu_zxjCode on 2017/10/28 0028.

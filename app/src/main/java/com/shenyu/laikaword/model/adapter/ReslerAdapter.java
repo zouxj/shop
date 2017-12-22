@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.helper.ImageUitls;
 import com.shenyu.laikaword.model.bean.reponse.BankInfoReponse;
+import com.shenyu.laikaword.model.holder.BaseViewHolder;
 import com.zxj.utilslibrary.utils.StringUtil;
 
 import java.util.ArrayList;

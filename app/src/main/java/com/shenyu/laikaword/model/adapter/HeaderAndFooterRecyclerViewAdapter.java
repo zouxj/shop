@@ -3,6 +3,8 @@ package com.shenyu.laikaword.model.adapter;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.shenyu.laikaword.model.holder.ViewHolder;
+
 import java.util.ArrayList;
 import java.util.List;
 

@@ -4,7 +4,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.shenyu.laikaword.model.adapter.itemviewdelegeate.ItemViewDelegate;
+import com.shenyu.laikaword.model.itemviewdelegeate.ItemViewDelegate;
+import com.shenyu.laikaword.model.holder.ViewHolder;
 
 import java.util.List;
 

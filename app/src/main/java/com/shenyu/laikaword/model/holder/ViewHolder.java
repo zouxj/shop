@@ -1,4 +1,4 @@
-package com.shenyu.laikaword.model.adapter;
+package com.shenyu.laikaword.model.holder;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;

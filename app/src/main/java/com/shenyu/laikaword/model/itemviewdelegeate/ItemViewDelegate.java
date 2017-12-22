@@ -1,6 +1,6 @@
-package com.shenyu.laikaword.model.adapter.itemviewdelegeate;
+package com.shenyu.laikaword.model.itemviewdelegeate;
 
-import com.shenyu.laikaword.model.adapter.ViewHolder;
+import com.shenyu.laikaword.model.holder.ViewHolder;
 
 /**
  * Created by Administrator on 2017/8/18 0018.

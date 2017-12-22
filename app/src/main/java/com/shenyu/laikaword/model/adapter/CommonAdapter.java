@@ -1,6 +1,7 @@
 package com.shenyu.laikaword.model.adapter;
 
-import com.shenyu.laikaword.model.adapter.itemviewdelegeate.ItemViewDelegate;
+import com.shenyu.laikaword.model.itemviewdelegeate.ItemViewDelegate;
+import com.shenyu.laikaword.model.holder.ViewHolder;
 
 import java.util.List;
 

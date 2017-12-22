@@ -44,9 +44,13 @@ public class AddBankCardActivity extends LKWordBaseActivity {
     public void doBusiness(Context context) {
         setToolBarTitle("添加银行卡");
         //添加MianFragment
-        fragmentTransaction.add(R.id.fl_bank_frame, addBankOneFragment);
-        //添加LeftFragment
-        fragmentTransaction.commit();
+        if (addBankOneFragment.isAdded()) {
+            fragmentTransaction.show(addBankOneFragment).commit();
+        } else {
+            fragmentTransaction.remove(addBankOneFragment).commit();
+            fragmentTransaction.add(R.id.fl_bank_frame, addBankOneFragment).commit();
+            fragmentTransaction.addToBackStack("tag").commit();
+        }
         subscribeEvent();
 
     }
@@ -68,11 +72,13 @@ public class AddBankCardActivity extends LKWordBaseActivity {
                                 //添加MianFragment
                                 //添加LeftFragment
                                 addBankTwoFragment.setBankInfo((BankReponse) myEvent.object);
-                                fragmentTransaction=getSupportFragmentManager().beginTransaction();
-                                fragmentTransaction.hide(addBankOneFragment);
-                                fragmentTransaction.add(R.id.fl_bank_frame, addBankTwoFragment);
-                                fragmentTransaction.addToBackStack("tag");
-                                fragmentTransaction.commit();
+                                if (addBankTwoFragment.isAdded()) {
+                                    fragmentTransaction.show(addBankTwoFragment).commit();
+                                } else {
+                                    fragmentTransaction.remove(addBankTwoFragment).commit();
+                                    fragmentTransaction.add(R.id.fl_bank_frame, addBankTwoFragment).commit();
+                                    fragmentTransaction.addToBackStack("tag").commit();
+                                }
                                 break;
                         }
                     }

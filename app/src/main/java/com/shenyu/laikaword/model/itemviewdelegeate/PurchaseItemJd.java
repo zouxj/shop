@@ -1,4 +1,4 @@
-package com.shenyu.laikaword.model.adapter.itemviewdelegeate;
+package com.shenyu.laikaword.model.itemviewdelegeate;
 
 import android.view.View;
 import android.widget.ImageView;
@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.helper.ImageUitls;
-import com.shenyu.laikaword.model.adapter.ViewHolder;
+import com.shenyu.laikaword.model.holder.ViewHolder;
 import com.shenyu.laikaword.model.bean.reponse.PickUpGoodsReponse;
 import com.zxj.utilslibrary.utils.DateTimeUtil;
 import com.zxj.utilslibrary.utils.StringUtil;

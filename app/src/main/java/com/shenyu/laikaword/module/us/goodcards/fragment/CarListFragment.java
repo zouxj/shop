@@ -8,7 +8,7 @@ import android.view.View;
 
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.model.adapter.CommonAdapter;
-import com.shenyu.laikaword.model.adapter.ViewHolder;
+import com.shenyu.laikaword.model.holder.ViewHolder;
 import com.shenyu.laikaword.base.IKWordBaseFragment;
 import com.shenyu.laikaword.helper.RecycleViewDivider;
 import com.shenyu.laikaword.module.goods.pickupgoods.ui.activity.PickUpActivity;

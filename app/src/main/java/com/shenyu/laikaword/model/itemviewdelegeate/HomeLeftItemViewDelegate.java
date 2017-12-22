@@ -1,4 +1,4 @@
-package com.shenyu.laikaword.model.adapter.itemviewdelegeate;
+package com.shenyu.laikaword.model.itemviewdelegeate;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -18,7 +18,7 @@ import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.helper.DialogHelper;
 import com.shenyu.laikaword.helper.ImageUitls;
-import com.shenyu.laikaword.model.adapter.ViewHolder;
+import com.shenyu.laikaword.model.holder.ViewHolder;
 import com.shenyu.laikaword.model.bean.reponse.LoginReponse;
 import com.shenyu.laikaword.model.bean.reponse.ShopMainReponse;
 import com.shenyu.laikaword.module.goods.BuyGoodsActivity;

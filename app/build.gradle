@@ -109,10 +109,6 @@ android {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "xiaomi"]
             dimension "laikashop"
         }
-        leshi {
-            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "leshi"]
-            dimension "laikashop"
-        }
         chuizi {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "chuizi"]
             dimension "laikashop"

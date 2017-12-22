@@ -2,7 +2,6 @@ package com.shenyu.laikaword.module.home.ui.viewpager;
 
 import android.app.Activity;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,8 +9,8 @@ import android.widget.ImageView;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.helper.ImageUitls;
 import com.shenyu.laikaword.model.adapter.CommonAdapter;
-import com.shenyu.laikaword.model.adapter.ViewHolder;
-import com.shenyu.laikaword.model.adapter.wrapper.EmptyWrapper;
+import com.shenyu.laikaword.model.holder.ViewHolder;
+import com.shenyu.laikaword.model.wrapper.EmptyWrapper;
 import com.shenyu.laikaword.base.BaseViewPager;
 import com.shenyu.laikaword.model.bean.reponse.GoodBean;
 import com.shenyu.laikaword.model.bean.reponse.LoginReponse;

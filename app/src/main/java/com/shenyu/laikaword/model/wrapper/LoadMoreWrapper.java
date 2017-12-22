@@ -1,4 +1,4 @@
-package com.shenyu.laikaword.model.adapter.wrapper;
+package com.shenyu.laikaword.model.wrapper;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -6,7 +6,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.shenyu.laikaword.model.adapter.ViewHolder;
+import com.shenyu.laikaword.model.holder.ViewHolder;
 
 /**
  * Created by Administrator on 2017/8/24 0024.

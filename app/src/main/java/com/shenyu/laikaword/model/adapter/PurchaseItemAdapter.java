@@ -1,7 +1,7 @@
 package com.shenyu.laikaword.model.adapter;
 
-import com.shenyu.laikaword.model.adapter.itemviewdelegeate.PurchaseItemJd;
-import com.shenyu.laikaword.model.adapter.itemviewdelegeate.PurchaseItemLyd;
+import com.shenyu.laikaword.model.itemviewdelegeate.PurchaseItemJd;
+import com.shenyu.laikaword.model.itemviewdelegeate.PurchaseItemLyd;
 import com.shenyu.laikaword.model.bean.reponse.PickUpGoodsReponse;
 
 import java.util.List;

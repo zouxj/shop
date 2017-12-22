@@ -1,43 +1,27 @@
 package com.shenyu.laikaword.module.us.goodcards.ui;
 
-import android.annotation.SuppressLint;
 import
 android.app.Activity;
-import android.os.Build;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.shenyu.laikaword.R;
-import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.helper.ImageUitls;
 import com.shenyu.laikaword.model.adapter.CommonAdapter;
-import com.shenyu.laikaword.model.adapter.ViewHolder;
-import com.shenyu.laikaword.model.adapter.wrapper.EmptyWrapper;
+import com.shenyu.laikaword.model.holder.ViewHolder;
+import com.shenyu.laikaword.model.wrapper.EmptyWrapper;
 import com.shenyu.laikaword.base.BaseViewPager;
 import com.shenyu.laikaword.model.bean.reponse.CarPagerReponse;
 import com.shenyu.laikaword.helper.RecycleViewDivider;
-import com.shenyu.laikaword.model.bean.reponse.LoginReponse;
-import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
-import com.shenyu.laikaword.model.rxjava.rxbus.RxBusSubscriber;
-import com.shenyu.laikaword.model.rxjava.rxbus.RxSubscriptions;
-import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
-import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
 import com.shenyu.laikaword.module.goods.pickupgoods.ui.activity.PickUpActivity;
 import com.shenyu.laikaword.module.goods.pickupgoods.ui.activity.PickUpTelActivity;
-import com.squareup.picasso.Picasso;
 import com.zxj.utilslibrary.utils.IntentLauncher;
-import com.zxj.utilslibrary.utils.LogUtil;
-import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
 
 /**
  * Created by shenyu_zxjCode on 2017/10/16 0016.

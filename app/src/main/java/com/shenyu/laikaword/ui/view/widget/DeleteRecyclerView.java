@@ -8,14 +8,11 @@ import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
-import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.Scroller;
 import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
-import com.shenyu.laikaword.model.adapter.BaseViewHolder;
-import com.shenyu.laikaword.model.adapter.ViewHolder;
+import com.shenyu.laikaword.model.holder.BaseViewHolder;
 
 /**
  * Created by shenyu_zxjCode on 2017/12/14 0014.
@@ -90,8 +87,9 @@ public class DeleteRecyclerView extends RecyclerView {
                         return false;
                     }
                     //通过baseviewholder获取对应的子View，详情可以看代码
-                    BaseViewHolder viewHolder = (BaseViewHolder) getChildViewHolder(view);
-
+                    BaseViewHolder viewHolder = null;
+                    if (getChildViewHolder(view) instanceof BaseViewHolder)
+                         viewHolder = (BaseViewHolder) getChildViewHolder(view);
                     mItemView = viewHolder.getView(R.id.item_layout);
                     mDeleteView = viewHolder.getView(R.id.item_delete);
                     if (mItemView==null||null==mDeleteView)

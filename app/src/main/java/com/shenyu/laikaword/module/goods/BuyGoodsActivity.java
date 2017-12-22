@@ -2,10 +2,8 @@ package com.shenyu.laikaword.module.goods;
 
 import android.content.Context;
 import android.graphics.Paint;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,15 +14,13 @@ import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.helper.ImageUitls;
 import com.shenyu.laikaword.model.adapter.CommonAdapter;
-import com.shenyu.laikaword.model.adapter.HeaderAndFooterRecyclerViewAdapter;
-import com.shenyu.laikaword.model.adapter.ViewHolder;
-import com.shenyu.laikaword.model.adapter.wrapper.EmptyWrapper;
+import com.shenyu.laikaword.model.holder.ViewHolder;
+import com.shenyu.laikaword.model.wrapper.EmptyWrapper;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.model.bean.reponse.OrderListReponse;
 import com.shenyu.laikaword.helper.RecycleViewDivider;
 import com.shenyu.laikaword.model.net.api.ApiCallback;
 import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
-import com.squareup.picasso.Picasso;
 import com.zxj.utilslibrary.utils.DateTimeUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
