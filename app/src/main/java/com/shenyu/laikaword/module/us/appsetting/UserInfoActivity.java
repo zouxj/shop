@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
@@ -13,51 +14,54 @@ import android.widget.TextView;
 
 import com.leo618.mpermission.MPermission;
 import com.leo618.mpermission.MPermissionSettingsDialog;
-import com.shenyu.laikaword.helper.ImageUitls;
-import com.shenyu.laikaword.module.launch.LaiKaApplication;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
-import com.shenyu.laikaword.model.bean.reponse.LoginReponse;
 import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.di.module.MineModule;
+import com.shenyu.laikaword.helper.ImageUitls;
+import com.shenyu.laikaword.model.bean.reponse.LoginReponse;
+import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBusSubscriber;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxSubscriptions;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
-import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
+import com.shenyu.laikaword.module.launch.LaiKaApplication;
+import com.shenyu.laikaword.module.us.address.ui.activity.AddressInfoActivity;
 import com.shenyu.laikaword.module.us.appsetting.updateus.UpdateUserNameActivity;
+import com.shenyu.laikaword.module.us.bankcard.ui.activity.CardBankInfoActivity;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
-import java.io.File;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import rx.android.schedulers.AndroidSchedulers;
 
 /*
 个人信息
  */
-public class UserInfoActivity extends LKWordBaseActivity  implements UserInfoView,MPermission.PermissionCallbacks {
+public class UserInfoActivity extends LKWordBaseActivity implements UserInfoView, MPermission.PermissionCallbacks {
 
 
     @BindView(R.id.set_change_user_head)
     ImageView setChangeUserHead;
     @BindView(R.id.change_tv_name)
     TextView changeTvName;
-//    //当前路径
-    @BindView(R.id.change_tv_phone)
-    TextView tvPhone;
+    //    //当前路径
+    @BindView(R.id.tv_bank_count)
+    TextView tvBankCount;
     private String mCurrentPhotoPath;
     @Inject
     UserInfoPresenter userInfoPresenter;
     LoginReponse loginReponse;
+
     @Override
     public int bindLayout() {
         return R.layout.activity_user_info;
@@ -68,13 +72,15 @@ public class UserInfoActivity extends LKWordBaseActivity  implements UserInfoVie
         super.initView();
         setToolBarTitle("个人资料");
 
-}
+    }
+
     @Override
     public void doBusiness(Context context) {
         //修改时重新刷新数据
         subscribeEvent();
         userInfoPresenter.initUserData();
     }
+
     private void subscribeEvent() {
         RxSubscriptions.remove(mRxSub);
         mRxSub = RxBus.getDefault().toObservable(Event.class)
@@ -86,9 +92,10 @@ public class UserInfoActivity extends LKWordBaseActivity  implements UserInfoVie
                                 userInfoPresenter.initUserData();
                                 break;
                         }
-                        LogUtil.e(TAG, myEvent.event+"____"+"threadType=>"+Thread.currentThread());
+                        LogUtil.e(TAG, myEvent.event + "____" + "threadType=>" + Thread.currentThread());
 //            }
                     }
+
                     @Override
                     public void onError(Throwable e) {
                         super.onError(e);
@@ -102,33 +109,40 @@ public class UserInfoActivity extends LKWordBaseActivity  implements UserInfoVie
                 });
         RxSubscriptions.add(mRxSub);
     }
+
     @Override
     public void setupActivityComponent() {
-        LaiKaApplication.get(this).getAppComponent().plus(new MineModule(this,this)).inject(this);
+        LaiKaApplication.get(this).getAppComponent().plus(new MineModule(this, this)).inject(this);
     }
 
-    @OnClick({R.id.set_change_user_head, R.id.set_rl_user_acount_bd})
+    @OnClick({R.id.set_change_user_head, R.id.set_rl_user_acount_bd,R.id.rl_bank,R.id.rl_shouhuo_address})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.set_change_user_head:
                 //TODO 更换头像
-                if (MPermission.hasPermissions(this, Manifest.permission.CAMERA)&&MPermission.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                  userInfoPresenter.updateImg(bindUntilEvent(ActivityEvent.DESTROY));
+                if (MPermission.hasPermissions(this, Manifest.permission.CAMERA) && MPermission.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                    userInfoPresenter.updateImg(bindUntilEvent(ActivityEvent.DESTROY));
 //          ToastUtil.showToastShort("TODO: Camera things");
-        } else {
-            // Ask for one permission
-            MPermission.requestPermissions(this, "使用摄像头需要"+UIUtil.getString(R.string.read_camere), Constants.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE);
-        }
+                } else {
+                    // Ask for one permission
+                    MPermission.requestPermissions(this, "使用摄像头需要" + UIUtil.getString(R.string.read_camere), Constants.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE);
+                }
                 break;
             case R.id.set_rl_user_acount_bd:
                 //TODO 更换名字
-                if (loginReponse!=null&&loginReponse.getPayload()!=null)
-                IntentLauncher.with(this).launch(UpdateUserNameActivity.class);
+                if (loginReponse != null && loginReponse.getPayload() != null)
+                    IntentLauncher.with(this).launch(UpdateUserNameActivity.class);
+                break;
+            case R.id.rl_bank:
+                //TODO 银行卡
+                IntentLauncher.with(this).launch(CardBankInfoActivity.class);
+                break;
+            case R.id.rl_shouhuo_address:
+                //TODO 收货地址
+                IntentLauncher.with(this).launch(AddressInfoActivity.class);
                 break;
         }
     }
-
-
 
 
     @Override
@@ -146,7 +160,7 @@ public class UserInfoActivity extends LKWordBaseActivity  implements UserInfoVie
                 }
             }
             if (!TextUtils.isEmpty(filePath)) {
-                userInfoPresenter.upladHeadImg(filePath,bindUntilEvent(ActivityEvent.DESTROY));
+                userInfoPresenter.upladHeadImg(filePath, bindUntilEvent(ActivityEvent.DESTROY));
             }
         }
         if (requestCode == MPermissionSettingsDialog.DEFAULT_SETTINGS_REQ_CODE) {
@@ -214,14 +228,13 @@ public class UserInfoActivity extends LKWordBaseActivity  implements UserInfoVie
     @SuppressLint("NewApi")
     @Override
     public void setUserInfo(LoginReponse loginReponse) {
-        this.loginReponse= loginReponse;
-        if (loginReponse!=null&&null!=loginReponse.getPayload()) {
+        this.loginReponse = loginReponse;
+        if (loginReponse != null && null != loginReponse.getPayload()) {
             changeTvName.setText(loginReponse.getPayload().getNickname());
-            tvPhone.setText(loginReponse.getPayload().getBindPhone());
-            ImageUitls.loadImgRound(loginReponse.getPayload().getAvatar(),setChangeUserHead);
-        }else{
+            ImageUitls.loadImgRound(loginReponse.getPayload().getAvatar(), setChangeUserHead);
+        } else {
             changeTvName.setText("");
-            if (Build.VERSION.SDK_INT> Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
                 setChangeUserHead.setBackground(UIUtil.getDrawable(R.mipmap.left_user_icon));
             else
                 setChangeUserHead.setBackgroundResource(R.mipmap.left_user_icon);
@@ -237,8 +250,7 @@ public class UserInfoActivity extends LKWordBaseActivity  implements UserInfoVie
         if (bool) {
             ToastUtil.showToastShort("上传成功");
             RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_REQUEST, null));
-        }
-        else
+        } else
             ToastUtil.showToastShort("上传失败");
     }
 
@@ -248,5 +260,6 @@ public class UserInfoActivity extends LKWordBaseActivity  implements UserInfoVie
         super.onDestroy();
         userInfoPresenter.detachView();
     }
+
 
 }

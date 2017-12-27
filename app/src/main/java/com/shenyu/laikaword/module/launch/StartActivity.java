@@ -37,7 +37,6 @@ public class StartActivity extends RxActivity {
 
     @BindView(R.id.img_banner)
     ImageView imageView;
-    @Nullable
     @BindView(R.id.start_tv_tiao)
     TextView textView;
     private StartBannerGuangKReponse.PayloadBean payload;
@@ -136,13 +135,13 @@ public class StartActivity extends RxActivity {
         }
     }
 
-    @Nullable
-    @OnClick({R.id.start_tv_tiao})
-    public void OnClick(View view) {
-        switch (view.getId()) {
-            case R.id.start_tv_tiao:
-            IntentLauncher.with(StartActivity.this).launchFinishCpresent(MainActivity.class);
-            break;
-        }
-    }
+//    @Nullable
+//    @OnClick({R.id.start_tv_tiao})
+//    public void OnClick(View view) {
+//        switch (view.getId()) {
+//            case R.id.start_tv_tiao:
+//            IntentLauncher.with(StartActivity.this).launchFinishCpresent(MainActivity.class);
+//            break;
+//        }
+//    }
 }

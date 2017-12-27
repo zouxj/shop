@@ -129,24 +129,7 @@ public class HomeLeftItemViewDelegate implements ItemViewDelegate<ShopMainRepons
                         IntentLauncher.with(mActivity).launch(ResellActivity.class);
                         break;
                     case 5:
-                        //TODO 我的银行卡
-                        if (null==loginReponse) {
-                            IntentLauncher.with(mActivity).launch(LoginActivity.class);
-                            return;
-                        }
-                        IntentLauncher.with(mActivity).launch(CardBankInfoActivity.class);
-
-                        break;
-                    case 6:
-                        //TODO 我的地址
-                        if (null==loginReponse) {
-                            IntentLauncher.with(mActivity).launch(LoginActivity.class);
-                            return;
-                        }
-                        IntentLauncher.with(mActivity).launch(AddressInfoActivity.class);
-                        break;
-                    case 7:
-                        //TODO QQ客服
+                        //TODO 客服
                         if (null==loginReponse) {
                             IntentLauncher.with(mActivity).launch(LoginActivity.class);
                             return;
@@ -155,13 +138,22 @@ public class HomeLeftItemViewDelegate implements ItemViewDelegate<ShopMainRepons
                         if (shopMainReponse!=null) {
                             String qq = shopMainReponse.getPayload().getContacts().getQq();
                             if (StringUtil.validText(qq))
-                            toQQServer(qq);
+                                toQQServer(qq);
                         }
                         else
                             ToastUtil.showToastShort("此功能暂没开放");
+
+                        break;
+                    case 6:
+                        //TODO 我的游戏
+                        IntentLauncher.with(mActivity).put("weburl",entranceListBean.getUrl()).launch(GuessActivity.class);
+                        break;
+                    case 7:
+                        //TODO QQ客服
+
                         break;
                     default:
-                        IntentLauncher.with(mActivity).put("weburl",entranceListBean.getUrl()).launch(GuessActivity.class);
+
                         break;
 
                 }

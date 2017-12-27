@@ -231,9 +231,12 @@
 -keep class com.tencent.open.PKDialog$*
 -keep class com.tencent.open.PKDialog$* {*;}
 
+
 -dontwarn com.tencent.stat.**
 -keep class com.tencent.stat.** {*;}
 -dontwarn com.tencent.**
+-keep class com.tencent.open.**{*;}
+-dontwarn com.tencent.open.**
 -keep class com.tencent.stat.** {*;}
 -keepclassmembers class * {
    public <init> (org.json.JSONObject);

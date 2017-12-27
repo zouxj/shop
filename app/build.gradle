@@ -94,7 +94,7 @@ android {
             dimension "laikashop"
         }
         s360 {
-            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "360"]
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "s360"]
             dimension "laikashop"
         }
         oppo {

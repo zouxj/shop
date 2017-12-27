@@ -22,18 +22,11 @@
             android:layout_width="wrap_content"
             android:layout_marginRight="14dp"
             android:text="未绑定"
+            android:layout_alignParentRight="true"
             android:textSize="@dimen/text_size_13sp"
             android:textColor="@color/color_999"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/head_user_back"
-            android:layout_height="wrap_content" />
-        <ImageView
-            android:id="@+id/head_user_back"
-            android:layout_marginRight="14dp"
-            android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:src="@mipmap/right_back"
-            android:layout_centerVertical="true"
             android:layout_height="wrap_content" />
 
         <include layout="@layout/line_bottom_view"/>

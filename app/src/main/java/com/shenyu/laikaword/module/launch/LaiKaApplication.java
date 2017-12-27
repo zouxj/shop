@@ -6,7 +6,7 @@ import android.support.multidex.MultiDexApplication;
 
 import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.di.component.AppComponent;
-import com.shenyu.laikaword.di.component.DaggerAppComponent;
+import com.shenyu.laikaword.di.component .DaggerAppComponent;
 import com.shenyu.laikaword.di.module.AppModule;
 import com.taobao.sophix.PatchStatus;
 import com.taobao.sophix.SophixManager;

@@ -12,6 +12,7 @@ import com.shenyu.laikaword.module.login.ui.activity.LoginActivity;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
+import com.shenyu.laikaword.module.us.AccountSecurityActivity;
 import com.shenyu.laikaword.module.us.appsetting.aboutus.AboutAppActivity;
 import com.shenyu.laikaword.module.us.appsetting.acountbind.AccountBindActivity;
 import com.zxj.utilslibrary.utils.IntentLauncher;
@@ -53,8 +54,8 @@ public class SettingSystemActivity extends LKWordBaseActivity {
             case R.id.set_rl_user_info://个人资料
                 IntentLauncher.with(this).launch(UserInfoActivity.class);
                 break;
-            case R.id.set_rl_user_acount_bd://账号绑定
-                IntentLauncher.with(this).launch(AccountBindActivity.class);
+            case R.id.set_rl_user_acount_bd://账号与安全
+                IntentLauncher.with(this).launch(AccountSecurityActivity.class);
                 break;
             case R.id.set_rl_about://关于我们
                 IntentLauncher.with(this).launch(AboutAppActivity.class);

@@ -20,7 +20,7 @@
         android:id="@+id/start_tv_tiao"
         android:layout_marginTop="12dp"
         android:textSize="10sp"
-        android:visibility="gone"
+        android:visibility="invisible"
         android:layout_marginRight="@dimen/dp_15dp"
         android:layout_alignParentRight="true"
         android:layout_width="66dp"

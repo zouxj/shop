@@ -14,7 +14,7 @@ public class Constants {
      */
     public static String HOST="http://t.shop.comingcard.com/";
     static {
-        if (true){
+        if (false){
             HOST="https://api.buycardlife.com/";
         }
     }

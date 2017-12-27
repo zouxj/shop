@@ -25,6 +25,7 @@ import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
 import com.shenyu.laikaword.module.us.appsetting.acountbind.BoundPhoneActivity;
 import com.zxj.parlibary.resultlistener.OnAliPayListener;
+import com.zxj.parlibary.resultlistener.OnWechatPayListener;
 import com.zxj.parlibary.resultlistener.QqPayListener;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.StringUtil;
@@ -68,6 +69,10 @@ public class RechargeMoneyActivity extends LKWordBaseActivity {
                         break;
                     case R.id.recharge_rb_qqpay:
                         //TODO qq支付
+                        type=2;
+                        break;
+                    case R.id.recharge_rb_weixin:
+                        //TODO qq微信支付
                         type=2;
                         break;
                 }
@@ -131,11 +136,11 @@ public class RechargeMoneyActivity extends LKWordBaseActivity {
                         }
                     });
 
-                }else {
+                }else if(type==2){
                     //TODO qq支付
-                    PayHelper.qqPay(this, new QqPayListener() {
+                    PayHelper.wechatPay(this, new OnWechatPayListener() {
                         @Override
-                        public void onPaySuccess(int successCode) {
+                        public void onPaySuccess(int errorCode) {
 
                         }
 

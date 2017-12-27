@@ -44,13 +44,14 @@ public class AddBankCardActivity extends LKWordBaseActivity {
     public void doBusiness(Context context) {
         setToolBarTitle("添加银行卡");
         //添加MianFragment
+//        fragmentTransaction.replace(R.id.fl_bank_frame,addBankOneFragment).commit();
+        fragmentTransaction=getSupportFragmentManager().beginTransaction();
         if (addBankOneFragment.isAdded()) {
-            fragmentTransaction.show(addBankOneFragment).commit();
+            fragmentTransaction.show(addBankOneFragment);
         } else {
-            fragmentTransaction.remove(addBankOneFragment).commit();
-            fragmentTransaction.add(R.id.fl_bank_frame, addBankOneFragment).commit();
-            fragmentTransaction.addToBackStack("tag").commit();
+            fragmentTransaction.add(R.id.fl_bank_frame, addBankOneFragment);
         }
+        fragmentTransaction.commit();
         subscribeEvent();
 
     }
@@ -71,14 +72,15 @@ public class AddBankCardActivity extends LKWordBaseActivity {
                             case EventType.ACTION_ADDBANK:
                                 //添加MianFragment
                                 //添加LeftFragment
+                                fragmentTransaction=getSupportFragmentManager().beginTransaction();
                                 addBankTwoFragment.setBankInfo((BankReponse) myEvent.object);
                                 if (addBankTwoFragment.isAdded()) {
-                                    fragmentTransaction.show(addBankTwoFragment).commit();
+                                    fragmentTransaction.show(addBankTwoFragment);
                                 } else {
-                                    fragmentTransaction.remove(addBankTwoFragment).commit();
-                                    fragmentTransaction.add(R.id.fl_bank_frame, addBankTwoFragment).commit();
-                                    fragmentTransaction.addToBackStack("tag").commit();
+                                    fragmentTransaction.add(R.id.fl_bank_frame, addBankTwoFragment);
+                                    fragmentTransaction.addToBackStack("tag01");
                                 }
+                                fragmentTransaction.commit();
                                 break;
                         }
                     }

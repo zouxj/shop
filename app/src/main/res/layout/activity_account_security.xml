@@ -6,43 +6,31 @@
     android:layout_height="match_parent"
     android:background="@color/main_bg_gray"
     android:orientation="vertical"
-    tools:context="com.shenyu.laikaword.module.us.appsetting.SettingSystemActivity">
-<include layout="@layout/toolbar_layout"/>
-
-
+    tools:context="com.shenyu.laikaword.module.us.appsetting.UserInfoActivity">
+    <include layout="@layout/toolbar_layout"/>
     <RelativeLayout
-        android:id="@+id/set_rl_user_acount_bd"
-        style="@style/ly_layout">
-
-        <TextView
-            style="@style/bank_add_one"
-            android:text="账号与安全"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="11dp"
-            android:layout_marginStart="11dp" />
-        <ImageView
-            android:layout_marginRight="14dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:background="@mipmap/right_back"
-            android:layout_height="wrap_content" />
-
-        <include layout="@layout/line_bottom_view"/>
-
-    </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/set_rl_user_info"
+        android:id="@+id/rl_bd_phone"
         style="@style/ly_layout">
 
         <TextView
             style="@style/bank_add_one"
             android:layout_centerVertical="true"
-            android:text="个人资料"
+            android:text="修改手机号"
             />
+        <TextView
+            android:id="@+id/tv_upate_phone"
+            android:layout_width="wrap_content"
+            android:layout_marginRight="14dp"
+            android:text="未绑定"
+            android:textSize="@dimen/text_size_13sp"
+            android:textColor="@color/color_999"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/head_user_back"
+            android:layout_toLeftOf="@+id/head_user_back"
+            android:layout_toStartOf="@+id/head_user_back"
+            android:layout_marginEnd="14dp" />
         <ImageView
+            android:id="@+id/head_user_back"
             android:layout_marginRight="14dp"
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
@@ -53,34 +41,41 @@
         <include layout="@layout/line_bottom_view"/>
 
     </RelativeLayout>
+
     <RelativeLayout
-        android:id="@+id/set_rl_about"
+        android:id="@+id/rl_bd_account"
         style="@style/ly_layout">
 
         <TextView
             style="@style/bank_add_one"
             android:layout_centerVertical="true"
-            android:text="关于来卡"
+            android:text="账号绑定"
             />
+
         <ImageView
+            android:id="@+id/head_user_name"
             android:layout_marginRight="14dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:background="@mipmap/right_back"
             android:layout_height="wrap_content" />
+
         <include layout="@layout/line_bottom_view"/>
+
     </RelativeLayout>
     <RelativeLayout
-        android:id="@+id/set_clear"
+        android:id="@+id/rl_seting_pay_password"
         style="@style/ly_layout">
 
         <TextView
             style="@style/bank_add_one"
             android:layout_centerVertical="true"
-            android:text="清理缓存"
+            android:text="支付密码设置"
             />
+
         <ImageView
+            android:id="@+id/head_user_qq"
             android:layout_marginRight="14dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
@@ -91,13 +86,5 @@
     </RelativeLayout>
 
 
-    <TextView
-        android:id="@+id/set_tv_exit"
-        android:layout_marginTop="96dp"
-        android:gravity="center"
-        android:textSize="@dimen/text_size_13sp"
-        android:textColor="@color/app_theme_red"
-        style="@style/ly_layout"
-        android:text="退出账号"
-  />
+
 </LinearLayout>
