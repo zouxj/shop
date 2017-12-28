@@ -113,7 +113,7 @@ public class ConfirmOrderActivity extends LKWordBaseActivity implements ConfirmO
         typeData.add("支付宝");
 //        typeData.add("QQ钱包");
         typeData.add("微信支付");
-        final int[] payIconList = {R.mipmap.pay_yue_icon, R.mipmap.pay_zhifubao_icon, R.mipmap.pay_qq_icon, R.mipmap.pay_wechat_icon};
+        final int[] payIconList = {R.mipmap.pay_yue_icon, R.mipmap.pay_zhifubao_icon, R.mipmap.pay_wechat_icon, R.mipmap.pay_qq_icon};
         recyclerView.addItemDecoration(recycleViewDivider);
         linearLayoutManager.setAutoMeasureEnabled(true);
         recyclerView.setLayoutManager(linearLayoutManager);

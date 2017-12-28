@@ -72,7 +72,7 @@ public class AccountBindActivity extends LKWordBaseActivity {
                 acountbdQQ(openid, access_token);
             }
         };
-        LoginReponse loginReponse = (LoginReponse) SPUtil.readObject(Constants.LOGININFO_KEY);
+        LoginReponse loginReponse = Constants.getLoginReponse();
         if (null != loginReponse) {
             if (StringUtil.validText(loginReponse.getPayload().getBindPhone())) {
                 tvBdPhone.setText(loginReponse.getPayload().getBindPhone());

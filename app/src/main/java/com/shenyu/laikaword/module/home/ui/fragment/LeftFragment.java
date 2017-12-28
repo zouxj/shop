@@ -189,7 +189,7 @@ public class LeftFragment extends IKWordBaseFragment {
                dataList.add(listBean);
            }
        }
-//        dataList.add(new ShopMainReponse.EntranceListBean("系统设置",leftData[6],null,null,false));
+        dataList.add(new ShopMainReponse.EntranceListBean("系统设置",leftData[6],null,null,false));
         commonAdapter.notifyDataSetChanged();
     }
 }
