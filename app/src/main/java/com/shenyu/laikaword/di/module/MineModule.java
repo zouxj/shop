@@ -13,7 +13,6 @@ import com.shenyu.laikaword.module.home.ui.fragment.LeftFragment;
 import com.shenyu.laikaword.module.home.ui.fragment.MainFragment;
 import com.shenyu.laikaword.module.us.address.presenter.AddPresenter;
 import com.shenyu.laikaword.module.us.address.view.AddressView;
-import com.shenyu.laikaword.module.us.bankcard.presenter.AddBankPresenter;
 import com.shenyu.laikaword.module.us.bankcard.ui.fragment.AddBankOneFragment;
 import com.shenyu.laikaword.module.us.bankcard.ui.fragment.AddBankTwoFragment;
 import com.shenyu.laikaword.module.us.bankcard.view.AddBankView;
@@ -81,12 +80,5 @@ public class MineModule {
         return    new ZhuanMaiViewAdapter(fm);
     }
 
-    @Provides
-    AddBankOneFragment provideAddBankOneFragment(){
-        return new AddBankOneFragment();
-    }
-    @Provides
-    AddBankTwoFragment provideAddBankTwoFragment(){
-        return new AddBankTwoFragment();
-    }
+
 }

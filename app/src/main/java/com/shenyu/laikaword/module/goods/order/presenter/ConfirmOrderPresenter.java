@@ -11,7 +11,7 @@ import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.helper.PayHelper;
 import com.shenyu.laikaword.module.goods.order.ShopSuccessActivity;
 import com.shenyu.laikaword.module.us.setpassword.SetPassWordMsgCodeActivity;
-import com.shenyu.laikaword.module.us.appsetting.acountbind.BoundPhoneActivity;
+import com.shenyu.laikaword.module.us.appsetting.acountbind.ui.activity.BoundPhoneActivity;
 import com.shenyu.laikaword.module.goods.order.view.ConfirmOrderView;
 import com.shenyu.laikaword.model.net.api.ApiCallback;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;

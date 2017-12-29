@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.shenyu.laikaword.module.us.appsetting.acountbind.ui.activity.ChangeBindPhoneInputCodeActivity">
+
+    <include layout="@layout/toolbar_layout"/>
+    <TextView
+        android:layout_marginTop="9dp"
+        android:layout_marginLeft="9dp"
+        android:textSize="@dimen/text_size_13sp"
+        android:text="输入验证码"
+        android:textColor="@color/color_333"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tv_current_phone"
+        android:layout_marginTop="9dp"
+        android:layout_marginLeft="9dp"
+        android:textSize="@dimen/text_size_13sp"
+        android:text="当前手机号码:"
+        android:textColor="@color/color_333"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <com.zxj.utilslibrary.widget.countdownview.PayPsdInputView
+        android:id="@+id/psd_view_password"
+        android:layout_width="304dp"
+        android:layout_height="52dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="36dp"
+        android:inputType="number"
+        app:maxCount="6"
+        app:psdType="bottomLine"
+        app:rectAngle="2dp" />
+
+</LinearLayout>

@@ -39,7 +39,6 @@ public class AddBankOneFragment extends IKWordBaseFragment {
     EditText etAddBankCardNum;
     @BindView(R.id.bt_add_bank)
     TextView btAddBank;
-
     @Override
     public int bindLayout() {
         return R.layout.fragment_add_bank_one;

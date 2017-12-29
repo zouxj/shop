@@ -1,7 +1,6 @@
 package com.shenyu.laikaword.module.us.appsetting;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.View;
 
 import com.shenyu.laikaword.R;
@@ -14,13 +13,11 @@ import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
 import com.shenyu.laikaword.module.us.AccountSecurityActivity;
 import com.shenyu.laikaword.module.us.appsetting.aboutus.AboutAppActivity;
-import com.shenyu.laikaword.module.us.appsetting.acountbind.AccountBindActivity;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class SettingSystemActivity extends LKWordBaseActivity {

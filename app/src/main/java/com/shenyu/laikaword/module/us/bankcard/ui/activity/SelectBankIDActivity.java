@@ -11,8 +11,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
+import com.shenyu.laikaword.di.module.BankModule;
+import com.shenyu.laikaword.di.module.LoginModule;
 import com.shenyu.laikaword.helper.ImageUitls;
 import com.shenyu.laikaword.model.adapter.CommonAdapter;
+import com.shenyu.laikaword.model.bean.reponse.BaseReponse;
 import com.shenyu.laikaword.model.holder.ViewHolder;
 import com.shenyu.laikaword.model.wrapper.EmptyWrapper;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
@@ -25,6 +28,9 @@ import com.shenyu.laikaword.model.rxjava.rxbus.RxBusSubscriber;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxSubscriptions;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
+import com.shenyu.laikaword.module.launch.LaiKaApplication;
+import com.shenyu.laikaword.module.us.bankcard.presenter.SelectBankPresent;
+import com.shenyu.laikaword.module.us.bankcard.view.SelectBankView;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
@@ -33,6 +39,8 @@ import com.zxj.utilslibrary.utils.UIUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import rx.android.schedulers.AndroidSchedulers;
@@ -40,7 +48,7 @@ import rx.android.schedulers.AndroidSchedulers;
 /**
  * 银行卡管理
  */
-public class SelectBankIDActivity extends LKWordBaseActivity {
+public class SelectBankIDActivity extends LKWordBaseActivity implements SelectBankView   {
 
     @BindView(R.id.card_cy_list)
     RecyclerView recyclerView;
@@ -50,11 +58,12 @@ public class SelectBankIDActivity extends LKWordBaseActivity {
     private static String carName;
     private List<BankInfoReponse.PayloadBean> payload=new ArrayList<>();
     EmptyWrapper emptyWrapper;
+    @Inject
+    SelectBankPresent selectBankPresent;
     @Override
     public int bindLayout() {
         return R.layout.activity_usr_card;
     }
-    int selectedPosition=-5;
     @Override
     public void initView() {
 
@@ -70,7 +79,7 @@ public class SelectBankIDActivity extends LKWordBaseActivity {
         recyclerView.addItemDecoration(new RecycleViewDivider(this,LinearLayoutManager.HORIZONTAL,1, UIUtil.getColor(R.color.divider)));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         CommonAdapter commonAdapter=  new CommonAdapter<BankInfoReponse.PayloadBean>(R.layout.item_card_list,payload) {
-
+            int selectedPosition=-5;
             @Override
             protected void convert(final ViewHolder holder, final BankInfoReponse.PayloadBean payloadBean, final int position) {
                 CheckBox checkBox = holder.getView(R.id.cb_bank_name);
@@ -131,7 +140,6 @@ public class SelectBankIDActivity extends LKWordBaseActivity {
             case R.id.tv_commit_selector:
                 Intent intent =getIntent();
                 Bundle  bundle =new Bundle();
-                LogUtil.i("carName",carName+"____");
                 bundle.putCharSequence("bankName",carName);
                 bundle.putCharSequence("carID",carID);
                 intent.putExtras(bundle);
@@ -140,76 +148,63 @@ public class SelectBankIDActivity extends LKWordBaseActivity {
                 break;
         }
     }
-    private void subscribeEvent() {
-        RxSubscriptions.remove(mRxSub);
-        mRxSub = RxBus.getDefault().toObservable(Event.class)
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(new RxBusSubscriber<Event>() {
-                    @Override
-                    protected void onEvent(Event myEvent) {
-                        switch (myEvent.event) {
-                            case EventType.ACTION_UPDATA_USER_BANK:
-                                initData();
-                                break;
-                        }
-//            }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        super.onError(e);
-                        LogUtil.e(TAG, "onError");
-                        /**
-                         * 这里注意: 一旦订阅过程中发生异常,走到onError,则代表此次订阅事件完成,后续将收不到onNext()事件,
-                         * 即 接受不到后续的任何事件,实际环境中,我们需要在onError里 重新订阅事件!
-                         */
-                        subscribeEvent();
-                    }
-                });
-        RxSubscriptions.add(mRxSub);
-    }
     @Override
     public void doBusiness(Context context) {
-        initData();
-        subscribeEvent();
+        selectBankPresent.requestData(this.bindToLifecycle());
+        selectBankPresent.subscribeEvent();
 
     }
 
     @Override
     public void setupActivityComponent() {
+        LaiKaApplication.get(this).getAppComponent().plus(new BankModule(this,this)).inject(this);
+    }
+
+    @Override
+    public void isLoading() {
 
     }
 
-    protected void initData() {
-       carID= getIntent().getStringExtra("carID");
-        loadViewHelper.showLoadingDialog(this);
-        retrofitUtils.setLifecycleTransformer(bindUntilEvent(ActivityEvent.DESTROY)).addSubscription(RetrofitUtils.apiStores.getBankCard(), new ApiCallback<BankInfoReponse>() {
-            @Override
-            public void onSuccess(BankInfoReponse model) {
+    @Override
+    public void dataCountChanged(int count) {
+
+    }
+
+    @Override
+    public void loadFinished() {
+
+    }
+
+    @Override
+    public void loadFailure() {
+
+    }
+
+    @Override
+    public void eventBus(Event myEvent) {
+        switch (myEvent.event) {
+            case EventType.ACTION_UPDATA_USER_BANK:
+                selectBankPresent.requestData(this.bindToLifecycle());
+                break;
+        }
+    }
+
+    @Override
+    public void showData(BaseReponse baseReponse) {
+        BankInfoReponse model = (BankInfoReponse) baseReponse;
                 if (model.isSuccess()) {
-                    if (model.getPayload()!=null&&model.getPayload().size()>0) {
+                    if (model.getPayload() != null && model.getPayload().size() > 0) {
                         tvCommitSelectBank.setVisibility(View.VISIBLE);
                         payload.clear();
                         payload.addAll(model.getPayload());
                         emptyWrapper.notifyDataSetChanged();
                     }
                 }
+    }
 
-            }
-
-            @Override
-            public void onFailure(String msg) {
-                loadViewHelper.showErrorResert(SelectBankIDActivity.this, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                         initData();
-                    }
-                });
-            }
-
-            @Override
-            public void onFinish() {
-                loadViewHelper.closeLoadingDialog();
-            }
-        });
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        selectBankPresent.detachView();
     }
 }

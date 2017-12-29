@@ -2,12 +2,14 @@ package com.shenyu.laikaword.base;
 
 import com.shenyu.laikaword.model.net.api.ApiClient;
 import com.shenyu.laikaword.model.net.retrofit.ApiStores;
+import com.shenyu.laikaword.model.rxjava.rxbus.RxSubscriptions;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import rx.Subscription;
 
 
 /**
@@ -18,28 +20,30 @@ public class BasePresenter<V> {
     public V mvpView;
 
 
-
+    protected Subscription mRxSub;
     protected ApiStores apiStores;
 
 
 
 
     public void attachView(V mvpView) {
-
         this.mvpView = mvpView;
         apiStores = ApiClient.retrofit().create(ApiStores.class);
+        subscribeEvent();
+
+    }
+    public void subscribeEvent(){
 
     }
 
 
 
 
-
     public void detachView() {
-
         this.mvpView = null;
 
         onUnsubscribe();
+
 
     }
 
@@ -49,14 +53,13 @@ public class BasePresenter<V> {
 
     //RXjava取消注册，以避免内存泄露
 
-    private void onUnsubscribe() {
+    public void onUnsubscribe() {
 
-
+        RxSubscriptions.remove(mRxSub);
 
     }
 
     public void addSubscription(LifecycleTransformer lifecycleTransformer,Observable observable, Observer subscriber) {
-
                 observable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -32,7 +32,6 @@ import com.shenyu.laikaword.model.rxjava.rxbus.RxSubscriptions;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
 import com.shenyu.laikaword.module.us.bankcard.ui.activity.AddBankCardActivity;
-import com.shenyu.laikaword.module.us.bankcard.ui.activity.CardBankInfoActivity;
 import com.shenyu.laikaword.module.us.setpassword.SetPassWordMsgCodeActivity;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;

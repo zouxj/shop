@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.shenyu.laikaword.module.us.appsetting.acountbind.BoundPhoneActivity">
+    tools:context="com.shenyu.laikaword.module.us.appsetting.acountbind.ui.activity.BoundPhoneActivity">
 <include layout="@layout/toolbar_layout"/>
 
     <LinearLayout

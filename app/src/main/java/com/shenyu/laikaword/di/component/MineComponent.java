@@ -18,6 +18,5 @@ public interface MineComponent {
     UserInfoActivity inject(UserInfoActivity userInfoActivity);
     CardPackageActivity inject(CardPackageActivity carPackActivity);
     PurchaseCardActivity inject(PurchaseCardActivity purchaseCardActivity);
-    AddBankCardActivity inject(AddBankCardActivity purchaseCardActivity);
     ResellActivity inject(ResellActivity zhuanMaiActivity);
 }

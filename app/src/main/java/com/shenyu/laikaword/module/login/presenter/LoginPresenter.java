@@ -1,12 +1,9 @@
 package com.shenyu.laikaword.module.login.presenter;
 
-import android.Manifest;
 import android.app.Activity;
 import android.widget.TextView;
 
-import com.leo618.mpermission.MPermission;
 import com.shenyu.laikaword.module.launch.LaiKaApplication;
-import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.BasePresenter;
 import com.shenyu.laikaword.model.bean.reponse.LoginReponse;
 import com.shenyu.laikaword.common.Constants;
@@ -15,8 +12,7 @@ import com.shenyu.laikaword.Interactor.BaseUiListener;
 import com.shenyu.laikaword.module.home.ui.activity.MainActivity;
 import com.shenyu.laikaword.model.net.api.ApiCallback;
 import com.shenyu.laikaword.module.login.view.LoginView;
-import com.shenyu.laikaword.module.us.appsetting.acountbind.BoundPhoneActivity;
-import com.shenyu.laikaword.wxapi.WXEntryActivity;
+import com.shenyu.laikaword.module.us.appsetting.acountbind.ui.activity.BoundPhoneActivity;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.umeng.analytics.MobclickAgent;
@@ -24,7 +20,6 @@ import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
-import com.zxj.utilslibrary.utils.UIUtil;
 
 import java.util.UUID;
 

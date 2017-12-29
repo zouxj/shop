@@ -1,4 +1,4 @@
-package com.shenyu.laikaword.module.us.appsetting.acountbind;
+package com.shenyu.laikaword.module.us.appsetting.acountbind.ui.activity;
 
 import android.Manifest;
 import android.content.Context;

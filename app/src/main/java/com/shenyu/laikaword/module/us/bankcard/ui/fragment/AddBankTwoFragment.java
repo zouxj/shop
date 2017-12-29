@@ -74,7 +74,6 @@ public class AddBankTwoFragment extends IKWordBaseFragment {
         cityDataHelper=new CityDataHelper(getActivity());
         setMonitor();
     }
-
     @Override
     public void initView(View view) {
         if (null==bankReponse)

@@ -2,7 +2,6 @@ package com.shenyu.laikaword.module.us;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -16,16 +15,14 @@ import com.shenyu.laikaword.model.bean.reponse.BaseReponse;
 import com.shenyu.laikaword.model.bean.reponse.LoginReponse;
 import com.shenyu.laikaword.model.net.api.ApiCallback;
 import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
-import com.shenyu.laikaword.module.us.appsetting.acountbind.AccountBindActivity;
-import com.shenyu.laikaword.module.us.appsetting.acountbind.BoundPhoneActivity;
-import com.shenyu.laikaword.module.us.bankcard.ui.activity.AddBankCardActivity;
+import com.shenyu.laikaword.module.us.appsetting.acountbind.ui.activity.AccountBindActivity;
+import com.shenyu.laikaword.module.us.appsetting.acountbind.ui.activity.BoundPhoneActivity;
+import com.shenyu.laikaword.module.us.appsetting.acountbind.ui.activity.ChangeBindPhoneActivity;
 import com.shenyu.laikaword.module.us.setpassword.SetPassWordMsgCodeActivity;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.ToastUtil;
-import com.zxj.utilslibrary.utils.UIUtil;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class AccountSecurityActivity extends LKWordBaseActivity {
@@ -107,7 +104,7 @@ public class AccountSecurityActivity extends LKWordBaseActivity {
                     @Override
                     public void onSuccess(BaseReponse model) {
                         if (model.isSuccess())
-                            IntentLauncher.with(mActivity).launch(BoundPhoneActivity.class);
+                            IntentLauncher.with(mActivity).launch(ChangeBindPhoneActivity.class);
                         else
                             ToastUtil.showToastShort(model.getError().getMessage());
                     }

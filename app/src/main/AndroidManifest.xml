@@ -102,8 +102,8 @@
         <activity android:name=".module.us.bankcard.ui.activity.SelectBankIDActivity" />
         <activity android:name=".module.us.appsetting.SettingSystemActivity" />
         <activity android:name=".module.us.appsetting.aboutus.AboutAppActivity" />
-        <activity android:name=".module.us.appsetting.acountbind.AccountBindActivity" />
-        <activity android:name=".module.us.appsetting.acountbind.BoundPhoneActivity" />
+        <activity android:name=".module.us.appsetting.acountbind.ui.activity.AccountBindActivity" />
+        <activity android:name=".module.us.appsetting.acountbind.ui.activity.BoundPhoneActivity" />
         <activity android:name=".module.us.appsetting.UserInfoActivity" />
         <activity
             android:name="com.leo618.mpermission.AppSettingsDialogHolderActivity"
@@ -136,7 +136,7 @@
             android:taskAffinity="com.shenyu.laikaword.wxapi.WXEntryActivity" />
         <activity android:name=".module.goods.order.ui.activity.ConfirmOrderActivity" />
         <activity android:name=".module.goods.order.ShopSuccessActivity" />
-        <activity android:name=".module.us.bankcard.ui.activity.CardBankInfoActivity" />
+        <activity android:name=".module.us.bankcard.ui.activity.BankInfoActivity" />
         <activity android:name=".module.us.address.ui.activity.AddressInfoActivity" />
         <activity android:name=".module.us.address.ui.activity.EditAddressActivity" />
         <activity android:name=".module.goods.pickupgoods.ui.activity.PickUpActivity" />
@@ -147,7 +147,7 @@
         <activity android:name=".module.goods.pickupgoods.ui.activity.PickUpSuccessActivity" />
         <activity android:name=".module.us.setpassword.SetPassWordOneActivity" />
         <activity android:name=".module.us.setpassword.SetPassWordTwoActivity" />
-        <activity android:name=".module.us.appsetting.acountbind.AcountBdingSuccessActivity" />
+        <activity android:name=".module.us.appsetting.acountbind.ui.activity.AcountBdingSuccessActivity" />
         <activity
             android:name=".module.us.setpassword.SetPassWordMsgCodeActivity"
             android:launchMode="singleInstance"
@@ -185,7 +185,9 @@
 
         <activity android:name=".module.us.zhuanmai.view.ResellActivity" />
         <activity android:name=".module.us.zhuanmai.view.ResellDetailsActivity" />
-        <activity android:name=".module.us.AccountSecurityActivity"></activity>
+        <activity android:name=".module.us.AccountSecurityActivity" />
+        <activity android:name=".module.us.appsetting.acountbind.ui.activity.ChangeBindPhoneActivity" />
+        <activity android:name=".module.us.appsetting.acountbind.ui.activity.ChangeBindPhoneInputCodeActivity"></activity>
     </application>
 
 </manifest>

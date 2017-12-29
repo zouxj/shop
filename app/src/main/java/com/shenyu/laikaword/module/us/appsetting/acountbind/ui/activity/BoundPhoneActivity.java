@@ -1,4 +1,4 @@
-package com.shenyu.laikaword.module.us.appsetting.acountbind;
+package com.shenyu.laikaword.module.us.appsetting.acountbind.ui.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -10,17 +10,12 @@ import android.widget.TextView;
 import com.jakewharton.rxbinding.widget.RxTextView;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
-import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.model.bean.reponse.BaseReponse;
 import com.shenyu.laikaword.helper.SendMsgHelper;
 import com.shenyu.laikaword.model.net.api.ApiCallback;
 import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
-import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
-import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
-import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
 import com.shenyu.laikaword.module.home.ui.activity.MainActivity;
 import com.zxj.utilslibrary.utils.IntentLauncher;
-import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;

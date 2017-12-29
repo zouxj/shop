@@ -5,7 +5,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
@@ -28,7 +27,7 @@ import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
 import com.shenyu.laikaword.module.launch.LaiKaApplication;
 import com.shenyu.laikaword.module.us.address.ui.activity.AddressInfoActivity;
 import com.shenyu.laikaword.module.us.appsetting.updateus.UpdateUserNameActivity;
-import com.shenyu.laikaword.module.us.bankcard.ui.activity.CardBankInfoActivity;
+import com.shenyu.laikaword.module.us.bankcard.ui.activity.BankInfoActivity;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.LogUtil;
@@ -40,7 +39,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import rx.android.schedulers.AndroidSchedulers;
 
@@ -135,7 +133,7 @@ public class UserInfoActivity extends LKWordBaseActivity implements UserInfoView
                 break;
             case R.id.rl_bank:
                 //TODO 银行卡
-                IntentLauncher.with(this).launch(CardBankInfoActivity.class);
+                IntentLauncher.with(this).launch(BankInfoActivity.class);
                 break;
             case R.id.rl_shouhuo_address:
                 //TODO 收货地址

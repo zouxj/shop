@@ -23,8 +23,6 @@ import com.shenyu.laikaword.model.bean.reponse.LoginReponse;
 import com.shenyu.laikaword.model.bean.reponse.ShopMainReponse;
 import com.shenyu.laikaword.module.goods.BuyGoodsActivity;
 import com.shenyu.laikaword.module.login.ui.activity.LoginActivity;
-import com.shenyu.laikaword.module.us.address.ui.activity.AddressInfoActivity;
-import com.shenyu.laikaword.module.us.bankcard.ui.activity.CardBankInfoActivity;
 import com.shenyu.laikaword.module.us.goodcards.ui.activity.CardPackageActivity;
 import com.shenyu.laikaword.module.goods.pickupgoods.ui.activity.PurchaseCardActivity;
 import com.shenyu.laikaword.module.us.wallet.remaining.UserRemainingActivity;

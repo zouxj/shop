@@ -1,23 +1,14 @@
 package com.shenyu.laikaword.module.us.bankcard.presenter;
-
-import android.widget.EditText;
-
-import com.jakewharton.rxbinding.widget.RxTextView;
 import com.shenyu.laikaword.base.BasePresenter;
-import com.shenyu.laikaword.model.bean.reponse.BankReponse;
-import com.shenyu.laikaword.model.bean.reponse.BaseReponse;
-import com.shenyu.laikaword.model.net.api.ApiCallback;
+import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
+import com.shenyu.laikaword.model.rxjava.rxbus.RxBusSubscriber;
+import com.shenyu.laikaword.model.rxjava.rxbus.RxSubscriptions;
+import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 import com.shenyu.laikaword.module.us.bankcard.view.AddBankView;
-import com.trello.rxlifecycle2.LifecycleTransformer;
-import com.zxj.utilslibrary.utils.StringUtil;
-import com.zxj.utilslibrary.utils.ToastUtil;
+import com.zxj.utilslibrary.utils.LogUtil;
 
-import java.util.HashMap;
-import java.util.Map;
+import rx.android.schedulers.AndroidSchedulers;
 
-import rx.Observable;
-import rx.Subscriber;
-import rx.functions.Func2;
 
 /**
  * Created by shenyu_zxjCode on 2017/9/18 0018.
@@ -25,114 +16,33 @@ import rx.functions.Func2;
 
 public class AddBankPresenter extends BasePresenter<AddBankView> {
 
-
-
     public AddBankPresenter(AddBankView addBankView){
         this.mvpView=addBankView;
         attachView(mvpView);
     }
-    public void  setMonitor(EditText name,EditText bankNum){
-        Observable<CharSequence> ObservableCardNum= RxTextView.textChanges(name);
-        Observable<CharSequence> ObservableUsrName = RxTextView.textChanges(bankNum);
-        Observable.combineLatest(ObservableCardNum, ObservableUsrName, new Func2<CharSequence, CharSequence, Boolean>() {
-            @Override
-            public Boolean call(CharSequence cardNum, CharSequence name) {
-                return verifEditeText(cardNum.toString(),name.toString());
-            }
-        }).subscribe(new Subscriber<Boolean>() {
-            @Override
-            public void onCompleted() {
 
-            }
+    @Override
+    public void subscribeEvent() {
+        RxSubscriptions.remove(mRxSub);
+        mRxSub = RxBus.getDefault().toObservable(Event.class)
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(new RxBusSubscriber<Event>() {
+                    @Override
+                    protected void onEvent(Event myEvent) {
+                        mvpView.subscribeEvent(myEvent);
 
-            @Override
-            public void onError(Throwable e) {
+                    }
 
-            }
-
-            @Override
-            public void onNext(Boolean verify) {
-                if (verify) {
-                    //TODO 请求
-                }else{
-
-                }
-            }
-        });
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        LogUtil.e("AddBankPresenter", "onError");
+                        /**
+                         * 这里注意: 一旦订阅过程中发生异常,走到onError,则代表此次订阅事件完成,后续将收不到onNext()事件,
+                         * 即 接受不到后续的任何事件,实际环境中,我们需要在onError里 重新订阅事件!
+                         */
+                        subscribeEvent();
+                    }
+                });
+        RxSubscriptions.add(mRxSub);
     }
-//    //发送短信
-//    public void sendMsg(String phone, TextView textView){
-//        //TODO 请求获取到短信后
-//        SendMsgHelper.sendMsg(textView,phone,"phoneLogin");
-//    }
-    //请求添加到银行卡信息
-    public void setAddRequest(LifecycleTransformer lifecycleTransformer,String cardNum, String bankName, String bankZhangName, String bankUserName, String bankProvince, String bankCity){
-        //TODO 添加银行卡信息
-        Map<String,String> mapParam = new HashMap<>();
-        mapParam.put("name",bankUserName);
-        mapParam.put("cardNo",cardNum);
-        mapParam.put("bankName",bankName);
-        mapParam.put("bankLogo","");
-        mapParam.put("bankDetail",bankZhangName);
-        mapParam.put("province",bankProvince);
-        mapParam.put("city",bankCity);
-        mapParam.put("default","0");
-        mvpView.isLoading();
-        addSubscription(lifecycleTransformer,apiStores.setBankCard(mapParam), new ApiCallback<BaseReponse>() {
-            @Override
-            public void onSuccess(BaseReponse model) {
-                    if (!model.isSuccess())
-                        ToastUtil.showToastShort(model.getError().getMessage());
-                    else
-                mvpView.loadFinished();
-        }
-
-
-            @Override
-            public void onFailure(String msg) {
-                mvpView.loadFailure();
-            }
-            @Override
-            public void onFinish() {
-//                mvpView.loadFinished();
-            }
-        });
-
-
-
-    }
-    //验证输入
-    private  boolean verifEditeText(String nameEditText,String cardNumEditText){
-        return StringUtil.checkBankCard(cardNumEditText) &&StringUtil.validText(nameEditText);
-    }
-
-    //根据银行卡获取银行卡详情
-    public void getCardAccountInfo(LifecycleTransformer lifecycleTransformer,String cardNum){
-        //TODO 添加银行卡信息
-        mvpView.isLoading();
-        addSubscription(lifecycleTransformer,apiStores.getCardAccountInfo(cardNum), new ApiCallback<BankReponse>() {
-            @Override
-            public void onSuccess(BankReponse model) {
-                if (!model.isSuccess())
-                    ToastUtil.showToastShort(model.getError().getMessage());
-                else
-                    mvpView.loadFinished();
-            }
-
-
-            @Override
-            public void onFailure(String msg) {
-                mvpView.loadFailure();
-            }
-            @Override
-            public void onFinish() {
-//                mvpView.loadFinished();
-            }
-        });
-
-
-
-    }
-
-
 }

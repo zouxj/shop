@@ -177,7 +177,7 @@ public class WthdrawMoneyActivity extends LKWordBaseActivity {
                 String moeny = etTixianNum.getText().toString().trim();
                 moeny=StringUtil.m2(StringUtil.formatDouble(moeny));
                 final String finalMoeny = moeny;
-                DialogHelper.setInputDialog(mActivity, true,moeny,"已扣除手续费0.5元"
+                DialogHelper.setInputDialog(mActivity, false,moeny,"已扣除手续费0.5元"
                         , new DialogHelper.LinstenrText() {
                     @Override
                     public void onLintenerText(String passWord) {
