@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -53,6 +54,7 @@ public class PayPsdInputView extends EditText {
      */
     private int textLength = 0;
     private int bottomLineLength;
+    private String textStr;
     /**
      * 最大输入位数
      */
@@ -107,6 +109,10 @@ public class PayPsdInputView extends EditText {
      */
     private Paint circlePaint;
     /**
+     * 圆的画笔
+     */
+    private Paint TextPaint;
+    /**
      * 底部线的画笔
      */
     private Paint bottomLinePaint;
@@ -159,6 +165,9 @@ public class PayPsdInputView extends EditText {
     private void initPaint() {
 
         circlePaint = getPaint((int) UIUtil.dp2px(10), Paint.Style.FILL, circleColor);
+        TextPaint=new Paint();
+        TextPaint.setTypeface(Typeface.DEFAULT);
+        TextPaint.setTextSize(70);
 
         bottomLinePaint = getPaint((int) UIUtil.dp2px(2), Paint.Style.FILL, bottomLineColor);
 
@@ -212,13 +221,15 @@ public class PayPsdInputView extends EditText {
             case psdType_weChat:
                 drawWeChatBorder(canvas);
                 drawItemFocused(canvas, position);
+                drawPsdCircle(canvas);
                 break;
             case psdType_bottomLine:
                 drawBottomBorder(canvas);
+                drawPsdText(canvas);
                 break;
         }
 
-        drawPsdCircle(canvas);
+
     }
 
     /**
@@ -278,12 +289,26 @@ public class PayPsdInputView extends EditText {
                     circlePaint);
         }
     }
-
+    /**
+     * 画密码实心圆
+     *
+     * @param canvas
+     */
+    private void drawPsdText(Canvas canvas) {
+        for (int i = 0; i < textLength; i++) {
+            canvas.drawText(String.valueOf(textStr.charAt(i)),startX + i * 2 * startX-startX/4,  height/2+height/3,TextPaint);
+//            canvas.drawCircle(
+//
+//                    radius,
+//                    );
+        }
+    }
     @Override
     protected void onTextChanged(CharSequence text, int start, int lengthBefore, int lengthAfter) {
         super.onTextChanged(text, start, lengthBefore, lengthAfter);
         this.position = start + lengthAfter;
         textLength = text.toString().length();
+        textStr=text.toString();
         if (mOnInputListner!=null&&textLength==maxCount){
             mOnInputListner.onInputListner(getPasswordString());
         }
