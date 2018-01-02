@@ -9,14 +9,14 @@ android {
         release {
             keyAlias 'laikai'
             keyPassword 'android123'
-            storeFile file('E:/AndroidStudioProjects/LaiKaWord/kaika_word.jks')
+            storeFile file('H:/shenyuproject/kaika_word.jks')
             storePassword 'android123'
 
         }
     }
 
     compileSdkVersion 26
-    buildToolsVersion "26.0.0"
+    buildToolsVersion '26.0.2'
 
     defaultConfig {
         applicationId "com.shenyu.laikaword"

@@ -245,7 +245,7 @@
     public static **[] values();
     public static ** valueOf(java.lang.String);
 }
--keep public class [com.shenyu.laikaword].R$*{
+-keep public class com.shenyu.laikaword.R$*{
 public static final int *;
 }
 -keep class com.zxj.utilslibrary$*

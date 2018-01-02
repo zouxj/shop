@@ -18,6 +18,7 @@ import com.shenyu.laikaword.helper.DialogHelper;
 import com.shenyu.laikaword.model.bean.reponse.LoginReponse;
 import com.shenyu.laikaword.model.bean.reponse.PayInfoReponse;
 import com.shenyu.laikaword.helper.PayHelper;
+import com.shenyu.laikaword.model.bean.reponse.WeixinPayReponse;
 import com.shenyu.laikaword.model.net.api.ApiCallback;
 import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
@@ -72,7 +73,7 @@ public class RechargeMoneyActivity extends LKWordBaseActivity {
                         break;
                     case R.id.recharge_rb_weixin:
                         //TODO qq微信支付
-                        type=2;
+                        type=1;
                         break;
                 }
             }
@@ -106,6 +107,7 @@ public class RechargeMoneyActivity extends LKWordBaseActivity {
                    retrofitUtils.addSubscription(RetrofitUtils.apiStores.rechargeMoney(rechargeRbNum.getText().toString().trim(), type), new ApiCallback<PayInfoReponse>() {
                         @Override
                         public void onSuccess(PayInfoReponse model) {
+                            //TODO 微信支付
                             PayHelper.aliPaySafely(model.getPayload().getPayInfo(),RechargeMoneyActivity.this, new OnAliPayListener() {
 
                                 @Override
@@ -134,21 +136,41 @@ public class RechargeMoneyActivity extends LKWordBaseActivity {
 
                         }
                     });
-
-                }else if(type==2){
-                    //TODO qq支付
-                    PayHelper.wechatPay(this, new OnWechatPayListener() {
+                }
+                if (type==1){
+                    retrofitUtils.addSubscription(RetrofitUtils.apiStores.rechargeWxMoney(rechargeRbNum.getText().toString().trim(), type), new ApiCallback<WeixinPayReponse>() {
                         @Override
-                        public void onPaySuccess(int errorCode) {
+                        public void onSuccess(WeixinPayReponse model) {
+                            //TODO 微信支付
+                            if (model!=null) {
+                                if (model.isSuccess())
+                                PayHelper.wechatPay(mActivity, model, new OnWechatPayListener() {
+                                    @Override
+                                    public void onPaySuccess(int errorCode) {
+                                            ToastUtil.showToastShort("充值成功");
+                                        RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_REQUEST, null));
+                                        IntentLauncher.with(RechargeMoneyActivity.this).put("pay_type",type+"").put("money",rechargeRbNum.getText().toString().trim()).launchFinishCpresent(RechargeSuccessActivity.class);
+                                    }
+
+                                    @Override
+                                    public void onPayFailure(int errorCode) {
+                                        ToastUtil.showToastShort("充值成功");
+                                    }
+                                });
+                            }
 
                         }
 
                         @Override
-                        public void onPayFailure(int errorCode) {
+                        public void onFailure(String msg) {
+                            ToastUtil.showToastShort(msg);
+                        }
+
+                        @Override
+                        public void onFinish() {
 
                         }
                     });
-////
                 }
 //
                 break;
