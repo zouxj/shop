@@ -16,7 +16,7 @@ import com.leo618.mpermission.MPermissionSettingsDialog;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.common.Constants;
-import com.shenyu.laikaword.di.module.MineModule;
+import com.shenyu.laikaword.di.module.mine.MineModule;
 import com.shenyu.laikaword.helper.ImageUitls;
 import com.shenyu.laikaword.model.bean.reponse.LoginReponse;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
@@ -31,6 +31,7 @@ import com.shenyu.laikaword.module.us.bankcard.ui.activity.BankInfoActivity;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.LogUtil;
+import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
@@ -55,6 +56,8 @@ public class UserInfoActivity extends LKWordBaseActivity implements UserInfoView
     //    //当前路径
     @BindView(R.id.tv_bank_count)
     TextView tvBankCount;
+    @BindView(R.id.tv_nickname)
+    TextView tVUserName;
     private String mCurrentPhotoPath;
     @Inject
     UserInfoPresenter userInfoPresenter;
@@ -229,6 +232,9 @@ public class UserInfoActivity extends LKWordBaseActivity implements UserInfoView
         this.loginReponse = loginReponse;
         if (loginReponse != null && null != loginReponse.getPayload()) {
             changeTvName.setText(loginReponse.getPayload().getNickname());
+            tVUserName.setText(loginReponse.getPayload().getUserName());
+            if (StringUtil.validText(loginReponse.getPayload().getBankCardNum()))
+            tvBankCount.setText(loginReponse.getPayload().getBankCardNum());
             ImageUitls.loadImgRound(loginReponse.getPayload().getAvatar(), setChangeUserHead);
         } else {
             changeTvName.setText("");

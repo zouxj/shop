@@ -3,14 +3,13 @@ package com.shenyu.laikaword.helper;
 import android.app.Activity;
 
 import com.shenyu.laikaword.model.bean.reponse.WeixinPayReponse;
+import com.zxj.parlibary.PayAPI;
 import com.zxj.parlibary.alipay.AliPayAPI;
 import com.zxj.parlibary.alipay.AliPayReq2;
 import com.zxj.parlibary.qqpay.QQPayAPI;
 import com.zxj.parlibary.qqpay.QQPayReq;
 import com.zxj.parlibary.resultlistener.OnAliPayListener;
-import com.zxj.parlibary.resultlistener.OnWechatPayListener;
 import com.zxj.parlibary.resultlistener.QqPayListener;
-import com.zxj.parlibary.wechatpay.WechatPayAPI;
 import com.zxj.parlibary.wechatpay.WechatPayReq;
 
 /**
@@ -23,26 +22,19 @@ public final class PayHelper {
      * 微信支付Test
      * 微信支付
      */
-    public static  void wechatPay(final Activity activity, final WeixinPayReponse weixinPayReponse, final OnWechatPayListener onWechatPayListener){
-        new Runnable(){
-            @Override
-            public void run() {
-                WechatPayReq wechatPayReq = new WechatPayReq.Builder()
-                        .with(activity) //activity实例
-                        .setAppId(weixinPayReponse.getPayload().getPayInfo().getAppid()) //微信支付AppID
-                        .setPartnerId(weixinPayReponse.getPayload().getPayInfo().getPartnerid())//微信支付商户号
-                        .setPrepayId(weixinPayReponse.getPayload().getPayInfo().getPrepayid())//预支付码
-                        .setPackageValue(weixinPayReponse.getPayload().getPayInfo().getPackageX())//"Sign=WXPay"
-                        .setNonceStr(weixinPayReponse.getPayload().getPayInfo().getNoncestr())
-                        .setTimeStamp(String.valueOf(weixinPayReponse.getPayload().getPayInfo().getTimestamp()))//时间戳
-                        .setSign(weixinPayReponse.getPayload().getPayInfo().getSign())//签名
-                        .create();
-
-                wechatPayReq.setOnWechatPayListener(onWechatPayListener);
-                WechatPayAPI.getInstance().sendPayReq(wechatPayReq);
-            }
-        };
-
+    public static  void wechatPay(Activity activity, WeixinPayReponse weixinPayReponse){
+        WechatPayReq wechatPayReq = new WechatPayReq.Builder()
+                .with(activity) //activity实例
+                .setAppId(weixinPayReponse.getPayload().getPayInfo().getAppid()) //微信支付AppID
+                .setPartnerId(weixinPayReponse.getPayload().getPayInfo().getPartnerid())//微信支付商户号
+                .setPrepayId(weixinPayReponse.getPayload().getPayInfo().getPrepayid())//预支付码
+				.setPackageValue(weixinPayReponse.getPayload().getPayInfo().getPackageX())//"Sign=WXPay"
+                .setNonceStr(weixinPayReponse.getPayload().getPayInfo().getNoncestr())
+                .setTimeStamp(String.valueOf(weixinPayReponse.getPayload().getPayInfo().getTimestamp()))//时间戳
+                .setSign(weixinPayReponse.getPayload().getPayInfo().getSign())//签名
+                .create();
+        PayAPI.getInstance().sendPayRequest(wechatPayReq);
+//        WechatPayAPI.getInstance().sendPayReq(wechatPayReq);
     }
 
     /**

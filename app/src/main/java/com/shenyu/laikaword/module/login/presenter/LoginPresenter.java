@@ -40,9 +40,6 @@ public class LoginPresenter extends BasePresenter<LoginView> {
     }
 
 
-    public void checkInput(String username,String password){
-        mvpView.canLogin(StringUtil.validText(username)&&StringUtil.validText(password));
-    }
 
     public void login(LifecycleTransformer lifecycleTransformer,String phone,String code){
         addSubscription(lifecycleTransformer,apiStores.loginPhone(phone,code), new ApiCallback<LoginReponse>() {
@@ -89,6 +86,10 @@ public class LoginPresenter extends BasePresenter<LoginView> {
 
 
     }
+
+    /**
+     * 微信登陆
+     */
     public void loginWX(){
         if (LaiKaApplication.iwxapi != null && (LaiKaApplication.iwxapi.isWXAppInstalled())){
             SendAuth.Req req = new SendAuth.Req();

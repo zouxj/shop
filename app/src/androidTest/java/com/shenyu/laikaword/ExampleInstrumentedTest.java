@@ -1,10 +1,8 @@
 package com.shenyu.laikaword;
 
-import android.content.Context;
 import android.util.Log;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
 

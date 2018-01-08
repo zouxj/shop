@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Build;
+import android.text.InputFilter;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -20,20 +21,23 @@ import com.shenyu.laikaword.model.bean.reponse.PayInfoReponse;
 import com.shenyu.laikaword.helper.PayHelper;
 import com.shenyu.laikaword.model.bean.reponse.WeixinPayReponse;
 import com.shenyu.laikaword.model.net.api.ApiCallback;
-import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
+import com.shenyu.laikaword.model.rxjava.rxbus.RxBusSubscriber;
+import com.shenyu.laikaword.model.rxjava.rxbus.RxSubscriptions;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
 import com.shenyu.laikaword.module.us.appsetting.acountbind.ui.activity.BoundPhoneActivity;
+import com.shenyu.laikaword.ui.view.widget.MoneyValueFilter;
 import com.zxj.parlibary.resultlistener.OnAliPayListener;
-import com.zxj.parlibary.resultlistener.OnWechatPayListener;
 import com.zxj.utilslibrary.utils.IntentLauncher;
+import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
 /**
@@ -79,6 +83,33 @@ public class RechargeMoneyActivity extends LKWordBaseActivity {
             }
         });
     }
+
+    private void subscribeEvent() {
+        RxSubscriptions.remove(mRxSub);
+        mRxSub = RxBus.getDefault().toObservable(Event.class)
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(new RxBusSubscriber<Event>() {
+                    @Override
+                    protected void onEvent(Event myEvent) {
+                        switch (myEvent.event) {
+                            case EventType.ACTION_PAY_WEIXIN:
+                                IntentLauncher.with(mActivity).put("pay_type", 1 + "").put("money", rechargeRbNum.getText().toString().trim()).launchFinishCpresent(RechargeSuccessActivity.class);
+                                break;
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        LogUtil.e(TAG, "onError");
+                        /**
+                         * 这里注意: 一旦订阅过程中发生异常,走到onError,则代表此次订阅事件完成,后续将收不到onNext()事件,
+                         * 即 接受不到后续的任何事件,实际环境中,我们需要在onError里 重新订阅事件!
+                         */
+                        subscribeEvent();
+                    }
+                });
+        RxSubscriptions.add(mRxSub);
+    }
     @OnClick({R.id.recharge_tv_next})
     public void onClick(View view){
         switch (view.getId()){
@@ -104,12 +135,11 @@ public class RechargeMoneyActivity extends LKWordBaseActivity {
 
                 }
                 if (type==3){
-                   retrofitUtils.addSubscription(RetrofitUtils.apiStores.rechargeMoney(rechargeRbNum.getText().toString().trim(), type), new ApiCallback<PayInfoReponse>() {
+                   retrofitUtils.addSubscription(retrofitUtils.apiStores.rechargeMoney(rechargeRbNum.getText().toString().trim(), type), new ApiCallback<PayInfoReponse>() {
                         @Override
                         public void onSuccess(PayInfoReponse model) {
-                            //TODO 微信支付
+                            //TODO 支付宝
                             PayHelper.aliPaySafely(model.getPayload().getPayInfo(),RechargeMoneyActivity.this, new OnAliPayListener() {
-
                                 @Override
                                 public void onNext(String resultInfo) {
                                     if (resultInfo.equals("9000")) {
@@ -138,25 +168,14 @@ public class RechargeMoneyActivity extends LKWordBaseActivity {
                     });
                 }
                 if (type==1){
-                    retrofitUtils.addSubscription(RetrofitUtils.apiStores.rechargeWxMoney(rechargeRbNum.getText().toString().trim(), type), new ApiCallback<WeixinPayReponse>() {
+                    retrofitUtils.addSubscription(retrofitUtils.apiStores.rechargeWxMoney(rechargeRbNum.getText().toString().trim(), type), new ApiCallback<WeixinPayReponse>() {
                         @Override
                         public void onSuccess(WeixinPayReponse model) {
                             //TODO 微信支付
                             if (model!=null) {
                                 if (model.isSuccess())
-                                PayHelper.wechatPay(mActivity, model, new OnWechatPayListener() {
-                                    @Override
-                                    public void onPaySuccess(int errorCode) {
-                                            ToastUtil.showToastShort("充值成功");
-                                        RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_REQUEST, null));
-                                        IntentLauncher.with(RechargeMoneyActivity.this).put("pay_type",type+"").put("money",rechargeRbNum.getText().toString().trim()).launchFinishCpresent(RechargeSuccessActivity.class);
-                                    }
-
-                                    @Override
-                                    public void onPayFailure(int errorCode) {
-                                        ToastUtil.showToastShort("充值成功");
-                                    }
-                                });
+                                    Constants.PAY_WX_TYPE=1;
+                                PayHelper.wechatPay(RechargeMoneyActivity.this, model);
                             }
 
                         }
@@ -178,6 +197,8 @@ public class RechargeMoneyActivity extends LKWordBaseActivity {
     }
     @Override
     public void doBusiness(Context context) {
+        subscribeEvent();
+        rechargeRbNum.setFilters(new InputFilter[]{new MoneyValueFilter()});
         RxTextView.textChanges(rechargeRbNum).subscribe(new Action1<CharSequence>() {
             @SuppressLint("NewApi")
             @Override

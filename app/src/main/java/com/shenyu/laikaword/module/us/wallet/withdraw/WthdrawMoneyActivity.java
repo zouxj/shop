@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -27,6 +28,7 @@ import com.shenyu.laikaword.model.rxjava.rxbus.RxSubscriptions;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
 import com.shenyu.laikaword.module.us.setpassword.SetPassWordMsgCodeActivity;
+import com.shenyu.laikaword.ui.view.widget.MoneyValueFilter;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
@@ -70,6 +72,7 @@ public class WthdrawMoneyActivity extends LKWordBaseActivity {
     String yue;
     @Override
     public void doBusiness(Context context) {
+        etTixianNum.setFilters(new InputFilter[]{new MoneyValueFilter()});
 
         Observable.combineLatest(RxTextView.textChanges(etTixianNum), RxTextView.textChanges(tvBankType), new Func2<CharSequence, CharSequence, Boolean>() {
             @Override
@@ -102,7 +105,7 @@ public class WthdrawMoneyActivity extends LKWordBaseActivity {
         tvAccountYue.setText("可提现金额：￥"+String.valueOf(yue));
         subscribeEvent();
 
-        retrofitUtils.addSubscription(RetrofitUtils.apiStores.getBankCard(), new ApiCallback<BankInfoReponse>() {
+        retrofitUtils.addSubscription(retrofitUtils.apiStores.getBankCard(), new ApiCallback<BankInfoReponse>() {
             @Override
             public void onSuccess(BankInfoReponse model) {
                 if (model.isSuccess()&&model.getPayload().size()>0) {
@@ -177,7 +180,7 @@ public class WthdrawMoneyActivity extends LKWordBaseActivity {
                 String moeny = etTixianNum.getText().toString().trim();
                 moeny=StringUtil.m2(StringUtil.formatDouble(moeny));
                 final String finalMoeny = moeny;
-                DialogHelper.setInputDialog(mActivity, false,moeny,"已扣除手续费0.5元"
+                DialogHelper.setInputDialog(mActivity, false,moeny,"已扣除手续费2元"
                         , new DialogHelper.LinstenrText() {
                     @Override
                     public void onLintenerText(String passWord) {

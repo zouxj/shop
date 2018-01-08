@@ -2,12 +2,9 @@ package com.shenyu.laikaword.di.module;
 
 import android.app.Activity;
 
-import com.shenyu.laikaword.module.login.presenter.LoginPresenter;
-import com.shenyu.laikaword.module.login.view.LoginView;
 import com.shenyu.laikaword.module.us.bankcard.presenter.AddBankPresenter;
 import com.shenyu.laikaword.module.us.bankcard.presenter.BankInfoPresenter;
 import com.shenyu.laikaword.module.us.bankcard.presenter.SelectBankPresent;
-import com.shenyu.laikaword.module.us.bankcard.ui.activity.SelectBankIDActivity;
 import com.shenyu.laikaword.module.us.bankcard.ui.fragment.AddBankOneFragment;
 import com.shenyu.laikaword.module.us.bankcard.ui.fragment.AddBankTwoFragment;
 import com.shenyu.laikaword.module.us.bankcard.view.AddBankView;

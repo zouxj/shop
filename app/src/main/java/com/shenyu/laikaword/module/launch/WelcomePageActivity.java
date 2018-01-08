@@ -1,6 +1,5 @@
 package com.shenyu.laikaword.module.launch;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.Gravity;
@@ -9,8 +8,6 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
-import com.shenyu.laikaword.base.LKWordBaseActivity;
-import com.shenyu.laikaword.di.module.MainModule;
 import com.shenyu.laikaword.helper.BannerBean;
 import com.shenyu.laikaword.helper.BannerHelper;
 import com.shenyu.laikaword.module.home.ui.activity.MainActivity;
@@ -19,8 +16,6 @@ import com.zxj.utilslibrary.utils.IntentLauncher;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

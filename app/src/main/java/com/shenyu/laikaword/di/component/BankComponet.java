@@ -5,8 +5,6 @@ import com.shenyu.laikaword.module.us.bankcard.ui.activity.AddBankCardActivity;
 import com.shenyu.laikaword.module.us.bankcard.ui.activity.BankInfoActivity;
 import com.shenyu.laikaword.module.us.bankcard.ui.activity.SelectBankIDActivity;
 
-import javax.inject.Singleton;
-
 import dagger.Subcomponent;
 
 /**

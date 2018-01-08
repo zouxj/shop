@@ -66,7 +66,7 @@ public class UserRemainingActivity extends LKWordBaseActivity {
                 break;
             case R.id.re_bt_withdraw:
                 //TODO 提现
-                IntentLauncher.with(this).put("acountyue",loginReponse.getPayload().getMoney()).launch(WthdrawMoneyActivity.class);
+                IntentLauncher.with(this).put("acountyue",Constants.getLoginReponse().getPayload().getMoney()).launch(WthdrawMoneyActivity.class);
                 break;
             case R.id.rl_toolbar_subtitle:
                 //TODO 明细

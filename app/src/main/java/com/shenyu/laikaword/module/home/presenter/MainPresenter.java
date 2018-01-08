@@ -2,7 +2,6 @@ package com.shenyu.laikaword.module.home.presenter;
 
 import com.shenyu.laikaword.base.BasePresenter;
 import com.shenyu.laikaword.model.bean.reponse.GoodBean;
-import com.shenyu.laikaword.model.bean.reponse.GoodsBean;
 import com.shenyu.laikaword.model.bean.reponse.GoodsListReponse;
 import com.shenyu.laikaword.module.home.view.MainView;
 import com.shenyu.laikaword.model.bean.reponse.ShopMainReponse;

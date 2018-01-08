@@ -2,11 +2,8 @@ package com.shenyu.laikaword.module.us.bankcard.ui.fragment;
 
 
 import android.annotation.SuppressLint;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -16,7 +13,6 @@ import com.jakewharton.rxbinding.widget.RxTextView;
 import com.shenyu.laikaword.Interactor.IOptionPickerVierCallBack;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.IKWordBaseFragment;
-import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.helper.CityDataHelper;
 import com.shenyu.laikaword.model.bean.reponse.BankReponse;
 import com.shenyu.laikaword.model.bean.reponse.BaseReponse;
@@ -24,7 +20,6 @@ import com.shenyu.laikaword.model.net.api.ApiCallback;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
-import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.zxj.utilslibrary.utils.KeyBoardUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
@@ -35,9 +30,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import rx.Observable;
 import rx.functions.Action1;
 import rx.functions.Func3;

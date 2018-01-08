@@ -1,8 +1,7 @@
 package com.shenyu.laikaword.di.component;
 
-import com.shenyu.laikaword.di.module.MineModule;
+import com.shenyu.laikaword.di.module.mine.MineModule;
 import com.shenyu.laikaword.module.us.goodcards.ui.activity.CardPackageActivity;
-import com.shenyu.laikaword.module.us.bankcard.ui.activity.AddBankCardActivity;
 import com.shenyu.laikaword.module.goods.pickupgoods.ui.activity.PurchaseCardActivity;
 import com.shenyu.laikaword.module.us.appsetting.UserInfoActivity;
 import com.shenyu.laikaword.module.us.zhuanmai.view.ResellActivity;

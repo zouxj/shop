@@ -1,10 +1,5 @@
 package com.shenyu.laikaword.module.us.bankcard.ui.fragment;
 
-import android.annotation.SuppressLint;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -14,23 +9,18 @@ import com.shenyu.laikaword.base.IKWordBaseFragment;
 import com.shenyu.laikaword.helper.DialogHelper;
 import com.shenyu.laikaword.model.bean.reponse.BankReponse;
 import com.shenyu.laikaword.model.net.api.ApiCallback;
-import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
-import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import rx.Observable;
 import rx.functions.Action1;
 import rx.functions.Func2;
-import rx.functions.Func5;
 
 public class AddBankOneFragment extends IKWordBaseFragment {
     @BindView(R.id.et_bank_user_name)

@@ -88,7 +88,7 @@ public interface ApiStores {
     @GET()//下载apk
     Call<ResponseBody> downApk(@Url String url);
     @FormUrlEncoded
-    @POST("common/validateSMSCode")//设置支付密码
+    @POST("common/validateSMSCode")//校验支付密码
     Observable<MsgCodeReponse> validateSMSCode(@Field("codeType") String codeType, @Field("code") String code);
     @FormUrlEncoded
     @POST("user/validateTransactionPIN")//校验支付密码
@@ -121,6 +121,11 @@ public interface ApiStores {
     @FormUrlEncoded
     @POST("order/create")//下单接口
     Observable<PayInfoReponse> createOrder(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST("order/create")//微信下单接口
+    Observable<WeixinPayReponse> wxcreateOrder(@FieldMap Map<String, String> map);
+
     @POST("account/extractPackage")//下单接口
     @FormUrlEncoded
     Observable<BaseReponse> extractPackage(@FieldMap Map<String, String> map);
@@ -143,6 +148,13 @@ public interface ApiStores {
     @POST("user/getCardAccountInfo")//银行卡鉴权
     Observable<BankReponse> getCardAccountInfo(@Field("cardNo") String cardNo);
 
+    @FormUrlEncoded
+    @POST("user/changePhone")//更换手机号码
+    Observable<BaseReponse> changeBindPhonePresenter(@Field("phone") String phone);
+    //登录接口
+    @FormUrlEncoded
+    @POST("user/changePhone")
+    Observable<BaseReponse> changePhone(@Field("phone") String phone, @Field("code") String code);
 
 
 }

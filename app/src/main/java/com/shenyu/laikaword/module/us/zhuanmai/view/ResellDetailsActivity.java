@@ -1,8 +1,6 @@
 package com.shenyu.laikaword.module.us.zhuanmai.view;
 
 import android.content.Context;
-import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
@@ -19,13 +17,11 @@ import com.zxj.utilslibrary.utils.DateTimeUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * 转卖详情

@@ -1,7 +1,6 @@
 package com.shenyu.laikaword.module.us.wallet.withdraw;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
@@ -10,7 +9,6 @@ import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.zxj.utilslibrary.utils.DateTimeUtil;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**

@@ -107,6 +107,7 @@
             android:id="@+id/tv_bank_count"
             android:layout_width="wrap_content"
             android:textSize="@dimen/text_size_13sp"
+            android:drawablePadding="10dp"
             android:textColor="@color/color_999"
             android:drawableRight="@mipmap/right_back"
             android:layout_centerVertical="true"

@@ -2,7 +2,6 @@ package com.shenyu.laikaword.helper;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.View;
 
 import com.bigkoo.pickerview.OptionsPickerView;
@@ -10,8 +9,6 @@ import com.google.gson.Gson;
 import com.shenyu.laikaword.Interactor.IOptionPickerVierCallBack;
 import com.shenyu.laikaword.model.bean.common.JsonBean;
 import com.zxj.utilslibrary.utils.JsonUtils;
-import com.zxj.utilslibrary.utils.LogUtil;
-import com.zxj.utilslibrary.utils.ToastUtil;
 
 import org.json.JSONArray;
 

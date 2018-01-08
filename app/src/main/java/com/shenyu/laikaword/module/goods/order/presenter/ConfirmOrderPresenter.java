@@ -9,6 +9,7 @@ import com.shenyu.laikaword.model.bean.reponse.LoginReponse;
 import com.shenyu.laikaword.model.bean.reponse.PayInfoReponse;
 import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.helper.PayHelper;
+import com.shenyu.laikaword.model.bean.reponse.WeixinPayReponse;
 import com.shenyu.laikaword.module.goods.order.ShopSuccessActivity;
 import com.shenyu.laikaword.module.us.setpassword.SetPassWordMsgCodeActivity;
 import com.shenyu.laikaword.module.us.appsetting.acountbind.ui.activity.BoundPhoneActivity;
@@ -88,16 +89,8 @@ public class ConfirmOrderPresenter extends BasePresenter<ConfirmOrderView> {
                         break;
                     case 1:
                         //TODO 微信支付
-                        // PayHelper.wechatPay(mActivity, new OnWechatPayListener() {
-//                    @Override
-//                    public void onPaySuccess(int errorCode) {
-//                    }
-//
-//                    @Override
-//                    public void onPayFailure(int errorCode) {
-//
-//                    }
-//                });
+                        wxPay(lifecycleTransformer,type, count, zecount);
+
                         break;
                 }
             }
@@ -159,6 +152,49 @@ public class ConfirmOrderPresenter extends BasePresenter<ConfirmOrderView> {
         }
     }
 
+    /**
+     * 微信支付
+     * @param lifecycleTransformer
+     * @param type
+     * @param count
+     * @param zecount
+     */
+    private void wxPay(LifecycleTransformer lifecycleTransformer,int type, int count, String zecount) {
+        Map<String,String> param = new HashMap<>();
+        param.put("goodsId",goodBean.getGoodsId());
+        param.put("amount",zecount);
+        param.put("quantity",count+"");
+        param.put("payWay",type+"");
+        addSubscription(lifecycleTransformer,apiStores.wxcreateOrder(param), new ApiCallback<WeixinPayReponse>() {
+            @Override
+            public void onSuccess(WeixinPayReponse model) {
+                if (model.isSuccess()) {
+                    Constants.PAY_WX_TYPE=2;
+                     PayHelper.wechatPay(mActivity,model);
+                }else {
+                    ToastUtil.showToastShort(model.getError().getMessage());
+                }
+
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                ToastUtil.showToastShort(msg);
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        });
+    }
+    /**
+     * 支付宝支付
+     * @param lifecycleTransformer
+     * @param type
+     * @param count
+     * @param zecount
+     */
     private void aliPay(LifecycleTransformer lifecycleTransformer,int type, int count, String zecount) {
         //TODO 支付宝支付
         Map<String,String> param = new HashMap<>();

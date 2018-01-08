@@ -6,19 +6,16 @@ import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
 import com.squareup.picasso.Picasso;
-import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
@@ -303,7 +300,6 @@ public class BannerHelper {
             iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
             iv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             BannerBean item = mBannerList.get(position % mBannerList.size());
-            LogUtil.i(position % mBannerList.size()+"______________");
             //TODO use img loader here to load net img
 //            iv.setImageResource(item.getTestImgResId());
            if (StringUtil.validText(item.getImgurl())) {

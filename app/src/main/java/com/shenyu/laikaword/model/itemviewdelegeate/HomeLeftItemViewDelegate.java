@@ -101,7 +101,7 @@ public class HomeLeftItemViewDelegate implements ItemViewDelegate<ShopMainRepons
                         }
                         IntentLauncher.with(mActivity).launch(BuyGoodsActivity.class);
                         break;
-                    case 2:
+                    case 3:
                         //TODO 我的提货
                         if (null==loginReponse) {
                             IntentLauncher.with(mActivity).launch(LoginActivity.class);
@@ -109,7 +109,7 @@ public class HomeLeftItemViewDelegate implements ItemViewDelegate<ShopMainRepons
                         }
                         IntentLauncher.with(mActivity).launch(PurchaseCardActivity.class);
                         break;
-                    case 3:
+                    case 2:
                         //TODO 我的卡包
                         if (null==loginReponse) {
                             IntentLauncher.with(mActivity).launch(LoginActivity.class);

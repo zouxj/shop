@@ -1,7 +1,6 @@
 package com.shenyu.laikaword.module.login.ui.activity;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -35,7 +34,9 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import rx.Observable;
 import rx.functions.Action1;
+import rx.functions.Func2;
 
 /**
  * 用户登录页面
@@ -60,6 +61,28 @@ public class LoginActivity extends LKWordBaseActivity implements LoginView,MPerm
 
     @Override
     public void doBusiness(Context context) {
+        Observable.combineLatest(RxTextView.textChanges(etUsePhone), RxTextView.textChanges(etUserMsgCode), new Func2<CharSequence, CharSequence, Boolean>() {
+            @Override
+            public Boolean call(CharSequence charSequence, CharSequence charSequence2) {
+                return StringUtil.validText(charSequence.toString())&&charSequence.toString().length()>=11&&StringUtil.validText(charSequence2.toString());
+            }
+        }).subscribe(new Action1<Boolean>() {
+            @Override
+            public void call(Boolean aBoolean) {
+                btLogin.setEnabled(aBoolean);
+                if (aBoolean) {
+                    if (Build.VERSION.SDK_INT> Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
+                        btLogin.setBackground(UIUtil.getDrawable(R.drawable.bg_bt_login_rectangle_light));
+                    else
+                        btLogin.setBackgroundResource(R.drawable.bg_bt_login_rectangle_light);
+                } else {
+                    if (Build.VERSION.SDK_INT> Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
+                        btLogin.setBackground(UIUtil.getDrawable(R.drawable.bg_bt_login_rectangle));
+                    else
+                        btLogin.setBackgroundResource(R.drawable.bg_bt_login_rectangle);
+                }
+            }
+        });
         RxTextView.textChanges(etUsePhone).subscribe(new Action1<CharSequence>() {
             @Override
             public void call(CharSequence charSequence) {
@@ -71,13 +94,6 @@ public class LoginActivity extends LKWordBaseActivity implements LoginView,MPerm
                     tvSendMsgCode.setTextColor(UIUtil.getColor(R.color.color_b0b0));
                     tvSendMsgCode.setEnabled(false);
                 }
-                loginPresenter.checkInput(charSequence.toString(), etUserMsgCode.getText().toString());
-            }
-        });
-        RxTextView.textChanges(etUserMsgCode).subscribe(new Action1<CharSequence>() {
-            @Override
-            public void call(CharSequence charSequence) {
-                loginPresenter.checkInput(etUsePhone.getText().toString(), charSequence.toString());
             }
         });
         iLoginListener = new BaseUiListener(){
@@ -115,24 +131,6 @@ public class LoginActivity extends LKWordBaseActivity implements LoginView,MPerm
     @Override
     public void loadFailure() {
 
-    }
-
-    @SuppressLint("NewApi")
-    @Override
-    public void canLogin(boolean canLogin) {
-        if (canLogin) {
-            btLogin.setEnabled(true);
-            if (Build.VERSION.SDK_INT> Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
-                btLogin.setBackground(UIUtil.getDrawable(R.drawable.bg_bt_login_rectangle_light));
-            else
-                btLogin.setBackgroundResource(R.drawable.bg_bt_login_rectangle_light);
-        } else {
-            btLogin.setEnabled(false);
-            if (Build.VERSION.SDK_INT> Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
-                btLogin.setBackground(UIUtil.getDrawable(R.drawable.bg_bt_login_rectangle));
-            else
-                btLogin.setBackgroundResource(R.drawable.bg_bt_login_rectangle);
-        }
     }
 
     @Override

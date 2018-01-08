@@ -18,10 +18,8 @@ import com.tencent.tauth.Tencent;
 import com.umeng.analytics.MobclickAgent;
 import com.zxj.utilslibrary.AndroidUtilsCore;
 import com.zxj.utilslibrary.utils.ActivityManageUtil;
-import com.zxj.utilslibrary.utils.DeviceInfo;
 import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.PackageManagerUtil;
-import com.zxj.utilslibrary.utils.UIUtil;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

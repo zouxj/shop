@@ -1,13 +1,9 @@
 package com.shenyu.laikaword.common;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapShader;
-import android.graphics.Canvas;
-import android.graphics.Paint;
 
 import com.squareup.picasso.Transformation;
 import com.zxj.utilslibrary.utils.ImageUtil;
-import com.zxj.utilslibrary.utils.UIUtil;
 
 /**
  * Created by shenyu_zxjCode on 2017/9/29 0029.

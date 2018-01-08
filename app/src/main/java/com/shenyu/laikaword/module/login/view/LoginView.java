@@ -8,6 +8,5 @@ import com.shenyu.laikaword.model.bean.reponse.LoginReponse;
  */
 
 public interface LoginView  extends BaseLoadView {
-    void canLogin(boolean canLogin);
     void showUser(LoginReponse user);
 }

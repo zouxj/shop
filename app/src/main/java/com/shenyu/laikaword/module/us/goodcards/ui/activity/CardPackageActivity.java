@@ -9,16 +9,12 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
-import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
-import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
-import com.shenyu.laikaword.module.home.ui.fragment.MainFragment;
 import com.shenyu.laikaword.module.launch.LaiKaApplication;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.model.adapter.CarPackageViewPagerAdapter;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.model.bean.reponse.CarPagerReponse;
-import com.shenyu.laikaword.di.module.MineModule;
+import com.shenyu.laikaword.di.module.mine.MineModule;
 import com.shenyu.laikaword.model.net.api.ApiCallback;
 import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
 

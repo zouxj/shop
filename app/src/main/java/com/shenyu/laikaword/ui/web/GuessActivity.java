@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
@@ -15,14 +14,10 @@ import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
-import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
 import com.shenyu.laikaword.ui.view.widget.ProgressWebView;
-import com.umeng.analytics.MobclickAgent;
-import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.LogUtil;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class GuessActivity extends LKWordBaseActivity {
@@ -50,7 +45,7 @@ public class GuessActivity extends LKWordBaseActivity {
     private void initWebView() {
         wbLoad.getSettings().setTextZoom(100);
         WebSettings webSettings = wbLoad.getSettings();
-        webSettings.setUserAgentString("laikashopapp");
+        webSettings.setUserAgentString("YTXH");
         webSettings.setAllowContentAccess(true);
         webSettings.setAppCacheEnabled(true);
         webSettings.setAllowFileAccess(true);

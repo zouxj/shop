@@ -48,7 +48,11 @@ public abstract class ApiCallback<M> implements Observer<M> {
                 msg = "网络不给力";
 
             }
+            if (code == 506) {
 
+                msg = "此账号停用";
+
+            }
             if (code == 502 || code == 404||code==500) {
 
                 msg = "服务器异常，请稍后再试";

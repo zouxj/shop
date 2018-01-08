@@ -157,11 +157,11 @@ public class ConfirmOrderActivity extends LKWordBaseActivity implements ConfirmO
                                     payType = "支付宝";
                                     payFlogType = 3;
                                     break;
+//                                case 2:
+//                                    payType = "QQ钱包";
+//                                    payFlogType = 2;
+//                                    break;
                                 case 2:
-                                    payType = "QQ钱包";
-                                    payFlogType = 2;
-                                    break;
-                                case 3:
                                     payType = "微信支付";
                                     payFlogType = 1;
                                     break;

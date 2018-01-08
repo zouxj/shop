@@ -6,7 +6,7 @@ import android.support.v4.view.ViewPager;
 
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
-import com.shenyu.laikaword.di.module.MineModule;
+import com.shenyu.laikaword.di.module.mine.MineModule;
 import com.shenyu.laikaword.helper.TabLayoutHelper;
 import com.shenyu.laikaword.model.adapter.ZhuanMaiViewAdapter;
 import com.shenyu.laikaword.module.launch.LaiKaApplication;

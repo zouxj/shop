@@ -10,7 +10,6 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
-import rx.functions.Func1;
 
 /**
  * Created by shenyu_zxjCode on 2017/10/26 0026.

@@ -53,6 +53,7 @@ public class Constants {
     //SharedPreferences保存信息KEY
     public static final String LOGININFO_KEY ="USERINFO_LOGIN";
     public static final String MAIN_SHOP_KEY ="MAIN_SHOP_KEY";
+    public static  int PAY_WX_TYPE =0;
     public  static String VERSION_NEW ="";
     public static synchronized LoginReponse getLoginReponse(){
      LoginReponse loginReponse = (LoginReponse) SPUtil.readObject(Constants.LOGININFO_KEY);

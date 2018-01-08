@@ -56,9 +56,27 @@ private PayloadBean payload;
         private int isSetTransactionPIN;
         private String token;
         private String money;
+        private String bankCardNum;
+        private String userName;
+
+        public String getUserName() {
+            return userName;
+        }
+
+        public void setUserName(String userName) {
+            this.userName = userName;
+        }
 
         public String getMoney() {
             return money;
+        }
+
+        public String getBankCardNum() {
+            return bankCardNum;
+        }
+
+        public void setBankCardNum(String bankCardNum) {
+            this.bankCardNum = bankCardNum;
         }
 
         public void setMoney(String money) {

@@ -13,18 +13,12 @@ import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.model.bean.reponse.BaseReponse;
 import com.shenyu.laikaword.model.bean.reponse.BankInfoReponse;
 import com.shenyu.laikaword.helper.RecycleViewDivider;
-import com.shenyu.laikaword.model.net.api.ApiCallback;
-import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
-import com.shenyu.laikaword.model.rxjava.rxbus.RxBusSubscriber;
-import com.shenyu.laikaword.model.rxjava.rxbus.RxSubscriptions;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
-import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
 import com.shenyu.laikaword.module.launch.LaiKaApplication;
 import com.shenyu.laikaword.module.us.bankcard.presenter.BankInfoPresenter;
 import com.shenyu.laikaword.module.us.bankcard.view.BankInfoView;
 import com.shenyu.laikaword.ui.view.widget.DeleteRecyclerView;
-import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 import com.shenyu.laikaword.helper.DialogHelper;
@@ -36,7 +30,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import rx.android.schedulers.AndroidSchedulers;
 
 public class BankInfoActivity extends LKWordBaseActivity implements  BankInfoView {
 

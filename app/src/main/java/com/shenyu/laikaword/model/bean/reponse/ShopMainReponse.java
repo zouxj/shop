@@ -3,8 +3,6 @@ package com.shenyu.laikaword.model.bean.reponse;
 import java.io.Serializable;
 import java.util.List;
 
-import rx.exceptions.OnErrorNotImplementedException;
-
 /**
  * Created by shenyu_zxjCode on 2017/9/29 0029.
  */

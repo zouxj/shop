@@ -1,9 +1,8 @@
 package com.shenyu.laikaword.di.component.mine;
 
-import com.shenyu.laikaword.di.module.BankModule;
 import com.shenyu.laikaword.di.module.mine.BindAccountModule;
-import com.shenyu.laikaword.module.home.ui.activity.MainActivity;
 import com.shenyu.laikaword.module.us.appsetting.acountbind.ui.activity.ChangeBindPhoneActivity;
+import com.shenyu.laikaword.module.us.appsetting.acountbind.ui.activity.ChangeBindPhoneInputCodeActivity;
 
 import dagger.Subcomponent;
 
@@ -13,5 +12,6 @@ import dagger.Subcomponent;
 @Subcomponent(modules={BindAccountModule.class})
 public interface BindAccountComponent {
     ChangeBindPhoneActivity inject(ChangeBindPhoneActivity changeBindPhoneActivity);
+    ChangeBindPhoneInputCodeActivity inject(ChangeBindPhoneInputCodeActivity changeBindPhoneInputCodeActivity);
 
 }

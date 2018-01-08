@@ -1,8 +1,5 @@
 package com.shenyu.laikaword.model.net.Intercepter;
 
-import android.text.TextUtils;
-import android.util.Log;
-
 import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.NetworkUtil;
 import com.zxj.utilslibrary.utils.UIUtil;

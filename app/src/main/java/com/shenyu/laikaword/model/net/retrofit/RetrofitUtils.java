@@ -6,7 +6,6 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import rx.Subscriber;
 
 /**
  * Created by shenyu_zxjCode on 2017/9/22 0022.

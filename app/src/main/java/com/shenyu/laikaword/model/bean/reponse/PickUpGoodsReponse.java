@@ -1,9 +1,5 @@
 package com.shenyu.laikaword.model.bean.reponse;
 
-import com.shenyu.laikaword.R;
-import com.zxj.utilslibrary.utils.StringUtil;
-import com.zxj.utilslibrary.utils.UIUtil;
-
 import java.util.List;
 
 /**
@@ -45,7 +41,7 @@ public class PickUpGoodsReponse extends BaseReponse {
         private String extractId;
         private String extractNo;
         private String userId;
-        private String status;
+        private String state;
         private String type;
         private String goodsValue;
         private String quantity;
@@ -58,6 +54,24 @@ public class PickUpGoodsReponse extends BaseReponse {
         private String goodsImage;
         private String expressCompany;
         private Object sendTime;
+        private String stateDes;
+        private String statusText;
+
+        public String getStateDes() {
+            return stateDes;
+        }
+
+        public void setStateDes(String stateDes) {
+            this.stateDes = stateDes;
+        }
+
+        public String getStatusText() {
+            return statusText;
+        }
+
+        public void setStatusText(String statusText) {
+            this.statusText = statusText;
+        }
 
         public String getExtractId() {
             return extractId;
@@ -83,13 +97,13 @@ public class PickUpGoodsReponse extends BaseReponse {
             this.userId = userId;
         }
 
-        public String getStatus() {
+        public String getState() {
 
-            return status;
+            return state;
         }
 
-        public void setStatus(String status) {
-            this.status = status;
+        public void setState(String state) {
+            this.state = state;
         }
 
         public String getType() {

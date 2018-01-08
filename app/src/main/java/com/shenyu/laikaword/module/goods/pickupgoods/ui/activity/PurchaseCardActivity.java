@@ -9,7 +9,7 @@ import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.model.adapter.PurchaseViewPagerAdapter;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.helper.TabLayoutHelper;
-import com.shenyu.laikaword.di.module.MineModule;
+import com.shenyu.laikaword.di.module.mine.MineModule;
 import com.zxj.utilslibrary.utils.StringUtil;
 
 import javax.inject.Inject;

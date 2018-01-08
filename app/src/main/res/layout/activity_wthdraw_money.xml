@@ -77,13 +77,13 @@
                 android:layout_height="wrap_content" />
             <EditText
                 android:maxLength="12"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:lines="1"
                 android:textColor="@color/color_333"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:hint="请输入提现金额"
                 android:id="@+id/et_tixian_num"
-                android:layout_width="160dp"
+                android:layout_width="180dp"
                 android:background="@null"
                 android:layout_height="38dp" />
         </LinearLayout>

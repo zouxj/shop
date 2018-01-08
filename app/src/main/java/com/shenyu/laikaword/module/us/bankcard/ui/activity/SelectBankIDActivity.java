@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.di.module.BankModule;
-import com.shenyu.laikaword.di.module.LoginModule;
 import com.shenyu.laikaword.helper.ImageUitls;
 import com.shenyu.laikaword.model.adapter.CommonAdapter;
 import com.shenyu.laikaword.model.bean.reponse.BaseReponse;
@@ -21,18 +20,11 @@ import com.shenyu.laikaword.model.wrapper.EmptyWrapper;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.model.bean.reponse.BankInfoReponse;
 import com.shenyu.laikaword.helper.RecycleViewDivider;
-import com.shenyu.laikaword.model.net.api.ApiCallback;
-import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
-import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
-import com.shenyu.laikaword.model.rxjava.rxbus.RxBusSubscriber;
-import com.shenyu.laikaword.model.rxjava.rxbus.RxSubscriptions;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
 import com.shenyu.laikaword.module.launch.LaiKaApplication;
 import com.shenyu.laikaword.module.us.bankcard.presenter.SelectBankPresent;
 import com.shenyu.laikaword.module.us.bankcard.view.SelectBankView;
-import com.trello.rxlifecycle2.android.ActivityEvent;
-import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
@@ -43,7 +35,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import rx.android.schedulers.AndroidSchedulers;
 
 /**
  * 银行卡管理

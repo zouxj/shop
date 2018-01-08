@@ -14,7 +14,6 @@ import android.support.v4.content.FileProvider;
 
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.common.Constants;
-import com.shenyu.laikaword.common.UrlConstant;
 import com.shenyu.laikaword.model.net.okhttp.OkHttp3Utils;
 import com.shenyu.laikaword.model.net.retrofit.ApiStores;
 import com.shenyu.laikaword.model.net.callback.FileCallback;

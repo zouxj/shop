@@ -1,10 +1,6 @@
 package com.shenyu.laikaword.module.us.bankcard.presenter;
 
-import android.view.View;
-
-import com.shenyu.laikaword.base.BaseLoadView;
 import com.shenyu.laikaword.base.BasePresenter;
-import com.shenyu.laikaword.base.BaseViewPager;
 import com.shenyu.laikaword.model.bean.reponse.BankInfoReponse;
 import com.shenyu.laikaword.model.net.api.ApiCallback;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
