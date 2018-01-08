@@ -149,8 +149,8 @@ public interface ApiStores {
     Observable<BankReponse> getCardAccountInfo(@Field("cardNo") String cardNo);
 
     @FormUrlEncoded
-    @POST("user/changePhone")//更换手机号码
-    Observable<BaseReponse> changeBindPhonePresenter(@Field("phone") String phone);
+    @POST("user/checkBind")//更换手机号码
+    Observable<BaseReponse> checkBind(@Field("phone") String phone);
     //登录接口
     @FormUrlEncoded
     @POST("user/changePhone")

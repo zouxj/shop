@@ -16,6 +16,7 @@ import com.shenyu.laikaword.module.us.appsetting.acountbind.presenter.ChangeBind
 import com.shenyu.laikaword.module.us.appsetting.acountbind.view.ChangeBindPhoneView;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.StringUtil;
+import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
 import javax.inject.Inject;
@@ -84,7 +85,8 @@ public class ChangeBindPhoneActivity extends LKWordBaseActivity implements Chang
 
     @OnClick(R.id.tv_change_bing_phone)
     public void onViewClicked() {
-        IntentLauncher.with(this).put("phone",etPhone.getText().toString()).launch(ChangeBindPhoneInputCodeActivity.class);
+        changeBindPhonePresenter.checkPhone(this.bindToLifecycle(),etPhone.getText().toString());
+
 
     }
 
@@ -108,7 +110,14 @@ public class ChangeBindPhoneActivity extends LKWordBaseActivity implements Chang
 
     }
 
+
     @Override
-    public void sendChangePhoneCode(boolean bool) {
+    public void checkPhone(boolean bool, String msg) {
+            if (bool)
+                IntentLauncher.with(this).put("phone",etPhone.getText().toString()).launch(ChangeBindPhoneInputCodeActivity.class);
+            else {
+                etPhone.setText("");
+                ToastUtil.showToastShort(msg);
+            }
     }
 }

@@ -8,5 +8,5 @@ import com.shenyu.laikaword.base.BaseLoadView;
 
 public interface ChangeBindPhoneView extends BaseLoadView {
 
-    void sendChangePhoneCode(boolean bool);
+    void checkPhone(boolean bool,String msg);
 }

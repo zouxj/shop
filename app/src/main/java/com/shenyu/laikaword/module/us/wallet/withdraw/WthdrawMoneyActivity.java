@@ -101,7 +101,7 @@ public class WthdrawMoneyActivity extends LKWordBaseActivity {
 
          yue = getIntent().getStringExtra("acountyue");
         if (StringUtil.validText(yue))
-            yue=  String.valueOf(StringUtil.m2(StringUtil.formatDouble(yue)-0.5<=0?0:(StringUtil.formatDouble(yue)-0.5)));
+            yue=  String.valueOf(StringUtil.m2(StringUtil.formatDouble(yue)-2<=0?0:(StringUtil.formatDouble(yue)-2)));
         tvAccountYue.setText("可提现金额：￥"+String.valueOf(yue));
         subscribeEvent();
 
