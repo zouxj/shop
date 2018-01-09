@@ -93,8 +93,6 @@ public class UserInfoActivity extends LKWordBaseActivity implements UserInfoView
                                 userInfoPresenter.initUserData();
                                 break;
                         }
-                        LogUtil.e(TAG, myEvent.event + "____" + "threadType=>" + Thread.currentThread());
-//            }
                     }
 
                     @Override

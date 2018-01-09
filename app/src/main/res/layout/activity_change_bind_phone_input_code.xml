@@ -26,28 +26,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <com.zxj.utilslibrary.widget.countdownview.PayPsdInputView
-        android:id="@+id/psd_view_password"
-        android:layout_width="304dp"
-        android:layout_height="52dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="36dp"
-        android:inputType="number"
-        app:maxCount="6"
-        app:psdType="bottomLine"
-        app:rectAngle="2dp" />
+        <com.zxj.utilslibrary.widget.countdownview.PayPsdInputView
+            android:id="@+id/psd_view_password"
+            android:layout_width="255dp"
+            android:layout_height="52dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="36dp"
+            android:inputType="number"
+            app:maxCount="6"
+            app:psdType="bottomLine"
+            app:rectAngle="2dp" />
+
+
+
 
     <TextView
         android:id="@+id/tv_send_msg_code"
-        android:layout_width="wrap_content"
+        android:layout_width="255dp"
+        android:layout_gravity="center_horizontal"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_gravity="center"
-        android:layout_marginRight="8dp"
         android:layout_marginTop="20dp"
         android:text="获取验证码"
         android:textColor="@color/app_theme_red"
         android:textSize="@dimen/text_size_14sp" />
-
 </LinearLayout>

@@ -14,9 +14,23 @@ public class Constants {
      */
     public static String HOST="http://t.shop.comingcard.com/";
     static {
-        if (false){
-            HOST="https://api.buycardlife.com/";
+        int host = 1;
+        switch (host){
+            case 0:
+                //正式线
+                HOST="https://api.buycardlife.com/";
+                break;
+            case 1:
+                //预发布
+                HOST="http://pre.api.buycardlife.com/ ";
+                break;
+            case 2:
+                //测试线
+                HOST="http://t.shop.comingcard.com/";
+                break;
         }
+
+
     }
     public final static String HOSTDOWN_URL=HOST;
     public static String API_URL =HOST+ "MApi/";

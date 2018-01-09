@@ -161,7 +161,7 @@ public  final  class DialogHelper {
         });
         return dialog;
     }
-    public static Dialog tDialog(Context context, String msg) {
+    public static Dialog tDialog(Context context, String msg, String okdec, final ButtonCallback buttonCallback) {
         final Dialog dialog = new Dialog(context, R.style.Dialog);
         dialog.setCanceledOnTouchOutside(true);
         View view = View.inflate(context, R.layout.dialog_tishi, null);
@@ -169,10 +169,11 @@ public  final  class DialogHelper {
         TextView tvMsg = view.findViewById(R.id.tv_msg);
         tvMsg.setText(msg);
         TextView tvOk = (TextView) view.findViewById(R.id.tv_ok);
+        tvOk.setText(okdec);
         tvOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.dismiss();
+                buttonCallback.onNegative(dialog);
             }
         });
 
@@ -184,7 +185,7 @@ public  final  class DialogHelper {
         windowParams.width = width;
 
         window.setAttributes(windowParams);
-
+        dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
         dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
             public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {

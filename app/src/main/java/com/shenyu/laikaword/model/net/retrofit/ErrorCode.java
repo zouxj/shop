@@ -5,5 +5,6 @@ package com.shenyu.laikaword.model.net.retrofit;
  */
 
 public class ErrorCode {
-    public  final static int code=503;
+    public  final static int error_code_login_503=503;//账户异常登录
+    public  final static int error_code_login_506=506;//账号停用
 }

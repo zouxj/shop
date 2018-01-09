@@ -179,7 +179,6 @@ public class AccountBindActivity extends LKWordBaseActivity {
                     SPUtil.putString(Constants.TOKEN, model.getPayload().getToken());
                     IntentLauncher.with(AccountBindActivity.this).launch(AcountBdingSuccessActivity.class);
                 } else {
-                    ToastUtil.showToastShort(model.getError().getMessage());
                     finish();
 
                 }

@@ -73,7 +73,7 @@ public class ShopDateilActivity extends LKWordBaseActivity {
                                               if (uri.getAuthority().equals("goOrder")) {
                                                   //  步骤3：
                                                   // 执行JS所需要调用的逻辑
-                                                  LoginReponse loginReponse = (LoginReponse) SPUtil.readObject(Constants.LOGININFO_KEY);
+                                                  LoginReponse loginReponse =Constants.getLoginReponse();
                                                   if (null==loginReponse)
                                                       IntentLauncher.with(mActivity).launch(LoginActivity.class);
                                                 else

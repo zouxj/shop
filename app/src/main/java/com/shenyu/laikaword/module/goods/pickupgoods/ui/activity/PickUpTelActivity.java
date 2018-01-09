@@ -207,7 +207,8 @@ public class PickUpTelActivity extends LKWordBaseActivity {
                     ToastUtil.showToastShort("请输入充值手机号码");
                     return;
                 }
-                if (!StringUtil.isTelNumber(phone)) {
+                if (phone.length()<11) {
+
                     ToastUtil.showToastShort("请输入正确手机号码");
                     return;
                 }
@@ -251,8 +252,7 @@ public class PickUpTelActivity extends LKWordBaseActivity {
                     public void onSuccess(BaseReponse model) {
                         if (model.isSuccess())
                             IntentLauncher.with(PickUpTelActivity.this).put("type","HUAFEI").launchFinishCpresent(PickUpSuccessActivity.class);
-                        else
-                            ToastUtil.showToastShort(model.getError().getMessage());
+
                     }
 
                     @Override

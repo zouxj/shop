@@ -80,8 +80,6 @@ public class UserMessageActivity extends LKWordBaseActivity {
                     payload.clear();
                     payload.addAll(model.getPayload());
                     emptyWrapper.notifyDataSetChanged();
-                }else {
-                    ToastUtil.showToastShort(model.getError().getMessage());
                 }
                 loadViewHelper.closeLoadingDialog();
 

@@ -155,13 +155,12 @@ public class EditAddressActivity extends LKWordBaseActivity {
                 retrofitUtils.addSubscription(RetrofitUtils.apiStores.setAddress(mapParam), new ApiCallback<BaseReponse>() {
                         @Override
                         public void onSuccess(BaseReponse model) {
-                            if (model.isSuccess()) {
-                                loadViewHelper.closeLoadingDialog();
+                                if (model.isSuccess()) {
+                                    loadViewHelper.closeLoadingDialog();
                                 RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_ADDRESS, null));
                                 ToastUtil.showToastShort("添加成功");
                                 finish();
                             } else {
-                                ToastUtil.showToastShort(model.getError().getMessage());
                                 loadViewHelper.closeLoadingDialog();
                             }
                         }

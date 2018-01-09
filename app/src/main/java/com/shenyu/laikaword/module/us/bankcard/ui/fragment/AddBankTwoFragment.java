@@ -157,11 +157,10 @@ public class AddBankTwoFragment extends IKWordBaseFragment {
         retrofitUtils.setLifecycleTransformer(this.bindToLifecycle()).addSubscription(retrofitUtils.apiStores.setBankCard(mapParam), new ApiCallback<BaseReponse>() {
             @Override
             public void onSuccess(BaseReponse model) {
-                if (!model.isSuccess())
-                    ToastUtil.showToastShort(model.getError().getMessage());
-                else {
+                if (model.isSuccess()) {
                     ToastUtil.showToastShort("银行卡添加成功");
                     RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_BANK, null));
+                    RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_REQUEST, null));
                     getActivity().finish();
                 }
 

@@ -19,6 +19,7 @@ import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
+import com.zxj.utilslibrary.utils.UIUtil;
 
 import butterknife.BindView;
 import rx.functions.Action1;
@@ -49,7 +50,7 @@ public class SetPassWordMsgCodeActivity extends LKWordBaseActivity {
             setToolBarTitle("重置支付密码");
         else
             setToolBarTitle("设置支付密码");
-        tvMsCode.setText(Html.fromHtml("我们已发送<b>验证码<b/>到您的手机"));
+
     }
 
     @Override
@@ -58,9 +59,8 @@ public class SetPassWordMsgCodeActivity extends LKWordBaseActivity {
             if (null!=loginReponse) {
             final String phone = loginReponse.getPayload().getBindPhone();
             if (StringUtil.validText(phone)) {
-                tvSendMsgPhone.setText(Html.fromHtml("<b>" + StringUtil.formatPhoneNumber(phone) + "</b>"));
+                tvMsCode.setText("请输入"+phone+"收到的验证码");
             }
-            SendMsgHelper.sendMsg(this.bindToLifecycle(),tvDownTime,phone,"setTransactionPIN");
             tvDownTime.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -82,8 +82,6 @@ public class SetPassWordMsgCodeActivity extends LKWordBaseActivity {
                                 } else {
                                     IntentLauncher.with(mActivity).put("codeToken", model.getPayload().getSMSToken()).launchFinishCpresent(SetPassWordOneActivity.class);
                                 }
-                            }else {
-                                ToastUtil.showToastShort(model.getError().getMessage());
                             }
                         }
 

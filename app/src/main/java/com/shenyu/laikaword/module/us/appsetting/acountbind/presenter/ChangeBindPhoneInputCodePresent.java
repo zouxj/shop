@@ -24,7 +24,10 @@ public class ChangeBindPhoneInputCodePresent extends BasePresenter<ChangeBindPho
             addSubscription(lifecycleTransformer,apiStores.changePhone(phone,code), new ApiCallback<BaseReponse>() {
                 @Override
                 public void onSuccess(BaseReponse model) {
+                    if (!model.isSuccess())
                     mvpView.verifyMsgCode(model.isSuccess(),model.getError().getMessage());
+                    else
+                        mvpView.verifyMsgCode(model.isSuccess(),"");
                 }
 
                 @Override

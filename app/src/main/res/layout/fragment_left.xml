@@ -7,27 +7,23 @@
 
     <!-- TODO: Update blank fragmitem_cardinfo_listyout -->
 <RelativeLayout
+    android:id="@+id/ly_user_head"
     android:layout_width="match_parent"
     android:orientation="horizontal"
     android:background="@mipmap/left_bg_icon"
     android:layout_height="100dp">
-    <RelativeLayout
-        android:id="@+id/ly_user_head"
-        android:layout_width="48dp"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="9dp"
-        android:layout_height="48dp">
 
     <ImageView
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="9dp"
         android:id="@+id/tv_user_head"
         android:src="@mipmap/left_user_icon"
         android:layout_width="48dp"
         android:layout_height="48dp" />
 
-    </RelativeLayout>
 
     <TextView
-        android:layout_toRightOf="@+id/ly_user_head"
+        android:layout_toRightOf="@+id/tv_user_head"
         android:id="@+id/tv_user_name"
         android:layout_gravity="center_vertical"
         android:text="未登录"

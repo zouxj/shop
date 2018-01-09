@@ -1,6 +1,7 @@
 package com.shenyu.laikaword.module.us.appsetting.acountbind.ui.activity;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
@@ -40,15 +41,22 @@ public class ChangeBindPhoneInputCodeActivity extends LKWordBaseActivity  implem
     @Override
     public void doBusiness(Context context) {
         KeyBoardUtil.showSoftInput(etInputPassWord);
+
     final String phone = getIntent().getStringExtra("phone");
         tCurentPhone.setText("当前手机号码:"+phone);
-        SendMsgHelper.sendMsg(this.bindToLifecycle(),sendMsgCode,phone,"changePhone");
+        SendMsgHelper.sendMsg(ChangeBindPhoneInputCodeActivity.this.bindToLifecycle(),sendMsgCode,phone,"changePhone");
         etInputPassWord.setOnInputPasswordListener(new PayPsdInputView.onInputPasswordListener() {
         @Override
         public void onInputListner(String code) {
             changeBindPhoneInputCodePresent.sendChangePhoneCode(ChangeBindPhoneInputCodeActivity.this.bindToLifecycle(),phone,code);
         }
     });
+        findViewById(R.id.tv_send_msg_code).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SendMsgHelper.sendMsg(ChangeBindPhoneInputCodeActivity.this.bindToLifecycle(),sendMsgCode,phone,"changePhone");
+            }
+        });
 }
 
     @Override

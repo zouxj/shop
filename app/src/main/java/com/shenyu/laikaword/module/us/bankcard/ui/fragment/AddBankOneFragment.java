@@ -1,5 +1,6 @@
 package com.shenyu.laikaword.module.us.bankcard.ui.fragment;
 
+import android.app.Dialog;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -87,7 +88,17 @@ public class AddBankOneFragment extends IKWordBaseFragment {
                     RxBus.getDefault().post(new Event(EventType.ACTION_ADDBANK, model));
                 }
                 else
-                    DialogHelper.tDialog(getActivity(),model.getError().getMessage()).show();
+                    DialogHelper.tDialog(getActivity(), model.getError().getMessage(), "确定", new DialogHelper.ButtonCallback() {
+                        @Override
+                        public void onNegative(Dialog dialog) {
+                            dialog.dismiss();
+                        }
+
+                        @Override
+                        public void onPositive(Dialog dialog) {
+
+                        }
+                    }).show();
 
             }
 

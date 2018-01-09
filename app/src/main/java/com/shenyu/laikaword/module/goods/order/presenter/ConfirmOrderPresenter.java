@@ -171,8 +171,6 @@ public class ConfirmOrderPresenter extends BasePresenter<ConfirmOrderView> {
                 if (model.isSuccess()) {
                     Constants.PAY_WX_TYPE=2;
                      PayHelper.wechatPay(mActivity,model);
-                }else {
-                    ToastUtil.showToastShort(model.getError().getMessage());
                 }
 
             }
@@ -221,8 +219,6 @@ public class ConfirmOrderPresenter extends BasePresenter<ConfirmOrderView> {
                                     ToastUtil.showToastShort("支付失败");
                             }
                         });
-                    }else {
-                        ToastUtil.showToastShort(model.getError().getMessage());
                     }
 
                 }
@@ -268,9 +264,7 @@ public class ConfirmOrderPresenter extends BasePresenter<ConfirmOrderView> {
                     RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_REQUEST, null));
                     IntentLauncher.with(mActivity).launchFinishCpresent(ShopSuccessActivity.class);
                 }
-                else {
-                    ToastUtil.showToastShort(model.getError().getMessage());
-                }
+
 
             }
 

@@ -55,14 +55,13 @@ public class ChangeBindPhoneActivity extends LKWordBaseActivity implements Chang
 
     @Override
     public void doBusiness(Context context) {
-
         tvCurrentPhone.setText("当前手机号:"+ Constants.getLoginReponse().getPayload().getBindPhone());
         RxTextView.textChanges(etPhone).subscribe(new Action1<CharSequence>() {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void call(CharSequence charSequence) {
                 tvPhome.setEnabled(StringUtil.validText(charSequence.toString()));
-                if (StringUtil.validText(charSequence.toString())) {
+                if (StringUtil.validText(charSequence.toString())&&charSequence.toString().length()>=11) {
                         if (Build.VERSION.SDK_INT> Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
                             tvChangeBingPhone.setBackground(UIUtil.getDrawable(R.drawable.bg_bt_login_rectangle_light));
                     else

@@ -136,7 +136,7 @@ public class SPUtil {
      * @return
      * modified:
      */
-    public static Object readObject(String Key){
+    public synchronized static Object readObject(String Key){
         try {
             String wordBase64 = getSp().getString(Key, "");
 // 将base64格式字符串还原成byte数组

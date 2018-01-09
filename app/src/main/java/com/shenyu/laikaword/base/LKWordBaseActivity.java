@@ -305,8 +305,6 @@ public abstract class LKWordBaseActivity extends RxAppCompatActivity implements 
                     public void onSuccess(BaseReponse model) {
                         if (model.isSuccess())
                             IntentLauncher.with(mActivity).launch(AddBankCardActivity.class);
-                        else
-                            ToastUtil.showToastShort(model.getError().getMessage());
                     }
 
                     @Override

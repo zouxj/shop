@@ -9,4 +9,5 @@ import com.shenyu.laikaword.model.bean.reponse.LoginReponse;
 
 public interface LoginView  extends BaseLoadView {
     void showUser(LoginReponse user);
+    void  loginFailed(LoginReponse loginReponse);
 }

@@ -180,7 +180,7 @@ public class WthdrawMoneyActivity extends LKWordBaseActivity {
                 String moeny = etTixianNum.getText().toString().trim();
                 moeny=StringUtil.m2(StringUtil.formatDouble(moeny));
                 final String finalMoeny = moeny;
-                DialogHelper.setInputDialog(mActivity, false,moeny,"已扣除手续费2元"
+                DialogHelper.setInputDialog(mActivity, false,moeny,"手续费2元"
                         , new DialogHelper.LinstenrText() {
                     @Override
                     public void onLintenerText(String passWord) {
@@ -191,8 +191,6 @@ public class WthdrawMoneyActivity extends LKWordBaseActivity {
                                     RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_REQUEST, null));
                                     IntentLauncher.with(WthdrawMoneyActivity.this).put("money", finalMoeny).put("bankName",bankName).put("carID",carID).launchFinishCpresent(WthdrawDetailsActivity.class);
 
-                                } else {
-                                    ToastUtil.showToastShort(model.getError().getMessage());
                                 }
                             }
 

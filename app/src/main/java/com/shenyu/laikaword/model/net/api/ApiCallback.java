@@ -1,14 +1,23 @@
 package com.shenyu.laikaword.model.net.api;
 
+import android.app.Dialog;
+import android.content.Intent;
+import android.net.Uri;
+
+import com.shenyu.laikaword.helper.DialogHelper;
 import com.shenyu.laikaword.model.bean.reponse.BaseReponse;
 import com.shenyu.laikaword.common.Constants;
+import com.shenyu.laikaword.model.bean.reponse.ShopMainReponse;
 import com.shenyu.laikaword.model.net.retrofit.ErrorCode;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
 import com.zxj.utilslibrary.utils.LogUtil;
+import com.zxj.utilslibrary.utils.PackageManagerUtil;
 import com.zxj.utilslibrary.utils.SPUtil;
+import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
+import com.zxj.utilslibrary.utils.UIUtil;
 
 
 import io.reactivex.Observer;
@@ -48,11 +57,7 @@ public abstract class ApiCallback<M> implements Observer<M> {
                 msg = "网络不给力";
 
             }
-            if (code == 506) {
 
-                msg = "此账号停用";
-
-            }
             if (code == 502 || code == 404||code==500) {
 
                 msg = "服务器异常，请稍后再试";
@@ -73,15 +78,44 @@ public abstract class ApiCallback<M> implements Observer<M> {
 
     public void onNext(M model) {
         BaseReponse apiModel = (BaseReponse) model;
-        if (null!=apiModel.getError()&&apiModel.getError().getCode() == ErrorCode.code) {
-            ToastUtil.showToastShort(apiModel.getError().getMessage()+"请重新登录");
-            //TODO do things
-            SPUtil.removeSp(Constants.LOGININFO_KEY);
-            RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER, null));
+        if (apiModel.isSuccess()){
+            onSuccess(model);
+        }else {
+            if (apiModel.getError().getCode() == ErrorCode.error_code_login_503) {
+                ToastUtil.showToastShort(apiModel.getError().getMessage() + "请重新登录");
+                //TODO do things
+                SPUtil.removeSp(Constants.LOGININFO_KEY);
+                RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER, null));
+            } else if (apiModel.getError().getCode() == ErrorCode.error_code_login_506) {
+                DialogHelper.tDialog(UIUtil.getContext(), apiModel.getError().getMessage(), "联系客服", new DialogHelper.ButtonCallback() {
+                    @Override
+                    public void onNegative(Dialog dialog) {
+                        dialog.dismiss();
+                        final ShopMainReponse shopMainReponse = (ShopMainReponse) SPUtil.readObject(com.shenyu.laikaword.common.Constants.MAIN_SHOP_KEY);
+                        if (shopMainReponse != null) {
+                            String qq = shopMainReponse.getPayload().getContacts().getQq();
+                            if (StringUtil.validText(qq))
+                                if (PackageManagerUtil.checkApkExist(UIUtil.getContext(), "com.tencent.mobileqq")) {
+                                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("mqqwpa://im/chat?chat_type=wpa&uin=" + qq + "&version=1"));
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    UIUtil.getContext().startActivity(intent);
+                                } else {
+                                    ToastUtil.showToastShort("本机未安装QQ应用");
+                                }
+                        }
+                    }
+
+                    @Override
+                    public void onPositive(Dialog dialog) {
+
+                    }
+                }).show();
+
+            } else {
+                onSuccess(model);
+                ToastUtil.showToastShort(apiModel.getError().getMessage());
+            }
         }
-        onSuccess(model);
-
-
     }
 
     @Override

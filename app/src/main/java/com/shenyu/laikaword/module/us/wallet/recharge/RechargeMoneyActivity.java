@@ -139,21 +139,22 @@ public class RechargeMoneyActivity extends LKWordBaseActivity {
                         @Override
                         public void onSuccess(PayInfoReponse model) {
                             //TODO 支付宝
-                            PayHelper.aliPaySafely(model.getPayload().getPayInfo(),RechargeMoneyActivity.this, new OnAliPayListener() {
-                                @Override
-                                public void onNext(String resultInfo) {
-                                    if (resultInfo.equals("9000")) {
-                                        RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_REQUEST, null));
-                                        IntentLauncher.with(RechargeMoneyActivity.this).put("pay_type",type+"").put("money",rechargeRbNum.getText().toString().trim()).launchFinishCpresent(RechargeSuccessActivity.class);
+                            if (model.isSuccess()) {
+                                PayHelper.aliPaySafely(model.getPayload().getPayInfo(), RechargeMoneyActivity.this, new OnAliPayListener() {
+                                    @Override
+                                    public void onNext(String resultInfo) {
+                                        if (resultInfo.equals("9000")) {
+                                            RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_REQUEST, null));
+                                            IntentLauncher.with(RechargeMoneyActivity.this).put("pay_type", type + "").put("money", rechargeRbNum.getText().toString().trim()).launchFinishCpresent(RechargeSuccessActivity.class);
+                                        } else if (resultInfo.equals("8000"))
+                                            ToastUtil.showToastShort("支付失败");
+                                        else if (resultInfo.equals("6001"))
+                                            ToastUtil.showToastShort("支付取消");
+                                        else
+                                            ToastUtil.showToastShort(resultInfo);
                                     }
-                                    else if(resultInfo.equals("8000"))
-                                        ToastUtil.showToastShort("支付失败");
-                                    else if(resultInfo.equals("6001"))
-                                        ToastUtil.showToastShort("支付取消");
-                                    else
-                                        ToastUtil.showToastShort(resultInfo);
-                                }
-                            });
+                                });
+                            }
                         }
 
                         @Override
@@ -173,10 +174,14 @@ public class RechargeMoneyActivity extends LKWordBaseActivity {
                         public void onSuccess(WeixinPayReponse model) {
                             //TODO 微信支付
                             if (model!=null) {
-                                if (model.isSuccess())
-                                    Constants.PAY_WX_TYPE=1;
-                                PayHelper.wechatPay(RechargeMoneyActivity.this, model);
+                                if (model.isSuccess()) {
+                                    Constants.PAY_WX_TYPE = 1;
+                                    PayHelper.wechatPay(RechargeMoneyActivity.this, model);
+                                }else {
+                                    ToastUtil.showToastShort(model.getError().getMessage());
+                                }
                             }
+
 
                         }
 

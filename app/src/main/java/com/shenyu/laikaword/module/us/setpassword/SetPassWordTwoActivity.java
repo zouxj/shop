@@ -53,9 +53,7 @@ public class SetPassWordTwoActivity extends LKWordBaseActivity {
                             RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_REQUEST, null));
                             finish();
                         }
-                        else {
-                            ToastUtil.showToastShort(model.getError().getMessage());
-                        }
+
                     }
 
                     @Override

@@ -37,7 +37,7 @@ public final class SendMsgHelper {
             ToastUtil.showToastShort("请输入手机号");
             return;
         }
-        if (!StringUtil.isTelNumber(phone)){
+        if (phone.length()<11){
             ToastUtil.showToastShort("请输入正确手机号");
             return;
         }

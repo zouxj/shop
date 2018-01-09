@@ -21,7 +21,10 @@ public class ChangeBindPhonePresenter extends BasePresenter<ChangeBindPhoneView>
         addSubscription(lifecycleTransformer, apiStores.checkBind(phone), new ApiCallback<BaseReponse>() {
             @Override
             public void onSuccess(BaseReponse model) {
-                mvpView.checkPhone(model.isSuccess(),model.getError().getMessage());
+                if (model.isSuccess())
+                mvpView.checkPhone(model.isSuccess(),"");
+                else
+                    mvpView.checkPhone(model.isSuccess(),model.getError().getMessage());
 
             }
 

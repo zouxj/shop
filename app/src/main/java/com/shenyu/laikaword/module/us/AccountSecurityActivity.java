@@ -104,8 +104,6 @@ public class AccountSecurityActivity extends LKWordBaseActivity {
                     public void onSuccess(BaseReponse model) {
                         if (model.isSuccess())
                             IntentLauncher.with(mActivity).launch(ChangeBindPhoneActivity.class);
-                        else
-                            ToastUtil.showToastShort(model.getError().getMessage());
                     }
 
                     @Override

@@ -1,8 +1,10 @@
 package com.shenyu.laikaword.module.login.ui.activity;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -12,6 +14,9 @@ import android.widget.TextView;
 import com.jakewharton.rxbinding.widget.RxTextView;
 import com.leo618.mpermission.MPermission;
 import com.leo618.mpermission.MPermissionSettingsDialog;
+import com.shenyu.laikaword.helper.DialogHelper;
+import com.shenyu.laikaword.model.bean.reponse.ShopMainReponse;
+import com.shenyu.laikaword.model.net.retrofit.ErrorCode;
 import com.shenyu.laikaword.module.launch.LaiKaApplication;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
@@ -22,6 +27,8 @@ import com.shenyu.laikaword.module.login.presenter.LoginPresenter;
 import com.shenyu.laikaword.module.login.view.LoginView;
 import com.tencent.connect.common.Constants;
 import com.zxj.utilslibrary.utils.LogUtil;
+import com.zxj.utilslibrary.utils.PackageManagerUtil;
+import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
@@ -135,6 +142,11 @@ public class LoginActivity extends LKWordBaseActivity implements LoginView,MPerm
 
     @Override
     public void showUser(LoginReponse user) {
+    }
+
+    @Override
+    public void loginFailed(LoginReponse model) {
+
     }
 
 

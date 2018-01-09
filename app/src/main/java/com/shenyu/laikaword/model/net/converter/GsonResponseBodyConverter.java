@@ -30,7 +30,7 @@ final class GsonResponseBodyConverter<T> implements Converter<ResponseBody, Obje
 
             ApiModel apiModel = (ApiModel) adapter.fromJson(value.charStream());
 
-            if (null!=apiModel.getError()&&apiModel.getError().getCode() == ErrorCode.code) {
+            if (null!=apiModel.getError()&&apiModel.getError().getCode() == ErrorCode.error_code_login_503||apiModel.getError().getCode() == ErrorCode.error_code_login_506) {
 
 //                throw new TokenNotExistException();
 

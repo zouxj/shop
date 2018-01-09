@@ -1,8 +1,14 @@
 package com.shenyu.laikaword.module.login.presenter;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.widget.TextView;
 
+import com.shenyu.laikaword.helper.DialogHelper;
+import com.shenyu.laikaword.model.bean.reponse.ShopMainReponse;
+import com.shenyu.laikaword.model.net.retrofit.ErrorCode;
 import com.shenyu.laikaword.module.launch.LaiKaApplication;
 import com.shenyu.laikaword.base.BasePresenter;
 import com.shenyu.laikaword.model.bean.reponse.LoginReponse;
@@ -17,9 +23,11 @@ import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.umeng.analytics.MobclickAgent;
 import com.zxj.utilslibrary.utils.IntentLauncher;
+import com.zxj.utilslibrary.utils.PackageManagerUtil;
 import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
+import com.zxj.utilslibrary.utils.UIUtil;
 
 import java.util.UUID;
 
@@ -53,9 +61,9 @@ public class LoginPresenter extends BasePresenter<LoginView> {
                     ToastUtil.showToastShort("登录成功");
                     IntentLauncher.with(mActivity).launchFinishCpresent(MainActivity.class);
 
-                }else{
+                }else {
                     //TODO 登陆失败
-                    ToastUtil.showToastShort(model.getError().getMessage());
+                    mvpView.loginFailed(model);
                 }
             }
 
@@ -131,8 +139,6 @@ public class LoginPresenter extends BasePresenter<LoginView> {
                             IntentLauncher.with(mActivity).launch(MainActivity.class);
                         }
 //                        IntentLauncher.with(mActivity).launchFinishCpresent(MainActivity.class);
-                    }else {
-                        ToastUtil.showToastShort(model.getError().getMessage());
                     }
 
             }

@@ -8,6 +8,7 @@ import android.view.View;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.di.module.BankModule;
 import com.shenyu.laikaword.model.adapter.ReslerAdapter;
+import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
 import com.shenyu.laikaword.model.wrapper.EmptyWrapper;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.model.bean.reponse.BaseReponse;
@@ -150,6 +151,7 @@ public class BankInfoActivity extends LKWordBaseActivity implements  BankInfoVie
     public void deteBank(boolean bool) {
         if (bool) {
             ToastUtil.showToastShort("删除成功！");
+            RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_REQUEST, null));
             bankInfoPresenter.loadData(this.bindToLifecycle());
         }else {
             ToastUtil.showToastShort("删除失败！");
