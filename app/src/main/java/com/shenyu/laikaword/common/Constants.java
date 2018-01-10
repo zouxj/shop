@@ -14,7 +14,7 @@ public class Constants {
      */
     public static String HOST="http://t.shop.comingcard.com/";
     static {
-        int host = 1;
+        int host = 0;
         switch (host){
             case 0:
                 //正式线
@@ -22,7 +22,7 @@ public class Constants {
                 break;
             case 1:
                 //预发布
-                HOST="http://pre.api.buycardlife.com/ ";
+                HOST="http://pre.api.buycardlife.com/";
                 break;
             case 2:
                 //测试线

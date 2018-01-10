@@ -120,6 +120,7 @@ public class UPMarqueeView extends ViewFlipper  {
 
         }
 
+        if (views.size()>1)
         startFlipping();
 
     }

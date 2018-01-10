@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -16,6 +18,7 @@ import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.ui.view.widget.ProgressWebView;
 import com.zxj.utilslibrary.utils.LogUtil;
+import com.zxj.utilslibrary.utils.UIUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -32,11 +35,20 @@ public class GuessActivity extends LKWordBaseActivity {
         return R.layout.activity_guess;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void initView() {
         initWebView();
         webURL = getIntent().getStringExtra("weburl");
         wbLoad.loadUrl(webURL);
+        mToolbarSubTitle.setBackground(UIUtil.getDrawable(R.mipmap.refresh_icon));
+        mToolbarSubTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                wbLoad.reload();
+            }
+        });
+
 
     }
 

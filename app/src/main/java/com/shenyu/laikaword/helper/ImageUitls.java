@@ -25,7 +25,7 @@ public final  class ImageUitls {
         if (!StringUtil.validText(url))
             url = null;
         Picasso.with(UIUtil.getContext()).load(url).placeholder(R.mipmap.left_user_icon)
-                .error(R.mipmap.left_user_icon).resize(50, 50).transform(new CircleTransform()).into(imgView);
+                .error(R.mipmap.left_user_icon).resize(100, 100).transform(new CircleTransform()).into(imgView);
     }
     public synchronized static void  loadImgRound(String url,ImageView imgView,int value){
         if (!StringUtil.validText(url))

@@ -17,7 +17,7 @@ public class CircleTransform implements Transformation {
     @Override
     public Bitmap transform(Bitmap source) {
         //1.压缩处理
-        Bitmap zoomBitmp = ImageUtil.compressImage(source,100);
+        Bitmap zoomBitmp = ImageUtil.compressImage(source,200);
         //2.圆形处理
         Bitmap bitmap = ImageUtil.circleBitmap(zoomBitmp);
         //必须要回收source，否则会报错

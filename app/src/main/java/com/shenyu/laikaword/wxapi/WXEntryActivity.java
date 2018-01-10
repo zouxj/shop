@@ -39,8 +39,6 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LaiKaApplication.iwxapi = WXAPIFactory.createWXAPI(this, Constants.WX_APPID);
-        LaiKaApplication.iwxapi.registerApp(Constants.WX_APPID);
         LaiKaApplication.iwxapi.handleIntent(this.getIntent(), this);
     }
     @Override

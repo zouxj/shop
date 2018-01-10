@@ -232,7 +232,7 @@ public class UserInfoActivity extends LKWordBaseActivity implements UserInfoView
             changeTvName.setText(loginReponse.getPayload().getNickname());
             tVUserName.setText(loginReponse.getPayload().getUserName());
             if (StringUtil.validText(loginReponse.getPayload().getBankCardNum()))
-            tvBankCount.setText(loginReponse.getPayload().getBankCardNum());
+            tvBankCount.setText(loginReponse.getPayload().getBankCardNum().equals("0")?"":loginReponse.getPayload().getBankCardNum());
             ImageUitls.loadImgRound(loginReponse.getPayload().getAvatar(), setChangeUserHead);
         } else {
             changeTvName.setText("");

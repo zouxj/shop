@@ -364,6 +364,7 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
                     IntentLauncher.with(getActivity()).put("weburl",data.get(finalI).getLink()).launch(GuessActivity.class);
             }
             });
+            views.add(moreView);
             /**
              * 设置监听
              */
@@ -382,9 +383,8 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
 //                moreView.findViewById(R.id.rl2).setVisibility(View.GONE);
 //            }
             //添加到循环滚动数组里面去
-            views.add(moreView);
+
         }
-        upMarqueeTextView.removeAllViews();
         upMarqueeTextView.setViews(views);
     }
 
