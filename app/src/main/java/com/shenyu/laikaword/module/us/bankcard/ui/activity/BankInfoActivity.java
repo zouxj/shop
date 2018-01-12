@@ -3,6 +3,7 @@ package com.shenyu.laikaword.module.us.bankcard.ui.activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.shenyu.laikaword.R;
@@ -55,6 +56,7 @@ public class BankInfoActivity extends LKWordBaseActivity implements  BankInfoVie
         emptyWrapper = new EmptyWrapper(reslerAdapter);
         emptyWrapper.setEmptyView(R.layout.empty_view,UIUtil.getString(R.string.bank_empty));
         recyclerView.setAdapter(emptyWrapper);
+
         recyclerView.setOnItemClickListener(new DeleteRecyclerView.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -143,6 +145,21 @@ public class BankInfoActivity extends LKWordBaseActivity implements  BankInfoVie
         if (model.isSuccess()) {
             payload.clear();
             payload.addAll(model.getPayload());
+            if (payload.size()<=0){
+                recyclerView.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View view, MotionEvent motionEvent) {
+                        return true;
+                    }
+                });
+            }else {
+                recyclerView.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View view, MotionEvent motionEvent) {
+                        return false;
+                    }
+                });
+            }
             emptyWrapper.notifyDataSetChanged();
         }
     }

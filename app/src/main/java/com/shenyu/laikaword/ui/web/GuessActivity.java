@@ -57,13 +57,12 @@ public class GuessActivity extends LKWordBaseActivity {
     private void initWebView() {
         wbLoad.getSettings().setTextZoom(100);
         WebSettings webSettings = wbLoad.getSettings();
-        webSettings.setUserAgentString("YTXH");
+        webSettings.setUserAgentString("laikashopapp");
         webSettings.setAllowContentAccess(true);
         webSettings.setAppCacheEnabled(true);
         webSettings.setAllowFileAccess(true);
         webSettings.setLoadWithOverviewMode(true);
        webSettings.setUseWideViewPort(true); //将图片调整到适合webview的大小
-
 //       webSettings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
         webSettings.setBuiltInZoomControls(true);
         webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
@@ -75,7 +74,6 @@ public class GuessActivity extends LKWordBaseActivity {
         webSettings.setGeolocationDatabasePath("/data/data/org.itri.html5webview/databases/");
         // enable Web Storage: localStorage, sessionStorage   
         webSettings.setDomStorageEnabled(true);
-
         webSettings.setDisplayZoomControls(false); //隐藏原生的缩放控件
         // 设置与Js交互的权限
         webSettings.setJavaScriptEnabled(true);

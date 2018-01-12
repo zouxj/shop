@@ -90,7 +90,6 @@ public class DeleteRecyclerView extends RecyclerView {
                     BaseViewHolder viewHolder = null;
                     if (getChildViewHolder(view) instanceof BaseViewHolder)
                         viewHolder = (BaseViewHolder) getChildViewHolder(view);
-                    if (mItemView != null || null != mDeleteView) {
                         mItemView = viewHolder.getView(R.id.item_layout);
                         mDeleteView = viewHolder.getView(R.id.item_delete);
                         mPosition = viewHolder.getAdapterPosition();
@@ -106,7 +105,7 @@ public class DeleteRecyclerView extends RecyclerView {
                                     mListener.onDeleteClick(mPosition);
                             }
                         });
-                    }
+
                     //当删除图片已经完全显示的时候
                 } else if (status == OPEN) {
                     //从当前view的偏移点mItemView.getScrollX()，位移-mMaxLength长度单位
@@ -122,7 +121,6 @@ public class DeleteRecyclerView extends RecyclerView {
                 break;
             case MotionEvent.ACTION_MOVE:
                 //获取上次的落点与当前的坐标之间的差值
-                if (null!=mItemView) {
                     int dx = mLastX - x;
                     int dy = mLastY - y;
                     int scrollX = mItemView.getScrollX();
@@ -142,14 +140,13 @@ public class DeleteRecyclerView extends RecyclerView {
                         //如果在图片还未完全显示的状态下，那么手指滑动多少，图片就移动多少
                         mItemView.scrollBy(dx, 0);
                         //mItemView.scrollTo(dx+scrollX,0);
-                    }
+
                 }
                 break;
             case MotionEvent.ACTION_UP:
-                if (null != mItemView) {
                     if (!isHorMoving && !isVerMoving && mListener != null) {
                         mListener.onItemClick(mItemView, mPosition);
-                    }
+
                     isHorMoving = false;
 
                     mVelocityTracker.computeCurrentVelocity(1000);//计算手指滑动的速度
