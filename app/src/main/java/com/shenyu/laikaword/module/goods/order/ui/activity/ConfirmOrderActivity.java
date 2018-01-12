@@ -194,7 +194,6 @@ public class ConfirmOrderActivity extends LKWordBaseActivity implements ConfirmO
     @Override
     public void doBusiness(Context context) {
         mConfirmOrderPresenter.initData();
-        subscribeEvent();
 
     }
 
@@ -265,34 +264,18 @@ public class ConfirmOrderActivity extends LKWordBaseActivity implements ConfirmO
                 mAmountView.setGoods_storage(StringUtil.formatIntger(goodBean.getStock())>5?5:StringUtil.formatIntger(goodBean.getStock()));
         }
     }
-    private void subscribeEvent() {
-        RxSubscriptions.remove(mRxSub);
-        mRxSub = RxBus.getDefault().toObservable(Event.class)
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(new RxBusSubscriber<Event>() {
-                    @Override
-                    protected void onEvent(Event myEvent) {
-                        switch (myEvent.event) {
-                            case EventType.ACTION_UPDATA_USER:
-                                LoginReponse loginReponse= Constants.getLoginReponse();
-                                userAount=loginReponse.getPayload().getMoney();
-                                commonAdapter.notifyItemChanged(0);
-                                break;
-                        }
-//            }
-                    }
-                    @Override
-                    public void onError(Throwable e) {
-                        super.onError(e);
-                        LogUtil.e(TAG, "onError");
-                        /**
-                         * 这里注意: 一旦订阅过程中发生异常,走到onError,则代表此次订阅事件完成,后续将收不到onNext()事件,
-                         * 即 接受不到后续的任何事件,实际环境中,我们需要在onError里 重新订阅事件!
-                         */
-                        subscribeEvent();
-                    }
-                });
-        RxSubscriptions.add(mRxSub);
+
+    @Override
+    public void subscribeEvent(Event event) {
+        switch (event.event) {
+            case EventType.ACTION_UPDATA_USER:
+                LoginReponse loginReponse= Constants.getLoginReponse();
+                userAount=loginReponse.getPayload().getMoney();
+                commonAdapter.notifyItemChanged(0);
+                break;
+        }
     }
+
 
     @Override
     protected void onDestroy() {

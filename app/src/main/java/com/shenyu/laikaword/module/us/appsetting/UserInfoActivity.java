@@ -78,36 +78,9 @@ public class UserInfoActivity extends LKWordBaseActivity implements UserInfoView
     @Override
     public void doBusiness(Context context) {
         //修改时重新刷新数据
-        subscribeEvent();
         userInfoPresenter.initUserData();
     }
 
-    private void subscribeEvent() {
-        RxSubscriptions.remove(mRxSub);
-        mRxSub = RxBus.getDefault().toObservable(Event.class)
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(new RxBusSubscriber<Event>() {
-                    @Override
-                    protected void onEvent(Event myEvent) {
-                        switch (myEvent.event) {
-                            case EventType.ACTION_UPDATA_USER:
-                                userInfoPresenter.initUserData();
-                                break;
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        super.onError(e);
-                        LogUtil.e(TAG, "onError");
-                        /**
-                         * 这里注意: 一旦订阅过程中发生异常,走到onError,则代表此次订阅事件完成,后续将收不到onNext()事件,
-                         * 即 接受不到后续的任何事件,实际环境中,我们需要在onError里 重新订阅事件!
-                         */
-                        subscribeEvent();
-                    }
-                });
-        RxSubscriptions.add(mRxSub);
-    }
 
     @Override
     public void setupActivityComponent() {
@@ -254,6 +227,15 @@ public class UserInfoActivity extends LKWordBaseActivity implements UserInfoView
             RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_REQUEST, null));
         } else
             ToastUtil.showToastShort("上传失败");
+    }
+
+    @Override
+    public void subscribeEvent(Event event) {
+        switch (event.event) {
+            case EventType.ACTION_UPDATA_USER:
+                userInfoPresenter.initUserData();
+                break;
+        }
     }
 
 

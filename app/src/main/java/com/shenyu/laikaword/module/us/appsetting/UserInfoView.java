@@ -2,6 +2,7 @@ package com.shenyu.laikaword.module.us.appsetting;
 
 import com.shenyu.laikaword.base.BaseLoadView;
 import com.shenyu.laikaword.model.bean.reponse.LoginReponse;
+import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 
 /**
  * Created by shenyu_zxjCode on 2017/9/15 0015.
@@ -17,4 +18,5 @@ public interface UserInfoView extends BaseLoadView {
     void setUserInfo(LoginReponse loginReponse);
     void upadteHeadImgStart();
     void upadteHeadFinsh(boolean bool);
+    void subscribeEvent(Event event);
 }

@@ -135,10 +135,6 @@ public class SelectAddressActivity extends LKWordBaseActivity {
             case R.id.rl_toolbar_subtitle:
                 IntentLauncher.with(this).launch(AddressInfoActivity.class);
                 break;
-//            case R.id.bt_ok_address:
-//                setResult(RESULT_OK, intent);
-//                finish();
-//                break;
         }
 
     }

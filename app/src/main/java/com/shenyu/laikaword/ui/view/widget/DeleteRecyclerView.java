@@ -90,7 +90,7 @@ public class DeleteRecyclerView extends RecyclerView {
                     BaseViewHolder viewHolder = null;
                     if (getChildViewHolder(view) instanceof BaseViewHolder)
                         viewHolder = (BaseViewHolder) getChildViewHolder(view);
-                        mItemView = viewHolder.getView(R.id.item_layout);
+//                        mItemView = viewHolder.getView(R.id.item_layout);
                         mDeleteView = viewHolder.getView(R.id.item_delete);
                         mPosition = viewHolder.getAdapterPosition();
                         mMaxLength = mDeleteView.getWidth();

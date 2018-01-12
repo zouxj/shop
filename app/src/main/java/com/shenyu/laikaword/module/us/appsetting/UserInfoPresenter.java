@@ -17,6 +17,7 @@ import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.model.net.api.ApiCallback;
 import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
 import com.shenyu.laikaword.model.rxjava.rx.RxTask;
+import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.zxj.utilslibrary.utils.FileStorageUtil;
 import com.zxj.utilslibrary.utils.ImageUtil;
@@ -256,5 +257,10 @@ public class UserInfoPresenter extends BasePresenter<UserInfoView> {
         if (null!=loginReponse){
             mvpView.setUserInfo(loginReponse);
         }
+    }
+
+    @Override
+    public void distribute(Event myEvent) {
+        mvpView.subscribeEvent(myEvent);
     }
 }

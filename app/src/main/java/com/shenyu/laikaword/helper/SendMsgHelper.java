@@ -38,23 +38,20 @@ public final class SendMsgHelper {
             return;
         }
         if (phone.length()<11){
-            ToastUtil.showToastShort("请输入正确手机号");
+            ToastUtil.showToastShort("请输入有效手机号");
             return;
         }
         RetrofitUtils.getRetrofitUtils().addSubscription(RetrofitUtils.apiStores.getSMCode(phone, codeTpe), new ApiCallback<BaseReponse>() {
             @Override
             public void onSuccess(BaseReponse model) {
-                if (model.isSuccess()){
+                if (model.isSuccess())
                     countdownTime(mSend);
-                    ToastUtil.showToastShort("短信发送成功");
-                }else {
-                    ToastUtil.showToastShort("短信发送失败");
-                }
+
             }
 
             @Override
             public void onFailure(String msg) {
-                ToastUtil.showToastShort("短信发送失败"+msg);
+                ToastUtil.showToastShort(msg);
             }
 
             @Override

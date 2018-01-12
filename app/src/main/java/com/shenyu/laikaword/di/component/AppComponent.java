@@ -5,6 +5,7 @@ import com.shenyu.laikaword.di.module.AppModule;
 import com.shenyu.laikaword.di.module.BankModule;
 import com.shenyu.laikaword.di.module.MainModule;
 import com.shenyu.laikaword.di.module.LoginModule;
+import com.shenyu.laikaword.di.module.UserAddressModule;
 import com.shenyu.laikaword.di.module.mine.MineModule;
 import com.shenyu.laikaword.di.module.ShopModule;
 import com.shenyu.laikaword.di.module.mine.BindAccountModule;
@@ -26,4 +27,5 @@ public interface AppComponent {
     ShopCommponent plus(ShopModule mineModule);
     BankComponet plus(BankModule bankModule);
     BindAccountComponent plus(BindAccountModule bankModule);
+    UserAddressComponent plus(UserAddressModule userAddressComponent);
 }

@@ -3,12 +3,16 @@ package com.shenyu.laikaword.module.us.bankcard.ui.activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.di.module.BankModule;
+import com.shenyu.laikaword.helper.ImageUitls;
 import com.shenyu.laikaword.model.adapter.ReslerAdapter;
+import com.shenyu.laikaword.model.holder.ViewHolder;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
 import com.shenyu.laikaword.model.wrapper.EmptyWrapper;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
@@ -21,6 +25,8 @@ import com.shenyu.laikaword.module.launch.LaiKaApplication;
 import com.shenyu.laikaword.module.us.bankcard.presenter.BankInfoPresenter;
 import com.shenyu.laikaword.module.us.bankcard.view.BankInfoView;
 import com.shenyu.laikaword.ui.view.widget.DeleteRecyclerView;
+import com.shenyu.laikaword.ui.view.widget.SwipeItemLayout;
+import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 import com.shenyu.laikaword.helper.DialogHelper;
@@ -36,7 +42,7 @@ import butterknife.OnClick;
 public class BankInfoActivity extends LKWordBaseActivity implements  BankInfoView {
 
     @BindView(R.id.card_cy_list)
-    DeleteRecyclerView recyclerView;
+    RecyclerView recyclerView;
     ReslerAdapter reslerAdapter ;
     EmptyWrapper emptyWrapper;
     @Inject
@@ -51,19 +57,18 @@ public class BankInfoActivity extends LKWordBaseActivity implements  BankInfoVie
     public void initView() {
         setToolBarTitle("银行卡");
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.addOnItemTouchListener(new SwipeItemLayout.OnSwipeItemTouchListener(this));
         recyclerView.addItemDecoration(new RecycleViewDivider(this,LinearLayoutManager.HORIZONTAL, (int) UIUtil.dp2px(1),UIUtil.getColor(R.color.main_bg_gray)));
-        reslerAdapter = new ReslerAdapter(UIUtil.getContext(),payload);
-        emptyWrapper = new EmptyWrapper(reslerAdapter);
-        emptyWrapper.setEmptyView(R.layout.empty_view,UIUtil.getString(R.string.bank_empty));
-        recyclerView.setAdapter(emptyWrapper);
-
-        recyclerView.setOnItemClickListener(new DeleteRecyclerView.OnItemClickListener() {
+        reslerAdapter = new ReslerAdapter(R.layout.item_cardinfo_list,payload){
             @Override
-            public void onItemClick(View view, int position) {
-            }
-
-            @Override
-            public void onDeleteClick(final int position) {
+            protected void convert(ViewHolder viewHolder, BankInfoReponse.PayloadBean payloadBean, final int position) {
+                viewHolder.setText(R.id.tv_bank_no,"尾号"+ StringUtil.getBankNumber(payloadBean.getCardNo()));
+                viewHolder.setText(R.id.tv_card_bank,payloadBean.getBankName());
+                ImageUitls.loadImgRound(payloadBean.getBankLogo(),
+                        (ImageView) viewHolder.getView(R.id.iv_bank_log),R.mipmap.banklogo);
+                viewHolder.setOnClickListener(R.id.item_delete, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
                 DialogHelper.deleteBankDialog(BankInfoActivity.this, "解除绑定后银行卡服务将不可使用,包括快捷支付","解除绑定",new DialogHelper.ButtonCallback() {
                     @Override
                     public void onNegative(Dialog dialog) {
@@ -75,15 +80,40 @@ public class BankInfoActivity extends LKWordBaseActivity implements  BankInfoVie
 
                     }
                 });
-
+                    }
+                });
             }
+        };
+        emptyWrapper = new EmptyWrapper(reslerAdapter);
+        emptyWrapper.setEmptyView(R.layout.empty_view,UIUtil.getString(R.string.bank_empty));
+        recyclerView.setAdapter(emptyWrapper);
 
-        });
+//        recyclerView.setOnItemClickListener(new DeleteRecyclerView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(View view, int position) {
+//            }
+//
+//            @Override
+//            public void onDeleteClick(final int position) {
+//                DialogHelper.deleteBankDialog(BankInfoActivity.this, "解除绑定后银行卡服务将不可使用,包括快捷支付","解除绑定",new DialogHelper.ButtonCallback() {
+//                    @Override
+//                    public void onNegative(Dialog dialog) {
+//                        bankInfoPresenter.deleteBank(BankInfoActivity.this.bindToLifecycle(),payload.get(position).getCardId());
+//                }
+//
+//                    @Override
+//                    public void onPositive(Dialog dialog) {
+//
+//                    }
+//                });
+//
+//            }
+//
+//        });
     }
 
     @Override
     public void doBusiness(Context context) {
-        bankInfoPresenter.subscribeEvent();
         bankInfoPresenter.loadData(this.bindToLifecycle());
     }
 

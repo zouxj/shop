@@ -20,13 +20,15 @@ import java.util.ArrayList;
 
 public final class CityDataHelper {
 
-private Context mContext;
-private Thread thread;
+    private Context mContext;
+    private Thread thread;
     private ArrayList<JsonBean> options1Items = new ArrayList<>();
     private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();
     private ArrayList<ArrayList<ArrayList<String>>> options3Items = new ArrayList<>();
-    public  CityDataHelper(Context context) {
+    private int tierFlog = 3;
+    public  CityDataHelper(Context context,int tierFlog) {
         this.mContext = context;
+        this.tierFlog=tierFlog;
         if (thread == null) {//如果已创建就不再重新创建子线程了
             thread = new Thread(new Runnable() {
                 @Override
@@ -90,7 +92,7 @@ private Thread thread;
             /**
              * 添加地区数据
              */
-            options3Items.add(Province_AreaList);
+                options3Items.add(Province_AreaList);
         }
 
     }
@@ -115,12 +117,9 @@ private Thread thread;
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
                 //返回的分别是三个级别的选中位置
-                String tx = options1Items.get(options1).getPickerViewText()+
-                        options2Items.get(options1).get(options2)+
-                        options3Items.get(options1).get(options2).get(options3);
                 if (null!=iOptionPickerVierCallBack){
                     iOptionPickerVierCallBack.callBack(options1Items.get(options1).getPickerViewText(),options2Items.get(options1).get(options2),
-                            options3Items.get(options1).get(options2).get(options3),tx);
+                            options3Items.get(options1).get(options2).get(options3));
                 }
 
             }
@@ -132,9 +131,18 @@ private Thread thread;
                 .setContentTextSize(20)
                 .build();
 
-        /*pvOptions.setPicker(options1Items);//一级选择器
-        pvOptions.setPicker(options1Items, options2Items);//二级选择器*/
-        pvOptions.setPicker(options1Items, options2Items,options3Items);//三级选择器
+
+        switch (tierFlog){
+            case 1:
+                  pvOptions.setPicker(options1Items);//一级选择器
+                break;
+            case 2:
+                pvOptions.setPicker(options1Items, options2Items);//二级选择器*/
+                break;
+            case 3:
+                pvOptions.setPicker(options1Items, options2Items,options3Items);//三级选择器
+                break;
+        }
         pvOptions.show();
     }
 

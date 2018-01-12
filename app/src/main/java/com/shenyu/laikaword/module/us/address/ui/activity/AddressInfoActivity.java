@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.common.Constants;
+import com.shenyu.laikaword.di.module.BankModule;
+import com.shenyu.laikaword.di.module.UserAddressModule;
 import com.shenyu.laikaword.model.adapter.CommonAdapter;
 import com.shenyu.laikaword.model.holder.ViewHolder;
 import com.shenyu.laikaword.model.wrapper.EmptyWrapper;
@@ -25,6 +27,10 @@ import com.shenyu.laikaword.model.rxjava.rxbus.RxSubscriptions;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
+import com.shenyu.laikaword.module.launch.LaiKaApplication;
+import com.shenyu.laikaword.module.us.address.presenter.AddressInfoPresenter;
+import com.shenyu.laikaword.module.us.address.view.AddressInfoView;
+import com.shenyu.laikaword.module.us.appsetting.UserInfoView;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.SPUtil;
@@ -36,17 +42,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import rx.android.schedulers.AndroidSchedulers;
 
-public class AddressInfoActivity extends LKWordBaseActivity {
+public class AddressInfoActivity extends LKWordBaseActivity implements AddressInfoView {
 
     @BindView(R.id.rl_address_list)
     RecyclerView rlAddressList;
     private CommonAdapter<AddressReponse.PayloadBean> commonAdapter;
     private List<AddressReponse.PayloadBean> payload;
     EmptyWrapper<AddressReponse.PayloadBean> emptyWrapper;
+    @Inject
+    AddressInfoPresenter addressInfoPresenter;
     @Override
     public int bindLayout() {
         return R.layout.activity_add_address_info;
@@ -58,36 +68,11 @@ public class AddressInfoActivity extends LKWordBaseActivity {
         rlAddressList.addItemDecoration(new RecycleViewDivider(this, LinearLayoutManager.HORIZONTAL, (int) UIUtil.dp2px(9),UIUtil.getColor(R.color.main_bg_gray)));
         rlAddressList.setLayoutManager(new LinearLayoutManager(this));
     }
-    private void subscribeEvent() {
-        RxSubscriptions.remove(mRxSub);
-        mRxSub = RxBus.getDefault().toObservable(Event.class)
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(new RxBusSubscriber<Event>() {
-                    @Override
-                    protected void onEvent(Event myEvent) {
-                        switch (myEvent.event) {
-                            case EventType.ACTION_UPDATA_USER_ADDRESS:
-                                initData();
-                                break;
-                        }
-                    }
-                    @Override
-                    public void onError(Throwable e) {
-                        super.onError(e);
-                        LogUtil.e(TAG, "onError");
-                        /**
-                         * 这里注意: 一旦订阅过程中发生异常,走到onError,则代表此次订阅事件完成,后续将收不到onNext()事件,
-                         * 即 接受不到后续的任何事件,实际环境中,我们需要在onError里 重新订阅事件!
-                         */
-                        subscribeEvent();
-                    }
-                });
-        RxSubscriptions.add(mRxSub);
-    }
+
     @Override
     public void doBusiness(Context context) {
         payload = new ArrayList<>();
-        initData();
-        subscribeEvent();
+        addressInfoPresenter.getAddressInfo(this.bindToLifecycle());
         commonAdapter = new CommonAdapter<AddressReponse.PayloadBean>(R.layout.item_mine_address_info,payload) {
             @Override
             protected void convert(final ViewHolder holder, final AddressReponse.PayloadBean addressReponse, final int position) {
@@ -112,35 +97,8 @@ public class AddressInfoActivity extends LKWordBaseActivity {
                 holder.setOnClickListener(R.id.tv_delete_address, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        DialogHelper.deleteBankDialog(mActivity,"地址删除后,不可再使用该地址", "确认删除",new DialogHelper.ButtonCallback() {
-                            @Override
-                            public void onNegative(Dialog dialog) {
-                                retrofitUtils.setLifecycleTransformer(AddressInfoActivity.this.bindToLifecycle()).addSubscription(RetrofitUtils.apiStores.deleteAddress(addressReponse.getAddressId()), new ApiCallback<BaseReponse>() {
-                                    @Override
-                                    public void onSuccess(BaseReponse model) {
-                                        if (model.isSuccess()){
-                                            RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_ADDRESS, null));
-                                        }
-                                    }
 
-                                    @Override
-                                    public void onFailure(String msg) {
-
-                                    }
-
-                                    @Override
-                                    public void onFinish() {
-
-                                    }
-                                });
-                            }
-
-                            @Override
-                            public void onPositive(Dialog dialog) {
-
-                            }
-                        });
-
+                        addressInfoPresenter.deleteAddress(AddressInfoActivity.this,AddressInfoActivity.this.bindToLifecycle(),addressReponse);
 
                     }
                 });
@@ -148,9 +106,9 @@ public class AddressInfoActivity extends LKWordBaseActivity {
                     @Override
                     public void onClick(View view) {
                         if (addressReponse.getDefaultX()==1){
-                            request(addressReponse,0);
+                            addressInfoPresenter.setAddress(AddressInfoActivity.this.bindToLifecycle(),addressReponse,0);
                         }else if (addressReponse.getDefaultX()==0){
-                            request(addressReponse,1);
+                            addressInfoPresenter.setAddress(AddressInfoActivity.this.bindToLifecycle(),addressReponse,1);
                         }
                     }
                 });
@@ -161,44 +119,11 @@ public class AddressInfoActivity extends LKWordBaseActivity {
         rlAddressList.setAdapter(emptyWrapper);
     }
 
-    protected void initData() {
-        RetrofitUtils.getRetrofitUtils().setLifecycleTransformer(this.bindToLifecycle()).addSubscription(RetrofitUtils.apiStores.getAddress(), new ApiCallback<AddressReponse>() {
-            @Override
-            public void onSuccess(AddressReponse model) {
-                int j=0;
-                if (model.isSuccess()){
-                    payload.clear();
-                    payload.addAll(model.getPayload());
-                    emptyWrapper.notifyDataSetChanged();
-                    for (AddressReponse.PayloadBean payloadBean:model.getPayload()) {
-                        if (payloadBean.getDefaultX()==1) {
-                            j=1;
-                            SPUtil.saveObject(Constants.SAVA_ADDRESS,payloadBean);
-                            break;
-                        }
-                    }
-                    if (j==0){
-                        SPUtil.removeSp(Constants.SAVA_ADDRESS);
-                    }
 
-                }
-            }
-
-            @Override
-            public void onFailure(String msg) {
-
-            }
-
-            @Override
-            public void onFinish() {
-
-            }
-        });
-    }
 
     @Override
     public void setupActivityComponent() {
-
+        LaiKaApplication.get(this).getAppComponent().plus(new UserAddressModule(this)).inject(this);
     }
     @OnClick(R.id.tv_add_address)
     public void onClick(View view){
@@ -216,47 +141,46 @@ public class AddressInfoActivity extends LKWordBaseActivity {
         RxSubscriptions.remove(mRxSub);
     }
 
-    public void request(AddressReponse.PayloadBean payloadBean, final int def){
-        Map<String,String> mapParam = new HashMap<>();
-        mapParam.put("addressId",payloadBean.getAddressId());
-        mapParam.put("phone",payloadBean.getPhone());
-        mapParam.put("receiveName",payloadBean.getReceiveName());
-        mapParam.put("detail",payloadBean.getDetail());
-        mapParam.put("default",def+"");
-        mapParam.put("province",payloadBean.getProvince());
-        mapParam.put("city",payloadBean.getCity());
-        mapParam.put("district",payloadBean.getDistrict());
-        retrofitUtils.addSubscription(RetrofitUtils.apiStores.setAddress(mapParam), new ApiCallback<BaseReponse>() {
-            @Override
-            public void onSuccess(BaseReponse model) {
-                if (model.isSuccess()) {
-                    switch (def){
-                        case 0:
-                            ToastUtil.showToastShort("取消默认设置");
-                            break;
-                        case 1:
-                            ToastUtil.showToastShort("设置默认成功");
-                            break;
-                    }
 
-                    RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_ADDRESS,null));
-                }
-                else {
 
-                }
-            }
-
-            @Override
-            public void onFailure(String msg) {
-            }
-
-            @Override
-            public void onFinish() {
-
-            }
-
-        });
+    @Override
+    public void isLoading() {
 
     }
 
+    @Override
+    public void dataCountChanged(int count) {
+
+    }
+
+    @Override
+    public void loadFinished() {
+
+    }
+
+    @Override
+    public void loadFailure() {
+
+    }
+
+    @Override
+    public void subscribeEvent(Event myEvent) {
+        switch (myEvent.event) {
+            case EventType.ACTION_UPDATA_USER_ADDRESS:
+                addressInfoPresenter.getAddressInfo(this.bindToLifecycle());
+                break;
+        }
+    }
+
+    @Override
+    public void setAddress(BaseReponse baseReponse) {
+
+    }
+
+    @Override
+    public void getAddressInfo(AddressReponse baseReponse) {
+        payload.clear();
+        payload.addAll(baseReponse.getPayload());
+        emptyWrapper.notifyDataSetChanged();
+    }
 }

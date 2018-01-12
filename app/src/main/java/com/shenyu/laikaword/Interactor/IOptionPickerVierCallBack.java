@@ -6,5 +6,5 @@ package com.shenyu.laikaword.Interactor;
  */
 
 public interface IOptionPickerVierCallBack {
-    void callBack(String shen,String shi,String xian,String msg);
+    void callBack(String shen,String shi,String xian);
 }

@@ -142,7 +142,6 @@ public class SelectBankIDActivity extends LKWordBaseActivity implements SelectBa
     @Override
     public void doBusiness(Context context) {
         selectBankPresent.requestData(this.bindToLifecycle());
-        selectBankPresent.subscribeEvent();
 
     }
 

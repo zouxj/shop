@@ -82,7 +82,7 @@ public class EditAddressActivity extends LKWordBaseActivity {
         tel = editTel.getText().toString().trim();
         address = editeAddress.getText().toString().trim();
         addressDetail = editAddressDetail.getText().toString().trim();
-        cityDataHelper = new CityDataHelper(this);
+        cityDataHelper = new CityDataHelper(this,3);
 
         if (payloadBean != null) {
             editName.setText(payloadBean.getReceiveName());
@@ -136,8 +136,8 @@ public class EditAddressActivity extends LKWordBaseActivity {
                     heideSoftInput();
                 cityDataHelper.ShowPickerView(new IOptionPickerVierCallBack() {
                     @Override
-                    public void callBack(String shen, String shi, String xian, String msg) {
-                        editeAddress.setText(msg);
+                    public void callBack(String shen, String shi, String xian) {
+                        editeAddress.setText(shen+shi+xian);
                         mapParam.put("province", shen);
                         mapParam.put("city", shi);
                         mapParam.put("district", xian);

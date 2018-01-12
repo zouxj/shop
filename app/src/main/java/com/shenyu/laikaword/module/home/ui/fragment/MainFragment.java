@@ -132,45 +132,8 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
             }
         });
         initViewpagerTop(view);
-        subscribeEvent();
 
 
-    }
-
-    private void subscribeEvent() {
-        RxSubscriptions.remove(mRxSub);
-        mRxSub = RxBus.getDefault().toObservable(Event.class)
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(new RxBusSubscriber<Event>() {
-                    @SuppressLint("NewApi")
-                    @Override
-                    protected void onEvent(Event myEvent) {
-                        switch (myEvent.event) {
-                            case EventType.ACTION_UPDATA_USER:
-                                LoginReponse loginReponse = Constants.getLoginReponse();
-                                if (null!=loginReponse) {
-                                    ImageUitls.loadImgRound(loginReponse.getPayload().getAvatar(),headImg);
-                                }else {
-                                    headImg.setImageBitmap(null);
-                                    if (Build.VERSION.SDK_INT> Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
-                                        headImg.setBackground(UIUtil.getDrawable(R.mipmap.left_user_icon));
-                                    else
-                                        headImg.setBackgroundResource(R.mipmap.left_user_icon);
-                                }
-                                break;
-                        }
-                    }
-                    @Override
-                    public void onError(Throwable e) {
-                        super.onError(e);
-                        LogUtil.e(TAG, "onError");
-                        /**
-                         * 这里注意: 一旦订阅过程中发生异常,走到onError,则代表此次订阅事件完成,后续将收不到onNext()事件,
-                         * 即 接受不到后续的任何事件,实际环境中,我们需要在onError里 重新订阅事件!
-                         */
-                        subscribeEvent();
-                    }
-                });
-        RxSubscriptions.add(mRxSub);
     }
 
 
@@ -344,6 +307,25 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
     public void refreshPull(List list) {
         RxBus.getDefault().post(new Event(EventType.ACTION_PULL_REFRESH,list));
     }
+
+    @Override
+    public void subscribeEvent(Event event) {
+        switch (event.event) {
+            case EventType.ACTION_UPDATA_USER:
+                LoginReponse loginReponse = Constants.getLoginReponse();
+                if (null!=loginReponse) {
+                    ImageUitls.loadImgRound(loginReponse.getPayload().getAvatar(),headImg);
+                }else {
+                    headImg.setImageBitmap(null);
+                    if (Build.VERSION.SDK_INT> Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
+                        headImg.setBackground(UIUtil.getDrawable(R.mipmap.left_user_icon));
+                    else
+                        headImg.setBackgroundResource(R.mipmap.left_user_icon);
+                }
+                break;
+        }
+    }
+
     private void setNoticeView() {
         views.clear();
         for (int i = 0; i < data.size(); i = i + 2) {

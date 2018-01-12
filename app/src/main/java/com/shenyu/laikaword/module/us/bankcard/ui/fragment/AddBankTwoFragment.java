@@ -64,7 +64,7 @@ public class AddBankTwoFragment extends IKWordBaseFragment {
 
     @Override
     public void doBusiness() {
-        cityDataHelper=new CityDataHelper(getActivity());
+        cityDataHelper=new CityDataHelper(getActivity(),2);
         setMonitor();
     }
     @Override
@@ -75,6 +75,7 @@ public class AddBankTwoFragment extends IKWordBaseFragment {
             bankProvince=bankReponse.getPayload().getProvince();
             bankCity=bankReponse.getPayload().getCity();
             etAddBankYinhang.setText(bankReponse.getPayload().getBank());
+            if (StringUtil.validText(bankReponse.getPayload().getProvince())&&StringUtil.validText(bankReponse.getPayload().getCity()))
             etAddBankAddress.setText(bankReponse.getPayload().getProvince()+bankReponse.getPayload().getCity());
         }
     }
@@ -129,8 +130,8 @@ public class AddBankTwoFragment extends IKWordBaseFragment {
                 KeyBoardUtil.heideSoftInput(getActivity());
                 cityDataHelper.ShowPickerView(new IOptionPickerVierCallBack() {
                     @Override
-                    public void callBack(String shen, String shi, String xian, String msg) {
-                        etAddBankAddress.setText(msg);
+                    public void callBack(String shen, String shi, String xian) {
+                        etAddBankAddress.setText(shen+shi);
                         bankProvince = shen;
                         bankCity = shi;
                     }

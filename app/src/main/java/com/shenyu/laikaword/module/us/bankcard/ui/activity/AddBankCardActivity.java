@@ -43,7 +43,6 @@ public class AddBankCardActivity extends LKWordBaseActivity implements AddBankVi
     @Override
     public void doBusiness(Context context) {
 
-        addBankPresenter.subscribeEvent();
         fragmentTransaction=getSupportFragmentManager().beginTransaction();
         if (addBankOneFragment.isAdded()) {
             fragmentTransaction.show(addBankOneFragment);

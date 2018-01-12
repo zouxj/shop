@@ -37,7 +37,7 @@ public class SetPassWordTwoActivity extends LKWordBaseActivity {
         psdViewPassword.setComparePassword(passwordOne, new PayPsdInputView.onPasswordListener() {
             @Override
             public void onDifference() {
-                ToastUtil.showToastShort("二次密码不一样");
+                ToastUtil.showToastShort("两次密码不一样");
             }
 
             @Override
@@ -47,7 +47,7 @@ public class SetPassWordTwoActivity extends LKWordBaseActivity {
                     public void onSuccess(BaseReponse model) {
                         if (model.isSuccess()) {
                             if (typeActivity!=null&&typeActivity.equals("RESERT"))
-                                ToastUtil.showToastShort("修改密码成功!");
+                                ToastUtil.showToastShort("修改密码成功");
                             else
                                 ToastUtil.showToastShort("设置密码成功");
                             RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_REQUEST, null));

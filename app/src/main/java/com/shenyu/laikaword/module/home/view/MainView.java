@@ -2,6 +2,7 @@ package com.shenyu.laikaword.module.home.view;
 
 import com.shenyu.laikaword.base.BaseLoadView;
 import com.shenyu.laikaword.model.bean.reponse.ShopMainReponse;
+import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 
 import java.util.List;
 
@@ -26,5 +27,7 @@ public interface MainView extends BaseLoadView {
      * @param list
      */
     void refreshPull(List list);
+
+    void subscribeEvent(Event event);
 
 }

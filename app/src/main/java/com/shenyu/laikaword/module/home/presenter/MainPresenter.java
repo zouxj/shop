@@ -171,4 +171,9 @@ public class MainPresenter extends BasePresenter<MainView> {
 
             }});
     }
+
+    @Override
+    public void distribute(Event myEvent) {
+        mvpView.subscribeEvent(myEvent);
+    }
 }

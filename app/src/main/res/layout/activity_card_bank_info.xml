@@ -8,12 +8,13 @@
     android:orientation="vertical"
     tools:context=".module.us.bankcard.ui.activity.SelectBankIDActivity">
     <include layout="@layout/toolbar_layout"/>
-    <com.shenyu.laikaword.ui.view.widget.DeleteRecyclerView
+
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/card_cy_list"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </com.shenyu.laikaword.ui.view.widget.DeleteRecyclerView>
+    </android.support.v7.widget.RecyclerView>
 
 
     <TextView
