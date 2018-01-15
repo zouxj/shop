@@ -27,6 +27,7 @@ import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
 import com.zxj.utilslibrary.utils.DateTimeUtil;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.StringUtil;
+import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
 import java.util.ArrayList;
@@ -133,12 +134,16 @@ public class ResellFragment extends IKWordBaseFragment {
         retrofitUtils.addSubscription(RetrofitUtils.apiStores.resellList(type,page,pagerSize), new ApiCallback<ZhuanMaiReponse>() {
             @Override
             public void onSuccess(ZhuanMaiReponse model) {
+                page++;
                 if (model.isSuccess()&&model.getPayload().size()>0) {
                     for (ZhuanMaiReponse.PayloadBean payloadBean:model.getPayload()){
                         payload.add(payloadBean);
-                        page++;
                     }
                     emptyWrapper.notifyDataSetChanged();
+                }else {
+                    if (page>=2){
+                        ToastUtil.showToastShort("没有更多数据");
+                    }
                 }
             }
 

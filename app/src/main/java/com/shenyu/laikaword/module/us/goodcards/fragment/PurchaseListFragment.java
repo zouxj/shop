@@ -91,13 +91,13 @@ public class PurchaseListFragment extends IKWordBaseFragment {
 
     @Override
     public void requestData() {
-        retrofitUtils.addSubscription(RetrofitUtils.apiStores.newMyExtract(type,page,pagerSize), new ApiCallback<PickUpGoodsReponse>() {
+        retrofitUtils.addSubscription(retrofitUtils.apiStores.newMyExtract(type,page,pagerSize), new ApiCallback<PickUpGoodsReponse>() {
             @Override
             public void onSuccess(PickUpGoodsReponse model) {
                     if (model.isSuccess()&&model.getPayload().size()>0) {
+                        page++;
                         for (PickUpGoodsReponse.PayloadBean payloadBean:model.getPayload()){
                             payload.add(payloadBean);
-                            page++;
                         }
                         emptyWrapper.notifyDataSetChanged();
             }

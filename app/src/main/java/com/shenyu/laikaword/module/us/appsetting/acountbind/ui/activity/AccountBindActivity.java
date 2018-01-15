@@ -171,7 +171,7 @@ public class AccountBindActivity extends LKWordBaseActivity {
         param.put("loginType", "QQ");
         param.put("openId", openId);
         param.put("accessToken", accessToken);
-        retrofitUtils.addSubscription(RetrofitUtils.apiStores.partyBind(param), new ApiCallback<LoginReponse>() {
+        retrofitUtils.addSubscription(retrofitUtils.apiStores.partyBind(param), new ApiCallback<LoginReponse>() {
             @Override
             public void onSuccess(LoginReponse model) {
                 if (model.isSuccess()) {

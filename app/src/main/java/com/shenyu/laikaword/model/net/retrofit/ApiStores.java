@@ -136,7 +136,7 @@ public interface ApiStores {
     @POST("account/getUserMoneyDetail")//余额明细
     Observable<MoneyDetailReponse> getUserMoneyDetail(@Field("page") int page, @Field("pageSize") int pageSize);
     @FormUrlEncoded
-    @POST("user/partyBind")//余额明细
+    @POST("user/partyBind")//三方绑定
     Observable<LoginReponse> partyBind(@FieldMap Map<String, String> map);
     @GET("common/appStartUp")//启动页
     Observable<StartBannerGuangKReponse> appStartUp();
