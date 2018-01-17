@@ -120,28 +120,28 @@ private void  setData(int position){
         return;
         listBeans.clear();
         switch (position){
-        case 1:
+        case 0:
         for (ShopMainReponse.GoodsBean goodsBeans:goods){
         if (goodsBeans.getType().equals("yd")){
         listBeans.addAll(goodsBeans.getList());
         }
         }
         break;
-        case 2:
+        case 1:
         for (ShopMainReponse.GoodsBean goodsBeans:goods){
         if (goodsBeans.getType().equals("jd")){
         listBeans.addAll(goodsBeans.getList());
         }
         }
         break;
-        case 3:
+        case 2:
         for (ShopMainReponse.GoodsBean goodsBeans:goods){
         if (goodsBeans.getType().equals("lt")){
         listBeans.addAll(goodsBeans.getList());
         }
         }
         break;
-        case 4:
+        case 3:
         for (ShopMainReponse.GoodsBean goodsBeans:goods){
         if (goodsBeans.getType().equals("dx")){
         listBeans.addAll(goodsBeans.getList());

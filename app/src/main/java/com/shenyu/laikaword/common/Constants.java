@@ -26,7 +26,7 @@ public class Constants {
                 break;
             case 2:
                 //测试线
-                HOST="http://t.shop.comingcard.com/";g
+                HOST="http://t.shop.comingcard.com/";
                 break;
         }
 
