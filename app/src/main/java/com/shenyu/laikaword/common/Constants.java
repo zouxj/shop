@@ -17,7 +17,7 @@ public class Constants {
         int host = 2;
         switch (host){
             case 0:
-                //正式线
+                //正式线;
                 HOST="https://api.buycardlife.com/";
                 break;
             case 1:
@@ -26,7 +26,7 @@ public class Constants {
                 break;
             case 2:
                 //测试线
-                HOST="http://t.shop.comingcard.com/";
+                HOST="http://t.shop.comingcard.com/";g
                 break;
         }
 
