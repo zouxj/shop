@@ -48,6 +48,9 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import rx.android.schedulers.AndroidSchedulers;
 
+/**
+ * 地址添加
+ */
 public class AddressInfoActivity extends LKWordBaseActivity implements AddressInfoView {
 
     @BindView(R.id.rl_address_list)
@@ -138,7 +141,7 @@ public class AddressInfoActivity extends LKWordBaseActivity implements AddressIn
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        RxSubscriptions.remove(mRxSub);
+        addressInfoPresenter.detachView();
     }
 
 
@@ -149,14 +152,10 @@ public class AddressInfoActivity extends LKWordBaseActivity implements AddressIn
     }
 
     @Override
-    public void dataCountChanged(int count) {
+    public void loadSucceed(BaseReponse baseReponse) {
 
     }
 
-    @Override
-    public void loadFinished() {
-
-    }
 
     @Override
     public void loadFailure() {

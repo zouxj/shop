@@ -146,14 +146,10 @@ public class BankInfoActivity extends LKWordBaseActivity implements  BankInfoVie
     }
 
     @Override
-    public void dataCountChanged(int count) {
+    public void loadSucceed(BaseReponse baseReponse) {
 
     }
 
-    @Override
-    public void loadFinished() {
-
-    }
 
     @Override
     public void loadFailure() {

@@ -156,14 +156,10 @@ public class SelectBankIDActivity extends LKWordBaseActivity implements SelectBa
     }
 
     @Override
-    public void dataCountChanged(int count) {
+    public void loadSucceed(BaseReponse baseReponse) {
 
     }
 
-    @Override
-    public void loadFinished() {
-
-    }
 
     @Override
     public void loadFailure() {

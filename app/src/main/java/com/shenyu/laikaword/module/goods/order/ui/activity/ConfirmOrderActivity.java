@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shenyu.laikaword.helper.ImageUitls;
+import com.shenyu.laikaword.model.bean.reponse.BaseReponse;
 import com.shenyu.laikaword.module.launch.LaiKaApplication;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.model.adapter.CommonAdapter;
@@ -208,12 +209,7 @@ public class ConfirmOrderActivity extends LKWordBaseActivity implements ConfirmO
     }
 
     @Override
-    public void dataCountChanged(int count) {
-
-    }
-
-    @Override
-    public void loadFinished() {
+    public void loadSucceed(BaseReponse baseReponse) {
 
     }
 

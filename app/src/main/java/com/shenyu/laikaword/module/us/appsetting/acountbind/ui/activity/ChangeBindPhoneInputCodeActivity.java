@@ -8,6 +8,7 @@ import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.di.module.mine.BindAccountModule;
 import com.shenyu.laikaword.helper.SendMsgHelper;
+import com.shenyu.laikaword.model.bean.reponse.BaseReponse;
 import com.shenyu.laikaword.module.home.ui.activity.MainActivity;
 import com.shenyu.laikaword.module.launch.LaiKaApplication;
 import com.shenyu.laikaword.module.us.appsetting.acountbind.presenter.ChangeBindPhoneInputCodePresent;
@@ -70,14 +71,10 @@ public class ChangeBindPhoneInputCodeActivity extends LKWordBaseActivity  implem
     }
 
     @Override
-    public void dataCountChanged(int count) {
+    public void loadSucceed(BaseReponse baseReponse) {
 
     }
 
-    @Override
-    public void loadFinished() {
-
-    }
 
     @Override
     public void loadFailure() {

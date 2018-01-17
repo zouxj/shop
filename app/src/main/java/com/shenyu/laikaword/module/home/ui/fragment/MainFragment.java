@@ -21,6 +21,7 @@ import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.shenyu.laikaword.helper.ImageUitls;
 import com.shenyu.laikaword.helper.StatusBarManager;
+import com.shenyu.laikaword.model.bean.reponse.BaseReponse;
 import com.shenyu.laikaword.module.launch.LaiKaApplication;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.model.adapter.MainViewPagerAdapter;
@@ -108,7 +109,7 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
             tabs.post(new Runnable() {
                 @Override
                 public void run() {
-                    TabLayoutHelper.setIndicator(tabs, 20, 20);
+                    TabLayoutHelper.setIndicator(tabs, 15, 15);
                 }
             });
         }
@@ -224,14 +225,10 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
     }
 
     @Override
-    public void dataCountChanged(int count) {
-
-    }
-
-    @Override
-    public void loadFinished() {
+    public void loadSucceed(BaseReponse baseReponse) {
         loadViewHelper.closeLoadingDialog();
     }
+
 
     @Override
     public void loadFailure() {

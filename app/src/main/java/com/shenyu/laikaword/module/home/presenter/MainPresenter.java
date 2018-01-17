@@ -50,7 +50,7 @@ public class MainPresenter extends BasePresenter<MainView> {
 
             @Override
             public void onFinish() {
-                mvpView.loadFinished();
+
             }
         });
 
@@ -100,6 +100,7 @@ public class MainPresenter extends BasePresenter<MainView> {
 
                 }
                 mvpView.loadMore(list);
+                mvpView.loadSucceed(model);
             }
 
             @Override
@@ -109,7 +110,7 @@ public class MainPresenter extends BasePresenter<MainView> {
 
             @Override
             public void onFinish() {
-                mvpView.loadFinished();
+
             }
         });
     }
@@ -124,6 +125,7 @@ public class MainPresenter extends BasePresenter<MainView> {
                 if (model.isSuccess()) {
                     mvpView.showShop(model);
                     page=2;
+                    mvpView.loadSucceed(model);
 //                    SPUtil.saveObject(Constants.MAIN_SHOP_KEY,model);
 //                    RxBus.getDefault().post(new Event(EventType.ACTION_MAIN_SETDATE,model.getPayload().getGoods()));
                 }
@@ -136,7 +138,7 @@ public class MainPresenter extends BasePresenter<MainView> {
 
             @Override
             public void onFinish() {
-                mvpView.loadFinished();
+
             }
         });
 

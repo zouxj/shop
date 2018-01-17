@@ -9,7 +9,9 @@ import android.widget.TextView;
 
 import com.jakewharton.rxbinding.widget.RxTextView;
 import com.shenyu.laikaword.R;
+import com.shenyu.laikaword.base.BaseLoadView;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
+import com.shenyu.laikaword.di.module.UserAddressModule;
 import com.shenyu.laikaword.model.bean.reponse.BaseReponse;
 import com.shenyu.laikaword.model.bean.reponse.AddressReponse;
 import com.shenyu.laikaword.helper.CityDataHelper;
@@ -19,6 +21,9 @@ import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
+import com.shenyu.laikaword.module.launch.LaiKaApplication;
+import com.shenyu.laikaword.module.us.address.presenter.EditAddressPresenter;
+import com.shenyu.laikaword.module.us.address.view.EditAddressView;
 import com.zxj.utilslibrary.utils.KeyBoardUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
@@ -27,13 +32,15 @@ import com.zxj.utilslibrary.utils.UIUtil;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import rx.Observable;
 import rx.functions.Action1;
 import rx.functions.Func4;
 
-public class EditAddressActivity extends LKWordBaseActivity {
+public class EditAddressActivity extends LKWordBaseActivity implements EditAddressView {
 
     @BindView(R.id.edit_name)
     EditText editName;
@@ -45,7 +52,6 @@ public class EditAddressActivity extends LKWordBaseActivity {
     EditText editAddressDetail;
     @BindView(R.id.cb_select_address)
     CheckBox cbSelectAddress;
-
     String useName;
     String tel;
     String address;
@@ -55,6 +61,8 @@ public class EditAddressActivity extends LKWordBaseActivity {
     AddressReponse.PayloadBean payloadBean;
     @BindView(R.id.tv_save)
     TextView tvSave;
+    @Inject
+    EditAddressPresenter editAddressPresenter;
 
     @Override
     public int bindLayout() {
@@ -78,10 +86,7 @@ public class EditAddressActivity extends LKWordBaseActivity {
             payloadBean = (AddressReponse.PayloadBean) getIntent().getSerializableExtra("AddressInfo");
 
 
-        useName = editName.getText().toString().trim();
-        tel = editTel.getText().toString().trim();
-        address = editeAddress.getText().toString().trim();
-        addressDetail = editAddressDetail.getText().toString().trim();
+
         cityDataHelper = new CityDataHelper(this,3);
 
         if (payloadBean != null) {
@@ -124,7 +129,7 @@ public class EditAddressActivity extends LKWordBaseActivity {
     }
     @Override
     public void setupActivityComponent() {
-
+        LaiKaApplication.get(this).getAppComponent().plus(new UserAddressModule(this)).inject(this);
     }
 
     @OnClick({R.id.tv_select_address, R.id.cb_select_address, R.id.tv_save})
@@ -151,53 +156,39 @@ public class EditAddressActivity extends LKWordBaseActivity {
             case R.id.tv_save:
                 //TODO 设置保存
                     //TODO 上传服务器
-                    verifyNULL();
-                retrofitUtils.addSubscription(RetrofitUtils.apiStores.setAddress(mapParam), new ApiCallback<BaseReponse>() {
-                        @Override
-                        public void onSuccess(BaseReponse model) {
-                                if (model.isSuccess()) {
-                                    loadViewHelper.closeLoadingDialog();
-                                RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_ADDRESS, null));
-                                ToastUtil.showToastShort("添加成功");
-                                finish();
-                            } else {
-                                loadViewHelper.closeLoadingDialog();
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(String msg) {
-                            ToastUtil.showToastShort(msg);
-                            loadViewHelper.closeLoadingDialog();
-                        }
-
-                        @Override
-                        public void onFinish() {
-                            loadViewHelper.closeLoadingDialog();
-                        }
-
-
-                    });
-
+                useName = editName.getText().toString().trim();
+                tel = editTel.getText().toString().trim();
+                address = editeAddress.getText().toString().trim();
+                addressDetail = editAddressDetail.getText().toString().trim();
+                mapParam.put("phone", tel);
+                mapParam.put("receiveName", useName);
+                mapParam.put("detail", addressDetail);
+                mapParam.put("default", (cbSelectAddress.isChecked() ? 1 : 0) + "");
+                editAddressPresenter.setAddress(this.bindToLifecycle(),mapParam);
                 break;
         }
     }
 
-    /**
-     * 校验空值
-     */
-    public void verifyNULL() {
-        useName = editName.getText().toString().trim();
-        tel = editTel.getText().toString().trim();
-        address = editeAddress.getText().toString().trim();
-        addressDetail = editAddressDetail.getText().toString().trim();
-            mapParam.put("phone", tel);
-            mapParam.put("receiveName", useName);
-            mapParam.put("detail", addressDetail);
-            mapParam.put("default", (cbSelectAddress.isChecked() ? 1 : 0) + "");
 
+    @Override
+    public void isLoading() {
 
     }
 
+    @Override
+    public void loadSucceed(BaseReponse baseReponse) {
+        if (baseReponse.isSuccess()) {
+            ToastUtil.showToastShort("修改成功");
+            RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_ADDRESS, null));
+            finish();
+        }else
+            ToastUtil.showToastShort(baseReponse.getError().getMessage());
+    }
+
+
+    @Override
+    public void loadFailure() {
+
+    }
 
 }

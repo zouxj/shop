@@ -2,6 +2,7 @@ package com.shenyu.laikaword.ui.web;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.webkit.WebSettings;
@@ -59,8 +60,9 @@ public class ShopDateilActivity extends LKWordBaseActivity {
         // 格式规定为:file:///android_asset/文件名.html
         wbLoad.loadUrl(webURL);
         wbLoad.setWebViewClient(new WebViewClient() {
-                                      @Override
-                                      public boolean shouldOverrideUrlLoading(WebView view, String url) {
+
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
                                           // 步骤2：根据协议的参数，判断是否是所需要的url
                                           // 一般根据scheme（协议格式） & authority（协议名）判断（前两个参数）
                                           //假定传入进来的 url = "js://webview?arg1=111&arg2=222"（同时也是约定好的需要拦截的）

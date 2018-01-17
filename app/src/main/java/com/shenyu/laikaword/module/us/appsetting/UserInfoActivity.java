@@ -18,6 +18,7 @@ import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.di.module.mine.MineModule;
 import com.shenyu.laikaword.helper.ImageUitls;
+import com.shenyu.laikaword.model.bean.reponse.BaseReponse;
 import com.shenyu.laikaword.model.bean.reponse.LoginReponse;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBusSubscriber;
@@ -177,14 +178,10 @@ public class UserInfoActivity extends LKWordBaseActivity implements UserInfoView
     }
 
     @Override
-    public void dataCountChanged(int count) {
+    public void loadSucceed(BaseReponse baseReponse) {
 
     }
 
-    @Override
-    public void loadFinished() {
-
-    }
 
     @Override
     public void loadFailure() {

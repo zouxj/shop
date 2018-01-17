@@ -7,6 +7,7 @@ import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.di.module.BankModule;
 import com.shenyu.laikaword.model.bean.reponse.BankReponse;
+import com.shenyu.laikaword.model.bean.reponse.BaseReponse;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
 import com.shenyu.laikaword.module.launch.LaiKaApplication;
@@ -74,13 +75,9 @@ public class AddBankCardActivity extends LKWordBaseActivity implements AddBankVi
 
     }
 
-    @Override
-    public void dataCountChanged(int count) {
-
-    }
 
     @Override
-    public void loadFinished() {
+    public void loadSucceed(BaseReponse baseReponse) {
 
     }
 

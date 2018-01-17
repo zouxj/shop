@@ -23,7 +23,8 @@ import com.zxj.utilslibrary.utils.UIUtil;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class GuessActivity extends LKWordBaseActivity {
+public class
+GuessActivity extends LKWordBaseActivity {
     @BindView(R.id.wb_load)
     ProgressWebView wbLoad;
     String webURL;

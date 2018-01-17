@@ -11,6 +11,7 @@ import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.di.module.mine.BindAccountModule;
+import com.shenyu.laikaword.model.bean.reponse.BaseReponse;
 import com.shenyu.laikaword.module.launch.LaiKaApplication;
 import com.shenyu.laikaword.module.us.appsetting.acountbind.presenter.ChangeBindPhonePresenter;
 import com.shenyu.laikaword.module.us.appsetting.acountbind.view.ChangeBindPhoneView;
@@ -95,14 +96,10 @@ public class ChangeBindPhoneActivity extends LKWordBaseActivity implements Chang
     }
 
     @Override
-    public void dataCountChanged(int count) {
+    public void loadSucceed(BaseReponse baseReponse) {
 
     }
 
-    @Override
-    public void loadFinished() {
-
-    }
 
     @Override
     public void loadFailure() {

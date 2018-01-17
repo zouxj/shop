@@ -12,7 +12,10 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
+import com.shenyu.laikaword.base.BaseLoadView;
+import com.shenyu.laikaword.di.module.UserAddressModule;
 import com.shenyu.laikaword.model.adapter.CommonAdapter;
+import com.shenyu.laikaword.model.bean.reponse.BaseReponse;
 import com.shenyu.laikaword.model.holder.ViewHolder;
 import com.shenyu.laikaword.model.wrapper.EmptyWrapper;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
@@ -25,6 +28,9 @@ import com.shenyu.laikaword.model.rxjava.rxbus.RxBusSubscriber;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxSubscriptions;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
+import com.shenyu.laikaword.module.launch.LaiKaApplication;
+import com.shenyu.laikaword.module.us.address.presenter.SelectAddressPresneter;
+import com.shenyu.laikaword.module.us.address.view.SelectAddressView;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.LogUtil;
@@ -33,11 +39,13 @@ import com.zxj.utilslibrary.utils.UIUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import rx.android.schedulers.AndroidSchedulers;
 
-public class SelectAddressActivity extends LKWordBaseActivity {
+public class SelectAddressActivity extends LKWordBaseActivity implements SelectAddressView {
 
 
     @BindView(R.id.bt_ok_address)
@@ -45,13 +53,18 @@ public class SelectAddressActivity extends LKWordBaseActivity {
     @BindView(R.id.re_cy_view)
     RecyclerView reCyView;
     private List<AddressReponse.PayloadBean> payload = new ArrayList<>();
-
+    @Inject
+    SelectAddressPresneter selectAddressPresneter;
     @Override
     public int bindLayout() {
         return R.layout.activity_select_address;
     }
-
+    AddressReponse.PayloadBean payloadBean;
     EmptyWrapper emptyWrapper;
+    CommonAdapter<AddressReponse.PayloadBean> commonAdapter;
+    Intent intent;
+    Bundle bundle;
+    int selectedPosition =-1;
 
     @Override
     public void initView() {
@@ -61,15 +74,14 @@ public class SelectAddressActivity extends LKWordBaseActivity {
         reCyView.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    CommonAdapter<AddressReponse.PayloadBean> commonAdapter;
-    Intent intent;
-    Bundle bundle;
-     int selectedPosition =-1;
+
 
     @Override
     public void doBusiness(Context context) {
           intent = getIntent();
           bundle = new Bundle();
+        selectAddressPresneter.requestAddress(this.bindToLifecycle(),payloadBean);
+        payloadBean=  (AddressReponse.PayloadBean)intent.getSerializableExtra("payloadBean");
         commonAdapter = new CommonAdapter<AddressReponse.PayloadBean>(R.layout.item_select_address, payload) {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
@@ -117,15 +129,14 @@ public class SelectAddressActivity extends LKWordBaseActivity {
         emptyWrapper = new EmptyWrapper<AddressReponse.PayloadBean>(commonAdapter);
         emptyWrapper.setEmptyView(R.layout.empty_view,UIUtil.getString(R.string.bank_empty));
         reCyView.setAdapter(emptyWrapper);
-        initData();
-        subscribeEvent();
+
 
 
     }
 
     @Override
     public void setupActivityComponent() {
-
+        LaiKaApplication.get(this).getAppComponent().plus(new UserAddressModule(this)).inject(this);
     }
 
 
@@ -138,104 +149,80 @@ public class SelectAddressActivity extends LKWordBaseActivity {
         }
 
     }
-    private void subscribeEvent() {
-        RxSubscriptions.remove(mRxSub);
-        mRxSub = RxBus.getDefault().toObservable(Event.class)
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(new RxBusSubscriber<Event>() {
-                    @Override
-                    protected void onEvent(Event myEvent) {
-                        switch (myEvent.event) {
-                            case EventType.ACTION_UPDATA_USER_ADDRESS:
-                                initData();
-                                break;
-                        }
-                    }
-                    @Override
-                    public void onError(Throwable e) {
-                        super.onError(e);
-                        LogUtil.e(TAG, "onError");
-                        /**
-                         * 这里注意: 一旦订阅过程中发生异常,走到onError,则代表此次订阅事件完成,后续将收不到onNext()事件,
-                         * 即 接受不到后续的任何事件,实际环境中,我们需要在onError里 重新订阅事件!
-                         */
-                        subscribeEvent();
-                    }
-                });
-        RxSubscriptions.add(mRxSub);
-    }
-    public void initData() {
-     final AddressReponse.PayloadBean payloadBean = (AddressReponse.PayloadBean) getIntent().getSerializableExtra("payloadBean");
-        retrofitUtils.setLifecycleTransformer(bindUntilEvent(ActivityEvent.DESTROY)).addSubscription(RetrofitUtils.apiStores.getAddress(), new ApiCallback<AddressReponse>() {
-            @Override
-            public void onSuccess(AddressReponse model) {
-                if (model.isSuccess()) ;
-                {
-                    if (model.getPayload()!=null&&model.getPayload().size()>0){
-                        btOkAddress.setVisibility(View.VISIBLE);
-                        btOkAddress.setText("确认");
-                        btOkAddress.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                setResult(RESULT_OK, intent);
-                                finish();
-                            }
-                        });
-                        payload.clear();
-                        payload.addAll(model.getPayload());
-                        emptyWrapper.notifyDataSetChanged();
-
-                        for (int i = 0; i < payload.size(); i++) {
-                            if (payloadBean!=null) {
-                                if (payload.get(i).getAddressId().equals(payloadBean.getAddressId())) {
-                                    selectedPosition = i;
-                                    bundle.putSerializable("address", payload.get(i));
-                                    intent.putExtras(bundle);
-                                }
-                            }
-
-                        }
-                    }else {
-                        bundle.putSerializable("address", null);
-                        intent.putExtras(bundle);
-                        setResult(RESULT_OK, intent);
-                        payload.clear();
-                        payload.addAll(model.getPayload());
-                        emptyWrapper.notifyDataSetChanged();
-                        btOkAddress.setVisibility(View.VISIBLE);
-                        btOkAddress.setText("添加新地址");
-                        btOkAddress.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                IntentLauncher.with(SelectAddressActivity.this).launch(EditAddressActivity.class);
-                            }
-                        });
-                    }
-
-
-
-                }
-            }
-
-            @Override
-            public void onFailure(String msg) {
-
-            }
-
-            @Override
-            public void onFinish() {
-
-            }
-        });
-    }
-
-//    @Override
-//    protected void onPause() {
-//        super.onPause();
-//    }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        RxSubscriptions.remove(mRxSub);
+        selectAddressPresneter.detachView();
+    }
+
+    @Override
+    public void isLoading() {
+
+    }
+
+    @Override
+    public void loadSucceed(BaseReponse baseReponse) {
+        AddressReponse model = (AddressReponse) baseReponse;
+        if (model.isSuccess()) ;
+        {
+            if (model.getPayload()!=null&&model.getPayload().size()>0){
+                btOkAddress.setVisibility(View.VISIBLE);
+                btOkAddress.setText("确认");
+                btOkAddress.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        setResult(RESULT_OK, intent);
+                        finish();
+                    }
+                });
+                payload.clear();
+                payload.addAll(model.getPayload());
+                emptyWrapper.notifyDataSetChanged();
+
+                for (int i = 0; i < payload.size(); i++) {
+                    if (payloadBean!=null) {
+                        if (payload.get(i).getAddressId().equals(payloadBean.getAddressId())) {
+                            selectedPosition = i;
+                            bundle.putSerializable("address", payload.get(i));
+                            intent.putExtras(bundle);
+                        }
+                    }
+
+                }
+            }else {
+                bundle.putSerializable("address", null);
+                intent.putExtras(bundle);
+                setResult(RESULT_OK, intent);
+                payload.clear();
+                payload.addAll(model.getPayload());
+                emptyWrapper.notifyDataSetChanged();
+                btOkAddress.setVisibility(View.VISIBLE);
+                btOkAddress.setText("添加新地址");
+                btOkAddress.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        IntentLauncher.with(SelectAddressActivity.this).launch(EditAddressActivity.class);
+                    }
+                });
+            }
+
+
+
+        }
+    }
+
+    @Override
+    public void loadFailure() {
+
+    }
+
+    @Override
+    public void subscribeEvent(Event myEvent) {
+        switch (myEvent.event) {
+            case EventType.ACTION_UPDATA_USER_ADDRESS:
+                selectAddressPresneter.requestAddress(this.bindToLifecycle(),payloadBean);
+                break;
+        }
     }
 }

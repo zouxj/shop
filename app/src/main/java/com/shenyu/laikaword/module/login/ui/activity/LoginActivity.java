@@ -15,6 +15,7 @@ import com.jakewharton.rxbinding.widget.RxTextView;
 import com.leo618.mpermission.MPermission;
 import com.leo618.mpermission.MPermissionSettingsDialog;
 import com.shenyu.laikaword.helper.DialogHelper;
+import com.shenyu.laikaword.model.bean.reponse.BaseReponse;
 import com.shenyu.laikaword.model.bean.reponse.ShopMainReponse;
 import com.shenyu.laikaword.model.net.retrofit.ErrorCode;
 import com.shenyu.laikaword.module.launch.LaiKaApplication;
@@ -126,14 +127,11 @@ public class LoginActivity extends LKWordBaseActivity implements LoginView,MPerm
     }
 
     @Override
-    public void dataCountChanged(int count) {
+    public void loadSucceed(BaseReponse baseReponse) {
 
     }
 
-    @Override
-    public void loadFinished() {
 
-    }
 
     @Override
     public void loadFailure() {
