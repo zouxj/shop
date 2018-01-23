@@ -80,82 +80,133 @@ public class HomeLeftItemViewDelegate implements ItemViewDelegate<ShopMainRepons
         }
             if (StringUtil.validText(entranceListBean.getIconURL()))
                 ImageUitls.loadImg(entranceListBean.getIconURL(), imageView);
-
-        holder.itemView.setOnClickListener( new View.OnClickListener() {
+            holder.itemView.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 LoginReponse loginReponse = (LoginReponse) SPUtil.readObject(Constants.LOGININFO_KEY);
-                switch (position){
-                    case 0:
-                        //TODO 我的余额
-                        if (null==loginReponse) {
-                            IntentLauncher.with(mActivity).launch(LoginActivity.class);
-                            return;
-                        }
-                        IntentLauncher.with(mActivity).launch(UserRemainingActivity.class);
-                        break;
-                    case 1:
-                        //TODO 我的购买
-                        if (null==loginReponse) {
-                            IntentLauncher.with(mActivity).launch(LoginActivity.class);
-                            return;
-                        }
-                        IntentLauncher.with(mActivity).launch(BuyGoodsActivity.class);
-                        break;
-                    case 3:
-                        //TODO 我的提货
-                        if (null==loginReponse) {
-                            IntentLauncher.with(mActivity).launch(LoginActivity.class);
-                            return;
-                        }
-                        IntentLauncher.with(mActivity).launch(PurchaseCardActivity.class);
-                        break;
-                    case 2:
-                        //TODO 我的卡包
-                        if (null==loginReponse) {
-                            IntentLauncher.with(mActivity).launch(LoginActivity.class);
-                            return;
-                        }
-                        IntentLauncher.with(mActivity).launch(CardPackageActivity.class);
-                        break;
-                    case 4:
-                        //TODO 我的卡包
-//                        ToastUtil.showToastShort("我的转卖");
-                        if (null==loginReponse) {
-                            IntentLauncher.with(mActivity).launch(LoginActivity.class);
-                            return;
-                        }
-                        IntentLauncher.with(mActivity).launch(ResellActivity.class);
-                        break;
-                    case 5:
-                        //TODO 客服
-                        if (null==loginReponse) {
-                            IntentLauncher.with(mActivity).launch(LoginActivity.class);
-                            return;
-                        }
-                        final ShopMainReponse shopMainReponse= (ShopMainReponse) SPUtil.readObject(Constants.MAIN_SHOP_KEY);
-                        if (shopMainReponse!=null) {
-                            String qq = shopMainReponse.getPayload().getContacts().getQq();
-                            if (StringUtil.validText(qq))
-                                toQQServer(qq);
-                        }
-                        else
-                            ToastUtil.showToastShort("此功能暂没开放");
+                if (entranceListBean.getTitle().equals("我的余额")){
+                    //TODO 我的余额
+                    if (null==loginReponse) {
+                        IntentLauncher.with(mActivity).launch(LoginActivity.class);
+                        return;
+                    }
+                    IntentLauncher.with(mActivity).launch(UserRemainingActivity.class);
+                }else if(entranceListBean.getTitle().equals("我的提货")){
+                    if (null==loginReponse) {
+                        IntentLauncher.with(mActivity).launch(LoginActivity.class);
+                        return;
+                    }
+                    IntentLauncher.with(mActivity).launch(PurchaseCardActivity.class);
 
-                        break;
-                    case 6:
-                        //TODO 我的游戏
-                        IntentLauncher.with(mActivity).put("weburl",entranceListBean.getUrl()).launch(GuessActivity.class);
-                        break;
-                    case 7:
-                        //TODO QQ客服
-
-                        break;
-                    default:
-
-                        break;
-
+                }else if(entranceListBean.getTitle().equals("我的购买")){
+                    if (null==loginReponse) {
+                        IntentLauncher.with(mActivity).launch(LoginActivity.class);
+                        return;
+                    }
+                    IntentLauncher.with(mActivity).launch(BuyGoodsActivity.class);
                 }
+                else if(entranceListBean.getTitle().equals("我的卡包")){
+                    if (null==loginReponse) {
+                        IntentLauncher.with(mActivity).launch(LoginActivity.class);
+                        return;
+                    }
+                    IntentLauncher.with(mActivity).launch(CardPackageActivity.class);
+                }
+                else if(entranceListBean.getTitle().equals("我的转卖")){
+                    if (null==loginReponse) {
+                        IntentLauncher.with(mActivity).launch(LoginActivity.class);
+                        return;
+                    }
+                    IntentLauncher.with(mActivity).launch(ResellActivity.class);
+                }
+                else if(entranceListBean.getTitle().equals("联系客服")){
+                    if (null==loginReponse) {
+                        IntentLauncher.with(mActivity).launch(LoginActivity.class);
+                        return;
+                    }
+                    final ShopMainReponse shopMainReponse= (ShopMainReponse) SPUtil.readObject(Constants.MAIN_SHOP_KEY);
+                    if (shopMainReponse!=null) {
+                        String qq = shopMainReponse.getPayload().getContacts().getQq();
+                        if (StringUtil.validText(qq))
+                            toQQServer(qq);
+                    }
+                    else
+                        ToastUtil.showToastShort("此功能暂没开放");
+                }
+                else {
+                    IntentLauncher.with(mActivity).put("weburl",entranceListBean.getUrl()).launch(GuessActivity.class);
+                }
+//                switch (position){
+//                    case 0:
+//                        //TODO 我的余额
+//                        if (null==loginReponse) {
+//                            IntentLauncher.with(mActivity).launch(LoginActivity.class);
+//                            return;
+//                        }
+//                        IntentLauncher.with(mActivity).launch(UserRemainingActivity.class);
+//                        break;
+//                    case 1:
+//                        //TODO 我的购买
+//                        if (null==loginReponse) {
+//                            IntentLauncher.with(mActivity).launch(LoginActivity.class);
+//                            return;
+//                        }
+//                        IntentLauncher.with(mActivity).launch(BuyGoodsActivity.class);
+//                        break;
+//                    case 3:
+//                        //TODO 我的提货
+//                        if (null==loginReponse) {
+//                            IntentLauncher.with(mActivity).launch(LoginActivity.class);
+//                            return;
+//                        }
+//                        IntentLauncher.with(mActivity).launch(PurchaseCardActivity.class);
+//                        break;
+//                    case 2:
+//                        //TODO 我的卡包
+//                        if (null==loginReponse) {
+//                            IntentLauncher.with(mActivity).launch(LoginActivity.class);
+//                            return;
+//                        }
+//                        IntentLauncher.with(mActivity).launch(CardPackageActivity.class);
+//                        break;
+//                    case 4:
+//                        //TODO 我的转卖
+////                        ToastUtil.showToastShort("我的转卖");
+//                        if (null==loginReponse) {
+//                            IntentLauncher.with(mActivity).launch(LoginActivity.class);
+//                            return;
+//                        }
+//                        IntentLauncher.with(mActivity).launch(ResellActivity.class);
+//                        break;
+//                    case 5:
+//                        //TODO 客服
+//                        if (null==loginReponse) {
+//                            IntentLauncher.with(mActivity).launch(LoginActivity.class);
+//                            return;
+//                        }
+//                        final ShopMainReponse shopMainReponse= (ShopMainReponse) SPUtil.readObject(Constants.MAIN_SHOP_KEY);
+//                        if (shopMainReponse!=null) {
+//                            String qq = shopMainReponse.getPayload().getContacts().getQq();
+//                            if (StringUtil.validText(qq))
+//                                toQQServer(qq);
+//                        }
+//                        else
+//                            ToastUtil.showToastShort("此功能暂没开放");
+//
+//                        break;
+//                    case 6:
+//                        //TODO 我的游戏
+//                        IntentLauncher.with(mActivity).put("weburl",entranceListBean.getUrl()).launch(GuessActivity.class);
+//                        break;
+//                    case 7:
+//                        //TODO QQ客服
+//
+//                        break;
+//                    default:
+//
+//                        break;
+//
+//                }
             }
         });
     }

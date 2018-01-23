@@ -117,6 +117,15 @@ public class ShopMainReponse extends BaseReponse implements Serializable {
         private List<EntranceListBean> entranceList;
         private Contacts contacts;
         private Flag flag;
+        private String resellShow;
+
+        public String getResellShow() {
+            return resellShow;
+        }
+
+        public void setResellShow(String resellShow) {
+            this.resellShow = resellShow;
+        }
 
         public Contacts getContacts() {
             return contacts;

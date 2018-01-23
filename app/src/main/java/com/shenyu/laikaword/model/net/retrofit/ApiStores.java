@@ -49,7 +49,7 @@ public interface ApiStores {
     @POST("user/partyLogin")
     Observable<LoginReponse> loginWxQQ(@Field("loginType") String loginType, @Field("code") String code,@Field("openId") String openId, @Field("accessToken") String accessToken);
     //获取主页面数据
-    @GET("common/appMain")
+    @GET("common/newAppMain")
     Observable<ShopMainReponse> getMainShop();
     //获取短信验证码
     @GET("common/getSMSCode")
