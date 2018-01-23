@@ -155,6 +155,7 @@
           >
       </com.shenyu.laikaword.ui.view.widget.AmountView>
       <TextView
+          android:id="@+id/tv_xiangou"
           android:textSize="10sp"
           android:layout_alignParentRight="true"
           android:text="每次限购5张"

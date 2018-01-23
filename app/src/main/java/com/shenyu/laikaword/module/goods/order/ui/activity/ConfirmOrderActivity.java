@@ -76,6 +76,8 @@ public class ConfirmOrderActivity extends LKWordBaseActivity implements ConfirmO
     TextView tvZhegou;
     @BindView(R.id.tv_price_count)
     TextView priceCount;
+    @BindView(R.id.tv_xiangou)
+    TextView tvXiangGou;
     private String moneyD;
     private String payType;//支付类型
     private int payFlogType = 5;
@@ -246,6 +248,10 @@ public class ConfirmOrderActivity extends LKWordBaseActivity implements ConfirmO
             tvName.setText("");
         }
         if (goodBean != null) {
+            if (StringUtil.formatIntger(mGoodBean.getStock())>5)
+                tvXiangGou.setVisibility(View.VISIBLE);
+            else
+                tvXiangGou.setVisibility(View.GONE);
             ImageUitls.loadImg(goodBean.getGoodsImage(),imgOrder);
             StringBuilder sb = new StringBuilder(goodBean.getDiscount());//构造一个StringBuilder对象
             sb.insert(1, ".");//在指定的
