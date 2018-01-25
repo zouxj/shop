@@ -4,8 +4,10 @@
     package="com.shenyu.laikaword">
 
     <uses-sdk android:minSdkVersion="8" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.MOUNT_FORMAT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.MOUNT_FORMAT_FILESYSTEMS"
+        tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE"
         tools:ignore="UniquePermission" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -32,7 +34,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.shenyu.laikaword.module.launch.StartActivity"
+            android:name=".module.launch.StartActivity"
             android:screenOrientation="portrait"
             android:theme="@style/LaikaAppTheme">
             <intent-filter>
@@ -142,7 +144,7 @@
         <activity android:name="com.shenyu.laikaword.module.us.address.ui.activity.AddressInfoActivity" />
         <activity android:name="com.shenyu.laikaword.module.us.address.ui.activity.EditAddressActivity" />
         <activity android:name="com.shenyu.laikaword.module.goods.pickupgoods.ui.activity.PickUpActivity" />
-        <activity android:name="com.shenyu.laikaword.ui.web.ShopDateilActivity" />
+        <activity android:name=".model.web.ShopDateilActivity" />
         <activity android:name="com.shenyu.laikaword.module.us.address.ui.activity.SelectAddressActivity" />
         <activity android:name="com.shenyu.laikaword.module.goods.pickupgoods.ui.activity.PickUpTelActivity" />
         <activity android:name="com.shenyu.laikaword.module.goods.pickupgoods.ui.activity.PickUpStateActivity" />
@@ -166,7 +168,7 @@
                 android:resource="@xml/file_provider_paths" />
         </provider>
 
-        <activity android:name="com.shenyu.laikaword.ui.web.GuessActivity" />
+        <activity android:name=".model.web.GuessActivity" />
 
         <!-- 注册支付宝网页支付，当手机为安装支付宝的时候自动跳转到网页支付。只需要在这配置文件中加下面配置。 -->
         <activity
@@ -185,14 +187,15 @@
             android:name="UMENG_CHANNEL"
             android:value="${UMENG_CHANNEL_VALUE}" />
 
-        <activity android:name="com.shenyu.laikaword.module.us.zhuanmai.view.ResellActivity" />
-        <activity android:name="com.shenyu.laikaword.module.us.zhuanmai.view.ResellDetailsActivity" />
+        <activity android:name="com.shenyu.laikaword.module.us.resell.ui.activity.ResellActivity" />
+        <activity android:name="com.shenyu.laikaword.module.us.resell.ui.activity.ResellDetailsActivity" />
         <activity android:name="com.shenyu.laikaword.module.us.AccountSecurityActivity" />
         <activity android:name="com.shenyu.laikaword.module.us.appsetting.acountbind.ui.activity.ChangeBindPhoneActivity" />
         <activity android:name="com.shenyu.laikaword.module.us.appsetting.acountbind.ui.activity.ChangeBindPhoneInputCodeActivity" />
         <activity android:name="com.shenyu.laikaword.wxapi.WXPayEntryActivity"
             android:exported="true"
             android:launchMode="singleTop"></activity>
+        <activity android:name=".module.us.resell.ui.activity.ResellInputCodeActivity"/>
     </application>
 
 </manifest>

@@ -60,7 +60,7 @@
         <TextView
             style="@style/bank_add_one"
             android:layout_centerVertical="true"
-            android:text="关于来卡"
+            android:text="关于淘卡"
             />
         <ImageView
             android:layout_marginRight="14dp"

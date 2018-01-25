@@ -19,6 +19,7 @@
         android:id="@+id/tv_ok"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:maxLength="16"
         android:layout_weight="1"
         android:clickable="true"
         android:gravity="center"

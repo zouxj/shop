@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
+
     <include layout="@layout/include_top_title" />
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
     android:id="@+id/refreshLayout"
@@ -46,7 +47,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="12dp"
                 android:gravity="center"
-                android:text="来卡公告"
+                android:text="商城公告"
                 android:textColor="@color/app_theme_red" />
 
             <TextView

@@ -19,7 +19,7 @@ import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.helper.GridSpacingItemDecoration;
 import com.shenyu.laikaword.module.login.ui.activity.LoginActivity;
 import com.shenyu.laikaword.module.goods.order.ui.activity.ConfirmOrderActivity;
-import com.shenyu.laikaword.ui.web.ShopDateilActivity;
+import com.shenyu.laikaword.model.web.ShopDateilActivity;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBusSubscriber;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxSubscriptions;

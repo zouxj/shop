@@ -12,6 +12,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -449,5 +450,53 @@ public  final  class DialogHelper {
             }
         });
         return dialog;
+    }
+
+    public static Dialog inuputGoodsCode(Context context, final InputInterfaceGoodCode linstenrText) {
+        final Dialog dialog = new Dialog(context, R.style.Dialog);
+        dialog.setCanceledOnTouchOutside(true);
+        View view = View.inflate(context, R.layout.dialog_input_goods_code, null);
+        @SuppressLint("WrongViewCast")
+        final EditText tvMsg = view.findViewById(R.id.tv_msg);
+        TextView tvOk = view.findViewById(R.id.tv_ok);
+        tvOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                linstenrText.onLintenerText(dialog,tvMsg.getText().toString().trim());
+            }
+        });
+        view.findViewById(R.id.iv_close).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    dialog.dismiss();
+            }
+        });
+
+        dialog.setContentView(view);
+        Window window = dialog.getWindow();
+        WindowManager.LayoutParams windowParams = window.getAttributes();
+        int width = (int) (window.getWindowManager().getDefaultDisplay().getWidth() * 0.8);
+        windowParams.x = 0;
+        windowParams.width = width;
+
+        window.setAttributes(windowParams);
+        dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+        dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+                    return true;
+                }
+                return false;
+            }
+        });
+        return dialog;
+
+    }
+
+
+    //商品兑换码接口
+    public interface InputInterfaceGoodCode {
+        void onLintenerText(Dialog dialog,String passWord);
     }
 }

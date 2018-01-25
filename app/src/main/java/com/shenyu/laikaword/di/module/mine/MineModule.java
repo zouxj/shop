@@ -5,12 +5,15 @@ import android.content.Context;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
+import com.shenyu.laikaword.base.BaseLoadView;
 import com.shenyu.laikaword.model.adapter.CarPackageViewPagerAdapter;
 import com.shenyu.laikaword.model.adapter.PurchaseViewPagerAdapter;
 import com.shenyu.laikaword.helper.CityDataHelper;
 import com.shenyu.laikaword.model.adapter.ZhuanMaiViewAdapter;
 import com.shenyu.laikaword.module.us.appsetting.UserInfoPresenter;
 import com.shenyu.laikaword.module.us.appsetting.UserInfoView;
+import com.shenyu.laikaword.module.us.resell.presenter.ResellInputCodePresenter;
+import com.shenyu.laikaword.module.us.resell.view.ResellInputCodeView;
 
 import dagger.Module;
 import dagger.Provides;
@@ -21,14 +24,14 @@ import dagger.Provides;
 @Module
 public class MineModule {
     private Context mContext;
-    private UserInfoView userInfoView;
+    private BaseLoadView baseLoadView;
     private Activity mActivity;
     private FragmentManager fm;
     public final static String[] mlist= new String[]{"全部","京东卡","移动卡","联通卡","电信卡"};
 
-    public MineModule(Activity activity, UserInfoView userInfoView){
+    public MineModule(Activity activity, BaseLoadView userInfoView){
         this.mActivity =activity;
-        this.userInfoView=userInfoView;
+        this.baseLoadView=userInfoView;
     }
     public MineModule(Activity activity){
         this.mActivity =activity;
@@ -49,7 +52,7 @@ public class MineModule {
 
     @Provides
     UserInfoPresenter provideUserInfoPresenter(){
-        return new UserInfoPresenter(mActivity,userInfoView);
+        return new UserInfoPresenter(mActivity,(UserInfoView) baseLoadView);
     }
     @Provides
     CarPackageViewPagerAdapter provideCarPackageViewPagerAdapter(){
@@ -62,6 +65,10 @@ public class MineModule {
     @Provides
     ZhuanMaiViewAdapter provideZhuanMaiViewAdapter(){
         return    new ZhuanMaiViewAdapter(fm);
+    }
+    @Provides
+    ResellInputCodePresenter provideResellInputCodePresenter(){
+        return    new ResellInputCodePresenter((ResellInputCodeView) baseLoadView);
     }
 
 

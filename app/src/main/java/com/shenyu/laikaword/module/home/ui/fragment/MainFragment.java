@@ -1,7 +1,6 @@
 package com.shenyu.laikaword.module.home.ui.fragment;
 
 
-import android.annotation.SuppressLint;
 import android.os.Build;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -37,13 +36,12 @@ import com.shenyu.laikaword.module.home.presenter.MainPresenter;
 import com.shenyu.laikaword.module.home.view.MainView;
 import com.shenyu.laikaword.module.login.ui.activity.LoginActivity;
 import com.shenyu.laikaword.module.us.message.UserMessageActivity;
-import com.shenyu.laikaword.model.rxjava.rxbus.RxBusSubscriber;
-import com.shenyu.laikaword.model.rxjava.rxbus.RxSubscriptions;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
+import com.shenyu.laikaword.module.us.resell.ui.activity.ResellInputCodeActivity;
 import com.shenyu.laikaword.ui.view.widget.UPMarqueeView;
-import com.shenyu.laikaword.ui.web.GuessActivity;
+import com.shenyu.laikaword.model.web.GuessActivity;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.SPUtil;
@@ -60,7 +58,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import rx.android.schedulers.AndroidSchedulers;
 
 
 /**
@@ -195,7 +192,7 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
         case R.id.iv_message:
             LoginReponse loginReponse = Constants.getLoginReponse();
             if (null!=loginReponse) {
-                IntentLauncher.with(getActivity()).launch(UserMessageActivity.class);
+                IntentLauncher.with(getActivity()).launch(ResellInputCodeActivity.class);
             }else{
                 IntentLauncher.with(getActivity()).launch(LoginActivity.class);
             }

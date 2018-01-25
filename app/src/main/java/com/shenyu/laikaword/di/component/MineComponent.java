@@ -4,7 +4,8 @@ import com.shenyu.laikaword.di.module.mine.MineModule;
 import com.shenyu.laikaword.module.us.goodcards.ui.activity.CardPackageActivity;
 import com.shenyu.laikaword.module.goods.pickupgoods.ui.activity.PurchaseCardActivity;
 import com.shenyu.laikaword.module.us.appsetting.UserInfoActivity;
-import com.shenyu.laikaword.module.us.zhuanmai.view.ResellActivity;
+import com.shenyu.laikaword.module.us.resell.ui.activity.ResellInputCodeActivity;
+import com.shenyu.laikaword.module.us.resell.ui.activity.ResellActivity;
 
 import dagger.Subcomponent;
 
@@ -18,4 +19,6 @@ public interface MineComponent {
     CardPackageActivity inject(CardPackageActivity carPackActivity);
     PurchaseCardActivity inject(PurchaseCardActivity purchaseCardActivity);
     ResellActivity inject(ResellActivity zhuanMaiActivity);
+    //转卖输入
+    ResellInputCodeActivity inject(ResellInputCodeActivity resellInputCodeActivity);
 }

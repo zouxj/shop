@@ -40,7 +40,7 @@
     android:layout_alignParentRight="true"
     android:layout_marginRight="12dp"
     android:layout_centerVertical="true"
-    android:background="@mipmap/app_main_message_icon"
+    android:background="@mipmap/exchange"
     android:layout_height="wrap_content" />
 
 </RelativeLayout>
