@@ -35,14 +35,22 @@
                 android:layout_width="wrap_content"
                 android:text="设置转卖折扣（6.0-9.7折）"
                 android:layout_height="wrap_content" />
-            <com.shenyu.laikaword.ui.view.widget.GoodsViewGroup
-                android:layout_width="match_parent"
-                android:id="@+id/goods_viewgroup"
-                android:layout_margin="10dp"
+            <LinearLayout
                 android:layout_gravity="center_horizontal"
-                android:layout_height="55dp"
-                app:horPadding="20dip"
-                app:verPadding="2dip"/>
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+                <com.shenyu.laikaword.ui.view.widget.GoodsViewGroup
+                    android:layout_width="320dp"
+                    android:text="设置转卖折扣（6.0-9.7折)"
+                    android:id="@+id/goods_viewgroup"
+                    android:layout_marginTop="10dp"
+                    android:layout_height="55dp"
+                    app:horPadding="20dip"
+                    app:verPadding="5dip"/>
+
+            </LinearLayout>
+
 
 <LinearLayout
     android:orientation="vertical"
