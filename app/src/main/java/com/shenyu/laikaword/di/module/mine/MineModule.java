@@ -12,7 +12,9 @@ import com.shenyu.laikaword.helper.CityDataHelper;
 import com.shenyu.laikaword.model.adapter.ZhuanMaiViewAdapter;
 import com.shenyu.laikaword.module.us.appsetting.UserInfoPresenter;
 import com.shenyu.laikaword.module.us.appsetting.UserInfoView;
+import com.shenyu.laikaword.module.us.resell.presenter.CommitResellPresenter;
 import com.shenyu.laikaword.module.us.resell.presenter.ResellInputCodePresenter;
+import com.shenyu.laikaword.module.us.resell.view.CommitResellView;
 import com.shenyu.laikaword.module.us.resell.view.ResellInputCodeView;
 
 import dagger.Module;
@@ -71,5 +73,8 @@ public class MineModule {
         return    new ResellInputCodePresenter((ResellInputCodeView) baseLoadView);
     }
 
-
+    @Provides
+    CommitResellPresenter provideCommitResellPresenter(){
+        return    new CommitResellPresenter((CommitResellView) baseLoadView);
+    }
 }

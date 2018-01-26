@@ -196,6 +196,7 @@
             android:exported="true"
             android:launchMode="singleTop"></activity>
         <activity android:name=".module.us.resell.ui.activity.ResellInputCodeActivity"/>
+        <activity android:name=".module.us.resell.ui.activity.CommitResellActivity"/>
     </application>
 
 </manifest>

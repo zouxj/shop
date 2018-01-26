@@ -26,6 +26,7 @@ import com.shenyu.laikaword.model.itemviewdelegeate.ResellShowCodeViewDelegate;
 import com.shenyu.laikaword.module.launch.LaiKaApplication;
 import com.shenyu.laikaword.module.us.resell.presenter.ResellInputCodePresenter;
 import com.shenyu.laikaword.module.us.resell.view.ResellInputCodeView;
+import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.KeyBoardUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
@@ -139,6 +140,7 @@ public class ResellInputCodeActivity extends LKWordBaseActivity implements Resel
                 break;
             case R.id.tv_zhuamai:
                 //TODO 转卖
+                IntentLauncher.with(this).launch(CommitResellActivity.class);
                 break;
         }
 
