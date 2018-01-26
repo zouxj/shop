@@ -37,13 +37,14 @@
             android:layout_gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="70dp">
+
             <TextView
                 android:id="@+id/tv_zhuanmai_shop_name"
-                android:text="100元移动充值卡"
-                android:textSize="@dimen/text_size_15sp"
-                android:textColor="@color/color_333"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="100元移动充值卡"
+                android:textColor="@color/color_333"
+                android:textSize="@dimen/text_size_15sp" />
 
             <TextView
                 android:layout_below="@+id/tv_zhuanmai_shop_name"
