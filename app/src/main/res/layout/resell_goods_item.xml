@@ -6,7 +6,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <ImageView
-        android:id="@+id/img_purchase_img"
+        android:id="@+id/img_rsell_img"
         android:layout_marginLeft="14dp"
         android:layout_width="106dp"
         android:layout_gravity="center_vertical"
@@ -18,7 +18,7 @@
         android:layout_height="70dp">
 
         <TextView
-            android:id="@+id/tv_zhuanmai_shop_name"
+            android:id="@+id/tv_resell_shop_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="100元移动充值卡"
@@ -26,19 +26,19 @@
             android:textSize="@dimen/text_size_15sp" />
 
         <TextView
-            android:id="@+id/tv_zhuamai_price"
+            android:id="@+id/tv_zhuamai_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_zhuanmai_shop_name"
+            android:layout_below="@+id/tv_resell_shop_name"
             android:layout_marginTop="13dp"
             android:text="专卖数量:0"
             android:textColor="@color/color_333"
             android:textSize="@dimen/text_size_12sp" />
         <TextView
             android:id="@+id/tv_status"
-            android:textColor="@color/color_999"
+            android:textColor="@color/app_theme_red"
             android:text="查看兑换码"
-            android:textSize="@dimen/text_size_12sp"
+            android:textSize="@dimen/text_size_14sp"
             android:layout_marginRight="13dp"
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"

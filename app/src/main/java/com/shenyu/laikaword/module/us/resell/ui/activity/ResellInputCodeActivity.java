@@ -18,6 +18,7 @@ import com.shenyu.laikaword.helper.RecycleViewDivider;
 import com.shenyu.laikaword.model.adapter.CommonAdapter;
 import com.shenyu.laikaword.model.adapter.MultiItemTypeAdapter;
 import com.shenyu.laikaword.model.bean.reponse.BaseReponse;
+import com.shenyu.laikaword.model.bean.reponse.SellInfoReponse;
 import com.shenyu.laikaword.model.holder.ViewHolder;
 import com.shenyu.laikaword.model.itemviewdelegeate.HomeLeftItemViewDelegate;
 import com.shenyu.laikaword.model.itemviewdelegeate.HomeLeftLastItemViewDelegate;
@@ -28,6 +29,7 @@ import com.shenyu.laikaword.module.us.resell.presenter.ResellInputCodePresenter;
 import com.shenyu.laikaword.module.us.resell.view.ResellInputCodeView;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.KeyBoardUtil;
+import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
@@ -35,6 +37,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -51,6 +55,8 @@ public class ResellInputCodeActivity extends LKWordBaseActivity implements Resel
     Set<String> listset;
     List<String> list;
     CommonAdapter commonAdapter;
+    @Inject
+    ResellInputCodePresenter resellInputCodePresenter;
     @Override
     public int bindLayout() {
         return R.layout.activity_resell_input_code;
@@ -66,11 +72,12 @@ public class ResellInputCodeActivity extends LKWordBaseActivity implements Resel
         list.add("");
         commonAdapter =new CommonAdapter<String>(R.layout.item_resell_input_code,list) {
             @Override
-            protected void convert(ViewHolder holder, String o, final int position) {
+            protected void convert(final ViewHolder holder, String o, final int position) {
                 final EditText editText =holder.getView(R.id.et_input);
                 editText.setText(o);
                 if (position==0){
                     holder.getView(R.id.tv_title).setVisibility(View.VISIBLE);
+
                 }
                 else {
                     holder.getView(R.id.tv_title).setVisibility(View.INVISIBLE);
@@ -79,6 +86,13 @@ public class ResellInputCodeActivity extends LKWordBaseActivity implements Resel
                 RxTextView.textChanges(editText).subscribe(new Action1<CharSequence>() {
                     @Override
                     public void call(CharSequence charSequence) {
+                        if (position==0){
+                            if (StringUtil.validText(charSequence.toString().trim())){
+                                holder.getView(R.id.tv_del).setVisibility(View.VISIBLE);
+                            }else {
+                                holder.getView(R.id.tv_del).setVisibility(View.GONE);
+                            }
+                        }
                         if (charSequence.toString().length()>=16)
                         {
                             editText.setFocusable(false);
@@ -111,7 +125,7 @@ public class ResellInputCodeActivity extends LKWordBaseActivity implements Resel
         };
         ryCode.setAdapter(commonAdapter);
     }
-
+    StringBuffer stringBuffer;
     @OnClick({R.id.tv_add_code,R.id.tv_zhuamai})
     public  void  onClick(View view){
         switch (view.getId()){
@@ -126,13 +140,11 @@ public class ResellInputCodeActivity extends LKWordBaseActivity implements Resel
                                 commonAdapter.notifyDataSetChanged();
                                 dialog.dismiss();
                             }else {
-                                ToastUtil.showToastShort("不能输入相同的兑换码");
+                                ToastUtil.toS(mActivity,"不能输入相同的兑换码");
 
                             }
-
-
                         }else {
-                            ToastUtil.showToastShort("请输入正确的兑换码");
+                            ToastUtil.toS(mActivity,"请输入正确的兑换码");
 
                         }
                     }
@@ -140,7 +152,16 @@ public class ResellInputCodeActivity extends LKWordBaseActivity implements Resel
                 break;
             case R.id.tv_zhuamai:
                 //TODO 转卖
-                IntentLauncher.with(this).launch(CommitResellActivity.class);
+                 stringBuffer = new StringBuffer();
+                for (int i=0;i<list.size();i++){
+                    if (i==list.size()-1){
+                        stringBuffer.append(list.get(i));
+                    }else {
+                        stringBuffer.append(list.get(i)+",");
+                    }
+
+                }
+                resellInputCodePresenter.sellInfo(bindToLifecycle(),stringBuffer.toString(),"002311348910");
                 break;
         }
 
@@ -162,16 +183,24 @@ public class ResellInputCodeActivity extends LKWordBaseActivity implements Resel
 
     @Override
     public void setupActivityComponent() {
-        LaiKaApplication.get(this).getAppComponent().plus(new MineModule(this)).inject(this);
+        LaiKaApplication.get(this).getAppComponent().plus(new MineModule(this,this)).inject(this);
     }
 
     @Override
     public void isLoading() {
 
     }
-
+    private  SellInfoReponse sellInfoReponse;
     @Override
     public void loadSucceed(BaseReponse baseReponse) {
+        if (baseReponse instanceof SellInfoReponse){
+            sellInfoReponse = (SellInfoReponse) baseReponse;
+        }
+        if (sellInfoReponse.isSuccess()){
+            if (sellInfoReponse.getPayload()!=null){
+                IntentLauncher.with(this).put("cdkeys",stringBuffer.toString()).putObjectString("resellInfo",sellInfoReponse).launch(CommitResellActivity.class);
+            }
+        }
 
     }
 

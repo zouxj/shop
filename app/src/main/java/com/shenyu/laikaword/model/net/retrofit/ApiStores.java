@@ -16,6 +16,7 @@ import com.shenyu.laikaword.model.bean.reponse.OrderListReponse;
 import com.shenyu.laikaword.model.bean.reponse.PayInfoReponse;
 import com.shenyu.laikaword.model.bean.reponse.PickUpGoodsReponse;
 import com.shenyu.laikaword.model.bean.reponse.ResellParticularsReponse;
+import com.shenyu.laikaword.model.bean.reponse.SellInfoReponse;
 import com.shenyu.laikaword.model.bean.reponse.ShopMainReponse;
 import com.shenyu.laikaword.model.bean.reponse.StartBannerGuangKReponse;
 import com.shenyu.laikaword.model.bean.reponse.WeixinPayReponse;
@@ -156,5 +157,32 @@ public interface ApiStores {
     @POST("user/changePhone")
     Observable<BaseReponse> changePhone(@Field("phone") String phone, @Field("code") String code);
 
+    /**
+     * 转卖申请接口
+     * @param cdKeys 兑换码
+     * @param discount 折扣
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("resell/sellApply")
+    Observable<BaseReponse> sellApply(@Field("cdKeys") String cdKeys, @Field("discount") String discount);
+
+    /**
+     * 获取转卖兑换码的商品详情
+     * @param cdKeys 兑换码
+     * @param userCode 客户编码
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("resell/sellInfo")
+    Observable<SellInfoReponse> sellInfo(@Field("cdKeys") String cdKeys, @Field("userCode") String userCode);
+
+    /**
+     * 转卖详情
+     * @param goodsId 商品ID
+     * @return
+     */
+    @GET("resell/detail")
+    Observable<BaseReponse> resellDetail(@Query("goodsId")int goodsId);
 
 }

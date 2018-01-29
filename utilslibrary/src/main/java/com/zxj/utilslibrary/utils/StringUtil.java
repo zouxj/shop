@@ -121,7 +121,10 @@ public class StringUtil {
                  DecimalFormat df = new DecimalFormat("######0.00");
                    return  df.format(value);
           }
-
+    public static String m1(Double value) {
+        DecimalFormat df = new DecimalFormat("######0.0");
+        return  df.format(value);
+    }
     /**
      * 字符串转int
      * @param num

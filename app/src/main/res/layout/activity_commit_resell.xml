@@ -28,6 +28,7 @@
             android:background="@color/white"
             android:orientation="vertical">
             <TextView
+                android:id="@+id/tv_zhekou"
                 android:layout_marginTop="14dp"
                 android:layout_marginLeft="20dp"
                 android:textSize="@dimen/text_size_13sp"
@@ -42,7 +43,6 @@
                 android:layout_height="wrap_content">
                 <com.shenyu.laikaword.ui.view.widget.GoodsViewGroup
                     android:layout_width="320dp"
-                    android:text="设置转卖折扣（6.0-9.7折)"
                     android:id="@+id/goods_viewgroup"
                     android:layout_marginTop="10dp"
                     android:layout_height="55dp"
@@ -56,7 +56,7 @@
     android:orientation="vertical"
     android:layout_gravity="center_horizontal"
     android:layout_width="wrap_content"
-    android:layout_marginTop="5dp"
+    android:layout_marginTop="19dp"
     android:layout_height="wrap_content">
     <com.shenyu.laikaword.ui.view.widget.AmountView
         android:id="@+id/av_zj"
@@ -82,7 +82,7 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginLeft="20dp"
                 android:layout_width="wrap_content"
-                android:text="*微信提示\n 1.转卖完以后,可在个人中心 ”我的余额“中提现。\n 2.  设置的专卖折扣越低,转卖速度更快。"
+                android:text="*微信提示\n 1.转卖完以后,可在个人中心 ”我的余额“中提现。\n 2.设置的专卖折扣越低,转卖速度更快。"
                 android:layout_height="wrap_content" />
         </LinearLayout>
 

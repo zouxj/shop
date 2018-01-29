@@ -3,6 +3,8 @@ package com.shenyu.laikaword.ui.view.widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.text.Editable;
+import android.text.InputFilter;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -13,6 +15,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.shenyu.laikaword.R;
+import com.zxj.utilslibrary.utils.StringUtil;
+import com.zxj.utilslibrary.utils.UIUtil;
 
 /**
  * Created by shenyu_zxjCode on 2017/9/25 0025.
@@ -25,7 +29,13 @@ public class AmountView extends LinearLayout implements View.OnClickListener, Te
     Button btnIncrease;
     private int amount = 1; //购买数量
     private int goods_storage = 1; //商品库存
+
+    private Double damount = 1.0; //购买数量
+    private Double dgoods_storage = 1.0; //商品库存
     private OnAmountChangeListener mListener;
+    private OnDoubleAmountChangeListener onDoubleAmountChangeListener;
+    private int flg=0;
+
     public AmountView(Context context) {
         this(context, null);
 
@@ -96,51 +106,105 @@ public class AmountView extends LinearLayout implements View.OnClickListener, Te
         this.mListener = onAmountChangeListener;
 
     }
+    public void setFlg(int flg){
+        this.flg=flg;
+        if (flg!=0){
+            etAmount.setFilters(new InputFilter[]{new MoneyValueFilter()});
+            etAmount.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+            etAmount.setTextColor(UIUtil.getColor(R.color.app_theme_red));
+        }
+    }
+    public void setOnDoubleAmountChangeListener(OnDoubleAmountChangeListener onDoubleAmountChangeListener) {
 
+        this.onDoubleAmountChangeListener = onDoubleAmountChangeListener;
+
+    }
 
     public void setGoods_storage(int goods_storage) {
 
         this.goods_storage = goods_storage;
 
     }
+    public void setDGoods_storage(double dgoods_storage) {
 
+        this.dgoods_storage = dgoods_storage;
 
+    }
+    public void setMixZheKou(double mixCount) {
+        etAmount.setText(StringUtil.m1(mixCount));
+        this.mixZheKou = mixCount;
+
+    }
+    private double mixZheKou;
     @Override
 
     public void onClick(View v) {
 
         int i = v.getId();
+        if (flg==0) {
+            if (i == R.id.btnDecrease) {
 
-        if (i == R.id.btnDecrease) {
+                if (amount > 1) {
 
-            if (amount > 1) {
+                    amount--;
 
-                amount--;
+                    etAmount.setText(amount + "");
 
-                etAmount.setText(amount + "");
+                }
+
+            } else if (i == R.id.btnIncrease) {
+
+                if (amount < goods_storage) {
+
+                    amount++;
+
+                    etAmount.setText(amount + "");
+
+                }
+
+            }
+
+
+            etAmount.clearFocus();
+
+
+            if (mListener != null) {
+
+                mListener.onAmountChange(this, amount);
+
+            }
+        }else {
+            if (i == R.id.btnDecrease) {
+
+            if (damount > mixZheKou) {
+
+                damount-=0.1;
+
+                etAmount.setText(StringUtil.m1(damount));
 
             }
 
         } else if (i == R.id.btnIncrease) {
 
-            if (amount < goods_storage) {
+            if (damount < dgoods_storage) {
 
-                amount++;
+                damount+=0.1;
 
-                etAmount.setText(amount + "");
+                etAmount.setText(StringUtil.m1(damount));
 
             }
 
         }
 
 
-        etAmount.clearFocus();
+            etAmount.clearFocus();
 
 
-        if (mListener != null) {
+            if (onDoubleAmountChangeListener != null) {
 
-            mListener.onAmountChange(this, amount);
+                onDoubleAmountChangeListener.onAmountChange(this, amount);
 
+            }
         }
 
     }
@@ -169,22 +233,38 @@ public class AmountView extends LinearLayout implements View.OnClickListener, Te
         if (s.toString().isEmpty())
 
             return;
+        if (flg==0) {
+            amount = Integer.valueOf(s.toString());
 
-        amount = Integer.valueOf(s.toString());
+            if (amount > goods_storage) {
 
-        if (amount > goods_storage) {
+                etAmount.setText(goods_storage + "");
 
-            etAmount.setText(goods_storage + "");
+                return;
 
-            return;
-
-        }
+            }
 
 
-        if (mListener != null) {
+            if (mListener != null) {
 
-            mListener.onAmountChange(this, amount);
+                mListener.onAmountChange(this, amount);
 
+            }
+        }else {
+            damount =StringUtil.formatDouble(s.toString());
+
+            if (damount > dgoods_storage) {
+                etAmount.setText(StringUtil.m1(dgoods_storage));
+                return;
+
+            }
+
+
+            if (onDoubleAmountChangeListener != null) {
+
+                onDoubleAmountChangeListener.onAmountChange(this, damount);
+
+            }
         }
 
     }
@@ -193,6 +273,11 @@ public class AmountView extends LinearLayout implements View.OnClickListener, Te
     public interface OnAmountChangeListener {
 
         void onAmountChange(View view, int amount);
+
+    }
+    public interface OnDoubleAmountChangeListener {
+
+        void onAmountChange(View view, double amount);
 
     }
 }

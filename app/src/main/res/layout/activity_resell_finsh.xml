@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg_gray"
+    android:orientation="vertical"
+    tools:context="com.shenyu.laikaword.module.us.wallet.withdraw.WthdrawDetailsActivity">
+    <include layout="@layout/toolbar_layout"/>
+    <ImageView
+        android:layout_marginTop="53dp"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@mipmap/state_ok"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:textSize="@dimen/text_size_18sp"
+        android:textColor="@color/color_333"
+        android:layout_marginTop="19dp"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="转卖发布成功"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_marginTop="35dp"
+        android:layout_gravity="center_horizontal"
+        android:text="可在“我的转卖”中查看转卖进度\n转卖成功后可在”我的余额“中提现"
+        android:textSize="@dimen/text_size_13sp"
+        android:textColor="@color/app_theme_red"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_marginTop="83dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="43dp">
+
+        <TextView
+            android:id="@+id/tv_jd"
+            android:layout_width="143dp"
+            android:layout_height="43dp"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_bodre_zhekou_rectangle"
+            android:gravity="center"
+            android:text="查看进度"
+            android:textColor="@color/app_theme_red"
+            android:textSize="18sp" />
+        <TextView
+            android:id="@+id/tv_jx"
+            android:layout_marginLeft="27dp"
+            android:layout_width="143dp"
+            android:layout_height="43dp"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_bodre_zhekou_rectangle"
+            android:gravity="center"
+            android:text="继续转卖"
+            android:textColor="@color/app_theme_red"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

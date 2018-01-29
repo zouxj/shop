@@ -76,7 +76,7 @@ public class PickUpActivity extends LKWordBaseActivity {
         setToolBarTitle("申请提货");
         tvGoumaiCount.setText("提货数量");
         avZj.setOnAmountChangeListener(new AmountView.OnAmountChangeListener() {
-            @Override
+                @Override
             public void onAmountChange(View view, int amount) {
                 count = amount;
                 tvTihuoAll.setText(amount+"张");

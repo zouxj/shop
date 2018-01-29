@@ -256,6 +256,7 @@ public class GoodsViewGroup extends ViewGroup {
                 addItemView(item);
             }
         }
+        invalidate();
     }
 
     private void addItemView(GoodsViewGroupItem item) {

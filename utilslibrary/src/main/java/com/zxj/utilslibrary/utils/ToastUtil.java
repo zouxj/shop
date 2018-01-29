@@ -1,6 +1,7 @@
 package com.zxj.utilslibrary.utils;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.util.TypedValue;
@@ -146,4 +147,8 @@ public class ToastUtil {
 //        mToast.setView(mLayout);
 //        return mToast;
 //    }
+
+    public static void toS(Context context,final String msg) {
+        android.widget.Toast.makeText(context,msg, Toast.LENGTH_LONG).show();
+    }
 }
