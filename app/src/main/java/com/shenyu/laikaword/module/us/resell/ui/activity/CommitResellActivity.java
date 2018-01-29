@@ -75,10 +75,16 @@ public class CommitResellActivity extends LKWordBaseActivity implements CommitRe
         recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
         recyclerView.setAdapter(new CommonAdapter< SellInfoReponse.PayloadBean>(R.layout.resell_goods_item,payloadBeans) {
             @Override
-            protected void convert(ViewHolder holder, SellInfoReponse.PayloadBean payloadBean, int position) {
+            protected void convert(ViewHolder holder, final SellInfoReponse.PayloadBean payloadBean, int position) {
                 ImageUitls.loadImg(payloadBean.getGoodsImg(), (ImageView) holder.getView(R.id.img_rsell_img));
                 holder.setText(R.id.tv_resell_shop_name,payloadBean.getGoodsName());
                 holder.setText(R.id.tv_zhuamai_count,"转卖数量:"+payloadBean.getNum());
+                holder.setOnClickListener(R.id.tv_status, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        IntentLauncher.with(mActivity).putListString("cdkey", (ArrayList<String>) payloadBean.getCodeList()).launch(CDkeyActivity.class);
+                    }
+                });
             }
 
 

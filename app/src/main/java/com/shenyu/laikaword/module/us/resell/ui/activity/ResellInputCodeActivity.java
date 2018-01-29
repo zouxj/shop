@@ -66,7 +66,6 @@ public class ResellInputCodeActivity extends LKWordBaseActivity implements Resel
     public void initView() {
         ryCode.addItemDecoration(new RecycleViewDivider(this, LinearLayoutManager.HORIZONTAL,(int) UIUtil.dp2px(1),UIUtil.getColor(R.color.main_bg_gray)));
         ryCode.setLayoutManager(new LinearLayoutManager(this));
-
         list = new ArrayList<>();
         listset = new HashSet<String>(list);
         list.add("");
@@ -139,8 +138,11 @@ public class ResellInputCodeActivity extends LKWordBaseActivity implements Resel
                                 list.add(passWord);
                                 commonAdapter.notifyDataSetChanged();
                                 dialog.dismiss();
-                            }else {
-                                ToastUtil.toS(mActivity,"不能输入相同的兑换码");
+                            }else if (list.size()==10){
+                                ToastUtil.toS(mActivity,"兑换码1次最多输入10个");
+                            }
+                            else {
+                                ToastUtil.toS(mActivity,"已存在该兑换码，请重新输入");
 
                             }
                         }else {
@@ -159,9 +161,12 @@ public class ResellInputCodeActivity extends LKWordBaseActivity implements Resel
                     }else {
                         stringBuffer.append(list.get(i)+",");
                     }
-
                 }
-                resellInputCodePresenter.sellInfo(bindToLifecycle(),stringBuffer.toString(),"002311348910");
+                if (StringUtil.validText(etInputCode.getText().toString().trim()))
+                    resellInputCodePresenter.sellInfo(bindToLifecycle(),stringBuffer.toString(),etInputCode.getText().toString().trim());
+                else {
+                ToastUtil.showToastShort("请输入用户编号");
+            }
                 break;
         }
 

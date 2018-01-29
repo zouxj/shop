@@ -202,7 +202,8 @@
             android:launchMode="singleTop" />
         <activity android:name=".module.us.resell.ui.activity.ResellInputCodeActivity" />
         <activity android:name=".module.us.resell.ui.activity.CommitResellActivity" />
-        <activity android:name=".module.us.resell.ui.activity.ResellFinshActivity"></activity>
+        <activity android:name=".module.us.resell.ui.activity.ResellFinshActivity" />
+        <activity android:name=".module.us.resell.ui.activity.CDkeyActivity"></activity>
     </application>
 
 </manifest>
