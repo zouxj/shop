@@ -56,20 +56,16 @@
 
     <declare-styleable name="AmountView">
         <!-- 左右2边+-按钮的宽度 -->
-
         <attr name="btnWidth" format="dimension" />
-
         <!-- 中间TextView的宽度 -->
-
         <attr name="tvWidth" format="dimension" />
-
         <!--<attr name="tvColor" format="color"/>-->
-
         <attr name="tvTextSize" format="dimension"/>
-
         <attr name="btnTextSize" format="dimension"/>
         <attr name="btnHeight" format="dimension"/>
-
+        <attr name="bgBtn" format="reference"/>
+        <attr name="bgTv" format="reference"/>
+        <attr name="bg" format="reference"/>
     </declare-styleable>
 
     <declare-styleable name="ExpandTextView">

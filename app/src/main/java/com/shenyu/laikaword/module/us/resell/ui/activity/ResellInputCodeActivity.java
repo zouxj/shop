@@ -52,6 +52,8 @@ public class ResellInputCodeActivity extends LKWordBaseActivity implements Resel
     RecyclerView ryCode;
     @BindView(R.id.tv_tishi)
     TextView tvTishi;
+    @BindView(R.id.tv_add_code)
+    TextView tvAddCode;
     Set<String> listset;
     List<String> list;
     CommonAdapter commonAdapter;
@@ -60,6 +62,12 @@ public class ResellInputCodeActivity extends LKWordBaseActivity implements Resel
     @Override
     public int bindLayout() {
         return R.layout.activity_resell_input_code;
+    }
+
+
+    @Override
+    public void registerForContextMenu(View view) {
+
     }
 
     @Override
@@ -100,8 +108,12 @@ public class ResellInputCodeActivity extends LKWordBaseActivity implements Resel
                                 list.add(charSequence.toString().trim());
                                 notifyDataSetChanged();
                             }
-
-                            KeyBoardUtil.heideSoftInput(mActivity);
+                                tvAddCode.setBackgroundColor(UIUtil.getColor(R.color.white));
+                                tvAddCode.setEnabled(true);
+                                KeyBoardUtil.heideSoftInput(mActivity);
+                        }else {
+                            tvAddCode.setBackgroundColor(UIUtil.getColor(R.color.color_b0b0));
+                            tvAddCode.setEnabled(false);
                         }
                     }
                 });
@@ -154,6 +166,14 @@ public class ResellInputCodeActivity extends LKWordBaseActivity implements Resel
                 break;
             case R.id.tv_zhuamai:
                 //TODO 转卖
+                if (!StringUtil.validText(etInputCode.getText().toString().trim())) {
+                    ToastUtil.showToastShort("请输入用户编号");
+                    return;
+                }
+                if (list.size()==0) {
+                    ToastUtil.showToastShort("请输入兑换码");
+                    return;
+                }
                  stringBuffer = new StringBuffer();
                 for (int i=0;i<list.size();i++){
                     if (i==list.size()-1){
@@ -162,11 +182,8 @@ public class ResellInputCodeActivity extends LKWordBaseActivity implements Resel
                         stringBuffer.append(list.get(i)+",");
                     }
                 }
-                if (StringUtil.validText(etInputCode.getText().toString().trim()))
-                    resellInputCodePresenter.sellInfo(bindToLifecycle(),stringBuffer.toString(),etInputCode.getText().toString().trim());
-                else {
-                ToastUtil.showToastShort("请输入用户编号");
-            }
+
+                resellInputCodePresenter.sellInfo(bindToLifecycle(),stringBuffer.toString(),etInputCode.getText().toString().trim());
                 break;
         }
 
@@ -183,7 +200,10 @@ public class ResellInputCodeActivity extends LKWordBaseActivity implements Resel
 
     @Override
     public void doBusiness(Context context) {
-
+    if (list.size()==0){
+        tvAddCode.setBackgroundColor(UIUtil.getColor(R.color.color_b0b0));
+        tvAddCode.setEnabled(false);
+    }
     }
 
     @Override

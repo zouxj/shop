@@ -3,6 +3,7 @@ package com.shenyu.laikaword.module.us.resell.ui.activity;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -106,7 +107,7 @@ public class CommitResellActivity extends LKWordBaseActivity implements CommitRe
                 }
             });
             goodsViewGroup.chooseItemStyle(1);
-            textCode.setText("转卖总额:"+StringUtil.m2((double) (StringUtil.formatDouble(sellInfoReponse.getPayload().getOriginPrice())*sellInfoReponse.getPayload().getNum())));
+            textCode.setText(Html.fromHtml("<font color= '#333333'>转卖总额:</font>"+"<font color= '#ff7b02'>"+StringUtil.m2((double) (StringUtil.formatDouble(sellInfoReponse.getPayload().getOriginPrice())*sellInfoReponse.getPayload().getNum()))+"</font>"));
             amountView.setDGoods_storage(StringUtil.formatDouble(sellInfoReponse.getPayload().getDiscountRange().get(1)));
             amountView.setMixZheKou(StringUtil.formatDouble(sellInfoReponse.getPayload().getDiscountRange().get(0)));
         }

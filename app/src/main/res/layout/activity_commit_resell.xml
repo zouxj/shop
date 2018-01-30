@@ -54,17 +54,19 @@
 
 <LinearLayout
     android:orientation="vertical"
-    android:layout_gravity="center_horizontal"
-    android:layout_width="wrap_content"
-    android:layout_marginTop="19dp"
-    android:layout_height="wrap_content">
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="19dp"
+        android:layout_height="wrap_content">
     <com.shenyu.laikaword.ui.view.widget.AmountView
         android:id="@+id/av_zj"
         android:layout_width="320dp"
         android:layout_height="47dp"
-        app:btnTextSize="18sp"
+        app:btnTextSize="30sp"
         app:btnWidth="89dp"
-        app:btnHeight="47dp"
+          app:btnHeight="47dp"
+        app:bgBtn="@drawable/bg_bodre_zhekou_rectangle"
+        app:bg="@drawable/bg_bodre_zhekou_rectangle"
         app:tvWidth="140dp"
         >
     </com.shenyu.laikaword.ui.view.widget.AmountView>

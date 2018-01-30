@@ -2,6 +2,9 @@ package com.shenyu.laikaword.ui.view.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
@@ -42,6 +45,7 @@ public class AmountView extends LinearLayout implements View.OnClickListener, Te
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public AmountView(Context context, AttributeSet attrs) {
 
         super(context, attrs);
@@ -67,9 +71,9 @@ public class AmountView extends LinearLayout implements View.OnClickListener, Te
         int btnWidth = obtainStyledAttributes.getDimensionPixelSize(R.styleable.AmountView_btnWidth, LayoutParams.WRAP_CONTENT);
 
         int tvWidth = obtainStyledAttributes.getDimensionPixelSize(R.styleable.AmountView_tvWidth, 80);
-
+        Drawable bg = obtainStyledAttributes.getDrawable(R.styleable.AmountView_bg);
         int tvTextSize = obtainStyledAttributes.getDimensionPixelSize(R.styleable.AmountView_tvTextSize, 0);
-
+        Drawable btnBg = obtainStyledAttributes.getDrawable(R.styleable.AmountView_bgBtn);
         int btnTextSize = obtainStyledAttributes.getDimensionPixelSize(R.styleable.AmountView_btnTextSize, 0);
         int btnHeight=obtainStyledAttributes.getDimensionPixelSize(R.styleable.AmountView_btnHeight, 0);
         obtainStyledAttributes.recycle();
@@ -97,7 +101,13 @@ public class AmountView extends LinearLayout implements View.OnClickListener, Te
             etAmount.setTextSize(tvTextSize);
 
         }
-
+        if (bg!=null){
+            setBackground(bg);
+        }
+        if (btnBg!=null){
+            btnIncrease.setBackground(btnBg);
+            btnDecrease.setBackground(btnBg);
+        }
     }
 
 
