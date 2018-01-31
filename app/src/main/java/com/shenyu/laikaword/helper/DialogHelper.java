@@ -493,7 +493,79 @@ public  final  class DialogHelper {
         return dialog;
 
     }
+    /**
+     * 更新应用
+     * @param context
+     * @param msg
+     * @param positiveText
+     * @param negativeText
+     * @param is_must
+     * @param callback
+     * @return
+     */
+    public static Dialog tDialog(Context context,String msg , String positiveText, String negativeText, boolean is_must, final ButtonCallback callback){
+        final Dialog dialog = new Dialog(context,R.style.Dialog);
+        if(!is_must) {
+            dialog.setCanceledOnTouchOutside(true);
+        }else{
+            dialog.setCanceledOnTouchOutside(false);
+        }
+        View view = View.inflate(context,R.layout.dialog_resell_tishi,null);
 
+        TextView tvMsg  = (TextView)view.findViewById(R.id.tv_msg);
+        tvMsg.setText(msg);
+        TextView tvOk = (TextView)view.findViewById(R.id.tv_ok);
+        TextView tvCancel = (TextView)view.findViewById(R.id.tv_cancel);
+
+
+
+        if(!TextUtils.isEmpty(positiveText)){
+            tvOk.setText(positiveText);
+        }
+        if(!TextUtils.isEmpty(negativeText)){
+            tvCancel.setText(negativeText);
+        }
+
+        tvCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(callback!=null){
+                    callback.onPositive(dialog);
+                }
+            }
+        });
+
+        tvOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                if(callback!=null){
+                    dialog.dismiss();
+                    callback.onNegative(dialog);
+                }
+            }
+        });
+
+        dialog.setContentView(view);
+        Window window = dialog.getWindow();
+        WindowManager.LayoutParams windowParams = window.getAttributes();
+        int width = (int)(window.getWindowManager().getDefaultDisplay().getWidth()*0.8);
+        windowParams.x = 0;
+        windowParams.width = width;
+
+        window.setAttributes(windowParams);
+
+        dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if(keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0){
+                    return true;
+                }
+                return false;
+            }
+        });
+        return dialog;
+    }
 
     //商品兑换码接口
     public interface InputInterfaceGoodCode {

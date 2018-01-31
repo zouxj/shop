@@ -212,7 +212,7 @@ public class AmountView extends LinearLayout implements View.OnClickListener, Te
 
             if (onDoubleAmountChangeListener != null) {
 
-                onDoubleAmountChangeListener.onAmountChange(this, amount);
+                onDoubleAmountChangeListener.onAmountChange(this, damount);
 
             }
         }
@@ -262,13 +262,16 @@ public class AmountView extends LinearLayout implements View.OnClickListener, Te
             }
         }else {
             damount =StringUtil.formatDouble(s.toString());
-
             if (damount > dgoods_storage) {
                 etAmount.setText(StringUtil.m1(dgoods_storage));
                 return;
 
             }
+            if (damount < mixZheKou) {
+                etAmount.setText(StringUtil.m1(mixZheKou));
+                return;
 
+            }
 
             if (onDoubleAmountChangeListener != null) {
 

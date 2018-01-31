@@ -15,6 +15,8 @@ import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.helper.UpdateManager;
 import com.shenyu.laikaword.model.bean.reponse.ShopMainReponse;
+import com.shenyu.laikaword.model.web.GuessActivity;
+import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.PackageManagerUtil;
 import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
@@ -73,7 +75,7 @@ public class AboutAppActivity extends LKWordBaseActivity implements MPermission.
     }
 
 
-    @OnClick({R.id.tv_check_update, R.id.tv_get_pignfen,R.id.textView})
+    @OnClick({R.id.tv_check_update, R.id.tv_get_pignfen,R.id.textView,R.id.tv_server})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.textView:
@@ -98,6 +100,13 @@ public class AboutAppActivity extends LKWordBaseActivity implements MPermission.
                 intentpf.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intentpf);
             break;
+            case R.id.tv_server:
+                //TODO 服务条款
+                ShopMainReponse shopMainReponse = (ShopMainReponse) SPUtil.readObject(Constants.MAIN_SHOP_KEY);
+                if (null!=shopMainReponse) {
+                    IntentLauncher.with(this).put("weburl", shopMainReponse.getPayload().getAgreement()).launch(GuessActivity.class);
+                }
+                break;
         }
     }
 

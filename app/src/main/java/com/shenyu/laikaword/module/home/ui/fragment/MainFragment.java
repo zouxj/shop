@@ -245,7 +245,6 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
         setViewpagerTopData(shopBeanReponse.getPayload().getBanner());
         SPUtil.saveObject(Constants.MAIN_SHOP_KEY,shopBeanReponse);
         RxBus.getDefault().post(new Event(EventType.ACTION_MAIN_SETDATE,shopBeanReponse.getPayload().getGoods()));
-     LogUtil.i("shopInfo",shopBeanReponse.getPayload().getGoods().toString());
         if (null!=shopBeanReponse.getPayload().getEntranceList()) {
             if (shopBeanReponse.getPayload().getEntranceList().size() > 0) {
                 ivPoint.setVisibility(shopBeanReponse.getPayload().getFlag().getnewExtractFlag().equals("1") ? View.VISIBLE : View.GONE);

@@ -118,6 +118,16 @@ public class ShopMainReponse extends BaseReponse implements Serializable {
         private Contacts contacts;
         private Flag flag;
         private String resellShow;
+        //服务协议
+        private String agreement;
+
+        public String getAgreement() {
+            return agreement;
+        }
+
+        public void setAgreement(String agreement) {
+            this.agreement = agreement;
+        }
 
         public String getResellShow() {
             return resellShow;

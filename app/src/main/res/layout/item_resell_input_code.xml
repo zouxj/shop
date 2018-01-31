@@ -6,19 +6,24 @@
     android:layout_height="48dp">
     <TextView
         android:id="@+id/tv_title"
-        android:text="转换兑换码"
+        android:text="转卖兑换码"
         android:textSize="@dimen/text_size_13sp"
+        android:gravity="center_vertical"
+        android:layout_gravity="center_vertical"
         android:layout_width="wrap_content"
-        android:layout_marginTop="17dp"
         android:layout_marginLeft="10dp"
         android:layout_height="wrap_content"
         android:textColor="@color/color_333"
         />
     <EditText
         android:id="@+id/et_input"
-        android:hint="请输入您的用户编号"
+        android:hint="请输入你的转卖兑换码"
         android:textSize="13sp"
+        android:maxLength="16"
+        android:lines="1"
+        android:layout_marginLeft="5dp"
         android:background="@null"
+        android:textColorHint="@color/color_999"
         android:textColor="@color/color_999"
         android:layout_gravity="center_vertical"
         android:layout_width="150dp"

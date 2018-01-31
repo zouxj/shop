@@ -15,6 +15,7 @@ import com.shenyu.laikaword.model.bean.reponse.LoginReponse;
 import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.module.goods.order.ui.activity.ConfirmOrderActivity;
 import com.shenyu.laikaword.module.login.ui.activity.LoginActivity;
+import com.shenyu.laikaword.ui.view.widget.ProgressWebView;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 
 import butterknife.BindView;
@@ -25,7 +26,7 @@ import butterknife.BindView;
 public class ShopDateilActivity extends LKWordBaseActivity {
 
     @BindView(R.id.wb_load)
-    WebView wbLoad;
+    ProgressWebView wbLoad;
     GoodBean goodBean;
     @Override
     public int bindLayout() {
@@ -35,7 +36,7 @@ public class ShopDateilActivity extends LKWordBaseActivity {
     @SuppressLint("NewApi")
     @Override
     public void initView() {
-        setToolBarTitle("商品详情");
+
         goodBean = (GoodBean) getIntent().getSerializableExtra("GoodBean");
         WebSettings webSettings = wbLoad.getSettings();
         webSettings.setUseWideViewPort(true); //将图片调整到适合webview的大小
@@ -56,6 +57,7 @@ public class ShopDateilActivity extends LKWordBaseActivity {
 //      String webURL = "http://comingcard.com";
         // 先载入JS代码
         // 格式规定为:file:///android_asset/文件名.html
+
         wbLoad.loadUrl(webURL);
         wbLoad.setWebViewClient(new WebViewClient() {
 
@@ -96,7 +98,12 @@ public class ShopDateilActivity extends LKWordBaseActivity {
 
     @Override
     public void doBusiness(Context context) {
-
+        wbLoad.setInterReceivedTitle(new ProgressWebView.InterReceivedTitle() {
+            @Override
+            public void setTitile(String titile) {
+                setToolBarTitle(titile);
+            }
+        });
     }
 
     @Override

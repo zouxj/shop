@@ -30,5 +30,6 @@
     <string name="goumai_empty">您好，目前还没有相关的订单～</string>
     <string name="money_empty">暂时没有余额明细~</string>
     <string name="pager_empty">这卡包是空的哦</string>
+    <string name="str_resell">*温馨提示\n1、转卖完以后,可在个人中心 ”我的余额“中提现.\n2、设置的转卖折扣越低,转卖速度更快.\n3、转卖手续费为限时免费,之后会收取一定费用.</string>
 
 </resources>

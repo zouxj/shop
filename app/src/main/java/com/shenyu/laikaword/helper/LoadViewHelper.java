@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.ui.view.widget.loaddialog.ProgressLayout;
@@ -74,14 +76,24 @@ public class LoadViewHelper {
         loadingView.showError(onClickListener);
         ((ViewGroup) activity.getWindow().getDecorView()).addView(loadingView);
     }
-    LinearLayout linearLayout;
+    RelativeLayout linearLayout;
 
-    public void  maskView(Activity activity){
-        linearLayout= (LinearLayout) LayoutInflater.from(activity).inflate(R.layout.masking_layout, null);
-        linearLayout.setOnClickListener(new View.OnClickListener() {
+    public void  maskView(final Activity activity){
+        linearLayout= (RelativeLayout) LayoutInflater.from(activity).inflate(R.layout.masking_layout, null);
+        final LinearLayout ly= linearLayout.findViewById(R.id.ly_resell);
+        final ImageView rightIv=linearLayout.findViewById(R.id.iv_zhuamai);
+        rightIv.setVisibility(View.GONE);
+        ly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                linearLayout.setVisibility(View.GONE);
+                ly.setVisibility(View.GONE);
+                rightIv.setVisibility(View.VISIBLE);
+            }
+        });
+        rightIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((ViewGroup) activity.getWindow().getDecorView()).removeView(linearLayout);
             }
         });
         ((ViewGroup) activity.getWindow().getDecorView()).addView(linearLayout);

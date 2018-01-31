@@ -122,7 +122,7 @@ private void  setData(int position){
         switch (position){
             case 0:
                 for (ShopMainReponse.GoodsBean goodsBeans:goods){
-                    if (goodsBeans.getType().equals("hotSell ")){
+                    if (goodsBeans.getType().equals("hotSell")){
                         listBeans.addAll(goodsBeans.getList());
                     }
                 }

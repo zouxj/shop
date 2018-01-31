@@ -1,5 +1,6 @@
 package com.shenyu.laikaword.module.us.resell.ui.activity;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.di.module.mine.MineModule;
+import com.shenyu.laikaword.helper.DialogHelper;
 import com.shenyu.laikaword.helper.ImageUitls;
 import com.shenyu.laikaword.helper.RecycleViewDivider;
 import com.shenyu.laikaword.model.GoodsViewGroupItem;
@@ -52,6 +54,9 @@ public class CommitResellActivity extends LKWordBaseActivity implements CommitRe
     private List<SellInfoReponse.PayloadBean> payloadBeans =new ArrayList<>();
     @BindView(R.id.tv_add_code)
     TextView textCode;
+    @BindView(R.id.tv_souxu_fei)
+    TextView tvSouxuFeil;
+    private double discount;
     @Inject
     CommitResellPresenter commitResellPresenter;
 
@@ -62,11 +67,14 @@ public class CommitResellActivity extends LKWordBaseActivity implements CommitRe
 
     @Override
     public void initView() {
+        setToolBarTitle("确认转卖");
         amountView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT));
         amountView.setFlg(1);
         amountView.setOnDoubleAmountChangeListener(new AmountView.OnDoubleAmountChangeListener() {
             @Override
             public void onAmountChange(View view, double amount) {
+                discount=amount;
+                setSouxuF();
             }
         });
 
@@ -91,6 +99,7 @@ public class CommitResellActivity extends LKWordBaseActivity implements CommitRe
 
         });
     }
+
      SellInfoReponse sellInfoReponse;
     @Override
     public void doBusiness(Context context) {
@@ -104,16 +113,30 @@ public class CommitResellActivity extends LKWordBaseActivity implements CommitRe
                 @Override
                 public void onGroupItemClick(int itemPos, String key, String value) {
                     amountView.etAmount.setText(sellInfoReponse.getPayload().getDiscountOptions().get(itemPos).getValue().trim());
+                    discount= StringUtil.formatDouble(sellInfoReponse.getPayload().getDiscountOptions().get(itemPos).getValue().trim());
+                    setSouxuF();
                 }
             });
             goodsViewGroup.chooseItemStyle(1);
-            textCode.setText(Html.fromHtml("<font color= '#333333'>转卖总额:</font>"+"<font color= '#ff7b02'>"+StringUtil.m2((double) (StringUtil.formatDouble(sellInfoReponse.getPayload().getOriginPrice())*sellInfoReponse.getPayload().getNum()))+"</font>"));
+            discount= StringUtil.formatDouble(sellInfoReponse.getPayload().getDiscountOptions().get(1).getValue().trim());
             amountView.setDGoods_storage(StringUtil.formatDouble(sellInfoReponse.getPayload().getDiscountRange().get(1)));
             amountView.setMixZheKou(StringUtil.formatDouble(sellInfoReponse.getPayload().getDiscountRange().get(0)));
+            setSouxuF();
+            amountView.etAmount.setText(sellInfoReponse.getPayload().getDiscountOptions().get(1).getValue().trim());
         }
 
     }
 
+    /**
+     * 设置手续费
+     */
+    public void setSouxuF(){
+        String souxufei=StringUtil.m2(sellInfoReponse.getPayload().getNum()*StringUtil.formatDouble(sellInfoReponse.getPayload().getOriginPrice())*discount/10*sellInfoReponse.getPayload().getServiceFeeRatio()/100);
+        tvSouxuFeil.setText("转卖手续费:"+souxufei+"元");
+        textCode.setText(Html.fromHtml("<font color= '#333333'>收益总额:</font>"+"<font color= '#ff7b02'>"+"$"+
+                StringUtil.m2((StringUtil.formatDouble(sellInfoReponse.getPayload().getOriginPrice())*sellInfoReponse.getPayload().getNum()*discount/10)-
+                        StringUtil.formatDouble(souxufei))+"</font>"));
+    }
     @Override
     public void setupActivityComponent() {
         LaiKaApplication.get(this).getAppComponent().plus(new MineModule(this,this)).inject(this);
@@ -129,7 +152,19 @@ public class CommitResellActivity extends LKWordBaseActivity implements CommitRe
     public void onClick(){
         //TODO 确认转卖接口
         if (getIntent().getStringExtra("cdkeys")!=null) {
-            commitResellPresenter.sellApply(bindToLifecycle(),getIntent().getStringExtra("cdkeys"),amountView.etAmount.getText().toString().trim() );
+            DialogHelper.tDialog(this,"点击“确认转卖”后将无法修改折扣和撤回","在想想","确认",false, new DialogHelper.ButtonCallback() {
+                @Override
+                public void onNegative(Dialog dialog) {
+
+                }
+
+                @Override
+                public void onPositive(Dialog dialog) {
+                    commitResellPresenter.sellApply(bindToLifecycle(),getIntent().getStringExtra("cdkeys"),amountView.etAmount.getText().toString().trim() );
+                    dialog.dismiss();
+                }
+            }).show();
+
         }
 
 }

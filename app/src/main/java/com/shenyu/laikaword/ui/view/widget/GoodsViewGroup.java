@@ -261,7 +261,7 @@ public class GoodsViewGroup extends ViewGroup {
 
     private void addItemView(GoodsViewGroupItem item) {
         TextView childView = new TextView(mContext);
-        childView.setLayoutParams(new LayoutParams((int) UIUtil.dp2px(101),(int) UIUtil.dp2px(47)));
+        childView.setLayoutParams(new LayoutParams((int) UIUtil.dp2px(95),(int) UIUtil.dp2px(44)));
         childView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
         childView.setBackgroundResource(bgResoureNor);
         childView.setGravity(Gravity.CENTER);

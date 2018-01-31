@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -72,6 +74,7 @@ public class ResellInputCodeActivity extends LKWordBaseActivity implements Resel
 
     @Override
     public void initView() {
+        setToolBarTitle("输入转卖兑换码");
         ryCode.addItemDecoration(new RecycleViewDivider(this, LinearLayoutManager.HORIZONTAL,(int) UIUtil.dp2px(1),UIUtil.getColor(R.color.main_bg_gray)));
         ryCode.setLayoutManager(new LinearLayoutManager(this));
         list = new ArrayList<>();
@@ -103,27 +106,47 @@ public class ResellInputCodeActivity extends LKWordBaseActivity implements Resel
                         if (charSequence.toString().length()>=16)
                         {
                             editText.setFocusable(false);
+                            tvAddCode.setBackgroundColor(UIUtil.getColor(R.color.white));
+                            tvAddCode.setTextColor(UIUtil.getColor(R.color.app_theme_red));
+                            tvAddCode.setEnabled(true);
+                            KeyBoardUtil.heideSoftInput(mActivity);
                             if (listset.add(charSequence.toString().trim())){
                                 list.clear();
                                 list.add(charSequence.toString().trim());
                                 notifyDataSetChanged();
                             }
-                                tvAddCode.setBackgroundColor(UIUtil.getColor(R.color.white));
-                                tvAddCode.setEnabled(true);
-                                KeyBoardUtil.heideSoftInput(mActivity);
                         }else {
-                            tvAddCode.setBackgroundColor(UIUtil.getColor(R.color.color_b0b0));
+                            tvAddCode.setTextColor(UIUtil.getColor(R.color.white));
+                            tvAddCode.setBackgroundColor(UIUtil.getColor(R.color.line_btn));
                             tvAddCode.setEnabled(false);
                         }
                     }
                 });
+                editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                    @Override
+                    public void onFocusChange(View view, boolean b) {
+                        if (b){
+                            //获得焦点
+                        }else {
+                            //失去焦点
+                            if(editText.getText().toString().trim().length()<16)
+                                ToastUtil.toS(mActivity,"兑换码格式错误,请重新输入");
+                        }
+                    }
+                });
+
                 holder.setOnClickListener(R.id.tv_del, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         if (getItemCount()==1&&position==0){
+                            if (list.contains(editText.getText().toString().trim())) {
+                                list.remove(editText.getText().toString().trim());
+                                list.add("");
+                            }
                             editText.setText("");
                             editText.setFocusable(true);
                             KeyBoardUtil.showSoftInput(editText);
+
                         }else {
                             list.remove(position);
                             notifyDataSetChanged();
@@ -166,6 +189,10 @@ public class ResellInputCodeActivity extends LKWordBaseActivity implements Resel
                 break;
             case R.id.tv_zhuamai:
                 //TODO 转卖
+                if (list.size()==0) {
+                    ToastUtil.showToastShort("兑换码格式错误,请重新输入");
+                    return;
+                }
                 if (!StringUtil.validText(etInputCode.getText().toString().trim())) {
                     ToastUtil.showToastShort("请输入用户编号");
                     return;
@@ -182,7 +209,6 @@ public class ResellInputCodeActivity extends LKWordBaseActivity implements Resel
                         stringBuffer.append(list.get(i)+",");
                     }
                 }
-
                 resellInputCodePresenter.sellInfo(bindToLifecycle(),stringBuffer.toString(),etInputCode.getText().toString().trim());
                 break;
         }
