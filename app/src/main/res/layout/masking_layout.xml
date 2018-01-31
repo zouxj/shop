@@ -26,11 +26,27 @@
     </LinearLayout>
 
 
-<ImageView
-    android:id="@+id/iv_zhuamai"
-    android:layout_width="wrap_content"
-    android:layout_centerVertical="true"
-    android:background="@mipmap/right_icon"
-    android:layout_height="wrap_content" />
+    <LinearLayout
+        android:id="@+id/iv_zhuamai"
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:background="@mipmap/right_icon"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_14sp"
+            android:layout_height="wrap_content"
+            />
+        <TextView
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_14sp"
+            android:text="右滑更多内容"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
 
 </RelativeLayout>

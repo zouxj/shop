@@ -58,6 +58,7 @@ public class ResellInputCodeActivity extends LKWordBaseActivity implements Resel
     TextView tvAddCode;
     Set<String> listset;
     List<String> list;
+    private String cdKeys;
     CommonAdapter commonAdapter;
     @Inject
     ResellInputCodePresenter resellInputCodePresenter;
@@ -78,13 +79,13 @@ public class ResellInputCodeActivity extends LKWordBaseActivity implements Resel
         ryCode.addItemDecoration(new RecycleViewDivider(this, LinearLayoutManager.HORIZONTAL,(int) UIUtil.dp2px(1),UIUtil.getColor(R.color.main_bg_gray)));
         ryCode.setLayoutManager(new LinearLayoutManager(this));
         list = new ArrayList<>();
-        listset = new HashSet<String>(list);
+        listset = new HashSet<>(list);
         list.add("");
         commonAdapter =new CommonAdapter<String>(R.layout.item_resell_input_code,list) {
             @Override
-            protected void convert(final ViewHolder holder, String o, final int position) {
+            protected void convert(final ViewHolder holder, final String itemvalue, final int position) {
                 final EditText editText =holder.getView(R.id.et_input);
-                editText.setText(o);
+                editText.setText(itemvalue);
                 if (position==0){
                     holder.getView(R.id.tv_title).setVisibility(View.VISIBLE);
 
@@ -115,10 +116,12 @@ public class ResellInputCodeActivity extends LKWordBaseActivity implements Resel
                                 list.add(charSequence.toString().trim());
                                 notifyDataSetChanged();
                             }
+                            cdKeys=null;
                         }else {
                             tvAddCode.setTextColor(UIUtil.getColor(R.color.white));
                             tvAddCode.setBackgroundColor(UIUtil.getColor(R.color.line_btn));
                             tvAddCode.setEnabled(false);
+                            cdKeys=charSequence.toString().trim();
                         }
                     }
                 });
@@ -141,6 +144,7 @@ public class ResellInputCodeActivity extends LKWordBaseActivity implements Resel
                         if (getItemCount()==1&&position==0){
                             if (list.contains(editText.getText().toString().trim())) {
                                 list.remove(editText.getText().toString().trim());
+                                listset.remove(editText.getText().toString().trim());
                                 list.add("");
                             }
                             editText.setText("");
@@ -148,7 +152,8 @@ public class ResellInputCodeActivity extends LKWordBaseActivity implements Resel
                             KeyBoardUtil.showSoftInput(editText);
 
                         }else {
-                            list.remove(position);
+                            listset.remove(itemvalue);
+                            list.remove(itemvalue);
                             notifyDataSetChanged();
                         }
                     }
@@ -189,15 +194,15 @@ public class ResellInputCodeActivity extends LKWordBaseActivity implements Resel
                 break;
             case R.id.tv_zhuamai:
                 //TODO 转卖
-                if (list.size()==0) {
-                    ToastUtil.showToastShort("兑换码格式错误,请重新输入");
-                    return;
-                }
                 if (!StringUtil.validText(etInputCode.getText().toString().trim())) {
                     ToastUtil.showToastShort("请输入用户编号");
                     return;
                 }
-                if (list.size()==0) {
+                if (StringUtil.validText(cdKeys)) {
+                    ToastUtil.showToastShort("兑换码格式错误,请重新输入");
+                    return;
+                }
+                if (list.size()==1&&!StringUtil.validText(list.get(0))) {
                     ToastUtil.showToastShort("请输入兑换码");
                     return;
                 }

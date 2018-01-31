@@ -21,4 +21,8 @@ public class AddBankPresenter extends BasePresenter<AddBankView> {
         attachView(mvpView);
     }
 
+    @Override
+    public void distribute(Event myEvent) {
+        mvpView.subscribeEvent(myEvent);
+    }
 }

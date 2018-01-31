@@ -77,25 +77,27 @@ public class LoadViewHelper {
         ((ViewGroup) activity.getWindow().getDecorView()).addView(loadingView);
     }
     RelativeLayout linearLayout;
-
+    boolean flog = true;
     public void  maskView(final Activity activity){
         linearLayout= (RelativeLayout) LayoutInflater.from(activity).inflate(R.layout.masking_layout, null);
         final LinearLayout ly= linearLayout.findViewById(R.id.ly_resell);
-        final ImageView rightIv=linearLayout.findViewById(R.id.iv_zhuamai);
-        rightIv.setVisibility(View.GONE);
-        ly.setOnClickListener(new View.OnClickListener() {
+        final LinearLayout rightIv=linearLayout.findViewById(R.id.iv_zhuamai);
+        ly.setVisibility(View.GONE);
+
+        linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ly.setVisibility(View.GONE);
-                rightIv.setVisibility(View.VISIBLE);
+                if (flog) {
+                    rightIv.setVisibility(View.GONE);
+                    ly.setVisibility(View.VISIBLE);
+                    flog=false;
+                }else {
+                    ((ViewGroup) activity.getWindow().getDecorView()).removeView(linearLayout);
+                    DialogHelper.tsGaiName(activity, true).show();
+                }
             }
         });
-        rightIv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((ViewGroup) activity.getWindow().getDecorView()).removeView(linearLayout);
-            }
-        });
+
         ((ViewGroup) activity.getWindow().getDecorView()).addView(linearLayout);
     }
 }

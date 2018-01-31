@@ -18,7 +18,7 @@
         android:drawablePadding="2dp"
         android:textColor="@color/color_999"
         android:textSize="@dimen/text_size_12sp"
-        android:text="来卡商城1.0"
+        android:text="淘卡商城1.0"
         android:layout_marginTop="48dp"
         android:layout_height="wrap_content" />
     <TextView
@@ -41,7 +41,7 @@
             android:id="@+id/tv_server"
             android:layout_width="match_parent"
             android:textColor="@color/color_999"
-            android:text="服务条款"
+            android:text="服务条约"
             android:gravity="center_vertical"
             android:layout_height="48dp" />
         <include layout="@layout/line_view"/>

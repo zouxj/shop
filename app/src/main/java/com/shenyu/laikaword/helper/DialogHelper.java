@@ -571,4 +571,47 @@ public  final  class DialogHelper {
     public interface InputInterfaceGoodCode {
         void onLintenerText(Dialog dialog,String passWord);
     }
+
+
+    /**
+     * 提示更改名字Dialog
+     * @param context
+     * @param is_must
+     * @return
+     */
+    public static Dialog tsGaiName(Context context,boolean is_must){
+        final Dialog dialog = new Dialog(context,R.style.Dialog);
+
+        View view = View.inflate(context,R.layout.app_tsgainame_dialog,null);
+        if(!is_must) {
+            dialog.setCanceledOnTouchOutside(true);
+        }else{
+            dialog.setCanceledOnTouchOutside(false);
+        }
+
+        view.findViewById(R.id.bt_commit).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.setContentView(view);
+        Window window = dialog.getWindow();
+        WindowManager.LayoutParams windowParams = window.getAttributes();
+        int width = (int)(window.getWindowManager().getDefaultDisplay().getWidth()*0.8);
+        windowParams.x = 0;
+        windowParams.width = width;
+        window.setAttributes(windowParams);
+        dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if(keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0){
+                    return true;
+                }
+                return false;
+            }
+        });
+        return dialog;
+    }
 }

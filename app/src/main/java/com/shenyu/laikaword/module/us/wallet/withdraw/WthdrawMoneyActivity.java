@@ -180,6 +180,11 @@ public class WthdrawMoneyActivity extends LKWordBaseActivity {
                 String moeny = etTixianNum.getText().toString().trim();
                 moeny=StringUtil.m2(StringUtil.formatDouble(moeny));
                 final String finalMoeny = moeny;
+                if (StringUtil.formatDouble(moeny)>50000){
+                    ToastUtil.showToastShort("提现金额不能超过50000元");
+                    etTixianNum.setText("");
+                    return;
+                }
                 DialogHelper.setInputDialog(mActivity, false,moeny,"手续费2元"
                         , new DialogHelper.LinstenrText() {
                     @Override

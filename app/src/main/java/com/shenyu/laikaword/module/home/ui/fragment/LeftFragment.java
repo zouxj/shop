@@ -180,11 +180,11 @@ public class LeftFragment extends IKWordBaseFragment {
                 flog=shopMainReponse.getPayload().getFlag().getnewExtractFlag();
         dataList.add(new ShopMainReponse.EntranceListBean("我的卡包",leftData[3],null,null,   flog.equals("1")));
         dataList.add(new ShopMainReponse.EntranceListBean("我的提货",leftData[2],null,null,false));
-       //判断专卖显示不显示
-        if (null!=shopMainReponse)
-            if (shopMainReponse.getPayload().getResellShow()!=null)
-            flog=shopMainReponse.getPayload().getResellShow();
-        if (flog.equals("1"))
+//       //判断专卖显示不显示
+//        if (null!=shopMainReponse)
+//            if (shopMainReponse.getPayload().getResellShow()!=null)
+//            flog=shopMainReponse.getPayload().getResellShow();
+//        if (flog.equals("1"))
         dataList.add(new ShopMainReponse.EntranceListBean("我的转卖",leftData[8],null,null,false));
 //        dataList.add(new ShopMainReponse.EntranceListBean("银行卡",leftData[4],null,null,false));
 //        dataList.add(new ShopMainReponse.EntranceListBean("我的地址",leftData[5],null,null,false));

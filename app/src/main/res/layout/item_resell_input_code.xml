@@ -17,7 +17,7 @@
         />
     <EditText
         android:id="@+id/et_input"
-        android:hint="请输入你的转卖兑换码"
+        android:hint="请输入转卖兑换码"
         android:textSize="13sp"
         android:maxLength="16"
         android:lines="1"
