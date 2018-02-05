@@ -118,8 +118,20 @@ public class ShopMainReponse extends BaseReponse implements Serializable {
         private Contacts contacts;
         private Flag flag;
         private String resellShow;
-        //服务协议
+        /**
+         * 显示转卖入口，0不显示，1显示
+         */
         private String agreement;
+        //是否显示转卖
+        private int resellDisplay;
+
+        public int getResellDisplay() {
+            return resellDisplay;
+        }
+
+        public void setResellDisplay(int resellDisplay) {
+            this.resellDisplay = resellDisplay;
+        }
 
         public String getAgreement() {
             return agreement;

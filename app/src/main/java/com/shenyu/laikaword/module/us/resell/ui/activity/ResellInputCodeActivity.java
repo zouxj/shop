@@ -77,6 +77,7 @@ public class ResellInputCodeActivity extends LKWordBaseActivity implements Resel
 
     @Override
     public void initView() {
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         setToolBarTitle("输入转卖兑换码");
         ryCode.addItemDecoration(new RecycleViewDivider(this, LinearLayoutManager.HORIZONTAL,(int) UIUtil.dp2px(1),UIUtil.getColor(R.color.main_bg_gray)));
         ryCode.setLayoutManager(new LinearLayoutManager(this));
@@ -88,24 +89,17 @@ public class ResellInputCodeActivity extends LKWordBaseActivity implements Resel
             protected void convert(final ViewHolder holder, final String itemvalue, final int position) {
                 final EditText editText =holder.getView(R.id.et_input);
                 editText.setText(itemvalue);
-
                 if (extraBean!=null){
                     if (extraBean.getMisKeys().contains(itemvalue)){
                         holder.getView(R.id.error_resell_icon).setVisibility(View.VISIBLE);
                     }else {
                         holder.getView(R.id.error_resell_icon).setVisibility(View.INVISIBLE);
                     }
-//                    for (String error:extraBean.getMisKeys()){
-//                        if (itemvalue.equals(error)){
-//                            holder.getView(R.id.error_resell_icon).setVisibility(View.VISIBLE);
-//                        }else {
-//                            holder.getView(R.id.error_resell_icon).setVisibility(View.INVISIBLE);
-//                        }
-//                    }
+                }else {
+                    holder.getView(R.id.error_resell_icon).setVisibility(View.INVISIBLE);
                 }
                 if (position==0){
                     holder.getView(R.id.tv_title).setVisibility(View.VISIBLE);
-
                 }
                 else {
                     holder.getView(R.id.tv_title).setVisibility(View.INVISIBLE);
@@ -160,9 +154,11 @@ public class ResellInputCodeActivity extends LKWordBaseActivity implements Resel
                     public void onClick(View view) {
                         if (getItemCount()==1&&position==0){
                             if (list.contains(editText.getText().toString().trim())) {
+                                extraBean=null;
                                 list.remove(editText.getText().toString().trim());
                                 listset.remove(editText.getText().toString().trim());
                                 list.add("");
+                                notifyDataSetChanged();
                             }
                             editText.setText("");
                             editText.setFocusable(true);
@@ -187,15 +183,19 @@ public class ResellInputCodeActivity extends LKWordBaseActivity implements Resel
         switch (view.getId()){
             case R.id.tv_add_code:
                 //TODO 添加兑换码
-                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+                if (list.size()>=10){
+                ToastUtil.showToastShort("兑换码1次最多输入10个");
+                return;
+            }
+
                 DialogHelper.inuputGoodsCode(mActivity, new DialogHelper.InputInterfaceGoodCode() {
                     @Override
                     public void onLintenerText(Dialog dialog, String passWord) {
                         if (passWord.length()>=16){
+                            dialog.dismiss();
                             if (listset.add(passWord)){
                                 list.add(passWord);
                                 commonAdapter.notifyDataSetChanged();
-                                dialog.dismiss();
                             }else if (list.size()==10){
                                 ToastUtil.showToastShort("兑换码1次最多输入10个");
                             }
@@ -272,7 +272,7 @@ public class ResellInputCodeActivity extends LKWordBaseActivity implements Resel
         }
         if (sellInfoReponse.isSuccess()){
             if (sellInfoReponse.getPayload()!=null){
-                IntentLauncher.with(this).put("cdkeys",stringBuffer.toString()).putObjectString("resellInfo",sellInfoReponse).launch(CommitResellActivity.class);
+                IntentLauncher.with(this).put("cdkeys",stringBuffer.toString()).putObjectString("resellInfo",sellInfoReponse).launchFinishCpresent(CommitResellActivity.class);
             }
         }else {
             if (sellInfoReponse.getError().getCode() == 502) {

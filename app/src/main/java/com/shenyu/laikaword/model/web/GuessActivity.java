@@ -59,6 +59,9 @@ GuessActivity extends LKWordBaseActivity {
         wbLoad.getSettings().setTextZoom(100);
         WebSettings webSettings = wbLoad.getSettings();
         webSettings.setUserAgentString("laikashopapp");
+
+
+
         webSettings.setAllowContentAccess(true);
         webSettings.setAppCacheEnabled(true);
         webSettings.setAllowFileAccess(true);

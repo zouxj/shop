@@ -41,7 +41,7 @@
             android:id="@+id/tv_server"
             android:layout_width="match_parent"
             android:textColor="@color/color_999"
-            android:text="服务条约"
+            android:text="服务协议"
             android:gravity="center_vertical"
             android:layout_height="48dp" />
         <include layout="@layout/line_view"/>

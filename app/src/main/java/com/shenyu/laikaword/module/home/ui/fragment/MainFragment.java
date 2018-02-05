@@ -2,6 +2,7 @@ package com.shenyu.laikaword.module.home.ui.fragment;
 
 
 import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
@@ -86,6 +87,8 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
     RelativeLayout relativeLayout;
     @BindView(R.id.tv_point)
     ImageView ivPoint;
+    @BindView(R.id.iv_message)
+    ImageView imageMessage;
 
     @Override
     public int bindLayout() {
@@ -191,11 +194,18 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
             break;
         case R.id.iv_message:
             LoginReponse loginReponse = Constants.getLoginReponse();
-            if (null!=loginReponse) {
-                IntentLauncher.with(getActivity()).launch(ResellInputCodeActivity.class);
-            }else{
+            if (null==loginReponse) {
                 IntentLauncher.with(getActivity()).launch(LoginActivity.class);
+                return;
+
             }
+            if (resellshow==0){
+                IntentLauncher.with(getActivity()).launch(UserMessageActivity.class);
+            }else {
+                IntentLauncher.with(getActivity()).launch(ResellInputCodeActivity.class);
+            }
+
+
 
             break;
     }
@@ -238,13 +248,29 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
 //            }
 //        });
     }
+    private  int resellshow = 0;
 
-
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void showShop(ShopMainReponse shopBeanReponse) {
         setViewpagerTopData(shopBeanReponse.getPayload().getBanner());
         SPUtil.saveObject(Constants.MAIN_SHOP_KEY,shopBeanReponse);
         RxBus.getDefault().post(new Event(EventType.ACTION_MAIN_SETDATE,shopBeanReponse.getPayload().getGoods()));
+        //是否显示转卖
+            if (shopBeanReponse.getPayload().getResellDisplay()==0){
+                resellshow=0;
+                if (Build.VERSION.SDK_INT> Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
+                    imageMessage.setBackground(UIUtil.getDrawable(R.mipmap.app_main_message_icon));
+                else
+                    imageMessage.setBackgroundResource(R.mipmap.app_main_message_icon);
+            }else {
+                resellshow=1;
+                if (Build.VERSION.SDK_INT> Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
+                    imageMessage.setBackground(UIUtil.getDrawable(R.mipmap.app_main_message_icon));
+                else
+                    imageMessage.setBackgroundResource(R.mipmap.app_main_message_icon);
+            }
+
         if (null!=shopBeanReponse.getPayload().getEntranceList()) {
             if (shopBeanReponse.getPayload().getEntranceList().size() > 0) {
                 ivPoint.setVisibility(shopBeanReponse.getPayload().getFlag().getnewExtractFlag().equals("1") ? View.VISIBLE : View.GONE);

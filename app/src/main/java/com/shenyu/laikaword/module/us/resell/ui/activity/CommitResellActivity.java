@@ -87,7 +87,7 @@ public class CommitResellActivity extends LKWordBaseActivity implements CommitRe
             protected void convert(ViewHolder holder, final SellInfoReponse.PayloadBean payloadBean, int position) {
                 ImageUitls.loadImg(payloadBean.getGoodsImg(), (ImageView) holder.getView(R.id.img_rsell_img));
                 holder.setText(R.id.tv_resell_shop_name,payloadBean.getGoodsName());
-                holder.setText(R.id.tv_zhuamai_count,"转卖数量:"+payloadBean.getNum());
+                holder.setText(R.id.tv_zhuamai_count,"转卖数量："+payloadBean.getNum());
                 holder.setOnClickListener(R.id.tv_status, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -132,8 +132,8 @@ public class CommitResellActivity extends LKWordBaseActivity implements CommitRe
      */
     public void setSouxuF(){
         String souxufei=StringUtil.m2(sellInfoReponse.getPayload().getNum()*StringUtil.formatDouble(sellInfoReponse.getPayload().getOriginPrice())*discount/10*sellInfoReponse.getPayload().getServiceFeeRatio()/100);
-        tvSouxuFeil.setText("转卖手续费:"+souxufei+"元");
-        textCode.setText(Html.fromHtml("<font color= '#333333'>收益总额:</font>"+"<font color= '#ff7b02'>"+"￥"+
+        tvSouxuFeil.setText("转卖手续费："+souxufei+"元");
+        textCode.setText(Html.fromHtml("<font color= '#333333'>收益总额：</font>"+"<font color= '#ff7b02'>"+"￥"+
                 StringUtil.m2((StringUtil.formatDouble(sellInfoReponse.getPayload().getOriginPrice())*sellInfoReponse.getPayload().getNum()*discount/10)-
                         StringUtil.formatDouble(souxufei))+"</font>"));
     }
@@ -152,7 +152,7 @@ public class CommitResellActivity extends LKWordBaseActivity implements CommitRe
     public void onClick(){
         //TODO 确认转卖接口
         if (getIntent().getStringExtra("cdkeys")!=null) {
-            DialogHelper.tDialog(this,"点击“确认转卖”后将无法修改折扣和撤回","在想想","确认",false, new DialogHelper.ButtonCallback() {
+            DialogHelper.tDialog(this,"点击“确认转卖”后将无法修改折扣和撤回","再想想","确认",false, new DialogHelper.ButtonCallback() {
                 @Override
                 public void onNegative(Dialog dialog) {
 

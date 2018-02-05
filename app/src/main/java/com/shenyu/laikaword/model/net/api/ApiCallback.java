@@ -82,7 +82,7 @@ public abstract class ApiCallback<M> implements Observer<M> {
             onSuccess(model);
         }else {
             if (apiModel.getError().getCode() == ErrorCode.error_code_login_503) {
-                ToastUtil.showToastShort(apiModel.getError().getMessage() + "请重新登录");
+                ToastUtil.showToastShort("您的登录已经失效,或者在其他设备登录,请重新登录");
                 //TODO do things
                 SPUtil.removeSp(Constants.LOGININFO_KEY);
                 RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER, null));

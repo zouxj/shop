@@ -97,7 +97,7 @@ public class CarListPagerView extends BaseViewPager<CarPagerReponse> {
         CommonAdapter commonAdapter=    new CommonAdapter<CarPagerReponse.Bean>(R.layout.item_carpackage,beanList) {
             @Override
             protected void convert(ViewHolder holder, final CarPagerReponse.Bean bean, int position) {
-                holder.setText(R.id.tv_kpage_count,bean.getQuantity()+"张");
+                holder.setText(R.id.tv_kpage_count,"数量："+bean.getQuantity()+"张");
                 holder.setText(R.id.tv_page_name,bean.getGoodsName());
                 ImageUitls.loadImg(bean.getGoodsImage(),(ImageView) holder.getView(R.id.iv_page_img));
                 holder.setOnClickListener(R.id.tv_tihuo, new View.OnClickListener() {

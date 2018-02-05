@@ -454,7 +454,6 @@ public  final  class DialogHelper {
 
     public static Dialog inuputGoodsCode(Context context, final InputInterfaceGoodCode linstenrText) {
         final Dialog dialog = new Dialog(context, R.style.Dialog);
-
         dialog.setCanceledOnTouchOutside(true);
         View view = View.inflate(context, R.layout.dialog_input_goods_code, null);
         @SuppressLint("WrongViewCast")
@@ -479,18 +478,8 @@ public  final  class DialogHelper {
         int width = (int) (window.getWindowManager().getDefaultDisplay().getWidth() * 0.8);
         windowParams.x = 0;
         windowParams.width = width;
-
         window.setAttributes(windowParams);
-        dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
-        dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
-            @Override
-            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-                    return true;
-                }
-                return false;
-            }
-        });
+
         return dialog;
 
     }

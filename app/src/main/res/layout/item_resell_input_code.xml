@@ -4,30 +4,30 @@
     android:orientation="horizontal"
     android:background="@color/white"
     android:layout_height="48dp">
+
     <TextView
         android:id="@+id/tv_title"
-        android:text="转卖兑换码"
-        android:textSize="@dimen/text_size_13sp"
-        android:gravity="center_vertical"
-        android:layout_gravity="center_vertical"
-        android:layout_width="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        android:gravity="center_vertical|left"
+        android:text="转卖兑换码"
         android:textColor="@color/color_333"
-        />
+        android:textSize="@dimen/text_size_13sp" />
     <EditText
         android:id="@+id/et_input"
         android:hint="请输入转卖兑换码"
         android:textSize="13sp"
         android:maxLength="16"
         android:lines="1"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="9dp"
         android:background="@null"
         android:textColorHint="@color/color_999"
         android:textColor="@color/color_999"
         android:layout_gravity="center_vertical"
         android:layout_width="150dp"
-        android:gravity="center"
+        android:gravity="center|left"
         android:layout_height="48dp"/>
 
     <ImageView
