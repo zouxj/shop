@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -60,6 +61,7 @@ public class ResellInputCodeActivity extends LKWordBaseActivity implements Resel
     List<String> list;
     private String cdKeys;
     CommonAdapter commonAdapter;
+    private BaseReponse.ExtraBean extraBean;
     @Inject
     ResellInputCodePresenter resellInputCodePresenter;
     @Override
@@ -86,6 +88,21 @@ public class ResellInputCodeActivity extends LKWordBaseActivity implements Resel
             protected void convert(final ViewHolder holder, final String itemvalue, final int position) {
                 final EditText editText =holder.getView(R.id.et_input);
                 editText.setText(itemvalue);
+
+                if (extraBean!=null){
+                    if (extraBean.getMisKeys().contains(itemvalue)){
+                        holder.getView(R.id.error_resell_icon).setVisibility(View.VISIBLE);
+                    }else {
+                        holder.getView(R.id.error_resell_icon).setVisibility(View.INVISIBLE);
+                    }
+//                    for (String error:extraBean.getMisKeys()){
+//                        if (itemvalue.equals(error)){
+//                            holder.getView(R.id.error_resell_icon).setVisibility(View.VISIBLE);
+//                        }else {
+//                            holder.getView(R.id.error_resell_icon).setVisibility(View.INVISIBLE);
+//                        }
+//                    }
+                }
                 if (position==0){
                     holder.getView(R.id.tv_title).setVisibility(View.VISIBLE);
 
@@ -170,6 +187,7 @@ public class ResellInputCodeActivity extends LKWordBaseActivity implements Resel
         switch (view.getId()){
             case R.id.tv_add_code:
                 //TODO 添加兑换码
+                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
                 DialogHelper.inuputGoodsCode(mActivity, new DialogHelper.InputInterfaceGoodCode() {
                     @Override
                     public void onLintenerText(Dialog dialog, String passWord) {
@@ -179,14 +197,14 @@ public class ResellInputCodeActivity extends LKWordBaseActivity implements Resel
                                 commonAdapter.notifyDataSetChanged();
                                 dialog.dismiss();
                             }else if (list.size()==10){
-                                ToastUtil.toS(mActivity,"兑换码1次最多输入10个");
+                                ToastUtil.showToastShort("兑换码1次最多输入10个");
                             }
                             else {
-                                ToastUtil.toS(mActivity,"已存在该兑换码，请重新输入");
+                                ToastUtil.showToastShort("已存在该兑换码，请重新输入");
 
                             }
                         }else {
-                            ToastUtil.toS(mActivity,"请输入正确的兑换码");
+                            ToastUtil.showToastShort("请输入正确的兑换码");
 
                         }
                     }
@@ -256,8 +274,18 @@ public class ResellInputCodeActivity extends LKWordBaseActivity implements Resel
             if (sellInfoReponse.getPayload()!=null){
                 IntentLauncher.with(this).put("cdkeys",stringBuffer.toString()).putObjectString("resellInfo",sellInfoReponse).launch(CommitResellActivity.class);
             }
+        }else {
+            if (sellInfoReponse.getError().getCode() == 502) {
+                if (null!= sellInfoReponse.getError()) {
+                    if (sellInfoReponse.getError().getExtra() != null) {
+                        if (sellInfoReponse.getError().getExtra().getMisKeys() !=null) {
+                            extraBean = sellInfoReponse.getError().getExtra();
+                            commonAdapter.notifyDataSetChanged();
+                        }
+                    }
+                }
+            }
         }
-
     }
 
     @Override

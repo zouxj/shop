@@ -12,6 +12,10 @@ public class SellInfoReponse extends BaseReponse implements Serializable {
      */
 
     private PayloadBean payload;
+    /**
+     * error : {"code":502,"message":"兑换码有误，请重新输入","extra":{"misKeys":["F14DF9AB1P4MF2C9"]}}
+     */
+
 
     public PayloadBean getPayload() {
         return payload;
@@ -163,4 +167,6 @@ public class SellInfoReponse extends BaseReponse implements Serializable {
             }
         }
     }
+
+
 }

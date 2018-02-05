@@ -58,7 +58,7 @@ public class GoodsViewGroup extends ViewGroup {
         isSelector = attrs.getBoolean(R.styleable.GoodsViewGroup_isSelector, true);
         textSize = attrs.getDimensionPixelSize(R.styleable.GoodsViewGroup_itemTextSize, 0);
         if (textSize == 0) {
-            textSize = getResources().getDimensionPixelSize(R.dimen.text_size_14sp);//14sp
+            textSize = getResources().getDimensionPixelSize(R.dimen.text_size_12sp);//14sp
         }
         horInterval = attrs.getDimensionPixelSize(R.styleable.GoodsViewGroup_horInterval, 20);
         verInterval = attrs.getDimensionPixelSize(R.styleable.GoodsViewGroup_verInterval, 20);

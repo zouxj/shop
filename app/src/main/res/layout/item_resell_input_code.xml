@@ -30,6 +30,14 @@
         android:gravity="center"
         android:layout_height="48dp"/>
 
+    <ImageView
+        android:visibility="invisible"
+        android:id="@+id/error_resell_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:background="@mipmap/error_resell_icon" />
+
     <TextView
         android:id="@+id/tv_del"
         android:layout_marginLeft="32dp"

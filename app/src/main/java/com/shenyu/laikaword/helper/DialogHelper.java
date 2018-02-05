@@ -454,6 +454,7 @@ public  final  class DialogHelper {
 
     public static Dialog inuputGoodsCode(Context context, final InputInterfaceGoodCode linstenrText) {
         final Dialog dialog = new Dialog(context, R.style.Dialog);
+
         dialog.setCanceledOnTouchOutside(true);
         View view = View.inflate(context, R.layout.dialog_input_goods_code, null);
         @SuppressLint("WrongViewCast")
