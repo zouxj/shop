@@ -185,4 +185,13 @@ public interface ApiStores {
     @GET("resell/detail")
     Observable<BaseReponse> resellDetail(@Query("goodsId")int goodsId);
 
+    /**
+     * 商品库存较量
+     * @param goodsId
+     * @param quantity
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("goods/getStock")
+    Observable<BaseReponse> getStock(@Field("goodsId") String goodsId, @Field("quantity") String quantity);
 }

@@ -74,7 +74,23 @@ public class CommitResellActivity extends LKWordBaseActivity implements CommitRe
             @Override
             public void onAmountChange(View view, double amount) {
                 discount=amount;
+                int k=-1;
                 setSouxuF();
+                if (sellInfoReponse!=null){
+
+                    for (int i=0;i<sellInfoReponse.getPayload().getDiscountOptions().size();i++){
+                        if (amount==StringUtil.formatDouble(sellInfoReponse.getPayload().getDiscountOptions().get(i).getValue())){
+                          k=i;
+                          break;
+
+                        }
+                    }
+                    if (k!=-1)
+                        goodsViewGroup.chooseItemStyle(k);
+                    else
+                        goodsViewGroup.clearItemsStyle();
+                }
+
             }
         });
 

@@ -235,7 +235,7 @@ public class GoodsViewGroup extends ViewGroup {
     /**
      * 清除ViewGroup所有的样式
      */
-    private void clearItemsStyle() {
+    public void clearItemsStyle() {
         for (int i = 0; i < getChildCount(); i++) {
             TextView childView = (TextView) getChildAt(i);
             childView.setBackgroundResource(bgResoureNor);

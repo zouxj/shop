@@ -266,9 +266,9 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
             }else {
                 resellshow=1;
                 if (Build.VERSION.SDK_INT> Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
-                    imageMessage.setBackground(UIUtil.getDrawable(R.mipmap.app_main_message_icon));
+                    imageMessage.setBackground(UIUtil.getDrawable(R.mipmap.exchange));
                 else
-                    imageMessage.setBackgroundResource(R.mipmap.app_main_message_icon);
+                    imageMessage.setBackgroundResource(R.mipmap.exchange);
             }
 
         if (null!=shopBeanReponse.getPayload().getEntranceList()) {

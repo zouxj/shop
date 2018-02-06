@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.app.Dialog;
 
 import com.shenyu.laikaword.base.BasePresenter;
+import com.shenyu.laikaword.model.bean.reponse.BaseReponse;
 import com.shenyu.laikaword.model.bean.reponse.GoodBean;
 import com.shenyu.laikaword.model.bean.reponse.LoginReponse;
 import com.shenyu.laikaword.model.bean.reponse.PayInfoReponse;
 import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.helper.PayHelper;
 import com.shenyu.laikaword.model.bean.reponse.WeixinPayReponse;
+import com.shenyu.laikaword.model.rxjava.rx.RxTask;
 import com.shenyu.laikaword.module.goods.order.ShopSuccessActivity;
 import com.shenyu.laikaword.module.us.setpassword.SetPassWordMsgCodeActivity;
 import com.shenyu.laikaword.module.us.appsetting.acountbind.ui.activity.BoundPhoneActivity;
@@ -29,6 +31,12 @@ import com.shenyu.laikaword.helper.DialogHelper;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.reactivex.ObservableSource;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
+import rx.Observable;
+
 /**
  * Created by shenyu_zxjCode on 2017/9/25 0025.
  */
@@ -44,7 +52,7 @@ public class ConfirmOrderPresenter extends BasePresenter<ConfirmOrderView> {
     }
 
     //订单支付
-    public void cofirmPay(LifecycleTransformer lifecycleTransformer,final int type, final int count, final String zecount){
+    public void cofirmPay(final LifecycleTransformer lifecycleTransformer, final int type, final int count, final String zecount, String goodsID){
         //TODO 根据支付类型去实现支付方式
          loginReponse = Constants.getLoginReponse();
         if (null!=loginReponse){
@@ -64,8 +72,39 @@ public class ConfirmOrderPresenter extends BasePresenter<ConfirmOrderView> {
             }else {
                 switch (type){
                     case 5:
-                        yuePay(lifecycleTransformer,type, count, zecount);
-                        //TODO 余额支付
+                        //校验库存并且支付
+                        new RxTask().addSubscription(lifecycleTransformer, apiStores.getStock(goodsID, count + "").map(new Function<BaseReponse, Boolean>() {
+                            @Override
+                            public Boolean apply(BaseReponse baseReponse){
+                                if (!baseReponse.isSuccess())
+                                    ToastUtil.showToastShort(baseReponse.getError().getMessage());
+
+                                return baseReponse.isSuccess();
+                            }
+                        }), new Observer<Boolean>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onNext(Boolean o) {
+                                if (o)
+                                yuePay(lifecycleTransformer,type, count, zecount);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        });
+
+                        //                        //TODO 余额支付
                         break;
                     case 3:
                         aliPay(lifecycleTransformer,type, count, zecount);
@@ -101,6 +140,7 @@ public class ConfirmOrderPresenter extends BasePresenter<ConfirmOrderView> {
 
 
     }
+
 
     private void yuePay(final LifecycleTransformer lifecycleTransformermr, final int type, final int count, final String zecount) {
         Double money = StringUtil.formatDouble(loginReponse.getPayload().getMoney());

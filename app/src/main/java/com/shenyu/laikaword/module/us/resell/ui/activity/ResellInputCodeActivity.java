@@ -272,7 +272,7 @@ public class ResellInputCodeActivity extends LKWordBaseActivity implements Resel
         }
         if (sellInfoReponse.isSuccess()){
             if (sellInfoReponse.getPayload()!=null){
-                IntentLauncher.with(this).put("cdkeys",stringBuffer.toString()).putObjectString("resellInfo",sellInfoReponse).launchFinishCpresent(CommitResellActivity.class);
+                IntentLauncher.with(this).put("cdkeys",stringBuffer.toString()).putObjectString("resellInfo",sellInfoReponse).launch(CommitResellActivity.class);
             }
         }else {
             if (sellInfoReponse.getError().getCode() == 502) {

@@ -26,7 +26,7 @@
             android:id="@+id/tv_main_shop_name"
             android:layout_marginLeft="11dp"
             android:textColor="@color/color_333"
-            android:textSize="14sp"
+            android:textSize="@dimen/text_size_12sp"
             android:layout_centerVertical="true"
             android:gravity="center_vertical"
             android:layout_width="110dp"
@@ -38,12 +38,13 @@
             android:layout_marginRight="11dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:padding="1dp"
             android:textColor="@color/main_item_orange"
             android:background="@drawable/bg_bodre_zhekou_rectangle"
             android:layout_width="34dp"
             android:text="9.4折"
             android:gravity="center"
-            android:textSize="12sp"
+            android:textSize="11sp"
             android:layout_height="16dp" />
 </RelativeLayout>
     <RelativeLayout

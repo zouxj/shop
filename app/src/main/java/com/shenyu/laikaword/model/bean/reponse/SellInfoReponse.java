@@ -46,9 +46,9 @@ public class SellInfoReponse extends BaseReponse implements Serializable {
         private int num;
         @SerializedName("default")
         private String defaultX;
-        private int price;
+        private String price;
         private int serviceFeeRatio;
-        private int serviceFee;
+        private String serviceFee;
         private List<String> codeList;
         private List<String> discountRange;
         private List<DiscountOptionsBean> discountOptions;
@@ -93,11 +93,11 @@ public class SellInfoReponse extends BaseReponse implements Serializable {
             this.defaultX = defaultX;
         }
 
-        public int getPrice() {
+        public String getPrice() {
             return price;
         }
 
-        public void setPrice(int price) {
+        public void setPrice(String price) {
             this.price = price;
         }
 
@@ -109,11 +109,11 @@ public class SellInfoReponse extends BaseReponse implements Serializable {
             this.serviceFeeRatio = serviceFeeRatio;
         }
 
-        public int getServiceFee() {
+        public String getServiceFee() {
             return serviceFee;
         }
 
-        public void setServiceFee(int serviceFee) {
+        public void setServiceFee(String serviceFee) {
             this.serviceFee = serviceFee;
         }
 

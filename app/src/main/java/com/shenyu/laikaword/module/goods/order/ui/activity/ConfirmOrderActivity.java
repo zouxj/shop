@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.shenyu.laikaword.helper.ImageUitls;
 import com.shenyu.laikaword.model.bean.reponse.BaseReponse;
+import com.shenyu.laikaword.model.rxjava.rx.RxTask;
 import com.shenyu.laikaword.module.launch.LaiKaApplication;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.model.adapter.CommonAdapter;
@@ -188,7 +189,7 @@ public class ConfirmOrderActivity extends LKWordBaseActivity implements ConfirmO
         switch (view.getId()) {
             case R.id.tv_to_pay:
                 //TODO 去支付
-                mConfirmOrderPresenter.cofirmPay(this.bindToLifecycle(),payFlogType,count,moneyD);
+                mConfirmOrderPresenter.cofirmPay(this.bindToLifecycle(),payFlogType,count,moneyD,mGoodBean.getGoodsId());
                 break;
         }
     }
