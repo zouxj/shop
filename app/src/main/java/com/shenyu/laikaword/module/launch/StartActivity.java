@@ -57,7 +57,7 @@ public class StartActivity extends RxActivity {
     public void doBusiness(Context context) {
 
 //去掉Activity上面的状态栏
-        if (!StringUtil.validText(SPUtil.getString("start_app", ""))) {
+        if (!StringUtil.validText(SPUtil.getString("start_app_t", ""))) {
             //TODO 第一次登录
             IntentLauncher.with(this).launchFinishCpresent(WelcomePageActivity.class);
         } else {

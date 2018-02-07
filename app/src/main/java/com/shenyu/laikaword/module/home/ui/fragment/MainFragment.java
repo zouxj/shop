@@ -148,14 +148,9 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
             ImageUitls.loadImgRound(loginReponse.getPayload().getAvatar(), headImg);
 
         }
-        /**
-         * 判断第一次进入app,选择进入
-         */
-        if (!StringUtil.validText(SPUtil.getString("start_app", ""))) {
-            //TODO 第一次登录
-            loadViewHelper.maskView(getActivity());
-            SPUtil.putString("start_app", "one");
-        }
+
+        mainPresenter.requestData(bindToLifecycle());
+        mainPresenter.timeTask(bindToLifecycle());
     }
     /**
      * 初始化头部效果
@@ -228,18 +223,18 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
 
     @Override
     public void isLoading() {
-        loadViewHelper.showLoadingDialog(getActivity());
+//        loadViewHelper.showLoadingDialog(getActivity());
     }
 
     @Override
     public void loadSucceed(BaseReponse baseReponse) {
-        loadViewHelper.closeLoadingDialog();
+//        loadViewHelper.closeLoadingDialog();
     }
 
 
     @Override
     public void loadFailure() {
-        loadViewHelper.closeLoadingDialog();
+//        loadViewHelper.closeLoadingDialog();
 //        loadViewHelper.showErrorResert(getActivity(), new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -253,9 +248,9 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void showShop(ShopMainReponse shopBeanReponse) {
+
+
         setViewpagerTopData(shopBeanReponse.getPayload().getBanner());
-        SPUtil.saveObject(Constants.MAIN_SHOP_KEY,shopBeanReponse);
-        RxBus.getDefault().post(new Event(EventType.ACTION_MAIN_SETDATE,shopBeanReponse.getPayload().getGoods()));
         //是否显示转卖
             if (shopBeanReponse.getPayload().getResellDisplay()==0){
                 resellshow=0;
@@ -270,6 +265,14 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
                 else
                     imageMessage.setBackgroundResource(R.mipmap.exchange);
             }
+        /**
+         * 判断第一次进入app,选择进入
+         */
+        if (!StringUtil.validText(SPUtil.getString("start_app_t", ""))) {
+            //TODO 第一次登录
+            loadViewHelper.maskView(getActivity(),resellshow);
+            SPUtil.putString("start_app_t", "one");
+        }
 
         if (null!=shopBeanReponse.getPayload().getEntranceList()) {
             if (shopBeanReponse.getPayload().getEntranceList().size() > 0) {
@@ -281,34 +284,11 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
             data.addAll(shopBeanReponse.getPayload().getNotice());
             setNoticeView();
         }
-        for (int i = 0; i < shopBeanReponse.getPayload().getGoods().size(); i++) {
-                if (shopBeanReponse.getPayload().getGoods().get(i).getType().equals("yd")) {
-                    if (shopBeanReponse.getPayload().getGoods().get(i).getList().size()>0) {
-                        viewpager.setCurrentItem(0);
-                        break;
-                    }
-                }
-                if (shopBeanReponse.getPayload().getGoods().get(i).getType().equals("jd")) {
-                    if (shopBeanReponse.getPayload().getGoods().get(i).getList().size()>0){
-                        viewpager.setCurrentItem(1);
-                        break;
-                    }
-                }
-                if (shopBeanReponse.getPayload().getGoods().get(i).getType().equals("lt")) {
-                    if (shopBeanReponse.getPayload().getGoods().get(i).getList().size()>0){
-                        viewpager.setCurrentItem(2);
-                        break;
-                    }
-                }
-                if (shopBeanReponse.getPayload().getGoods().get(i).getType().equals("dx")) {
-                    if (shopBeanReponse.getPayload().getGoods().get(i).getList().size()>0){
-                        viewpager.setCurrentItem(3);
-                        break;
-                    }
-                }
-            }
+        viewpager.setCurrentItem(mainPresenter.feileiItem(shopBeanReponse));
 
     }
+
+
 
     @Override
     public void loadMore(List list) {
@@ -398,7 +378,7 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
     @Override
     public void onResume() {
         super.onResume();
-        smartRefreshLayout.autoRefresh();
+//        smartRefreshLayout.autoRefresh();
         bannerHelper.onResume();
     }
 

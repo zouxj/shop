@@ -39,8 +39,12 @@ public class MainPresenter extends BasePresenter<MainView> {
         addSubscription(lifecycleTransformer,apiStores.getMainShop(), new ApiCallback<ShopMainReponse>() {
             @Override
             public void onSuccess(ShopMainReponse model) {
-                if (model.isSuccess())
-                mvpView.showShop(model);
+                if (model.isSuccess()) {
+                    SPUtil.saveObject(Constants.MAIN_SHOP_KEY,model);
+                    RxBus.getDefault().post(new Event(EventType.ACTION_MAIN_SETDATE,model.getPayload().getGoods()));
+                    mvpView.showShop(model);
+
+                }
             }
 
             @Override
@@ -66,15 +70,18 @@ public class MainPresenter extends BasePresenter<MainView> {
         String types = null;
         switch (type){
             case 0:
-                types="yd";
+                types="hotSell";
                 break;
             case 1:
-                types="jd";
+                types="yd";
                 break;
             case 2:
-                types="lt";
+                types="jd";
                 break;
             case 3:
+                types="lt";
+                break;
+            case 4:
                 types="dx";
                 break;
         }
@@ -123,11 +130,10 @@ public class MainPresenter extends BasePresenter<MainView> {
             @Override
             public void onSuccess(ShopMainReponse model) {
                 if (model.isSuccess()) {
+                    SPUtil.saveObject(Constants.MAIN_SHOP_KEY,model);
+                    RxBus.getDefault().post(new Event(EventType.ACTION_MAIN_SETDATE,model.getPayload().getGoods()));
                     mvpView.showShop(model);
-                    page=2;
                     mvpView.loadSucceed(model);
-//                    SPUtil.saveObject(Constants.MAIN_SHOP_KEY,model);
-//                    RxBus.getDefault().post(new Event(EventType.ACTION_MAIN_SETDATE,model.getPayload().getGoods()));
                 }
             }
 
@@ -144,13 +150,46 @@ public class MainPresenter extends BasePresenter<MainView> {
 
     }
 
-
+    /**
+     * 数据分类
+     * @param shopBeanReponse
+     */
+    public int feileiItem(ShopMainReponse shopBeanReponse) {
+        for (int i = 0; i < shopBeanReponse.getPayload().getGoods().size(); i++) {
+            if (shopBeanReponse.getPayload().getGoods().get(i).getType().equals("hotSell")) {
+                if (shopBeanReponse.getPayload().getGoods().get(i).getList().size() > 0) {
+                    return 0;
+                }
+            }
+            if (shopBeanReponse.getPayload().getGoods().get(i).getType().equals("yd")) {
+                if (shopBeanReponse.getPayload().getGoods().get(i).getList().size() > 0) {
+                    return 1;
+                }
+            }
+            if (shopBeanReponse.getPayload().getGoods().get(i).getType().equals("jd")) {
+                if (shopBeanReponse.getPayload().getGoods().get(i).getList().size() > 0) {
+                    return 2;
+                }
+            }
+            if (shopBeanReponse.getPayload().getGoods().get(i).getType().equals("lt")) {
+                if (shopBeanReponse.getPayload().getGoods().get(i).getList().size() > 0) {
+                    return 3;
+                }
+            }
+            if (shopBeanReponse.getPayload().getGoods().get(i).getType().equals("dx")) {
+                if (shopBeanReponse.getPayload().getGoods().get(i).getList().size() > 0) {
+                    return 4;
+                }
+            }
+        }
+        return 0;
+    }
 
     /**
      * 定时刷新页面
      */
     public void timeTask(LifecycleTransformer lifecycleTransformer){
-        Observable.interval(30000,30000, TimeUnit.MILLISECONDS).compose(lifecycleTransformer).take(Integer.MAX_VALUE).observeOn(Schedulers.io()).flatMap(new Function<Long, ObservableSource<ShopMainReponse>>() {
+        Observable.interval(0,30,TimeUnit.SECONDS).compose(lifecycleTransformer).take(Integer.MAX_VALUE).observeOn(Schedulers.io()).flatMap(new Function<Long, ObservableSource<ShopMainReponse>>() {
 
             @Override
             public ObservableSource<ShopMainReponse> apply(Long aLong) throws Exception {

@@ -78,7 +78,7 @@ public class LoadViewHelper {
     }
     RelativeLayout linearLayout;
     boolean flog = true;
-    public void  maskView(final Activity activity){
+    public void  maskView(final Activity activity, final int fl){
         linearLayout= (RelativeLayout) LayoutInflater.from(activity).inflate(R.layout.masking_layout, null);
         final LinearLayout ly= linearLayout.findViewById(R.id.ly_resell);
         final LinearLayout rightIv=linearLayout.findViewById(R.id.iv_zhuamai);
@@ -87,7 +87,7 @@ public class LoadViewHelper {
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (flog) {
+                if (flog&&fl==1) {
                     rightIv.setVisibility(View.GONE);
                     ly.setVisibility(View.VISIBLE);
                     flog=false;

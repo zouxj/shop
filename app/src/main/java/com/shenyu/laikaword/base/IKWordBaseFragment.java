@@ -83,7 +83,6 @@ public abstract class IKWordBaseFragment extends RxFragment implements IBaseFrag
             isDataLoaded = true;
             return true;
         }
-        LogUtil.i("prepareRequestData=>"+(getUserVisibleHint() && isViewInitiated && (!isDataLoaded || forceUpdate)));
         return false;
     }
 

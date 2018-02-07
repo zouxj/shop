@@ -73,13 +73,14 @@ public class EditAddressActivity extends LKWordBaseActivity implements EditAddre
     public void initView() {
         setToolBarTitle("编辑地址");
     }
-
+    String type;
     @Override
     public void doBusiness(Context context) {
         mapParam = new HashMap<>();
-        String type = getIntent().getStringExtra("Type");
+         type = getIntent().getStringExtra("Type");
 
-        if (null != type && type.equals("ADD")) {
+        if (null != type ) {
+            if ( type.equals("ADD"))
             setToolBarTitle("地址信息");
         }
         if (getIntent() != null)
@@ -178,7 +179,16 @@ public class EditAddressActivity extends LKWordBaseActivity implements EditAddre
     @Override
     public void loadSucceed(BaseReponse baseReponse) {
         if (baseReponse.isSuccess()) {
-            ToastUtil.showToastShort("修改成功");
+            if (StringUtil.validText(type)  ) {
+                if ( type.equals("ADD"))
+
+                    ToastUtil.showToastShort("添加成功");
+                else
+                    ToastUtil.showToastShort("修改成功");
+            }else {
+                ToastUtil.showToastShort("修改成功");
+            }
+
             RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER_ADDRESS, null));
             finish();
         }else
