@@ -61,6 +61,7 @@ public interface ApiStores {
     @FormUrlEncoded
     @POST("user/deleteAddress")
     Observable<BaseReponse> deleteAddress(@Field("addressId")String addressId);//删除地址
+
     @GET ("user/getAddress")//获取收货地址
     Observable<AddressReponse> getAddress();//删除地址
     @GET("user/getBankCard")//获取银行卡地址
