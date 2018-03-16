@@ -44,7 +44,6 @@ import com.shenyu.laikaword.module.us.resell.ui.activity.ResellInputCodeActivity
 import com.shenyu.laikaword.ui.view.widget.UPMarqueeView;
 import com.shenyu.laikaword.model.web.GuessActivity;
 import com.zxj.utilslibrary.utils.IntentLauncher;
-import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
@@ -89,7 +88,8 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
     ImageView ivPoint;
     @BindView(R.id.iv_message)
     ImageView imageMessage;
-
+    String[] tabTypeListName={};
+    private   String[] tabTypeListKey={};
     @Override
     public int bindLayout() {
         return R.layout.fragment_main;
@@ -129,7 +129,9 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {
                 refreshlayout.finishLoadmore(1500);
-                mainPresenter.onLoadMore(MainFragment.this.bindToLifecycle(),viewpager.getCurrentItem());
+                if (tabTypeListName !=null)
+                    if (tabTypeListName.length>0)
+                mainPresenter.onLoadMore(MainFragment.this.bindToLifecycle(), tabTypeListKey[viewpager.getCurrentItem()]);
             }
         });
         initViewpagerTop(view);
@@ -215,10 +217,10 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
 //        mainPresenter.requestData(this.bindToLifecycle());
     }
     private void setupViewPager() {
-        // 第二步：为ViewPager设置适配器
-        viewpager.setAdapter(mainViewPagerAdapter);
-        //  第三步：将ViewPager与TableLayout 绑定在一起
-        tabs.setupWithViewPager(viewpager);
+//        // 第二步：为ViewPager设置适配器
+//        viewpager.setAdapter(mainViewPagerAdapter);
+//        //  第三步：将ViewPager与TableLayout 绑定在一起
+//        tabs.setupWithViewPager(viewpager);
     }
 
     @Override
@@ -265,6 +267,18 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
                 else
                     imageMessage.setBackgroundResource(R.mipmap.exchange);
             }
+        tabTypeListName =new String[shopBeanReponse.getPayload().getGoods().size()];
+        tabTypeListKey=new  String[shopBeanReponse.getPayload().getGoods().size()];
+           for (int i=0;i<shopBeanReponse.getPayload().getGoods().size();i++){
+                tabTypeListName[i]=shopBeanReponse.getPayload().getGoods().get(i).getName();
+               tabTypeListKey[i]=shopBeanReponse.getPayload().getGoods().get(i).getType();
+
+           }
+        mainViewPagerAdapter.setDataList(tabTypeListName);
+        // 第二步：为ViewPager设置适配器
+        viewpager.setAdapter(mainViewPagerAdapter);
+        //  第三步：将ViewPager与TableLayout 绑定在一起
+        tabs.setupWithViewPager(viewpager);
         /**
          * 判断第一次进入app,选择进入
          */
@@ -284,7 +298,7 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
             data.addAll(shopBeanReponse.getPayload().getNotice());
             setNoticeView();
         }
-        viewpager.setCurrentItem(mainPresenter.feileiItem(shopBeanReponse));
+//        viewpager.setCurrentItem(mainPresenter.feileiItem(shopBeanReponse));
 
     }
 

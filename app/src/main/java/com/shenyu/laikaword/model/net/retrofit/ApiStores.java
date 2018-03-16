@@ -118,7 +118,7 @@ public interface ApiStores {
     @FormUrlEncoded
     @POST("account/rechargemoney")//余额充值
     Observable<WeixinPayReponse> rechargeWxMoney(@Field("money") String money, @Field("payWay") int payWay);
-    @GET("user/cardPackage")//我的卡包
+    @GET("user/newCardPackage")//我的卡包
     Observable<CarPagerReponse> cardPackage();
     @FormUrlEncoded
     @POST("order/create")//下单接口

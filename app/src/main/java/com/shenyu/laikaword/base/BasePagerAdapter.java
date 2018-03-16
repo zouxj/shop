@@ -10,11 +10,19 @@ import android.view.ViewGroup;
  */
 
 public class BasePagerAdapter extends PagerAdapter {
-    public String[] mListData;
+    public String[] mListData={};
     public Activity mActivity;
-    public BasePagerAdapter(Activity activity,String[] listData){
+
+    public BasePagerAdapter(Activity activity, String[] listData) {
+        this.mListData=mListData;
         this.mActivity=activity;
-        this.mListData=listData;
+    }
+    public BasePagerAdapter(Activity activity){
+        this.mActivity=activity;
+    }
+    public void setDataList(String[] mListData){
+        this.mListData=mListData;
+        notifyDataSetChanged();
     }
     @Override
     public int getCount() {

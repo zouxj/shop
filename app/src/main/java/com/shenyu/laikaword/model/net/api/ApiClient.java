@@ -15,17 +15,22 @@ public class ApiClient {
 
 
     public static Retrofit mRetrofit;
-    public static Retrofit retrofit() {
-        if (mRetrofit == null) {
-            mRetrofit = new Retrofit.Builder()
-                    .baseUrl(Constants.API_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                    .client(OkHttp3Utils.getmOkHttpClient())
-                    .build();
-
-        }
-
+    public  static Retrofit retrofit() {
+//        if (mRetrofit == null) {
+//            mRetrofit = new Retrofit.Builder()
+//                    .baseUrl(Constants.API_URL)
+//                    .addConverterFactory(GsonConverterFactory.create())
+//                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+//                    .client(OkHttp3Utils.getmOkHttpClient())
+//                    .build();
+//
+//        }
+        mRetrofit = new Retrofit.Builder()
+                .baseUrl(Constants.API_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .client(OkHttp3Utils.getmOkHttpClient())
+                .build();
         return mRetrofit;
 
     }

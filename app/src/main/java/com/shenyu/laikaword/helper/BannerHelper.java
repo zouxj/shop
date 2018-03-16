@@ -96,21 +96,20 @@ public class BannerHelper {
      * @param onItemClickListener banner条目点击事件
      */
     public void startBanner(List<BannerBean> bannerList, OnItemClickListener onItemClickListener) {
-        if (bannerList == null || bannerList.size() == 0) {
-            return;
+        if (bannerList != null && bannerList.size() != 0) {
+            mBannerList.clear();
+            mBannerList.addAll(bannerList);
         }
-        mBannerList.clear();
-        mBannerList.addAll(bannerList);
         mOnItemClickListener = onItemClickListener;
         mBannerViewpager.setAdapter(new BannerPicturePagerAdapter());
         mBannerViewpager.removeOnPageChangeListener(mBannerPageChangeListener);
         mBannerViewpager.addOnPageChangeListener(mBannerPageChangeListener);
         mBannerViewpager.setOnTouchListener(mBannerOnTouchListener);
-        mBannerViewpager.setOffscreenPageLimit(bannerList.size());
+        mBannerViewpager.setOffscreenPageLimit(mBannerList.size());
 
         // 初始化banner的点指示器
         mPointersLayout.removeAllViews();
-        for (int x = 0; x < bannerList.size(); x++) {
+        for (int x = 0; x < mBannerList.size(); x++) {
             View v = new View(mBannerRootLayout.getContext());
             v.setBackgroundResource(R.drawable.selector_pointers);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int)UIUtil.dp2px(poitSize), (int)UIUtil.dp2px(poitSize));
@@ -266,7 +265,7 @@ public class BannerHelper {
 
         @Override
         public int getCount() {
-            if (mBannerList.size() == 1) {
+            if (mBannerList.size() == 1||mBannerList.size()==0) {
                 return 1;
             } else if (mCirculate){
                 return Integer.MAX_VALUE;
@@ -303,8 +302,7 @@ public class BannerHelper {
             //TODO use img loader here to load net img
 //            iv.setImageResource(item.getTestImgResId());
            if (StringUtil.validText(item.getImgurl())) {
-               Picasso
-                       .with(UIUtil.getContext())
+               Picasso.with(UIUtil.getContext())
                        .load(item.getImgurl())
                        .placeholder(item.getTestImgResId())
                        .error(R.mipmap.net_error_icon)

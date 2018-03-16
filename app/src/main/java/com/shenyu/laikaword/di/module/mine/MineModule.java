@@ -29,7 +29,7 @@ public class MineModule {
     private BaseLoadView baseLoadView;
     private Activity mActivity;
     private FragmentManager fm;
-    public final static String[] mlist= new String[]{"全部","京东卡","移动卡","联通卡","电信卡"};
+
 
     public MineModule(Activity activity, BaseLoadView userInfoView){
         this.mActivity =activity;
@@ -58,7 +58,7 @@ public class MineModule {
     }
     @Provides
     CarPackageViewPagerAdapter provideCarPackageViewPagerAdapter(){
-     return new CarPackageViewPagerAdapter(mActivity,mlist);
+     return new CarPackageViewPagerAdapter(mActivity);
     }
     @Provides
     PurchaseViewPagerAdapter providePurchaseViewPagerAdapter(){

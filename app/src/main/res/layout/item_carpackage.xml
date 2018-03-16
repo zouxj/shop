@@ -4,23 +4,22 @@
         android:orientation="horizontal"
         android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="100dp">
+        android:layout_height="97dp">
 
         <ImageView
             android:id="@+id/iv_page_img"
             android:layout_marginLeft="15dp"
             android:layout_width="106dp"
             android:layout_gravity="center_vertical"
-            android:layout_height="70dp" />
+            android:layout_height="73dp" />
         <RelativeLayout
             android:layout_marginLeft="18dp"
             android:layout_gravity="center_vertical"
             android:layout_width="match_parent"
-            android:layout_height="80dp">
+            android:layout_height="65dp">
             <TextView
                 android:id="@+id/tv_page_name"
                 android:text="100元移动充值卡"
-                android:layout_marginTop="12dp"
                 android:textSize="@dimen/text_size_13sp"
                 android:textColor="@color/color_333"
                 android:layout_width="wrap_content"
@@ -30,19 +29,18 @@
                 android:id="@+id/tv_kpage_count"
                 android:layout_width="wrap_content"
                 android:textSize="@dimen/text_size_12sp"
-                android:gravity="bottom"
-                android:textColor="@color/color_333"
-                android:text="数量:50张"
+                android:layout_marginBottom="3dp"
+                android:textColor="@color/color_666"
+                android:text="x50"
+                android:layout_alignParentBottom="true"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_tihuo"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+            />
             <TextView
                 android:id="@+id/tv_tihuo"
                 android:layout_alignParentRight="true"
                 android:text="提货"
                 android:enabled="true"
-                android:layout_centerVertical="true"
+                android:layout_alignParentBottom="true"
                 android:textColor="@color/app_theme_red"
                 android:textSize="@dimen/text_size_13sp"
                 android:gravity="center"

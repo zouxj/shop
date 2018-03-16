@@ -1,10 +1,18 @@
 package com.shenyu.laikaword.module.home.ui.viewpager;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.AbsoluteSizeSpan;
+import android.text.style.BackgroundColorSpan;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.helper.ImageUitls;
@@ -48,10 +56,10 @@ public class MainListViewPager extends BaseViewPager {
     EmptyWrapper emptyWrappe;
     List<ShopMainReponse.GoodsBean> goods;
     List<GoodBean> listBeans=new ArrayList<>();
-    private int mType=0;
+    private String mType;
     private Subscription mRxSub;
 
-    public MainListViewPager(Activity activity,int type) {
+    public MainListViewPager(Activity activity,String type) {
         super(activity);
         this.mType = type;
 
@@ -77,14 +85,28 @@ public class MainListViewPager extends BaseViewPager {
             @Override
             protected void convert(ViewHolder holder, final GoodBean listBean, int position) {
                 ImageUitls.loadImg(listBean.getGoodsImage(),(ImageView) holder.getView(R.id.iv_main_shop_img));
-                holder.setText(R.id.tv_main_shop_name, listBean.getGoodsName());
-//                holder.setText(R.id.tv_main_shop_original_price, "￥"+listBean.getOriginPrice());
-                holder.setText(R.id.tv_main_shop_price, "￥"+listBean.getDiscountPrice());
-                holder.setText(R.id.tv_main_shop_surplus, StringUtil.formatIntger(listBean.getStock())>=5?"":"还剩"+StringUtil.formatIntger(listBean.getStock())+"张");
-                holder.setText(R.id.tv_main_shop_seller,listBean.getNickName());
                 StringBuilder sb = new StringBuilder(listBean.getDiscount());//构造一个StringBuilder对象
                 sb.insert(1, ".");//在指定的
-                holder.setText(R.id.tv_mian_shop_discount,sb.toString()+"折");
+                sb.append("折");
+                SpannableString spannableString = new SpannableString("  "+sb.toString()+"    "+listBean.getGoodsName());
+                BackgroundColorSpan bgcolorSpan = new BackgroundColorSpan(UIUtil.getColor(R.color.app_theme_red));
+                RelativeSizeSpan sizeSpan06 = new RelativeSizeSpan(1.3f);
+                ForegroundColorSpan textcolorSpan = new ForegroundColorSpan(UIUtil.getColor(R.color.white));
+                RelativeSizeSpan sizeSpan01 = new RelativeSizeSpan(1.0f);
+                spannableString.setSpan(textcolorSpan, 0, 8, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                spannableString.setSpan(sizeSpan01, 0, 8, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                spannableString.setSpan(bgcolorSpan, 0, 8, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                spannableString.setSpan(sizeSpan06, 10, spannableString.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+//                textView.setText(spannableString);
+                TextView name=   (TextView)holder.getView(R.id.tv_main_shop_name);
+                name.setText(spannableString);
+//                holder.setText(R.id.tv_main_shop_original_price, "￥"+listBean.getOriginPrice());
+                holder.setText(R.id.tv_main_shop_price, "￥"+listBean.getDiscountPrice());
+//                holder.setText(R.id.tv_main_shop_surplus, StringUtil.formatIntger(listBean.getStock())>=5?"":"还剩"+StringUtil.formatIntger(listBean.getStock())+"张");
+                holder.setText(R.id.tv_main_shop_seller,listBean.getNickName());
+//                StringBuilder sb = new StringBuilder(listBean.getDiscount());//构造一个StringBuilder对象
+//                sb.insert(1, ".");//在指定的
+//                holder.setText(R.id.tv_mian_shop_discount,sb.toString()+"折");
                 holder.setOnClickListener(R.id.tv_main_shop_purchase, new View.OnClickListener() {
           @Override
      public void onClick(View view) {
@@ -97,7 +119,7 @@ public class MainListViewPager extends BaseViewPager {
         });
         holder.setOnClickListener(R.id.lv_main_shop, new View.OnClickListener() {
         @Override
-    public void onClick(View view) {
+     public void onClick(View view) {
         IntentLauncher.with(mActivity).putObjectString("GoodBean",listBean).launch(ShopDateilActivity.class);
         }
         });
@@ -113,49 +135,18 @@ public class MainListViewPager extends BaseViewPager {
 
 /**
  * 设置商品数据
- * @param position
+ * @param mType
  */
-private void  setData(int position){
+private void  setData(String mType){
         if (null==goods)
         return;
         listBeans.clear();
-        switch (position){
-            case 0:
-                for (ShopMainReponse.GoodsBean goodsBeans:goods){
-                    if (goodsBeans.getType().equals("hotSell")){
-                        listBeans.addAll(goodsBeans.getList());
-                    }
-                }
-                break;
-        case 1:
         for (ShopMainReponse.GoodsBean goodsBeans:goods){
-        if (goodsBeans.getType().equals("yd")){
-        listBeans.addAll(goodsBeans.getList());
+        if (goodsBeans.getName().equals(mType)){
+            listBeans.addAll(goodsBeans.getList());
+            break;
         }
-        }
-        break;
-        case 2:
-        for (ShopMainReponse.GoodsBean goodsBeans:goods){
-        if (goodsBeans.getType().equals("jd")){
-        listBeans.addAll(goodsBeans.getList());
-        }
-        }
-        break;
-        case 3:
-        for (ShopMainReponse.GoodsBean goodsBeans:goods){
-        if (goodsBeans.getType().equals("lt")){
-        listBeans.addAll(goodsBeans.getList());
-        }
-        }
-        break;
-        case 4:
-        for (ShopMainReponse.GoodsBean goodsBeans:goods){
-        if (goodsBeans.getType().equals("dx")){
-        listBeans.addAll(goodsBeans.getList());
-        }
-        }
-        break;
-        }
+    }
         emptyWrappe.notifyDataSetChanged();
         }
 

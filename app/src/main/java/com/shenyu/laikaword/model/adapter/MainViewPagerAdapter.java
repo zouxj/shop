@@ -12,8 +12,8 @@ import com.shenyu.laikaword.module.home.ui.viewpager.MainListViewPager;
  */
    public class MainViewPagerAdapter extends BasePagerAdapter{
 
-    public MainViewPagerAdapter(Activity activity, String[] listData) {
-        super(activity, listData);
+    public MainViewPagerAdapter(Activity activity) {
+        super(activity);
     }
 
 
@@ -25,7 +25,7 @@ import com.shenyu.laikaword.module.home.ui.viewpager.MainListViewPager;
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        BaseViewPager pager = new MainListViewPager(mActivity,position);
+        BaseViewPager pager = new MainListViewPager(mActivity,mListData[position]);
         container.addView(pager.mRootView);
         pager.initData();
         return pager.mRootView;

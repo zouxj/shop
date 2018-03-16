@@ -27,7 +27,7 @@ public class MainModule {
     private MainView mainView;
     private Activity activity;
     private LifecycleTransformer mlifecycleTransformer;
-   private final static  String[] mlist  = new String[]{"热卖","移动卡", "京东卡", "联通卡", "电信卡"};
+//   private final static  String[] mlist  = new String[]{"热卖","移动卡", "京东卡", "联通卡", "电信卡"};
     public MainModule(MainView mainView, Activity activity){
         this.mainView =mainView;
         this.activity=activity;
@@ -55,7 +55,7 @@ public class MainModule {
     }
     @Provides
     MainViewPagerAdapter provideMainViewPagerAdapter(){
-        return new MainViewPagerAdapter(activity,mlist);
+        return new MainViewPagerAdapter(activity);
     }
 
     /**

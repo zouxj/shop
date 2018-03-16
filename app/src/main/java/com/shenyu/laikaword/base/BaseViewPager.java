@@ -27,10 +27,10 @@ public abstract class BaseViewPager<T> {
         flContent.addView(initView());
     }
     public abstract View initView();
-    public void initData(T t,int postion){
+    public void initData(){
 
     }
-    public void initData(){
+    public void initData(T t,String postion){
 
     }
 }

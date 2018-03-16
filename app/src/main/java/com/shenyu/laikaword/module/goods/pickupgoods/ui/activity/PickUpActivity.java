@@ -65,7 +65,7 @@ public class PickUpActivity extends LKWordBaseActivity {
     @BindView(R.id.tv_tihuo_commit)
     TextView tvTihuoCommit;
     private int count=1;
-    CarPagerReponse.Bean bean;
+    CarPagerReponse.PayloadBean.ListBean bean;
     @Override
     public int bindLayout() {
         return R.layout.activity_pick_up;
@@ -99,7 +99,7 @@ public class PickUpActivity extends LKWordBaseActivity {
         titles.add("提货完成");
 
         setStepTitles.setStepTitles(titles);
-         bean = (CarPagerReponse.Bean) getIntent().getSerializableExtra("bean");
+         bean = (CarPagerReponse.PayloadBean.ListBean) getIntent().getSerializableExtra("bean");
         if (null!=bean){
             ImageUitls.loadImg(bean.getGoodsImage(),ivTihuoImg);
             tvTihuoName.setText(bean.getGoodsName());

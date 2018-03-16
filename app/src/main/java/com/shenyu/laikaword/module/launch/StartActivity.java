@@ -15,6 +15,7 @@ import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
 import com.shenyu.laikaword.model.rxjava.rx.RxTask;
 import com.shenyu.laikaword.module.home.ui.activity.MainActivity;
 import com.squareup.picasso.Picasso;
+import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.components.RxActivity;
 import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.SPUtil;
@@ -25,6 +26,7 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -110,7 +112,7 @@ public class StartActivity extends RxActivity {
                 }
             });
 
-            Observable.interval(4, TimeUnit.SECONDS).take(1).compose(this.<Long>bindToLifecycle()).subscribe(new Observer<Long>() {
+            Observable.interval(4, TimeUnit.SECONDS).take(1).compose(this.<Long>bindUntilEvent(ActivityEvent.PAUSE)).subscribe(new Observer<Long>() {
                 @Override
                 public void onSubscribe(Disposable d) {
 
@@ -134,13 +136,13 @@ public class StartActivity extends RxActivity {
         }
     }
 
-//    @Nullable
-//    @OnClick({R.id.start_tv_tiao})
-//    public void OnClick(View view) {
-//        switch (view.getId()) {
-//            case R.id.start_tv_tiao:
-//            IntentLauncher.with(StartActivity.this).launchFinishCpresent(MainActivity.class);
-//            break;
-//        }
-//    }
+    @Nullable
+    @OnClick({R.id.start_tv_tiao})
+    public void OnClick(View view) {
+        switch (view.getId()) {
+            case R.id.start_tv_tiao:
+            IntentLauncher.with(StartActivity.this).launchFinishCpresent(MainActivity.class);
+            break;
+        }
+    }
 }

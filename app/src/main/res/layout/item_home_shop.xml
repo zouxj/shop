@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:id="@+id/lv_main_shop"
-    android:layout_gravity="center"
     android:background="@color/main_bg_gray"
     android:orientation="vertical"
     android:layout_height="wrap_content">
@@ -14,121 +13,78 @@
 <ImageView
     android:id="@+id/iv_main_shop_img"
     android:layout_gravity="center_horizontal"
-    android:layout_width="122dp"
+    android:layout_width="145dp"
     android:layout_marginTop="15dp"
     android:layout_height="80dp" />
-    <RelativeLayout
-        android:layout_marginTop="15dp"
+    <TextView
         android:layout_gravity="center_horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/tv_main_shop_name"
-            android:layout_marginLeft="11dp"
-            android:textColor="@color/color_333"
-            android:textSize="@dimen/text_size_12sp"
-            android:layout_centerVertical="true"
-            android:gravity="center_vertical"
-            android:layout_width="110dp"
+        android:layout_marginTop="7dp"
+        android:id="@+id/tv_main_shop_name"
+        android:textColor="@color/color_333"
+        android:textSize="@dimen/text_size_12sp"
+        android:layout_width="145dp"
         android:layout_height="wrap_content" />
 
-
-        <TextView
-            android:id="@+id/tv_mian_shop_discount"
-            android:layout_marginRight="11dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:padding="1dp"
-            android:textColor="@color/main_item_orange"
-            android:background="@drawable/bg_bodre_zhekou_rectangle"
-            android:layout_width="34dp"
-            android:text="9.4折"
-            android:gravity="center"
-            android:textSize="11sp"
-            android:layout_height="16dp" />
-</RelativeLayout>
     <RelativeLayout
+
         android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="145dp"
+        android:layout_height="32dp">
+        <TextView
+            android:id="@+id/tv_main_shop_price"
+            android:layout_width="wrap_content"
+            android:textSize="14sp"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:textColor="@color/app_theme_red"
+            android:text="￥94"
+            android:layout_height="match_parent" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginBottom="9dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
             android:id="@+id/tv_main_shop_seller"
             android:layout_width="70dp"
             android:singleLine="true"
+            android:layout_marginLeft="9dp"
+            android:layout_centerVertical="true"
             android:ellipsize="end"
             android:maxEms="6"
-            android:textSize="@dimen/text_size_12sp"
-            android:layout_marginLeft="11dp"
+            android:textSize="@dimen/text_size_10sp"
             android:textColor="@color/color_999"
             android:layout_height="wrap_content" />
 
         <TextView
-            android:textColor="@color/color_999"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/tv_main_shop_seller"
             android:layout_marginLeft="2dp"
             android:text="出售"
-            android:textSize="12sp"
-            android:layout_centerVertical="true"
-            android:gravity="center_vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/tv_main_shop_surplus"
-            android:layout_alignParentRight="true"
-            android:textSize="12sp"
-            android:layout_marginRight="13dp"
-            android:textColor="@color/app_theme_red"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_marginBottom="9dp"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="32dp">
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_height="20dp">
-            <TextView
-                android:id="@+id/tv_main_shop_price"
-                android:layout_width="wrap_content"
-                android:textSize="14sp"
-                android:layout_alignParentBottom="true"
-                android:gravity="bottom"
-                android:layout_marginLeft="11dp"
-                android:textColor="@color/app_theme_red"
-                android:text="￥94"
-                android:layout_height="match_parent" />
-            <TextView
-                android:id="@+id/tv_main_shop_original_price"
-                android:textSize="10sp"
-                android:gravity="bottom"
-                android:visibility="gone"
-                android:layout_alignParentBottom="true"
-                android:textColor="@color/color_ccc"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_toRightOf="@+id/tv_main_shop_price"
-                android:layout_toEndOf="@+id/tv_main_shop_price"
-                android:layout_marginLeft="2dp"
-                android:layout_marginStart="2dp" />
-        </RelativeLayout>
+            android:gravity="center"
+            android:textColor="@color/color_999"
+            android:textSize="@dimen/text_size_10sp" />
 
         <TextView
             android:id="@+id/tv_main_shop_purchase"
+            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-            android:background="@drawable/bg_bt_login_rectangle_light"
+            android:background="@drawable/bg_main_goumai_rectangle"
             android:text="抢购"
             android:textColor="@color/white"
-            android:textSize="14sp"
+            android:textSize="11sp"
             android:gravity="center"
-            android:layout_marginRight="10dp"
-            android:layout_width="62dp"
-            android:layout_height="32dp" />
+            android:layout_width="51dp"
+            android:layout_height="23dp" />
     </RelativeLayout>
+
 </LinearLayout>
 </LinearLayout>

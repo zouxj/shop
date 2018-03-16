@@ -17,10 +17,9 @@
         android:layout_marginRight="10dp"
       />
 </RelativeLayout>
-
+<include layout="@layout/line_view"/>
     <LinearLayout
         android:orientation="horizontal"
-        android:background="@color/main_bg_gray"
         android:layout_width="match_parent"
         android:layout_height="97dp">
 
@@ -37,7 +36,7 @@
             android:layout_height="80dp">
             <TextView
                 android:id="@+id/tv_goumai_shop_name"
-                android:layout_marginTop="9dp"
+                android:layout_marginTop="5dp"
                 android:textSize="@dimen/text_size_15sp"
                 android:textColor="@color/color_333"
                 android:layout_width="wrap_content"
@@ -47,31 +46,31 @@
                 android:layout_alignParentBottom="true"
                 android:layout_width="match_parent"
                 android:layout_height="32dp">
-                <RelativeLayout
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_height="20dp">
+                    android:layout_height="wrap_content">
                     <TextView
                         android:id="@+id/tv_goumai_shop_price"
                         android:layout_width="wrap_content"
                         android:textSize="@dimen/text_size_12sp"
                         android:layout_alignParentBottom="true"
-                        android:gravity="bottom"
-                        android:layout_marginLeft="11dp"
+                        android:text="11"
                         android:textColor="@color/color_333"
-                        android:layout_height="match_parent" />
+                        android:layout_height="wrap_content" />
                     <TextView
                         android:id="@+id/tv_goumai_shop_original_price"
                         android:textSize="10sp"
+                        android:text="11"
                         android:gravity="bottom"
-                        android:layout_alignParentBottom="true"
                         android:textColor="@color/color_999"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_toRightOf="@+id/tv_goumai_shop_price"
-                        android:layout_marginLeft="6dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_below="@+id/tv_goumai_shop_price"
                          />
-                </RelativeLayout>
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/tv_goumai_shop_purchase"
@@ -88,6 +87,7 @@
         </RelativeLayout>
 
     </LinearLayout>
+    <include layout="@layout/line_view"/>
     <RelativeLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"

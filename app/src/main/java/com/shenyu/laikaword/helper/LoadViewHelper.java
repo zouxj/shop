@@ -93,7 +93,7 @@ public class LoadViewHelper {
                     flog=false;
                 }else {
                     ((ViewGroup) activity.getWindow().getDecorView()).removeView(linearLayout);
-                    DialogHelper.tsGaiName(activity, true).show();
+//                    DialogHelper.tsGaiName(activity, true).show();
                 }
             }
         });

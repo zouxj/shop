@@ -9,152 +9,35 @@ import java.util.List;
 
 public class CarPagerReponse extends BaseReponse implements Serializable{
 
-    /**
-     * payload : {"yd":{"name":"移动卡","list":[]},"dx":{"name":"电信卡","list":[]},"lt":{"name":"联通卡","list":[]},"jd":{"name":"京东卡","list":[{"packageId":"8","userId":"43","goodsName":"goods1","goodsImage":"http://image.comingcard.com/goods/yd100.png","goodsType":"jd","goodsValue":"100.00","quantity":"28","createTime":"1508478500","imageUrl":null}]}}
-     */
 
-    private PayloadBean payload;
+    private List<PayloadBean> payload;
 
-    public PayloadBean getPayload() {
+    public List<PayloadBean> getPayload() {
         return payload;
     }
 
-    public void setPayload(PayloadBean payload) {
+    public void setPayload(List<PayloadBean> payload) {
         this.payload = payload;
     }
 
-    public static class PayloadBean implements Serializable {
+    public static class PayloadBean implements Serializable{
         /**
-         * yd : {"name":"移动卡","list":[]}
-         * dx : {"name":"电信卡","list":[]}
-         * lt : {"name":"联通卡","list":[]}
-         * jd : {"name":"京东卡","list":[{"packageId":"8","userId":"43","goodsName":"goods1","goodsImage":"http://image.comingcard.com/goods/yd100.png","goodsType":"jd","goodsValue":"100.00","quantity":"28","createTime":"1508478500","imageUrl":null}]}
-         */
-
-        private YdBean yd;
-        private DxBean dx;
-        private LtBean lt;
-        private JdBean jd;
-
-        public YdBean getYd() {
-            return yd;
-        }
-
-        public void setYd(YdBean yd) {
-            this.yd = yd;
-        }
-
-        public DxBean getDx() {
-            return dx;
-        }
-
-        public void setDx(DxBean dx) {
-            this.dx = dx;
-        }
-
-        public LtBean getLt() {
-            return lt;
-        }
-
-        public void setLt(LtBean lt) {
-            this.lt = lt;
-        }
-
-        public JdBean getJd() {
-            return jd;
-        }
-
-        public void setJd(JdBean jd) {
-            this.jd = jd;
-        }
-    }
-
-    public static class YdBean {
-        /**
-         * name : 移动卡
-         * list : []
-         */
-
-        private String name;
-        private List<Bean> list;
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public List<Bean> getList() {
-            return list;
-        }
-
-        public void setList(List<Bean> list) {
-            this.list = list;
-        }
-    }
-
-    public static class DxBean {
-        /**
-         * name : 电信卡
-         * list : []
-         */
-
-        private String name;
-        private List<Bean> list;
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public List<Bean> getList() {
-            return list;
-        }
-
-        public void setList(List<Bean> list) {
-            this.list = list;
-        }
-    }
-
-    public static class LtBean {
-        /**
-         * name : 联通卡
-         * list : []
-         */
-
-        private String name;
-        private List<Bean> list;
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public List<Bean> getList() {
-            return list;
-        }
-
-        public void setList(List<Bean> list) {
-            this.list = list;
-        }
-    }
-
-    public static class JdBean {
-        /**
+         * type : jd
          * name : 京东卡
-         * list : [{"packageId":"8","userId":"43","goodsName":"goods1","goodsImage":"http://image.comingcard.com/goods/yd100.png","goodsType":"jd","goodsValue":"100.00","quantity":"28","createTime":"1508478500","imageUrl":null}]
+         * list : [{"packageId":"262","userId":"279","goodsName":"京东实体购物卡2000元","goodsImage":"http://image.playingbuy.net/goods/cards/small-jd-2000.png","goodsType":"jd","goodsValue":"2000.00","quantity":"1","createTime":"1521187383","updateTime":"0"},{"packageId":"215","userId":"279","goodsName":"京东实体购物卡100元","goodsImage":"http://image.playingbuy.com/goods/cards/small-jd-100.png","goodsType":"jd","goodsValue":"100.00","quantity":"7","createTime":"1517800903","updateTime":"0"}]
          */
 
+        private String type;
         private String name;
-        private List<Bean> list;
+        private List<ListBean> list;
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
 
         public String getName() {
             return name;
@@ -164,108 +47,108 @@ public class CarPagerReponse extends BaseReponse implements Serializable{
             this.name = name;
         }
 
-        public List<Bean> getList() {
+        public List<ListBean> getList() {
             return list;
         }
 
-        public void setList(List<Bean> list) {
+        public void setList(List<ListBean> list) {
             this.list = list;
         }
-    }
-    public  class Bean implements Serializable {
 
-        /**
-         * packageId : 8
-         * userId : 43
-         * goodsName : goods1
-         * goodsImage : http://image.comingcard.com/goods/yd100.png
-         * goodsType : jd
-         * goodsValue : 100.00
-         * quantity : 28
-         * createTime : 1508478500
-         * imageUrl : null
-         */
+        public static class ListBean implements Serializable{
+            /**
+             * packageId : 262
+             * userId : 279
+             * goodsName : 京东实体购物卡2000元
+             * goodsImage : http://image.playingbuy.net/goods/cards/small-jd-2000.png
+             * goodsType : jd
+             * goodsValue : 2000.00
+             * quantity : 1
+             * createTime : 1521187383
+             * updateTime : 0
+             */
 
-        private String packageId;
-        private String userId;
-        private String goodsName;
-        private String goodsImage;
-        private String goodsType;
-        private String goodsValue;
-        private String quantity;
-        private String createTime;
-        private Object imageUrl;
+            private String packageId;
+            private String userId;
+            private String goodsName;
+            private String goodsImage;
+            private String goodsType;
+            private String goodsValue;
+            private String quantity;
+            private String createTime;
+            private String updateTime;
 
-        public String getPackageId() {
-            return packageId;
-        }
+            public String getPackageId() {
+                return packageId;
+            }
 
-        public void setPackageId(String packageId) {
-            this.packageId = packageId;
-        }
+            public void setPackageId(String packageId) {
+                this.packageId = packageId;
+            }
 
-        public String getUserId() {
-            return userId;
-        }
+            public String getUserId() {
+                return userId;
+            }
 
-        public void setUserId(String userId) {
-            this.userId = userId;
-        }
+            public void setUserId(String userId) {
+                this.userId = userId;
+            }
 
-        public String getGoodsName() {
-            return goodsName;
-        }
+            public String getGoodsName() {
+                return goodsName;
+            }
 
-        public void setGoodsName(String goodsName) {
-            this.goodsName = goodsName;
-        }
+            public void setGoodsName(String goodsName) {
+                this.goodsName = goodsName;
+            }
 
-        public String getGoodsImage() {
-            return goodsImage;
-        }
+            public String getGoodsImage() {
+                return goodsImage;
+            }
 
-        public void setGoodsImage(String goodsImage) {
-            this.goodsImage = goodsImage;
-        }
+            public void setGoodsImage(String goodsImage) {
+                this.goodsImage = goodsImage;
+            }
 
-        public String getGoodsType() {
-            return goodsType;
-        }
+            public String getGoodsType() {
+                return goodsType;
+            }
 
-        public void setGoodsType(String goodsType) {
-            this.goodsType = goodsType;
-        }
+            public void setGoodsType(String goodsType) {
+                this.goodsType = goodsType;
+            }
 
-        public String getGoodsValue() {
-            return goodsValue;
-        }
+            public String getGoodsValue() {
+                return goodsValue;
+            }
 
-        public void setGoodsValue(String goodsValue) {
-            this.goodsValue = goodsValue;
-        }
+            public void setGoodsValue(String goodsValue) {
+                this.goodsValue = goodsValue;
+            }
 
-        public String getQuantity() {
-            return quantity;
-        }
+            public String getQuantity() {
+                return quantity;
+            }
 
-        public void setQuantity(String quantity) {
-            this.quantity = quantity;
-        }
+            public void setQuantity(String quantity) {
+                this.quantity = quantity;
+            }
 
-        public String getCreateTime() {
-            return createTime;
-        }
+            public String getCreateTime() {
+                return createTime;
+            }
 
-        public void setCreateTime(String createTime) {
-            this.createTime = createTime;
-        }
+            public void setCreateTime(String createTime) {
+                this.createTime = createTime;
+            }
 
-        public Object getImageUrl() {
-            return imageUrl;
-        }
+            public String getUpdateTime() {
+                return updateTime;
+            }
 
-        public void setImageUrl(Object imageUrl) {
-            this.imageUrl = imageUrl;
+            public void setUpdateTime(String updateTime) {
+                this.updateTime = updateTime;
+            }
         }
     }
 }

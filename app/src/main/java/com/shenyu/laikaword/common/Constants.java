@@ -13,8 +13,9 @@ public class Constants {
      * URL Host
      */
     public static String HOST="http://t.shop.comingcard.com/";
+    public static  int host = 2;
     static {
-        int host = 0;
+
         switch (host){
             case 0:
                 //正式线;

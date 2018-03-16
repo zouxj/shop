@@ -12,7 +12,9 @@ import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 import com.trello.rxlifecycle2.LifecycleTransformer;
+import com.zxj.utilslibrary.utils.NetworkUtil;
 import com.zxj.utilslibrary.utils.SPUtil;
+import com.zxj.utilslibrary.utils.UIUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +37,15 @@ public class MainPresenter extends BasePresenter<MainView> {
     }
     public void requestData(LifecycleTransformer lifecycleTransformer){
         //TODO 请求商品数据
+        if (!NetworkUtil.isNetworkConnected(UIUtil.getContext())){
+            //TODO 判断网络是否可用无网络读取缓存显示
+            ShopMainReponse shopMainReponse= (ShopMainReponse) SPUtil.readObject(Constants.MAIN_SHOP_KEY);
+            if (null!=shopMainReponse) {
+                RxBus.getDefault().post(new Event(EventType.ACTION_MAIN_SETDATE, shopMainReponse.getPayload().getGoods()));
+                mvpView.showShop(shopMainReponse);
+            }
+            return;
+        }
         mvpView.isLoading();
         addSubscription(lifecycleTransformer,apiStores.getMainShop(), new ApiCallback<ShopMainReponse>() {
             @Override
@@ -66,26 +77,8 @@ public class MainPresenter extends BasePresenter<MainView> {
      * @return
      */
     int page =2;
-    public  void  onLoadMore(LifecycleTransformer lifecycleTransformer,int type){
-        String types = null;
-        switch (type){
-            case 0:
-                types="hotSell";
-                break;
-            case 1:
-                types="yd";
-                break;
-            case 2:
-                types="jd";
-                break;
-            case 3:
-                types="lt";
-                break;
-            case 4:
-                types="dx";
-                break;
-        }
-        addSubscription(lifecycleTransformer,apiStores.getGoodsList(types,page,20), new ApiCallback<GoodsListReponse>() {
+    public  void  onLoadMore(LifecycleTransformer lifecycleTransformer,String type){
+        addSubscription(lifecycleTransformer,apiStores.getGoodsList(type,page,20), new ApiCallback<GoodsListReponse>() {
             @Override
             public void onSuccess(GoodsListReponse model) {
                 List<GoodBean> list=new ArrayList<>();

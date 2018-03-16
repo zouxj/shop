@@ -29,8 +29,7 @@ import java.util.List;
 
 public class CarListPagerView extends BaseViewPager<CarPagerReponse> {
     RecyclerView recyclerView;
-    private int mType;
-    private List<CarPagerReponse.Bean> beanList;
+    private List<CarPagerReponse.PayloadBean.ListBean> beanList;
     public CarListPagerView(Activity activity) {
         super(activity);
     }
@@ -40,64 +39,32 @@ public class CarListPagerView extends BaseViewPager<CarPagerReponse> {
     public View initView() {
         View view = UIUtil.inflate(R.layout.fragment_car_list);
         recyclerView = view.findViewById(R.id.rlv_view);
-//        subscribeEvent();
         return view;
     }
-
     @Override
-    public void initData(CarPagerReponse carPagerReponse,int type) {
+    public void initData(CarPagerReponse carPagerReponse,String type) {
         beanList = new ArrayList<>();
-        this.mType=type;
         if (carPagerReponse!=null) {
-            switch (type) {
-                case 0:
-                    //TODO 全部的卡片
+            for (int i=0;i<carPagerReponse.getPayload().size();i++){
+                if (type.equals(carPagerReponse.getPayload().get(i).getName())){
                     beanList.clear();
-                    for (CarPagerReponse.Bean bean : carPagerReponse.getPayload().getJd().getList()) {
-                        beanList.add(bean);
+                    beanList.addAll(carPagerReponse.getPayload().get(i).getList());
+                    break;
+                }else {
+                    for (CarPagerReponse.PayloadBean.ListBean listBean:carPagerReponse.getPayload().get(i).getList()) {
+                        beanList.add(listBean);
                     }
-                    for (CarPagerReponse.Bean bean : carPagerReponse.getPayload().getDx().getList()) {
-                        beanList.add(bean);
-                    }
-                    for (CarPagerReponse.Bean bean : carPagerReponse.getPayload().getYd().getList()) {
-                        beanList.add(bean);
-                    }
-                    for (CarPagerReponse.Bean bean : carPagerReponse.getPayload().getLt().getList()) {
-                        beanList.add(bean);
-                    }
-                    break;
-                case 1:
-                    //TODO 京东卡片
-                    beanList.clear();
-                    beanList.addAll(carPagerReponse.getPayload().getJd().getList());
-                    setData(beanList);
-                    break;
-                case 2:
-                    //TODO 移动卡片
-                    beanList.clear();
-                    beanList.addAll(carPagerReponse.getPayload().getYd().getList());
-                    break;
-                case 3:
-                    //TODO 联通卡片
-                    beanList.clear();
-                    beanList.addAll(carPagerReponse.getPayload().getLt().getList());
-                    break;
-                case 4:
-                    //TODO 电信卡片
-                    beanList.clear();
-                    beanList.addAll(carPagerReponse.getPayload().getDx().getList());
-                    break;
-
+                }
             }
         }
         setData(beanList);
     }
 
-    public void setData(List<CarPagerReponse.Bean> beanList){
-        CommonAdapter commonAdapter=    new CommonAdapter<CarPagerReponse.Bean>(R.layout.item_carpackage,beanList) {
+    public void setData(List<CarPagerReponse.PayloadBean.ListBean> beanList){
+        CommonAdapter commonAdapter=    new CommonAdapter<CarPagerReponse.PayloadBean.ListBean>(R.layout.item_carpackage,beanList) {
             @Override
-            protected void convert(ViewHolder holder, final CarPagerReponse.Bean bean, int position) {
-                holder.setText(R.id.tv_kpage_count,"数量："+bean.getQuantity()+"张");
+            protected void convert(ViewHolder holder, final CarPagerReponse.PayloadBean.ListBean bean, int position) {
+                holder.setText(R.id.tv_kpage_count,"x"+bean.getQuantity());
                 holder.setText(R.id.tv_page_name,bean.getGoodsName());
                 ImageUitls.loadImg(bean.getGoodsImage(),(ImageView) holder.getView(R.id.iv_page_img));
                 holder.setOnClickListener(R.id.tv_tihuo, new View.OnClickListener() {

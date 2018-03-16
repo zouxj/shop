@@ -27,8 +27,8 @@ android {
         applicationId "com.shenyu.laikaword"
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 12
-        versionName "1.2.0"
+        versionCode 16
+        versionName "1.2.1"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
@@ -77,10 +77,6 @@ android {
 
         androidgoin {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "androidgoin"]
-            dimension "laikashop"
-        }
-        pc6 {
-            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "pc6"]
             dimension "laikashop"
         }
         yingyongbao {

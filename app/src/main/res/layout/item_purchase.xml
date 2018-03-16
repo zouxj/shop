@@ -13,7 +13,7 @@
             android:text="编号:201700531" />
         <TextView
             android:id="@+id/tv_purchase_time"
-            style="@style/bank_add_edite"
+            style="@style/tv_car_goumai"
             android:layout_width="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
@@ -47,19 +47,19 @@
                 android:textSize="@dimen/text_size_15sp" />
 
             <TextView
-                android:layout_below="@+id/tv_zhuanmai_shop_name"
                 android:id="@+id/tv_zhuamai_price"
                 android:layout_width="wrap_content"
-                android:layout_marginTop="13dp"
                 android:textSize="@dimen/text_size_12sp"
                 android:textColor="@color/color_333"
                 android:text="x10张"
+                android:layout_alignParentBottom="true"
                 android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/tv_status"
                 android:textColor="@color/color_999"
                 android:text="状态"
                 android:textSize="@dimen/text_size_12sp"
+                android:layout_alignParentBottom="true"
                 android:layout_marginRight="13dp"
                 android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"

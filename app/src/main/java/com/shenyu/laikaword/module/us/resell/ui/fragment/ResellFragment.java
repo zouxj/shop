@@ -84,7 +84,7 @@ public class ResellFragment extends IKWordBaseFragment {
                 holder.setText(R.id.tv_zhuanmai_shop_name,payloadBean.getGoodsName());
                 //转卖数量
                TextView tvZhuanmaiCount=holder.getView(R.id.tv_zhuanmai_count);
-               tvZhuanmaiCount.setText(Html.fromHtml("<font color= '#999999'>转卖数量:</font>"+payloadBean.getOriStock()+"张"));
+               tvZhuanmaiCount.setText(Html.fromHtml("<font color= '#999999'>转卖数量:</font>"+"x"+payloadBean.getOriStock()));
 
                 //已经转卖数量
                 TextView tvZhuanMaiFinsh=holder.getView(R.id.tv_zhuanmaied_count);

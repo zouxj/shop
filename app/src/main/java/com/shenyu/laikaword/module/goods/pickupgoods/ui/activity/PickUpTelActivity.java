@@ -71,7 +71,7 @@ public class PickUpTelActivity extends LKWordBaseActivity {
     public int bindLayout() {
         return R.layout.activity_pick_up_tel;
     }
-    CarPagerReponse.Bean bean;
+    CarPagerReponse.PayloadBean.ListBean bean;
     @Override
     public void initView() {
         tvGoumaiCount.setText("提货数量");
@@ -96,7 +96,7 @@ public class PickUpTelActivity extends LKWordBaseActivity {
         titles.add("提货中");
         titles.add("提货完成");
         stepView.setStepTitles(titles);
-        bean = (CarPagerReponse.Bean) getIntent().getSerializableExtra("bean");
+        bean = (CarPagerReponse.PayloadBean.ListBean) getIntent().getSerializableExtra("bean");
             if (null!=bean)
                 avZj.setGoods_storage(StringUtil.formatIntger(bean.getQuantity()));
                 ImageUitls.loadImg(bean.getGoodsImage(),ivTihuoImg);

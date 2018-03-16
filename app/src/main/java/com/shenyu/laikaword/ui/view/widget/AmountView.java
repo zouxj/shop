@@ -119,7 +119,7 @@ public class AmountView extends LinearLayout implements View.OnClickListener, Te
     public void setFlg(int flg){
         this.flg=flg;
         if (flg!=0){
-            etAmount.setFilters(new InputFilter[]{new MoneyValueFilter()});
+            etAmount.setFilters(new InputFilter[]{new MoneyValueFilter().setDigits(1)});
             etAmount.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
             etAmount.setTextColor(UIUtil.getColor(R.color.app_theme_red));
         }
