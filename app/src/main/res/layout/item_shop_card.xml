@@ -3,8 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
+    <com.shenyu.laikaword.ui.view.widget.BoderImageView
         android:id="@+id/iv_car"
+        android:padding="1dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

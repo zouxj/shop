@@ -11,6 +11,8 @@ import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.model.adapter.PurchaseItemAdapter;
+import com.shenyu.laikaword.model.bean.reponse.CarPagerReponse;
+import com.shenyu.laikaword.model.bean.reponse.PurChaseReponse;
 import com.shenyu.laikaword.model.wrapper.EmptyWrapper;
 import com.shenyu.laikaword.base.IKWordBaseFragment;
 import com.shenyu.laikaword.model.bean.reponse.PickUpGoodsReponse;
@@ -34,18 +36,16 @@ public class PurchaseListFragment extends IKWordBaseFragment {
     RecyclerView recyclerView;
     @BindView(R.id.smart_layout)
     SmartRefreshLayout smartRefreshLayout;
-    private int type=0;
+    private PurChaseReponse.PayloadBean mPayloadBean;
     int page=1;
     int pagerSize=20;
-    private List<PickUpGoodsReponse.PayloadBean> payload=new ArrayList<>();
+    private List<PurChaseReponse.PayloadBean.ListBean> payload=new ArrayList<>();
     @SuppressLint("ValidFragment")
-    public PurchaseListFragment(int position) {
-        if (position==0){
-            this.type=2;
-        }
-        if (position==1){
-            this.type=position;
-        }
+    public PurchaseListFragment(PurChaseReponse.PayloadBean payloadBean) {
+    if (payloadBean!=null){
+        this.mPayloadBean=payloadBean;
+        payload.addAll(payloadBean.getList());
+    }
 
     }
 
@@ -58,7 +58,7 @@ public class PurchaseListFragment extends IKWordBaseFragment {
     @Override
     public void initView(View view) {
 
-        recyclerView.addItemDecoration(new RecycleViewDivider(getActivity(),LinearLayoutManager.HORIZONTAL,(int) UIUtil.dp2px(9),UIUtil.getColor(R.color.main_bg_gray)));
+        recyclerView.addItemDecoration(new RecycleViewDivider(getActivity(),LinearLayoutManager.HORIZONTAL,(int) UIUtil.dp2px(3),UIUtil.getColor(R.color.main_bg_gray)));
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
          adapter = new PurchaseItemAdapter(payload);
         emptyWrapper =new EmptyWrapper(adapter);
@@ -73,7 +73,7 @@ public class PurchaseListFragment extends IKWordBaseFragment {
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {
                 refreshlayout.finishLoadmore(1500);
-                requestData();
+                requestLoadMore();
 
             }
         });
@@ -91,16 +91,18 @@ public class PurchaseListFragment extends IKWordBaseFragment {
 
     @Override
     public void requestData() {
-        retrofitUtils.addSubscription(retrofitUtils.apiStores.newMyExtract(type,page,pagerSize), new ApiCallback<PickUpGoodsReponse>() {
+
+    }
+    public void requestLoadMore(){
+        retrofitUtils.addSubscription(retrofitUtils.apiStores.newMyExtract(mPayloadBean.getType(),page,pagerSize), new ApiCallback<PickUpGoodsReponse>() {
             @Override
             public void onSuccess(PickUpGoodsReponse model) {
-                    if (model.isSuccess()&&model.getPayload().size()>0) {
-                        page++;
-                        for (PickUpGoodsReponse.PayloadBean payloadBean:model.getPayload()){
-                            payload.add(payloadBean);
-                        }
-                        emptyWrapper.notifyDataSetChanged();
-            }
+                if (model.isSuccess()&&model.getPayload().size()>0) {
+                    page++;
+                    payload.clear();
+                    payload.addAll(model.getPayload());
+                    emptyWrapper.notifyDataSetChanged();
+                }
             }
 
             @Override
@@ -114,6 +116,5 @@ public class PurchaseListFragment extends IKWordBaseFragment {
             }
         });
     }
-
 
 }

@@ -45,9 +45,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
+            <com.shenyu.laikaword.ui.view.widget.BoderImageView
                 android:id="@+id/img_order"
                 android:layout_marginLeft="10dp"
+                android:padding="1dp"
                 android:layout_width="121dp"
                 android:layout_gravity="center_vertical"
                 android:layout_height="80dp" />
@@ -208,24 +209,15 @@
         android:layout_height="48dp">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:gravity="center"
-            android:layout_marginLeft="100dp"
-            android:layout_centerVertical="true"
-            android:textSize="@dimen/text_size_13sp"
-            android:layout_height="wrap_content"
-            android:textColor="@color/color_666"
-            android:text="合计： "
-            />
-        <TextView
             android:id="@+id/tv_price_count"
-            android:layout_marginLeft="144dp"
             android:layout_width="wrap_content"
             android:gravity="center"
+            android:text="1111"
+            android:layout_toLeftOf="@+id/tv_to_pay"
             android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
             android:textSize="@dimen/text_size_16sp"
             android:layout_height="wrap_content"
-            android:textColor="@color/app_theme_red"
             />
         <TextView
             android:id="@+id/tv_to_pay"
@@ -236,9 +228,8 @@
             android:gravity="center"
             android:textColor="@color/white"
             android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+       />
 
     </RelativeLayout>
 </LinearLayout>

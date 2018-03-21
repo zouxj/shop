@@ -4,6 +4,11 @@ import android.content.Context;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 
+import com.shenyu.laikaword.model.bean.reponse.BaseReponse;
+import com.shenyu.laikaword.model.bean.reponse.PickUpGoodsReponse;
+import com.shenyu.laikaword.model.bean.reponse.PurChaseReponse;
+import com.shenyu.laikaword.model.net.api.ApiCallback;
+import com.shenyu.laikaword.model.net.retrofit.RetrofitUtils;
 import com.shenyu.laikaword.module.launch.LaiKaApplication;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.model.adapter.PurchaseViewPagerAdapter;
@@ -11,6 +16,9 @@ import com.shenyu.laikaword.base.LKWordBaseActivity;
 import com.shenyu.laikaword.helper.TabLayoutHelper;
 import com.shenyu.laikaword.di.module.mine.MineModule;
 import com.zxj.utilslibrary.utils.StringUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -28,6 +36,7 @@ public class PurchaseCardActivity extends LKWordBaseActivity {
     ViewPager vpPruchaseCarPack;
     @Inject
     PurchaseViewPagerAdapter purchaseViewPagerAdapter;
+    private List<String> goodType = new ArrayList<>();
 
     @Override
     public int bindLayout() {
@@ -45,18 +54,12 @@ public class PurchaseCardActivity extends LKWordBaseActivity {
         setToolBarTitle("我的提货");
         vpPruchaseCarPack.setAdapter(purchaseViewPagerAdapter);
         tbPruchaseCarPack.setupWithViewPager(vpPruchaseCarPack);
+
     }
 
     @Override
     public void doBusiness(Context context) {
-        String type = getIntent().getStringExtra("type");
-        if (StringUtil.validText(type)) {
-            if (type.equals("JD")) {
-                vpPruchaseCarPack.setCurrentItem(1);
-            } else if (type.equals("HUAFEI")) {
-                vpPruchaseCarPack.setCurrentItem(0);
-            }
-        }
+        getPurchaseGoods();
 
 
     }
@@ -64,6 +67,33 @@ public class PurchaseCardActivity extends LKWordBaseActivity {
     @Override
     public void setupActivityComponent() {
         LaiKaApplication.get(this).getAppComponent().plus(new MineModule(getSupportFragmentManager())).inject(this);
+    }
+    public void getPurchaseGoods(){
+        retrofitUtils.addSubscription(retrofitUtils.apiStores.myExtract1(), new ApiCallback<PurChaseReponse>() {
+            @Override
+            public void onSuccess(PurChaseReponse model) {
+                if (model!=null&&model.isSuccess()) {
+                    String [] tab =new String[model.getPayload().size()];
+                    for (int i=0;i<model.getPayload().size();i++){
+                        goodType.add(model.getPayload().get(i).getType());
+                        tab[i]=model.getPayload().get(i).getName();
+                    }
+                    purchaseViewPagerAdapter.setDataList(tab,model.getPayload());
+
+
+                }
+            }
+
+            @Override
+            public void onFailure(String msg) {
+
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        });
     }
 
 

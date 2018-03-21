@@ -30,10 +30,11 @@
         android:layout_width="match_parent"
         android:layout_height="117dp">
 
-        <ImageView
+        <com.shenyu.laikaword.ui.view.widget.BoderImageView
             android:id="@+id/iv_tihuo_img"
             android:layout_marginLeft="15dp"
             android:layout_width="121dp"
+            android:padding="1dp"
             android:layout_gravity="center_vertical"
             android:layout_height="80dp" />
         <RelativeLayout

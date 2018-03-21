@@ -79,7 +79,7 @@ public class PickUpActivity extends LKWordBaseActivity {
                 @Override
             public void onAmountChange(View view, int amount) {
                 count = amount;
-                tvTihuoAll.setText(amount+"张");
+                tvTihuoAll.setText(amount);
             }
         });
     }
@@ -103,7 +103,7 @@ public class PickUpActivity extends LKWordBaseActivity {
         if (null!=bean){
             ImageUitls.loadImg(bean.getGoodsImage(),ivTihuoImg);
             tvTihuoName.setText(bean.getGoodsName());
-                tvTihuoCount.setText("数量:" + StringUtil.formatIntger(bean.getQuantity())+"张");
+                tvTihuoCount.setText("数量:" + StringUtil.formatIntger(bean.getQuantity())+"");
                 avZj.setGoods_storage(StringUtil.formatIntger(bean.getQuantity()));
                 tvTihuoAll.setText("1张");
 

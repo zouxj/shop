@@ -27,16 +27,18 @@
         android:layout_width="match_parent"
         android:layout_height="100dp">
 
-        <ImageView
+        <com.shenyu.laikaword.ui.view.widget.BoderImageView
             android:id="@+id/img_purchase_img"
             android:layout_marginLeft="14dp"
             android:layout_width="106dp"
+            android:padding="1dp"
+            android:background="@drawable/ic_launcher_background"
             android:layout_gravity="center_vertical"
-            android:layout_height="75dp" />
+            android:layout_height="72dp" />
         <LinearLayout
             android:layout_marginLeft="18dp"
-            android:layout_gravity="center_vertical"
             android:orientation="vertical"
+            android:layout_gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
@@ -69,7 +71,7 @@
                 android:layout_marginTop="6dp"
                 android:textSize="@dimen/text_size_12sp"
                 android:textColor="@color/color_333"
-                android:text="已经转卖24张"
+                android:text=""
                 android:layout_height="wrap_content" />
 
         </LinearLayout>

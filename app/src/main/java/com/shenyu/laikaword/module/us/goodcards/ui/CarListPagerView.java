@@ -18,6 +18,7 @@ import com.shenyu.laikaword.helper.RecycleViewDivider;
 import com.shenyu.laikaword.module.goods.pickupgoods.ui.activity.PickUpActivity;
 import com.shenyu.laikaword.module.goods.pickupgoods.ui.activity.PickUpTelActivity;
 import com.zxj.utilslibrary.utils.IntentLauncher;
+import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class CarListPagerView extends BaseViewPager<CarPagerReponse> {
     public CarListPagerView(Activity activity) {
         super(activity);
     }
+    private String type;
 
 
     @Override
@@ -44,6 +46,7 @@ public class CarListPagerView extends BaseViewPager<CarPagerReponse> {
     @Override
     public void initData(CarPagerReponse carPagerReponse,String type) {
         beanList = new ArrayList<>();
+        this.type=type;
         if (carPagerReponse!=null) {
             for (int i=0;i<carPagerReponse.getPayload().size();i++){
                 if (type.equals(carPagerReponse.getPayload().get(i).getName())){
@@ -64,14 +67,14 @@ public class CarListPagerView extends BaseViewPager<CarPagerReponse> {
         CommonAdapter commonAdapter=    new CommonAdapter<CarPagerReponse.PayloadBean.ListBean>(R.layout.item_carpackage,beanList) {
             @Override
             protected void convert(ViewHolder holder, final CarPagerReponse.PayloadBean.ListBean bean, int position) {
-                holder.setText(R.id.tv_kpage_count,"x"+bean.getQuantity());
+                holder.setText(R.id.tv_kpage_count,"数量："+bean.getQuantity());
                 holder.setText(R.id.tv_page_name,bean.getGoodsName());
                 ImageUitls.loadImg(bean.getGoodsImage(),(ImageView) holder.getView(R.id.iv_page_img));
                 holder.setOnClickListener(R.id.tv_tihuo, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         //TODO 手机号和京东卡提货
-                        if (bean.getGoodsType().equals("jd"))
+                        if (bean.getGoodsType().equals(type))
                             IntentLauncher.with(mActivity).putObjectString("bean",bean).launch(PickUpActivity.class);
                         else
                             IntentLauncher.with(mActivity).putObjectString("bean",bean).launch(PickUpTelActivity.class);

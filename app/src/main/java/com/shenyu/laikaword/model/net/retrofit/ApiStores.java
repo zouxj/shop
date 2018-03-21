@@ -15,6 +15,7 @@ import com.shenyu.laikaword.model.bean.reponse.MsgCodeReponse;
 import com.shenyu.laikaword.model.bean.reponse.OrderListReponse;
 import com.shenyu.laikaword.model.bean.reponse.PayInfoReponse;
 import com.shenyu.laikaword.model.bean.reponse.PickUpGoodsReponse;
+import com.shenyu.laikaword.model.bean.reponse.PurChaseReponse;
 import com.shenyu.laikaword.model.bean.reponse.ResellParticularsReponse;
 import com.shenyu.laikaword.model.bean.reponse.SellInfoReponse;
 import com.shenyu.laikaword.model.bean.reponse.ShopMainReponse;
@@ -25,12 +26,14 @@ import com.shenyu.laikaword.model.bean.reponse.ZhuanMaiReponse;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import io.reactivex.annotations.Nullable;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 import retrofit2.http.Streaming;
@@ -132,8 +135,11 @@ public interface ApiStores {
     @FormUrlEncoded
     Observable<BaseReponse> extractPackage(@FieldMap Map<String, String> map);
     @FormUrlEncoded
-    @POST("account/newMyExtract")// 我的提货接口
-    Observable<PickUpGoodsReponse> newMyExtract(@Field("extractType") int extractType,@Field("page") int page,@Field("pageSize") int pageSize);
+    @POST("account/getMyExtractList")// 我的提货接口分页
+    Observable<PickUpGoodsReponse> newMyExtract(@Field("type") String type ,@Field("page") int page,@Field("pageSize") int pageSize);
+    @GET("account/myExtract1")// 我的提货接口
+    Observable<PurChaseReponse> myExtract1();
+
     @FormUrlEncoded
     @POST("account/getUserMoneyDetail")//余额明细
     Observable<MoneyDetailReponse> getUserMoneyDetail(@Field("page") int page, @Field("pageSize") int pageSize);

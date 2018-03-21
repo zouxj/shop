@@ -102,7 +102,7 @@ public class PickUpTelActivity extends LKWordBaseActivity {
                 ImageUitls.loadImg(bean.getGoodsImage(),ivTihuoImg);
                 tvTihuoName.setText(bean.getGoodsName());
             if (StringUtil.validText(bean.getQuantity())) {
-                tvTihuoCount.setText("数量:" + StringUtil.formatIntger(bean.getQuantity())+"张");
+                tvTihuoCount.setText("数量：" + StringUtil.formatIntger(bean.getQuantity()));
                 avZj.setGoods_storage(StringUtil.formatIntger(bean.getQuantity()));
             }
                 tvTihuoAll.setText(StringUtil.m2(StringUtil.formatDouble((bean.getGoodsValue())))+"元");

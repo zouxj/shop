@@ -79,17 +79,19 @@ public class ResellFragment extends IKWordBaseFragment {
                 holder.setText(R.id.tv_zhuanmai_no,"编号:"+payloadBean.getResellId());
                 //转卖价格
                 TextView tvZhuanPrice=holder.getView(R.id.tv_zhuamai_price);
-                tvZhuanPrice.setText(Html.fromHtml("<font color= '#999999'>转卖价:</font>"+payloadBean.getDiscountPrice()+"元/张"));
+                tvZhuanPrice.setText(Html.fromHtml("<font color= '#999999'>转卖单价:</font>"+payloadBean.getDiscountPrice()+"元"));
                 //商品名字
                 holder.setText(R.id.tv_zhuanmai_shop_name,payloadBean.getGoodsName());
                 //转卖数量
                TextView tvZhuanmaiCount=holder.getView(R.id.tv_zhuanmai_count);
                tvZhuanmaiCount.setText(Html.fromHtml("<font color= '#999999'>转卖数量:</font>"+"x"+payloadBean.getOriStock()));
+        if (type==2){
 
-                //已经转卖数量
-                TextView tvZhuanMaiFinsh=holder.getView(R.id.tv_zhuanmaied_count);
-                tvZhuanMaiFinsh.setText(Html.fromHtml("<font color= '#999999'>已转卖:</font>"+(StringUtil.formatIntger(payloadBean.getOriStock())-StringUtil.formatIntger(payloadBean.getStock())))+"张");
-
+        }else {
+            //已经转卖数量
+            TextView tvZhuanMaiFinsh = holder.getView(R.id.tv_zhuanmaied_count);
+            tvZhuanMaiFinsh.setText(Html.fromHtml("<font color= '#999999'>已转卖: </font>" + (StringUtil.formatIntger(payloadBean.getOriStock()) - StringUtil.formatIntger(payloadBean.getStock()))));
+        }
                 ImageUitls.loadImg(payloadBean.getGoodsImage(),(ImageView) holder.getView(R.id.img_purchase_img));
 
                 holder.itemView.setOnClickListener(new View.OnClickListener() {

@@ -62,11 +62,11 @@ public class ResellDetailsActivity extends LKWordBaseActivity {
                     tvZhuanmaiCount.setText(Html.fromHtml("<font color= '#999999'>转卖总数:</font>"+model.getPayload().getOriStock()+"张"));
                     tvZhuanmaiTime.setText( DateTimeUtil.formatDate(StringUtil.formatLong(model.getPayload().getCreateTime()),"yyyy-MM-dd HH:mm:ss"));
                     map.clear();
-                    map.put("转卖总数:" + model.getPayload().getAllCodeList().size()+"张", model.getPayload().getAllCodeList());
+                    map.put("转卖总数:" + model.getPayload().getAllCodeList().size(), model.getPayload().getAllCodeList());
                     if (type.equals("2"))
                         map.put("转卖状态: 转卖完成!" , new ArrayList<String>());
                     else
-                     map.put("已转卖:" + model.getPayload().getSoldCodeList().size()+"张", model.getPayload().getSoldCodeList());
+                     map.put("已转卖:" + model.getPayload().getSoldCodeList().size(), model.getPayload().getSoldCodeList());
                     adapter = new com.shenyu.laikaword.model.adapter.ExpandableListAdapter(map,type);
                     expandableListView.setAdapter(adapter);
                 }

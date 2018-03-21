@@ -5,7 +5,7 @@
     android:background="@color/white"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ImageView
+    <com.shenyu.laikaword.ui.view.widget.BoderImageView
         android:id="@+id/img_rsell_img"
         android:layout_marginLeft="14dp"
         android:layout_width="106dp"

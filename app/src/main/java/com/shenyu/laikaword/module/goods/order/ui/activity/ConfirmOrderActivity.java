@@ -108,7 +108,9 @@ public class ConfirmOrderActivity extends LKWordBaseActivity implements ConfirmO
                     count = amount;
                     Double count = Double.parseDouble(mGoodBean.getDiscountPrice());
                     moneyD=StringUtil.m2(count*amount);
-                    priceCount.setText("￥"+moneyD);
+
+                    priceCount.setText( StringUtil.colorSubString("合计:",UIUtil.getColor(R.color.app_theme_red),"￥"+moneyD));
+
                 }
             }
         });
@@ -259,10 +261,10 @@ public class ConfirmOrderActivity extends LKWordBaseActivity implements ConfirmO
             tvZhegou.setText(sb+ "折");
             tvShopName.setText(goodBean.getGoodsName());
             tvMainShopPrice.setText("￥"+goodBean.getDiscountPrice());
-            tvMainShopPurchase.setText("剩余数量：" + goodBean.getStock()+"张");
+            tvMainShopPurchase.setText("剩余数量：" + goodBean.getStock());
             if (StringUtil.validText(goodBean.getDiscountPrice()))
                 moneyD=StringUtil.m2(count * (StringUtil.formatDouble(goodBean.getDiscountPrice())));
-                priceCount.setText("￥"+moneyD);
+            priceCount.setText(StringUtil.colorTextString("合计:",UIUtil.getColor(R.color.app_theme_red),"￥"+moneyD));
             if (StringUtil.validText(goodBean.getStock()))
                 mAmountView.setGoods_storage(StringUtil.formatIntger(goodBean.getStock())>5?5:StringUtil.formatIntger(goodBean.getStock()));
         }

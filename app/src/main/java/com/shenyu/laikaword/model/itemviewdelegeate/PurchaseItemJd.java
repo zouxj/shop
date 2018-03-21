@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.helper.ImageUitls;
+import com.shenyu.laikaword.model.bean.reponse.PurChaseReponse;
 import com.shenyu.laikaword.model.holder.ViewHolder;
 import com.shenyu.laikaword.model.bean.reponse.PickUpGoodsReponse;
 import com.zxj.utilslibrary.utils.DateTimeUtil;
@@ -16,7 +17,7 @@ import com.zxj.utilslibrary.utils.UIUtil;
  * Created by shenyu_zxjCode on 2017/10/21 0021.
  */
 
-public class PurchaseItemJd  implements ItemViewDelegate<PickUpGoodsReponse.PayloadBean>
+public class PurchaseItemJd  implements ItemViewDelegate<PurChaseReponse.PayloadBean.ListBean>
 {
     @Override
     public int getItemViewLayoutId() {
@@ -24,18 +25,18 @@ public class PurchaseItemJd  implements ItemViewDelegate<PickUpGoodsReponse.Payl
     }
 
     @Override
-    public boolean isForViewType(PickUpGoodsReponse.PayloadBean item, int position) {
+    public boolean isForViewType(PurChaseReponse.PayloadBean.ListBean item, int position) {
         boolean bool=false;
         if (null!=item){
-            if (StringUtil.validText(item.getType()))
-                if (item.getType().equals("jd"))
+            if (StringUtil.validText(item.getPickupMethodId()))
+                if (item.getType().equals("2"))
                     bool=true;
         }
         return bool;
     }
 
     @Override
-    public void convert(ViewHolder holder, PickUpGoodsReponse.PayloadBean payloadBean, int position) {
+    public void convert(ViewHolder holder, PurChaseReponse.PayloadBean.ListBean payloadBean, int position) {
         holder.setText(R.id.tv_purchase_indent_no,payloadBean.getName()+"  "+payloadBean.getPhone());
         holder.setText(R.id.tv_purchase_address,payloadBean.getAddress());
         if (StringUtil.validText(payloadBean.getExpressId())&&StringUtil.validText(payloadBean.getExpressCompany())) {
@@ -44,7 +45,7 @@ public class PurchaseItemJd  implements ItemViewDelegate<PickUpGoodsReponse.Payl
         }
         else
         holder.getView(R.id.tv_purchase_order_number).setVisibility(View.GONE);
-        int state=  StringUtil.formatIntger(payloadBean.getState());
+        int state=  payloadBean.getState();
 //        int index = 0;
 //        //提货状态，0:初始状态,1:已审核,2:审核不通过,3:发货中,4:已发货,5:发货失败,6:完成,7:关闭
 //        if (state==6||state==4){
@@ -69,7 +70,7 @@ public class PurchaseItemJd  implements ItemViewDelegate<PickUpGoodsReponse.Payl
         textView.setText(payloadBean.getStateDes());
         holder.setText(R.id.tv_purchase_time, DateTimeUtil.formatDate( Long.parseLong(payloadBean.getCreateTime()),"yyy-MM-dd HH:mm:ss"));
         holder.setText(R.id.tv_zhuanmai_shop_name,payloadBean.getGoodsName());
-        holder.setText(R.id.tv_zhuamai_price,"X"+payloadBean.getQuantity());
+        holder.setText(R.id.tv_zhuamai_price,"数量："+payloadBean.getQuantity());
         holder.setText(R.id.zhuanmai_date,"编号:"+payloadBean.getExtractId());
 //        holder.setText(R.id.tv_jingd_order_number,"京东单号:" + payloadBean.getExpressId());
         ImageUitls.loadImg(payloadBean.getGoodsImage(),(ImageView) holder.getView(R.id.img_purchase_img));

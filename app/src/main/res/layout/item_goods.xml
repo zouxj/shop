@@ -23,12 +23,13 @@
         android:layout_width="match_parent"
         android:layout_height="97dp">
 
-        <ImageView
+        <com.shenyu.laikaword.ui.view.widget.BoderImageView
             android:id="@+id/iv_goumai_img"
             android:layout_marginLeft="14dp"
             android:layout_width="106dp"
+            android:padding="1dp"
             android:layout_gravity="center_vertical"
-            android:layout_height="80dp" />
+            android:layout_height="72dp" />
         <RelativeLayout
             android:layout_marginLeft="18dp"
             android:layout_gravity="center_vertical"

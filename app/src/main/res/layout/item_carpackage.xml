@@ -6,12 +6,13 @@
         android:layout_width="match_parent"
         android:layout_height="97dp">
 
-        <ImageView
+        <com.shenyu.laikaword.ui.view.widget.BoderImageView
             android:id="@+id/iv_page_img"
             android:layout_marginLeft="15dp"
+            android:padding="1dp"
             android:layout_width="106dp"
             android:layout_gravity="center_vertical"
-            android:layout_height="73dp" />
+            android:layout_height="70dp" />
         <RelativeLayout
             android:layout_marginLeft="18dp"
             android:layout_gravity="center_vertical"

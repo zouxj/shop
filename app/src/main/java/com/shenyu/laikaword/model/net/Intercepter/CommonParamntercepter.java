@@ -22,6 +22,7 @@ import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.MultipartBody;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 /**
@@ -38,7 +39,7 @@ public   class CommonParamntercepter implements Interceptor {
             //添加请求头
             request = request.newBuilder().addHeader("token", Constants.getToken()).build();
             //添加公共参数
-            if (request.method().equals("GET")){
+          if (request.method().equals("GET")){
                 request =addGetParams(request);
             }
             if (request.method().equals("POST")){
@@ -68,7 +69,6 @@ public   class CommonParamntercepter implements Interceptor {
         Collections.sort(nameList);
         StringBuilder buffer = new StringBuilder();
         //重新拼接url
-//        HttpUrl.Builder httpUrlBuilder = request.url().newBuilder();
         for (int i = 0; i < nameList.size(); i++) {
             if (i==0){
                 buffer.append(nameList.get(i)).append("=").append(httpUrl.queryParameterValues(nameList.get(i)) != null &&
