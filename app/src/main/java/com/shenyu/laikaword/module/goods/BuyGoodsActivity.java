@@ -72,17 +72,17 @@ public class BuyGoodsActivity extends LKWordBaseActivity {
         CommonAdapter commonAdapter=    new CommonAdapter<OrderListReponse.PayloadBean>(R.layout.item_goods,payload) {
             @Override
             protected void convert(ViewHolder holder, OrderListReponse.PayloadBean payloadBean, int position) {
-                holder.setText(R.id.tv_goumai_count,"合计:￥"+payloadBean.getAmount());
-                holder.setText(R.id.tv_goumai_indent_no,"订单编号:"+payloadBean.getOrderNo());
+                holder.setText(R.id.tv_goumai_count,"合计:¥"+payloadBean.getAmount());
+                holder.setText(R.id.tv_goumai_indent_no,"订单编号:"+payloadBean.getOrderId());
                 TextView textoriginalPrice = holder.getView(R.id.tv_goumai_shop_original_price);
                 textoriginalPrice.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
                 holder.setText(R.id.tv_goumai_state,payloadBean.getPayStatus().equals("1")?"交易成功":"交易失败");
                 holder.setText(R.id.tv_goumai_time, DateTimeUtil.formatDate(Long.parseLong(payloadBean.getCreateTime()),"yyyy-MM-dd HH:mm:ss"));
                 if (payloadBean.getGoods()!=null) {
                     if (payloadBean.getGoods().size() > 0) {
-                        textoriginalPrice.setText("￥" + payloadBean.getGoods().get(0).getOriginPrice());
+                        textoriginalPrice.setText("¥" + payloadBean.getGoods().get(0).getOriginPrice());
                         holder.setText(R.id.tv_goumai_shop_name, payloadBean.getGoods().get(0).getGoodsName());
-                        holder.setText(R.id.tv_goumai_shop_price, "￥" + payloadBean.getGoods().get(0).getCurrentPrice());
+                        holder.setText(R.id.tv_goumai_shop_price, "¥" + payloadBean.getGoods().get(0).getCurrentPrice());
                         holder.setText(R.id.tv_goumai_shop_purchase, "X" + payloadBean.getGoods().get(0).getQuantity());
                         ImageUitls.loadImg(payloadBean.getGoods().get(0).getGoodsImage(), (ImageView) holder.getView(R.id.iv_goumai_img));
                     }

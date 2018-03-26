@@ -67,7 +67,7 @@ public class CarPagerReponse extends BaseReponse implements Serializable{
              * createTime : 1521187383
              * updateTime : 0
              */
-
+            private String pickupMethodId;
             private String packageId;
             private String userId;
             private String goodsName;
@@ -92,6 +92,14 @@ public class CarPagerReponse extends BaseReponse implements Serializable{
 
             public void setUserId(String userId) {
                 this.userId = userId;
+            }
+
+            public String getPickupMethodId() {
+                return pickupMethodId;
+            }
+
+            public void setPickupMethodId(String pickupMethodId) {
+                this.pickupMethodId = pickupMethodId;
             }
 
             public String getGoodsName() {

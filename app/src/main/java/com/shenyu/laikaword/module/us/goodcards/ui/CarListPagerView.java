@@ -74,7 +74,7 @@ public class CarListPagerView extends BaseViewPager<CarPagerReponse> {
                     @Override
                     public void onClick(View view) {
                         //TODO 手机号和京东卡提货
-                        if (bean.getGoodsType().equals(type))
+                        if (bean.getPickupMethodId().equals("2"))
                             IntentLauncher.with(mActivity).putObjectString("bean",bean).launch(PickUpActivity.class);
                         else
                             IntentLauncher.with(mActivity).putObjectString("bean",bean).launch(PickUpTelActivity.class);

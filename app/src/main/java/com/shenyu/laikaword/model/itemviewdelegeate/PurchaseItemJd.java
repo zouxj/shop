@@ -29,7 +29,7 @@ public class PurchaseItemJd  implements ItemViewDelegate<PurChaseReponse.Payload
         boolean bool=false;
         if (null!=item){
             if (StringUtil.validText(item.getPickupMethodId()))
-                if (item.getType().equals("2"))
+                if (item.getPickupMethodId().equals("2"))
                     bool=true;
         }
         return bool;
@@ -58,13 +58,14 @@ public class PurchaseItemJd  implements ItemViewDelegate<PurChaseReponse.Payload
         TextView textView =holder.getView(R.id.tv_status);
         switch (state){
             case 1:
-                textView.setTextColor(UIUtil.getColor(R.color.color_green));
+                textView.setTextColor(UIUtil.getColor(R.color.color_yellow));
                 break;
             case 3:
                 textView.setTextColor(UIUtil.getColor(R.color.app_theme_reds));
                 break;
             case 2:
-                textView.setTextColor(UIUtil.getColor(R.color.color_yellow));
+                textView.setTextColor(UIUtil.getColor(R.color.color_green));
+
                 break;
         }
         textView.setText(payloadBean.getStateDes());

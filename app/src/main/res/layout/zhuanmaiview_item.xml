@@ -32,7 +32,6 @@
             android:layout_marginLeft="14dp"
             android:layout_width="106dp"
             android:padding="1dp"
-            android:background="@drawable/ic_launcher_background"
             android:layout_gravity="center_vertical"
             android:layout_height="72dp" />
         <LinearLayout
@@ -57,22 +56,29 @@
                 android:textColor="@color/color_333"
                 android:text="10元/张"
                 android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/tv_zhuanmai_count"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_marginTop="6dp"
-                android:textSize="@dimen/text_size_12sp"
-                android:textColor="@color/color_333"
-                android:text="转卖数量24张"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/tv_zhuanmaied_count"
-                android:layout_width="wrap_content"
-                android:layout_marginTop="6dp"
-                android:textSize="@dimen/text_size_12sp"
-                android:textColor="@color/color_333"
-                android:text=""
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_zhuanmai_count"
+                    android:layout_width="wrap_content"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/text_size_12sp"
+                    android:textColor="@color/color_333"
+                    android:text="转卖数量24张"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/tv_zhuanmaied_count"
+                    android:layout_width="wrap_content"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/text_size_12sp"
+                    android:textColor="@color/color_333"
+                    android:layout_marginRight="10dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+
 
         </LinearLayout>
 

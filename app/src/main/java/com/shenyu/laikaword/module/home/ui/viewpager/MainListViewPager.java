@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.AbsoluteSizeSpan;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
+import com.shenyu.laikaword.helper.BetterHighlightSpan;
 import com.shenyu.laikaword.helper.ImageUitls;
 import com.shenyu.laikaword.model.adapter.CommonAdapter;
 import com.shenyu.laikaword.model.holder.ViewHolder;
@@ -88,20 +90,9 @@ public class MainListViewPager extends BaseViewPager {
                 StringBuilder sb = new StringBuilder(listBean.getDiscount());//构造一个StringBuilder对象
                 sb.insert(1, ".");//在指定的
                 sb.append("折");
-                SpannableString spannableString = new SpannableString("  "+sb.toString()+"    "+listBean.getGoodsName());
-                BackgroundColorSpan bgcolorSpan = new BackgroundColorSpan(UIUtil.getColor(R.color.app_theme_red));
-                RelativeSizeSpan sizeSpan06 = new RelativeSizeSpan(1.3f);
-                ForegroundColorSpan textcolorSpan = new ForegroundColorSpan(UIUtil.getColor(R.color.white));
-                RelativeSizeSpan sizeSpan01 = new RelativeSizeSpan(1.0f);
-                spannableString.setSpan(textcolorSpan, 0, 8, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-                spannableString.setSpan(sizeSpan01, 0, 8, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-                spannableString.setSpan(bgcolorSpan, 0, 8, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-                spannableString.setSpan(sizeSpan06, 10, spannableString.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-//                textView.setText(spannableString);
-                TextView name=   (TextView)holder.getView(R.id.tv_main_shop_name);
-                name.setText(spannableString);
-//                holder.setText(R.id.tv_main_shop_original_price, "￥"+listBean.getOriginPrice());
-                holder.setText(R.id.tv_main_shop_price, "￥"+listBean.getDiscountPrice());
+                spannableText(holder, listBean, sb);
+//                holder.setText(R.id.tv_main_shop_original_price, "¥"+listBean.getOriginPrice());
+                holder.setText(R.id.tv_main_shop_price, "¥"+listBean.getDiscountPrice());
 //                holder.setText(R.id.tv_main_shop_surplus, StringUtil.formatIntger(listBean.getStock())>=5?"":"还剩"+StringUtil.formatIntger(listBean.getStock())+"张");
                 holder.setText(R.id.tv_main_shop_seller,listBean.getNickName());
 //                StringBuilder sb = new StringBuilder(listBean.getDiscount());//构造一个StringBuilder对象
@@ -132,8 +123,22 @@ public class MainListViewPager extends BaseViewPager {
 
         setData(mType);
         }
+    BetterHighlightSpan bgcolorSpan = new BetterHighlightSpan(UIUtil.getColor(R.color.app_theme_red),1);
+    ForegroundColorSpan textcolorSpan = new ForegroundColorSpan(UIUtil.getColor(R.color.white));
+    RelativeSizeSpan sizeSpan01 = new RelativeSizeSpan(0.7f);
+    RelativeSizeSpan sizeSpan06 = new RelativeSizeSpan(1.0f);
+    private void spannableText(ViewHolder holder, GoodBean listBean, StringBuilder sb) {
+//        Spanned spanned=Html.fromHtml("<span style='background-color:#ff7b02'>"+sb.toString()+"</span>"+"<font>" + "<big>"+listBean.getGoodsName() +"</big></font> ");
+        SpannableString spannableString = new SpannableString(sb.toString()+listBean.getGoodsName());
+        spannableString.setSpan(sizeSpan06, 10, spannableString.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(bgcolorSpan, 0, 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(textcolorSpan, 0, 4, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(sizeSpan01, 0, 4, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        TextView name= holder.getView(R.id.tv_main_shop_name);
+        name.setText(spannableString);
+    }
 
-/**
+    /**
  * 设置商品数据
  * @param mType
  */

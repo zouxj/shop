@@ -136,18 +136,18 @@ public class ResellInputCodeActivity extends LKWordBaseActivity implements Resel
                         }
                     }
                 });
-                editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                    @Override
-                    public void onFocusChange(View view, boolean b) {
-                        if (b){
-                            //获得焦点
-                        }else {
-                            //失去焦点
-                            if(editText.getText().toString().trim().length()<16)
-                                ToastUtil.toS(mActivity,"兑换码格式错误,请重新输入");
-                        }
-                    }
-                });
+//                editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//                    @Override
+//                    public void onFocusChange(View view, boolean b) {
+//                        if (b){
+//                            //获得焦点
+//                        }else {
+//                            //失去焦点
+//                            if(editText.getText().toString().trim().length()<16)
+//                                ToastUtil.toS(mActivity,"兑换码格式错误,请重新输入");
+//                        }
+//                    }
+//                });
 
                 holder.setOnClickListener(R.id.tv_del, new View.OnClickListener() {
                     @Override

@@ -108,8 +108,7 @@ public class ConfirmOrderActivity extends LKWordBaseActivity implements ConfirmO
                     count = amount;
                     Double count = Double.parseDouble(mGoodBean.getDiscountPrice());
                     moneyD=StringUtil.m2(count*amount);
-
-                    priceCount.setText( StringUtil.colorSubString("合计:",UIUtil.getColor(R.color.app_theme_red),"￥"+moneyD));
+                    priceCount.setText( StringUtil.colorTextString("合计:",UIUtil.getColor(R.color.app_theme_reds),"¥"+moneyD));
 
                 }
             }
@@ -131,7 +130,7 @@ public class ConfirmOrderActivity extends LKWordBaseActivity implements ConfirmO
             protected void convert(final ViewHolder holder, String strings, final int position) {
                 if (strings.equals("账户余额")) {
                     TextView textView = holder.getView(R.id.tv_pay_type);
-                    textView.setText(Html.fromHtml(strings + " :<font color='#e03226'><big> ￥"+userAount + "</big></font>"));
+                    textView.setText(Html.fromHtml(strings + " :<font color='#e03226'><big> ¥"+userAount + "</big></font>"));
 
                 } else {
                     holder.setText(R.id.tv_pay_type, strings);
@@ -260,11 +259,11 @@ public class ConfirmOrderActivity extends LKWordBaseActivity implements ConfirmO
             sb.insert(1, ".");//在指定的
             tvZhegou.setText(sb+ "折");
             tvShopName.setText(goodBean.getGoodsName());
-            tvMainShopPrice.setText("￥"+goodBean.getDiscountPrice());
+            tvMainShopPrice.setText("¥"+goodBean.getDiscountPrice());
             tvMainShopPurchase.setText("剩余数量：" + goodBean.getStock());
             if (StringUtil.validText(goodBean.getDiscountPrice()))
                 moneyD=StringUtil.m2(count * (StringUtil.formatDouble(goodBean.getDiscountPrice())));
-            priceCount.setText(StringUtil.colorTextString("合计:",UIUtil.getColor(R.color.app_theme_red),"￥"+moneyD));
+            priceCount.setText(StringUtil.colorTextString("合计:",UIUtil.getColor(R.color.app_theme_reds),"¥"+moneyD));
             if (StringUtil.validText(goodBean.getStock()))
                 mAmountView.setGoods_storage(StringUtil.formatIntger(goodBean.getStock())>5?5:StringUtil.formatIntger(goodBean.getStock()));
         }

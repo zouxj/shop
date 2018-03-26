@@ -95,7 +95,7 @@
                 android:textSize="18sp"
                 android:layout_alignParentBottom="true"
                 android:gravity="bottom"
-                android:textColor="@color/app_theme_red"
+                android:textColor="@color/app_theme_reds"
                 android:layout_height="match_parent" />
             <TextView
                 android:id="@+id/tv_main_shop_original_price"

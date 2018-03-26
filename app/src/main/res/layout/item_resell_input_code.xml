@@ -21,6 +21,7 @@
         android:textSize="13sp"
         android:maxLength="16"
         android:lines="1"
+        android:textCursorDrawable="@drawable/color_cursor"
         android:layout_marginLeft="9dp"
         android:background="@null"
         android:textColorHint="@color/color_999"

@@ -41,7 +41,7 @@ public class UserRemainingActivity extends LKWordBaseActivity {
     public void doBusiness(Context context) {
        loginReponse = Constants.getLoginReponse();
       if (null!=loginReponse&& StringUtil.validText(loginReponse.getPayload().getMoney()))
-          reTvSum.setText("￥"+loginReponse.getPayload().getMoney());
+          reTvSum.setText("¥"+loginReponse.getPayload().getMoney());
         subscribeEvent();
         refreshUser();
     }
@@ -84,7 +84,7 @@ public class UserRemainingActivity extends LKWordBaseActivity {
                             case EventType.ACTION_UPDATA_USER:
                                 LoginReponse loginReponse = (LoginReponse) SPUtil.readObject(Constants.LOGININFO_KEY);
                                 if (null!=loginReponse&&loginReponse.getPayload()!=null)
-                                    reTvSum.setText("￥"+loginReponse.getPayload().getMoney());
+                                    reTvSum.setText("¥"+loginReponse.getPayload().getMoney());
                                 break;
                         }
                     }

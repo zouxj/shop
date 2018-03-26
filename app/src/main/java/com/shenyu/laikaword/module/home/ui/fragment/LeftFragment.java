@@ -178,7 +178,7 @@ public class LeftFragment extends IKWordBaseFragment {
         String flog = "0";
         if (null!=shopMainReponse)
                 flog=shopMainReponse.getPayload().getFlag().getnewExtractFlag();
-        dataList.add(new ShopMainReponse.EntranceListBean("我的卡包",leftData[3],null,null,   flog.equals("1")));
+        dataList.add(new ShopMainReponse.EntranceListBean("我的商品",leftData[3],null,null,   flog.equals("1")));
         dataList.add(new ShopMainReponse.EntranceListBean("我的提货",leftData[2],null,null,false));
 //       //判断专卖显示不显示
 //        if (null!=shopMainReponse)

@@ -102,7 +102,7 @@ public class HomeLeftItemViewDelegate implements ItemViewDelegate<ShopMainRepons
                     }
                     IntentLauncher.with(mActivity).launch(BuyGoodsActivity.class);
                 }
-                else if(entranceListBean.getTitle().equals("我的卡包")){
+                else if(entranceListBean.getTitle().equals("我的商品")){
                     if (null==loginReponse) {
                         IntentLauncher.with(mActivity).launch(LoginActivity.class);
                         return;
@@ -130,9 +130,9 @@ public class HomeLeftItemViewDelegate implements ItemViewDelegate<ShopMainRepons
                     else
                         ToastUtil.showToastShort("此功能暂没开放");
                 }
-                else {
-                    IntentLauncher.with(mActivity).put("weburl",entranceListBean.getUrl()).launch(GuessActivity.class);
-                }
+//                else {
+//                    IntentLauncher.with(mActivity).put("weburl",entranceListBean.getUrl()).launch(GuessActivity.class);
+//                }
 //                switch (position){
 //                    case 0:
 //                        //TODO 我的余额

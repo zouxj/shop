@@ -149,7 +149,7 @@ public class CommitResellActivity extends LKWordBaseActivity implements CommitRe
     public void setSouxuF(){
         String souxufei=StringUtil.m2(sellInfoReponse.getPayload().getNum()*StringUtil.formatDouble(sellInfoReponse.getPayload().getOriginPrice())*discount/10*sellInfoReponse.getPayload().getServiceFeeRatio()/100);
         tvSouxuFeil.setText("转卖手续费："+souxufei+"元");
-        textCode.setText(Html.fromHtml("<font color= '#333333'>收益总额：</font>"+"<font color= '#ff7b02'>"+"￥"+
+        textCode.setText(Html.fromHtml("<font color= '#333333'>收益总额：</font>"+"<font color= '#ff7b02'>"+"¥"+
                 StringUtil.m2((StringUtil.formatDouble(sellInfoReponse.getPayload().getOriginPrice())*sellInfoReponse.getPayload().getNum()*discount/10)-
                         StringUtil.formatDouble(souxufei))+"</font>"));
     }

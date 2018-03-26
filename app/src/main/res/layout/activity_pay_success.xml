@@ -26,7 +26,7 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:text="3秒后跳转至我的卡包"
+        android:text="3秒后跳转至我的商品"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="9dp"
         android:textColor="@color/color_999"
@@ -40,7 +40,7 @@
         <TextView
             android:id="@+id/tv_sq_check_state"
             style="@style/tv_operation_finsh"
-            android:text="我的卡包"
+            android:text="我的商品"
             />
         <TextView
             android:layout_marginLeft="29dp"

@@ -102,7 +102,7 @@ public class WthdrawMoneyActivity extends LKWordBaseActivity {
          yue = getIntent().getStringExtra("acountyue");
         if (StringUtil.validText(yue))
             yue=  String.valueOf(StringUtil.m2(StringUtil.formatDouble(yue)-2<=0?0:(StringUtil.formatDouble(yue)-2)));
-        tvAccountYue.setText("可提现金额：￥"+String.valueOf(yue));
+        tvAccountYue.setText("可提现金额：¥"+String.valueOf(yue));
         subscribeEvent();
 
         retrofitUtils.addSubscription(retrofitUtils.apiStores.getBankCard(), new ApiCallback<BankInfoReponse>() {
@@ -259,7 +259,7 @@ public class WthdrawMoneyActivity extends LKWordBaseActivity {
                         switch (myEvent.event) {
                             case EventType.ACTION_UPDATA_USER:
                                 LoginReponse loginReponse = Constants.getLoginReponse();
-                                tvAccountYue.setText("账户余额：￥"+loginReponse.getPayload().getMoney());
+                                tvAccountYue.setText("账户余额：¥"+loginReponse.getPayload().getMoney());
                                 break;
                         }
                         LogUtil.e(TAG, myEvent.event+"____"+"threadType=>"+Thread.currentThread());

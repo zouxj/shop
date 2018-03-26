@@ -41,7 +41,7 @@ public class WthdrawDetailsActivity extends LKWordBaseActivity {
             String money = getIntent().getStringExtra("money");
         String bankName = getIntent().getStringExtra("bankName");
         tvCard.setText(bankName);
-        tvMoeny.setText("￥"+money);
+        tvMoeny.setText("¥"+money);
     }
 
     @Override

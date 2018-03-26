@@ -79,7 +79,6 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
     UPMarqueeView upMarqueeTextView;
     List<ShopMainReponse.PayloadBean.NoticeBean> data = new ArrayList<>();
     List<View> views = new ArrayList<>();
-    BannerHelper bannerHelper;
     @BindView(R.id.bt_top_img)
     ImageView headImg;
     @BindView(R.id.id_title)
@@ -89,6 +88,7 @@ public class MainFragment extends IKWordBaseFragment implements MainView{
     @BindView(R.id.iv_message)
     ImageView imageMessage;
     String[] tabTypeListName={};
+    private BannerHelper bannerHelper;
     private   String[] tabTypeListKey={};
     @Override
     public int bindLayout() {

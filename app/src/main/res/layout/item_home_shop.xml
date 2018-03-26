@@ -24,9 +24,9 @@
         android:layout_marginTop="7dp"
         android:id="@+id/tv_main_shop_name"
         android:maxLines="2"
+        android:gravity="center_vertical"
         android:ellipsize="end"
         android:textColor="@color/color_333"
-        android:textSize="@dimen/text_size_12sp"
         android:layout_width="145dp"
         android:layout_height="35dp" />
 
@@ -42,7 +42,7 @@
             android:layout_centerVertical="true"
             android:gravity="center"
             android:textColor="@color/app_theme_red"
-            android:text="￥94"
+            android:text="¥94"
             android:layout_height="match_parent" />
 
     </RelativeLayout>

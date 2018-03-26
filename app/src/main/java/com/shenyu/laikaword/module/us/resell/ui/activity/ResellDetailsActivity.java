@@ -58,8 +58,8 @@ public class ResellDetailsActivity extends LKWordBaseActivity {
                     if (model.getPayload() != null) ;
                     ImageUitls.loadImg(model.getPayload().getGoodsImage(),imgPurchaseImg);
                     tvZhuanmaiShopName.setText(model.getPayload().getGoodsName());
-                    tvZhuamaiPrice.setText(Html.fromHtml("<font color= '#999999'>转卖价:</font>"+model.getPayload().getDiscountPrice()+"元/张"));
-                    tvZhuanmaiCount.setText(Html.fromHtml("<font color= '#999999'>转卖总数:</font>"+model.getPayload().getOriStock()+"张"));
+                    tvZhuamaiPrice.setText(Html.fromHtml("<font color= '#999999'>转卖单价:</font>"+model.getPayload().getDiscountPrice()+"元"));
+                    tvZhuanmaiCount.setText(Html.fromHtml("<font color= '#999999'>转卖总数：</font>"+model.getPayload().getOriStock()));
                     tvZhuanmaiTime.setText( DateTimeUtil.formatDate(StringUtil.formatLong(model.getPayload().getCreateTime()),"yyyy-MM-dd HH:mm:ss"));
                     map.clear();
                     map.put("转卖总数:" + model.getPayload().getAllCodeList().size(), model.getPayload().getAllCodeList());

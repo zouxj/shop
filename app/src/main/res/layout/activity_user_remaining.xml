@@ -18,7 +18,7 @@
 <TextView
     android:id="@+id/re_tv_sum"
     android:textColor="@color/color_333"
-    android:text="￥900.00"
+    android:text="¥900.00"
     android:layout_marginTop="40dp"
     android:textSize="43sp"
     android:layout_gravity="center"

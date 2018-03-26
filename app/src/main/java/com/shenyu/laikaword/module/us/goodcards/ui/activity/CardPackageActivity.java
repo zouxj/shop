@@ -44,7 +44,7 @@ public class CardPackageActivity extends LKWordBaseActivity {
 
     @Override
     public void initView() {
-        setToolBarTitle("我的卡包");
+        setToolBarTitle("我的商品");
         tbCarPack.setupWithViewPager(vpCarPack);
         smartRefreshLayout.setHeaderHeight(45);
         smartRefreshLayout.setRefreshHeader(new ClassicsHeader(this));

@@ -27,8 +27,8 @@ public class PurchaseItemLyd implements ItemViewDelegate<PurChaseReponse.Payload
     public boolean isForViewType(PurChaseReponse.PayloadBean.ListBean item, int position) {
         boolean bool=false;
         if (null!=item){
-            if (StringUtil.validText(item.getType()))
-                if (!item.getType().equals("2"))
+            if (StringUtil.validText(item.getPickupMethodId()))
+                if (!item.getPickupMethodId().equals("2"))
                     bool=true;
         }
         return bool;
@@ -40,7 +40,7 @@ public class PurchaseItemLyd implements ItemViewDelegate<PurChaseReponse.Payload
         holder.setText(R.id.tv_purchase_indent_no,payloadBean.getPhone());
         holder.setText(R.id.tv_purchase_time, DateTimeUtil.formatDate(Long.parseLong(payloadBean.getCreateTime()),"yyyy-MM-dd HH:mm:ss"));
         holder.setText(R.id.tv_zhuanmai_shop_name,payloadBean.getGoodsName());
-        holder.setText(R.id.tv_zhuamai_price,"X"+payloadBean.getQuantity());
+        holder.setText(R.id.tv_zhuamai_price,"数量："+payloadBean.getQuantity());
         holder.setText(R.id.zhuanmai_date,"编号:"+payloadBean.getExtractId());
         ImageUitls.loadImg(payloadBean.getGoodsImage(),(ImageView) holder.getView(R.id.img_purchase_img));holder.setText(R.id.tv_purchase_count,"合计:"+(Double.parseDouble(payloadBean.getGoodsValue())*StringUtil.formatIntger(payloadBean.getQuantity())));
         int state=  payloadBean.getState();
@@ -56,10 +56,10 @@ public class PurchaseItemLyd implements ItemViewDelegate<PurChaseReponse.Payload
         TextView textView =holder.getView(R.id.tv_status);
         switch (state){
             case 1:
-                textView.setTextColor(UIUtil.getColor(R.color.color_green));
+                textView.setTextColor(UIUtil.getColor(R.color.app_theme_red));
                 break;
             case 2:
-                textView.setTextColor(UIUtil.getColor(R.color.app_theme_red));
+                textView.setTextColor(UIUtil.getColor(R.color.color_green));
                 break;
             case 3:
                 textView.setTextColor(UIUtil.getColor(R.color.app_theme_reds));

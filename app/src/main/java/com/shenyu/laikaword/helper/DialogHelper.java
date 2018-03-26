@@ -261,7 +261,7 @@ public  final  class DialogHelper {
             }
             else {
                 tvMoney.setTextSize(UIUtil.sp2px(context, 10));
-                tvMoney.setText("￥" + money);
+                tvMoney.setText("¥" + money);
             }
         }else {
             tvMoney.setVisibility(View.GONE);

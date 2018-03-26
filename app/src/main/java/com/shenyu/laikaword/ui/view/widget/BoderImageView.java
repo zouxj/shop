@@ -50,10 +50,24 @@ public class BoderImageView extends ImageView {
         super.onDraw(canvas);
         // 第一步：绘制边框
 //        canvas.drawCircle(100,100,50,mPaint);
+
+
         mPaint.setColor(UIUtil.getColor(R.color.color_ddd));
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setAntiAlias(true);
         mPaint.setStrokeWidth(UIUtil.dp2px(1f));
-        canvas.drawRoundRect(border,UIUtil.dp2px(borderWidth),UIUtil.dp2px(borderWidth),mPaint);
+        canvas.drawRoundRect(getBorderLineRectF(canvas),UIUtil.dp2px(borderWidth),UIUtil.dp2px(borderWidth),mPaint);
+    }
+    private RectF getBorderLineRectF(Canvas canvas){
+        //通过画布得到ImageView所占用的矩形区域
+        Rect borderRect = canvas.getClipBounds();
+        //设置边框的宽度
+        borderRect.left++;
+        borderRect.top++;
+        borderRect.right--;
+        borderRect.bottom--;
+        //创建圆角矩形
+        RectF borderRectF = new RectF(borderRect);
+        return borderRectF;
     }
 }

@@ -79,7 +79,7 @@ public class PickUpActivity extends LKWordBaseActivity {
                 @Override
             public void onAmountChange(View view, int amount) {
                 count = amount;
-                tvTihuoAll.setText(amount);
+                tvTihuoAll.setText(amount+"");
             }
         });
     }
@@ -103,9 +103,9 @@ public class PickUpActivity extends LKWordBaseActivity {
         if (null!=bean){
             ImageUitls.loadImg(bean.getGoodsImage(),ivTihuoImg);
             tvTihuoName.setText(bean.getGoodsName());
-                tvTihuoCount.setText("数量:" + StringUtil.formatIntger(bean.getQuantity())+"");
+                tvTihuoCount.setText("数量：" + StringUtil.formatIntger(bean.getQuantity())+"");
                 avZj.setGoods_storage(StringUtil.formatIntger(bean.getQuantity()));
-                tvTihuoAll.setText("1张");
+                tvTihuoAll.setText("1");
 
         }
         payloadBean = (AddressReponse.PayloadBean) SPUtil.readObject(Constants.SAVA_ADDRESS);
@@ -139,7 +139,7 @@ public class PickUpActivity extends LKWordBaseActivity {
                 if (null!=bean) {
                     count= StringUtil.formatIntger(bean.getQuantity());
                     avZj.etAmount.setText(bean.getQuantity());
-                    tvTihuoAll.setText(bean.getQuantity()+"张");
+                    tvTihuoAll.setText(bean.getQuantity());
                 }
                 break;
             case R.id.tv_tihuo_commit:
