@@ -84,7 +84,7 @@ public   class CommonParamntercepter implements Interceptor {
         return request;
     }
     //post 添加签名和公共参数
-    private static Request addPostParams(Request request){
+    private  Request addPostParams(Request request){
         if (request.body() instanceof FormBody) {
             FormBody.Builder bodyBuilder = new FormBody.Builder();
             FormBody formBody = (FormBody) request.body();
@@ -130,6 +130,8 @@ public   class CommonParamntercepter implements Interceptor {
             request = request.newBuilder().post(formBody).build();
         }else if (request.body() instanceof MultipartBody){
             LogUtil.i("xxx");
+        }else {
+            request = request.newBuilder().build();
         }
         return request;
     }

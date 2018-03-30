@@ -23,13 +23,14 @@
     <string name="service_date">服务时间: 09:00-17:30</string>
     <string name="copy_info">保定信泽 版权所有</string>
     <string name="copy_date">Copyright©2018 BDXZ.All Rights Reserved</string>
-    <string name="shop_empty">此种卡暂时已被售空</string>
+    <string name="shop_empty">商品已被售空</string>
     <string name="message_empty">暂时还没有任何消息~</string>
     <string name="bank_empty">hi～快去开启您的刷卡生涯吧～～</string>
     <string name="address_empty">暂时还没有地址，快去添加吧~</string>
-    <string name="goumai_empty">您好，目前还没有相关的订单～</string>
+    <string name="goumai_empty">暂无购买记录</string>
     <string name="money_empty">暂时没有余额明细~</string>
-    <string name="pager_empty">这卡包是空的哦</string>
+    <string name="pager_empty">暂无商品</string>
     <string name="str_resell">*温馨提示\n1、转卖完以后,可在个人中心 ”我的余额“中提现.\n2、设置的转卖折扣越低,转卖速度更快.\n3、转卖手续费为限时免费,之后会收取一定费用.</string>
+    <string name="empty_shangping">"暂无购买记录"</string>
 
 </resources>

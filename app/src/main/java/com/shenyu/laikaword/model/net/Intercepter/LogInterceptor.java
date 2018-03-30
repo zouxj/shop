@@ -2,6 +2,8 @@ package com.shenyu.laikaword.model.net.Intercepter;
 
 import com.zxj.utilslibrary.utils.LogUtil;
 
+import javax.inject.Inject;
+
 import okhttp3.logging.HttpLoggingInterceptor;
 
 /**
@@ -12,6 +14,9 @@ public class LogInterceptor implements HttpLoggingInterceptor.Logger  {
     @Override
     public void log(String message) {
         LogUtil.i("HttpLogInfo", message);
+    }
+    @Inject
+    public LogInterceptor() {
     }
 
 }

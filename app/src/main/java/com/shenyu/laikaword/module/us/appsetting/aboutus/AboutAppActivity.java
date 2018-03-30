@@ -79,27 +79,27 @@ public class AboutAppActivity extends LKWordBaseActivity implements MPermission.
     @OnClick({R.id.tv_check_update, R.id.tv_get_pignfen,R.id.textView,R.id.tv_server,R.id.tv_version})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.tv_version:
-                //TODO 版本切换
-                switch (Constants.host){
-                    case 0:
-                        ToastUtil.showToastShort("已经切为预发布");
-                       Constants.host=1;
-                       Constants.API_URL="https://pre.api.buycardlife.com/MApi/";
-                        break;
-                    case 1:
-                        Constants.host=2;
-                        ToastUtil.showToastShort("已经切为测试线");
-                        Constants.API_URL="http://t.shop.comingcard.com/MApi/";
-                        break;
-                    case 2:
-                        Constants.host=0;
-                        ToastUtil.showToastShort("已经切为正式线");
-                        Constants.API_URL="https://api.buycardlife.com/MApi/";
-                        break;
-                }
-
-                break;
+//            case R.id.tv_version:
+//                //TODO 版本切换
+//                switch (Constants.host){
+//                    case 0:
+//                        ToastUtil.showToastShort("已经切为预发布");
+//                       Constants.host=1;
+//                       Constants.API_URL="https://pre.api.buycardlife.com/MApi/";
+//                        break;
+//                    case 1:
+//                        Constants.host=2;
+//                        ToastUtil.showToastShort("已经切为测试线");
+//                        Constants.API_URL="http://t.shop.comingcard.com/MApi/";
+//                        break;
+//                    case 2:
+//                        Constants.host=0;
+//                        ToastUtil.showToastShort("已经切为正式线");
+//                        Constants.API_URL="https://api.buycardlife.com/MApi/";
+//                        break;
+//                }
+//
+//                break;
             case R.id.textView:
               //TODO 客服电话
                 break;

@@ -13,7 +13,7 @@ public class Constants {
      * URL Host
      */
     public static String HOST="http://t.shop.comingcard.com/";
-    public static  int host = 2;
+    public static  int host = 0;
     static {
 
         switch (host){

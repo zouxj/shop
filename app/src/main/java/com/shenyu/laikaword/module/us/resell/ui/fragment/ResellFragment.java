@@ -106,7 +106,7 @@ public class ResellFragment extends IKWordBaseFragment {
 
         };
         emptyWrapper =new EmptyWrapper(adapter);
-        emptyWrapper.setEmptyView(R.layout.empty_view,"哇哦，篮子暂时是空的～");
+        emptyWrapper.setEmptyView(R.layout.empty_view,"暂无转卖记录");
         recyclerView.setAdapter(emptyWrapper);
 
         smartRefreshLayout.setFooterHeight(45);
