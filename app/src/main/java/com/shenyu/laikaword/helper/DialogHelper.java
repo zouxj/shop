@@ -36,11 +36,11 @@ public  final  class DialogHelper {
      */
     public static void takePhoto(Context context, final TakePhotoListener listener){
         final Dialog dialog = new Dialog(context, R.style.DialogBottom);
-        dialog.setCanceledOnTouchOutside(true);
+
         View view = View.inflate(context,R.layout.dialog_select_photo,null);
-        TextView tvPhoto = (TextView)view.findViewById(R.id.tv_photo);
-        TextView tvCamera = (TextView)view.findViewById(R.id.tv_camera);
-        TextView tvCannel  = (TextView)view.findViewById(R.id.tv_cannel);
+        TextView tvPhoto =view.findViewById(R.id.tv_photo);
+        TextView tvCamera = view.findViewById(R.id.tv_camera);
+        TextView tvCannel  = view.findViewById(R.id.tv_cannel);
         tvPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,20 +65,7 @@ public  final  class DialogHelper {
                 dialog.dismiss();
             }
         });
-        dialog.setContentView(view);
-        Window window = dialog.getWindow();
-        WindowManager.LayoutParams windowParams = window.getAttributes();
-        windowParams.x = 0;
-        //window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE );
-        windowParams.gravity = Gravity.BOTTOM;
-        //设置window的布局参数
-        window.setAttributes(windowParams);
-        // window.setBackgroundDrawableResource(R.drawable.alert_dialog_background);
 
-        // 显示的大小是contentView 的大小
-        dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
-                WindowManager.LayoutParams.WRAP_CONTENT);
-        dialog.show();
     }
 
     public  interface TakePhotoListener {
