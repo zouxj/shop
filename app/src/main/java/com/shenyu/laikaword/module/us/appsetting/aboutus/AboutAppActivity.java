@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
@@ -20,10 +21,12 @@ import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.PackageManagerUtil;
 import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
-import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
+
 import java.util.List;
+
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -36,6 +39,10 @@ public class AboutAppActivity extends LKWordBaseActivity implements MPermission.
     TextView tvVersion;
     @BindView(R.id.textView)
     TextView tvQQ;
+    @BindView(R.id.tv_version_ch)
+    TextView tvVersionCh;
+    @BindView(R.id.tv_version_en)
+    TextView tvVersionEn;
 
     @Override
     public int bindLayout() {
@@ -45,20 +52,23 @@ public class AboutAppActivity extends LKWordBaseActivity implements MPermission.
     @Override
     public void initView() {
         setToolBarTitle("关于我们");
-        tvVersion.setText("淘卡商城 "+PackageManagerUtil.getVersionName(UIUtil.getContext()));
+        tvVersion.setText("淘卡商城 " + PackageManagerUtil.getVersionName(UIUtil.getContext()));
 
-        final ShopMainReponse shopMainReponse= (ShopMainReponse) SPUtil.readObject(Constants.MAIN_SHOP_KEY);
-        if (shopMainReponse!=null) {
+        final ShopMainReponse shopMainReponse = (ShopMainReponse) SPUtil.readObject(Constants.MAIN_SHOP_KEY);
+        if (shopMainReponse != null) {
             String qq = shopMainReponse.getPayload().getContacts().getQq();
             if (StringUtil.validText(qq))
-                tvQQ.setText("客服QQ:"+qq);
+                tvQQ.setText("客服QQ:" + qq);
+            tvVersionCh.setText( shopMainReponse.getPayload().getCopyrightCn());
+            tvVersionEn.setText(shopMainReponse.getPayload().getCopyrightEn());
+
         }
     }
 
     @Override
     public void doBusiness(Context context) {
-        if (StringUtil.validText(Constants.VERSION_NEW)){
-            tvNewVersion.setText("发现新版本"+Constants.VERSION_NEW);
+        if (StringUtil.validText(Constants.VERSION_NEW)) {
+            tvNewVersion.setText("发现新版本" + Constants.VERSION_NEW);
         }
     }
 
@@ -66,6 +76,7 @@ public class AboutAppActivity extends LKWordBaseActivity implements MPermission.
     public void setupActivityComponent() {
 
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == MPermissionSettingsDialog.DEFAULT_SETTINGS_REQ_CODE) {
@@ -76,7 +87,7 @@ public class AboutAppActivity extends LKWordBaseActivity implements MPermission.
     }
 
 
-    @OnClick({R.id.tv_check_update, R.id.tv_get_pignfen,R.id.textView,R.id.tv_server,R.id.tv_version})
+    @OnClick({R.id.tv_check_update, R.id.tv_get_pignfen, R.id.textView, R.id.tv_server, R.id.tv_version})
     public void onViewClicked(View view) {
         switch (view.getId()) {
 //            case R.id.tv_version:
@@ -101,12 +112,12 @@ public class AboutAppActivity extends LKWordBaseActivity implements MPermission.
 //
 //                break;
             case R.id.textView:
-              //TODO 客服电话
+                //TODO 客服电话
                 break;
             case R.id.tv_check_update:
                 if (MPermission.hasPermissions(AboutAppActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                     // Have permission, do the thing!
-                  new UpdateManager(mActivity).gerNewVersion(true);
+                    new UpdateManager(mActivity).gerNewVersion(true);
 
                     //TODO去更新
                 } else {
@@ -117,15 +128,15 @@ public class AboutAppActivity extends LKWordBaseActivity implements MPermission.
                 break;
             case R.id.tv_get_pignfen:
                 //启动应用市场去评分
-                Uri uri = Uri.parse("market://details?id="+getPackageName());
-                Intent intentpf = new Intent(Intent.ACTION_VIEW,uri);
+                Uri uri = Uri.parse("market://details?id=" + getPackageName());
+                Intent intentpf = new Intent(Intent.ACTION_VIEW, uri);
                 intentpf.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intentpf);
-            break;
+                break;
             case R.id.tv_server:
                 //TODO 服务条款
                 ShopMainReponse shopMainReponse = (ShopMainReponse) SPUtil.readObject(Constants.MAIN_SHOP_KEY);
-                if (null!=shopMainReponse) {
+                if (null != shopMainReponse) {
                     IntentLauncher.with(this).put("weburl", shopMainReponse.getPayload().getAgreement()).launch(GuessActivity.class);
                 }
                 break;
@@ -145,7 +156,6 @@ public class AboutAppActivity extends LKWordBaseActivity implements MPermission.
     }
 
 
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
@@ -153,9 +163,10 @@ public class AboutAppActivity extends LKWordBaseActivity implements MPermission.
             case Constants.INTALL_APK:
 //                LogUtil.i("获取到了到了权限");
                 new UpdateManager(mActivity).gerNewVersion(true);
-            break;
+                break;
         }
     }
+
 
 
 }

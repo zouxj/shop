@@ -118,6 +118,25 @@ public class ShopMainReponse extends BaseReponse implements Serializable {
         private Contacts contacts;
         private Flag flag;
         private String resellShow;
+        private String copyrightCn;
+        private String copyrightEn;
+
+        public String getCopyrightCn() {
+            return copyrightCn;
+        }
+
+        public void setCopyrightCn(String copyrightCn) {
+            this.copyrightCn = copyrightCn;
+        }
+
+        public String getCopyrightEn() {
+            return copyrightEn;
+        }
+
+        public void setCopyrightEn(String copyrightEn) {
+            this.copyrightEn = copyrightEn;
+        }
+        //        "copyrightCn":"开封红千层 版权所有","copyrightEn":"Copyright  2018 HQC.All Rights Reserved",
         /**
          * 显示转卖入口，0不显示，1显示
          */

@@ -131,7 +131,7 @@ public class HomeLeftItemViewDelegate implements ItemViewDelegate<ShopMainRepons
                         ToastUtil.showToastShort("此功能暂没开放");
                 }
 
-                else if(entranceListBean.getTitle().equals("百变娱乐")){
+                else {
 //                        //TODO 我的游戏
                         IntentLauncher.with(mActivity).put("weburl",entranceListBean.getUrl()).launch(GuessActivity.class);
 

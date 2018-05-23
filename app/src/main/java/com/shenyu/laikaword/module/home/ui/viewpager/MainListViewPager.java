@@ -2,6 +2,7 @@ package com.shenyu.laikaword.module.home.ui.viewpager;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.os.Build;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -13,6 +14,7 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
@@ -95,6 +97,22 @@ public class MainListViewPager extends BaseViewPager {
                 holder.setText(R.id.tv_main_shop_price, "¥"+listBean.getDiscountPrice());
 //                holder.setText(R.id.tv_main_shop_surplus, StringUtil.formatIntger(listBean.getStock())>=5?"":"还剩"+StringUtil.formatIntger(listBean.getStock())+"张");
                 holder.setText(R.id.tv_main_shop_seller,listBean.getNickName());
+                TextView tvBuy = holder.getView(R.id.tv_main_shop_purchase);
+                LinearLayout linearLayout =holder.getView(R.id.lv_main_shop);
+                if (StringUtil.validText(listBean.getStock())){
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                        tvBuy.setBackground(StringUtil.formatIntger(listBean.getStock())>0
+                                                ?UIUtil.getDrawable(R.drawable.bg_main_goumai_rectangle):UIUtil.getDrawable(R.drawable.bg_main_goumai_default_rectangle));
+                    }else {
+                        tvBuy.setBackgroundResource(StringUtil.formatIntger(listBean.getStock())>0
+                                ?R.drawable.bg_main_goumai_rectangle:R.drawable.bg_main_goumai_default_rectangle);
+                    }
+                    tvBuy.setText(StringUtil.formatIntger(listBean.getStock())>0
+                            ?"抢购":"已抢光");
+                    tvBuy.setEnabled(StringUtil.formatIntger(listBean.getStock())>0);
+                    linearLayout.setEnabled(StringUtil.formatIntger(listBean.getStock())>0);
+
+                }
 //                StringBuilder sb = new StringBuilder(listBean.getDiscount());//构造一个StringBuilder对象
 //                sb.insert(1, ".");//在指定的
 //                holder.setText(R.id.tv_mian_shop_discount,sb.toString()+"折");
