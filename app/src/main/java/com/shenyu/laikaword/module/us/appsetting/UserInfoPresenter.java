@@ -54,20 +54,21 @@ public class UserInfoPresenter extends BasePresenter<UserInfoView> {
 
     //点击头像
     public void updateImg(LifecycleTransformer lifecycleTransformer){
-        getImgSts(lifecycleTransformer);
         DialogHelper.takePhoto(activity, new DialogHelper.TakePhotoListener() {
             @Override
             public void takeByPhoto() {
-                        cameraTask();
+                cameraTask();
                 //TODO 调取摄像头
             }
 
             @Override
             public void takeByCamera() {
                 //TODO 调取相册
-                        photoTask();
+                photoTask();
             }
         });
+        getImgSts(lifecycleTransformer);
+
     }
 
     int i=0;

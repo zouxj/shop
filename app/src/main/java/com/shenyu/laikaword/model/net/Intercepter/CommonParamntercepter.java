@@ -113,7 +113,6 @@ public   class CommonParamntercepter implements Interceptor {
             StringBuilder builder = new StringBuilder();
             Collections.sort(nameList);
             for (int i = 0; i < nameList.size(); i++) {
-
                 try {
                     if (i==0){
                         builder.append(nameList.get(i)).append("=").append(URLDecoder.decode(bodyMap.get(nameList.get(i)), "UTF-8"));

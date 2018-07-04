@@ -26,14 +26,14 @@ public class ShopMainReponse extends BaseReponse implements Serializable {
     }
 
     public class Contacts implements Serializable{
-        private String qq;
+        private String url;
 
-    public String getQq() {
-        return qq;
+    public String getUrl() {
+        return url;
     }
 
-    public void setQq(String qq) {
-        this.qq = qq;
+    public void setUrl(String qq) {
+        this.url = qq;
     }
     }
     public class Flag implements Serializable{
@@ -120,6 +120,15 @@ public class ShopMainReponse extends BaseReponse implements Serializable {
         private String resellShow;
         private String copyrightCn;
         private String copyrightEn;
+        private List<String> externalURLs;
+
+        public List<String> getExternalURLs() {
+            return externalURLs;
+        }
+
+        public void setExternalURLs(List<String> externalURLs) {
+            this.externalURLs = externalURLs;
+        }
 
         public String getCopyrightCn() {
             return copyrightCn;

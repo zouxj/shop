@@ -59,13 +59,28 @@ public  final  class DialogHelper {
                 }
             }
         });
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.setContentView(view);
+        Window window = dialog.getWindow();
+        WindowManager.LayoutParams windowParams = window.getAttributes();
+        windowParams.x = 0;
+        //window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE );
+        windowParams.gravity = Gravity.BOTTOM;
+        //设置window的布局参数
+        window.setAttributes(windowParams);
+        // window.setBackgroundDrawableResource(R.drawable.alert_dialog_background);
+
+        // 显示的大小是contentView 的大小
+        dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.WRAP_CONTENT);
+        dialog.show();
         tvCannel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
             }
         });
-
+        dialog.show();
     }
 
     public  interface TakePhotoListener {
@@ -135,7 +150,6 @@ public  final  class DialogHelper {
         int width = (int)(window.getWindowManager().getDefaultDisplay().getWidth()*0.8);
         windowParams.x = 0;
         windowParams.width = width;
-
         window.setAttributes(windowParams);
 
         dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
@@ -149,14 +163,14 @@ public  final  class DialogHelper {
         });
         return dialog;
     }
-    public static Dialog tDialog(Context context, String msg, String okdec, final ButtonCallback buttonCallback) {
+    public synchronized static Dialog tDialog(Context context, String msg, String okdec, final ButtonCallback buttonCallback) {
         final Dialog dialog = new Dialog(context, R.style.Dialog);
         dialog.setCanceledOnTouchOutside(true);
         View view = View.inflate(context, R.layout.dialog_tishi, null);
         @SuppressLint("WrongViewCast")
         TextView tvMsg = view.findViewById(R.id.tv_msg);
         tvMsg.setText(msg);
-        TextView tvOk = (TextView) view.findViewById(R.id.tv_ok);
+        TextView tvOk =view.findViewById(R.id.tv_ok);
         tvOk.setText(okdec);
         tvOk.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -173,7 +187,7 @@ public  final  class DialogHelper {
         windowParams.width = width;
 
         window.setAttributes(windowParams);
-        dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+
         dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
             public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
@@ -183,6 +197,7 @@ public  final  class DialogHelper {
                 return false;
             }
         });
+//        dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
         return dialog;
 
     }

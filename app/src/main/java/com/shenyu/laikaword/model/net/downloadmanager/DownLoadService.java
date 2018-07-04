@@ -1,5 +1,8 @@
 package com.shenyu.laikaword.model.net.downloadmanager;
 
+import android.Manifest;
+import android.app.Activity;
+import android.app.Dialog;
 import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Context;
@@ -7,17 +10,25 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.FileProvider;
+import android.view.WindowManager;
 
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.common.Constants;
+import com.shenyu.laikaword.helper.DialogHelper;
 import com.shenyu.laikaword.model.net.okhttp.OkHttp3Utils;
 import com.shenyu.laikaword.model.net.retrofit.ApiStores;
 import com.shenyu.laikaword.model.net.callback.FileCallback;
 import com.zxj.utilslibrary.utils.LogUtil;
+import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
 import java.io.File;
@@ -77,7 +88,8 @@ public class DownLoadService extends Service {
                         LogUtil.e("file", file.toString()+"   filesize()=>"+file.length());
                         // 安装软件
                         cancelNotification();
-                        installApk(file);
+//                        installApk(file);
+                        openAPKFile( mContext,file);
 
                     }
                     @Override
@@ -176,6 +188,7 @@ public class DownLoadService extends Service {
 
             }
 
+
             intentForInstall.setDataAndType(apkUri, "application/vnd.android.package-archive");
 
            mContext.startActivity(intentForInstall);
@@ -247,4 +260,47 @@ public class DownLoadService extends Service {
         notificationManager.cancel(NOTIFY_ID);
 
     }
+    public void openAPKFile(Context mContext, File apkFile) {
+        // 核心是下面几句代码
+        if (null != apkFile) {
+            try {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                //兼容7.0
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    Uri contentUri = FileProvider.getUriForFile(mContext, "com.shenyu.laikaword.fileprovider", apkFile);
+//                    Uri contentUri = FileProvider.getUriForFile(mContext, mContext.getPackageName() + ".fileProvider", apkFile);
+                    intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
+                    //兼容8.0
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        boolean hasInstallPermission = mContext.getPackageManager().canRequestPackageInstalls();
+                        if (!hasInstallPermission) {
+                            startInstallPermissionSettingActivity();
+                            return;
+                        }
+                    }
+                } else {
+                    intent.setDataAndType(Uri.fromFile(apkFile), "application/vnd.android.package-archive");
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                }
+                if (mContext.getPackageManager().queryIntentActivities(intent, 0).size() > 0) {
+                    mContext.startActivity(intent);
+                }
+            } catch (Throwable e) {
+                e.printStackTrace();
+                LogUtil.i(e.toString());
+            }
+        }
+    }
+    /**
+     * 跳转到设置-允许安装未知来源-页面
+     */
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void startInstallPermissionSettingActivity() {
+        //注意这个是8.0新API
+        Intent intent = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        mContext.startActivity(intent);
+    }
+
 }

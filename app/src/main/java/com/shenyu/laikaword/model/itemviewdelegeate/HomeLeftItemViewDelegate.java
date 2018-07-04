@@ -123,9 +123,9 @@ public class HomeLeftItemViewDelegate implements ItemViewDelegate<ShopMainRepons
                     }
                     final ShopMainReponse shopMainReponse= (ShopMainReponse) SPUtil.readObject(Constants.MAIN_SHOP_KEY);
                     if (shopMainReponse!=null) {
-                        String qq = shopMainReponse.getPayload().getContacts().getQq();
+                        String qq = shopMainReponse.getPayload().getContacts().getUrl();
                         if (StringUtil.validText(qq))
-                            toQQServer(qq);
+                            IntentLauncher.with(mActivity).put("weburl", qq).launch(GuessActivity.class);
                     }
                     else
                         ToastUtil.showToastShort("此功能暂没开放");

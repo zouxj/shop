@@ -1,24 +1,40 @@
 package com.shenyu.laikaword.model.web;
 
 import android.annotation.SuppressLint;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.net.http.SslError;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.SslErrorHandler;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
+import com.shenyu.laikaword.common.Constants;
+import com.shenyu.laikaword.model.bean.reponse.ShopMainReponse;
+import com.shenyu.laikaword.module.launch.LaiKaApplication;
 import com.shenyu.laikaword.ui.view.widget.ProgressWebView;
+import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.zxj.utilslibrary.utils.LogUtil;
+import com.zxj.utilslibrary.utils.SPUtil;
+import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -57,9 +73,9 @@ GuessActivity extends LKWordBaseActivity {
     @SuppressLint("NewApi")
     private void initWebView() {
         wbLoad.getSettings().setTextZoom(100);
-        WebSettings webSettings = wbLoad.getSettings();
-        webSettings.setUserAgentString("laikashopapp");
 
+        WebSettings webSettings = wbLoad.getSettings();
+        webSettings.setUserAgentString(webSettings.getUserAgentString()+";laikashopapp");
 
 
         webSettings.setAllowContentAccess(true);
@@ -109,22 +125,32 @@ GuessActivity extends LKWordBaseActivity {
 //                Uri uri = Uri.parse(url);
                 // 如果url的协议 = 预先约定的 js 协议app://goOrder
                 // 就解析往下解析参数
-                LogUtil.i("webView", url);
-                String aliPay = "https://qr.alipay.com";
-                String qqPay = "https://myun.tenpay.com/mqq/pay/qrcode";
-                if (url.contains(aliPay) || url.contains(qqPay)) {
-                    Intent mIntent =new Intent();
-                    mIntent.setAction("android.intent.action.VIEW");
-//                    mIntent.setClassName("com.android.browser","com.android.browser.BrowserActivity");
-                    Uri content_url = Uri.parse(url);
-                    mIntent.setData(content_url);
-                    startActivity(mIntent);
-                    return true;
+//                LogUtil.i("webView", url);
+
+                ShopMainReponse shopMainReponse= (ShopMainReponse) SPUtil.readObject(Constants.MAIN_SHOP_KEY);
+                for (String ux:shopMainReponse.getPayload().getExternalURLs()){
+                    if (url.contains(ux)) {
+                        Intent mIntent =new Intent();
+                        mIntent.setAction("android.intent.action.VIEW");
+                        Uri content_url = Uri.parse(url);
+                        mIntent.setData(content_url);
+                        startActivity(mIntent);
+                        return true;
+                    }
                 }
+
+
+
+
 
 //                }
                 return super.shouldOverrideUrlLoading(view, url);
 
+            }
+
+            @Override
+            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+                handler.proceed();
             }
 
             @Override
@@ -189,4 +215,5 @@ GuessActivity extends LKWordBaseActivity {
             finish();
         }
     }
+
 }

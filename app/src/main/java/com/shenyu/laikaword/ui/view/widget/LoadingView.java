@@ -23,8 +23,8 @@ public class LoadingView extends LinearLayout implements View.OnClickListener  {
     public static final int NO_NETWORK = 3;
     public static final int GONE = 4;
 
-    ImageView imgState;
-    TextView tvStateText;
+    private ImageView imgState;
+    private TextView tvStateText;
     private View mView;
 
 

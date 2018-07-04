@@ -95,7 +95,6 @@ public class UserInfoActivity extends LKWordBaseActivity implements UserInfoView
                 //TODO 更换头像
                 if (MPermission.hasPermissions(this, Manifest.permission.CAMERA) && MPermission.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
                     userInfoPresenter.updateImg(bindUntilEvent(ActivityEvent.DESTROY));
-//          ToastUtil.showToastShort("TODO: Camera things");
                 } else {
                     // Ask for one permission
                     MPermission.requestPermissions(this, "使用摄像头需要" + UIUtil.getString(R.string.read_camere), Constants.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE);

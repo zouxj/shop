@@ -12,6 +12,7 @@ import com.shenyu.laikaword.model.net.retrofit.ErrorCode;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
+import com.zxj.utilslibrary.utils.KeyBoardUtil;
 import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.PackageManagerUtil;
 import com.zxj.utilslibrary.utils.SPUtil;
@@ -86,31 +87,6 @@ public abstract class ApiCallback<M> implements Observer<M> {
                 //TODO do things
                 SPUtil.removeSp(Constants.LOGININFO_KEY);
                 RxBus.getDefault().post(new Event(EventType.ACTION_UPDATA_USER, null));
-            } else if (apiModel.getError().getCode() == ErrorCode.error_code_login_506) {
-                DialogHelper.tDialog(UIUtil.getContext(), apiModel.getError().getMessage(), "联系客服", new DialogHelper.ButtonCallback() {
-                    @Override
-                    public void onNegative(Dialog dialog) {
-                        dialog.dismiss();
-                        final ShopMainReponse shopMainReponse = (ShopMainReponse) SPUtil.readObject(com.shenyu.laikaword.common.Constants.MAIN_SHOP_KEY);
-                        if (shopMainReponse != null) {
-                            String qq = shopMainReponse.getPayload().getContacts().getQq();
-                            if (StringUtil.validText(qq))
-                                if (PackageManagerUtil.checkApkExist(UIUtil.getContext(), "com.tencent.mobileqq")) {
-                                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("mqqwpa://im/chat?chat_type=wpa&uin=" + qq + "&version=1"));
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    UIUtil.getContext().startActivity(intent);
-                                } else {
-                                    ToastUtil.showToastShort("本机未安装QQ应用");
-                                }
-                        }
-                    }
-
-                    @Override
-                    public void onPositive(Dialog dialog) {
-
-                    }
-                }).show();
-
             } else {
                 onSuccess(model);
                 ToastUtil.showToastShort(apiModel.getError().getMessage());

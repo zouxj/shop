@@ -56,7 +56,7 @@ public class AboutAppActivity extends LKWordBaseActivity implements MPermission.
 
         final ShopMainReponse shopMainReponse = (ShopMainReponse) SPUtil.readObject(Constants.MAIN_SHOP_KEY);
         if (shopMainReponse != null) {
-            String qq = shopMainReponse.getPayload().getContacts().getQq();
+            String qq = shopMainReponse.getPayload().getContacts().getUrl();
             if (StringUtil.validText(qq))
                 tvQQ.setText("客服QQ:" + qq);
             tvVersionCh.setText( shopMainReponse.getPayload().getCopyrightCn());
@@ -115,14 +115,16 @@ public class AboutAppActivity extends LKWordBaseActivity implements MPermission.
                 //TODO 客服电话
                 break;
             case R.id.tv_check_update:
-                if (MPermission.hasPermissions(AboutAppActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                if (MPermission.hasPermissions(AboutAppActivity.this,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                     // Have permission, do the thing!
                     new UpdateManager(mActivity).gerNewVersion(true);
 
                     //TODO去更新
                 } else {
                     // Ask for one permission
-                    MPermission.requestPermissions(AboutAppActivity.this, UIUtil.getString(R.string.write_wxternal), Constants.INTALL_APK, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                    MPermission.requestPermissions(AboutAppActivity.this, UIUtil.getString(R.string.write_wxternal),
+                            Constants.INTALL_APK, Manifest.permission.WRITE_EXTERNAL_STORAGE);
                 }
 
                 break;

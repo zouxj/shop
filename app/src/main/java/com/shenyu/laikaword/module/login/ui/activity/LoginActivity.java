@@ -18,6 +18,7 @@ import com.shenyu.laikaword.helper.DialogHelper;
 import com.shenyu.laikaword.model.bean.reponse.BaseReponse;
 import com.shenyu.laikaword.model.bean.reponse.ShopMainReponse;
 import com.shenyu.laikaword.model.net.retrofit.ErrorCode;
+import com.shenyu.laikaword.model.web.GuessActivity;
 import com.shenyu.laikaword.module.launch.LaiKaApplication;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
@@ -27,6 +28,7 @@ import com.shenyu.laikaword.di.module.LoginModule;
 import com.shenyu.laikaword.module.login.presenter.LoginPresenter;
 import com.shenyu.laikaword.module.login.view.LoginView;
 import com.tencent.connect.common.Constants;
+import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.LogUtil;
 import com.zxj.utilslibrary.utils.PackageManagerUtil;
 import com.zxj.utilslibrary.utils.SPUtil;
@@ -144,7 +146,33 @@ public class LoginActivity extends LKWordBaseActivity implements LoginView,MPerm
 
     @Override
     public void loginFailed(LoginReponse model) {
+        if (!model.isSuccess()&&model.getError().getCode()==506) {
+            DialogHelper.tDialog(this, model.getError().getMessage(), "联系客服", new DialogHelper.ButtonCallback() {
+                @Override
+                public void onNegative(Dialog dialog) {
+                    dialog.dismiss();
+                    final ShopMainReponse shopMainReponse = (ShopMainReponse) SPUtil.readObject(com.shenyu.laikaword.common.Constants.MAIN_SHOP_KEY);
+                    if (shopMainReponse != null) {
+                        String qq = shopMainReponse.getPayload().getContacts().getUrl();
+                        if (StringUtil.validText(qq)){
+                            IntentLauncher.with(LoginActivity.this).put("weburl", qq).launch(GuessActivity.class);
+                        }
+//                            if (PackageManagerUtil.checkApkExist(UIUtil.getContext(), "com.tencent.mobileqq")) {
+//                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("mqqwpa://im/chat?chat_type=wpa&uin=" + qq + "&version=1"));
+//                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                UIUtil.getContext().startActivity(intent);
+//                            } else {
+//                                ToastUtil.showToastShort("本机未安装QQ应用");
+//                            }
+                    }
+                }
 
+                @Override
+                public void onPositive(Dialog dialog) {
+
+                }
+            }).show();
+        }
     }
 
 

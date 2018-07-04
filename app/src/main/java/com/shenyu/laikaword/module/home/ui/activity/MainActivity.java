@@ -1,15 +1,22 @@
 package com.shenyu.laikaword.module.home.ui.activity;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.FrameLayout;
 
 import com.leo618.mpermission.MPermission;
 import com.leo618.mpermission.MPermissionSettingsDialog;
+import com.shenyu.laikaword.helper.DialogHelper;
 import com.shenyu.laikaword.helper.UpdateManager;
 import com.shenyu.laikaword.module.launch.LaiKaApplication;
 import com.shenyu.laikaword.R;
@@ -103,7 +110,8 @@ public class MainActivity extends LKWordBaseActivity implements  MPermission.Per
     }
     @Override
     public void setupActivityComponent() {
-        LaiKaApplication.get(this).getAppComponent().plus(new MainModule(getSupportFragmentManager(),bindToLifecycle())).inject(this);
+        LaiKaApplication.get(this).getAppComponent().plus(
+                new MainModule(getSupportFragmentManager(),bindToLifecycle())).inject(this);
     }
 
     /**
@@ -139,13 +147,28 @@ public class MainActivity extends LKWordBaseActivity implements  MPermission.Per
      * 获取权限
      */
     public void getMPermission(){
-        if (MPermission.hasPermissions(this, Manifest.permission.READ_PHONE_STATE,Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+        if (MPermission.hasPermissions(this,
+                Manifest.permission.READ_PHONE_STATE,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.REQUEST_INSTALL_PACKAGES
+                ,Manifest.permission.SYSTEM_ALERT_WINDOW)) {
             // Have permission, do the thing!
-            new UpdateManager(mActivity).gerNewVersion(false);
+            checkIsAndroidO();
+//            new UpdateManager(mActivity).gerNewVersion(false);
 //          ToastUtil.showToastShort("TODO: Camera things");
         } else {
             // Ask for one permission
-            MPermission.requestPermissions(this, UIUtil.getString(R.string.rationale_read_external), Constants.READ_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE,Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            MPermission.requestPermissions(this,
+                    UIUtil.getString(R.string.rationale_read_external),
+                    Constants.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.READ_PHONE_STATE,
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.REQUEST_INSTALL_PACKAGES
+                    ,Manifest.permission.SYSTEM_ALERT_WINDOW
+
+            );
         }
 }
 
@@ -164,9 +187,18 @@ public class MainActivity extends LKWordBaseActivity implements  MPermission.Per
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if (requestCode == MPermissionSettingsDialog.DEFAULT_SETTINGS_REQ_CODE) {
             // Do something after user returned from app settings screen, like showing a Toast.
 //            ToastUtil.showToastShort(UIUtil.getString(R.string.write_external_storage));
+        }
+        switch (requestCode) {
+            case 10012:
+                checkIsAndroidO();
+                break;
+
+            default:
+                break;
         }
     }
 
@@ -177,8 +209,16 @@ public class MainActivity extends LKWordBaseActivity implements  MPermission.Per
             //相机获取权限返回结果
             case Constants.READ_EXTERNAL_STORAGE:
 //                ToastUtil.showToastShort(UIUtil.getString(R.string.write_external_storage));
-                new UpdateManager(mActivity).gerNewVersion(false);
+//                new UpdateManager(mActivity).gerNewVersion(false);
+                checkIsAndroidO();
                 break;
+            case 10010:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    new UpdateManager(mActivity).gerNewVersion(false);
+                } else {
+                    Intent intent = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES);
+                    startActivityForResult(intent, 10012);
+                }
         }
     }
     // 通过反射获取状态栏高度
@@ -191,5 +231,34 @@ public class MainActivity extends LKWordBaseActivity implements  MPermission.Per
         } catch (Exception e) {
             e.printStackTrace();        }
         return 0;    }
+    /**
+     * 判断是否是8.0,8.0需要处理未知应用来源权限问题,否则直接安装
+     */
+    private void checkIsAndroidO() {
 
+        if (Build.VERSION.SDK_INT >= 26) {
+            boolean b = getPackageManager().canRequestPackageInstalls();
+            if (b) {
+                new UpdateManager(mActivity).gerNewVersion(false);
+            } else {
+                DialogHelper.commonDialog(this, "安装权限", "需要打开此应用安装权限，才能自动更新升级应用", "确定", "取消", false, new DialogHelper.ButtonCallback() {
+                                @Override
+                                public void onNegative(Dialog dialog) {
+                                dialog.dismiss();
+                                }
+                                @RequiresApi(api = Build.VERSION_CODES.O)
+                                @Override
+                                public void onPositive(Dialog dialog) {
+                                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.REQUEST_INSTALL_PACKAGES}, 10010);
+
+                                }
+                            }).show();
+
+
+            }
+        } else {
+            new UpdateManager(mActivity).gerNewVersion(false);
+        }
+
+    }
 }
