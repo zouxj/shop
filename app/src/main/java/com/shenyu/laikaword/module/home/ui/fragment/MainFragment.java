@@ -20,7 +20,10 @@ import com.shenyu.laikaword.helper.GridSpacingItemDecoration;
 import com.shenyu.laikaword.helper.ImageUitls;
 import com.shenyu.laikaword.helper.StatusBarManager;
 import com.shenyu.laikaword.model.adapter.HomeAdapter;
+import com.shenyu.laikaword.model.adapter.MultiItemTypeAdapter;
 import com.shenyu.laikaword.model.bean.reponse.BaseReponse;
+import com.shenyu.laikaword.module.goods.BuyGoodsActivity;
+import com.shenyu.laikaword.module.home.ui.activity.GoodsDetailsActivity;
 import com.shenyu.laikaword.module.launch.LaiKaApplication;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.model.adapter.MainViewPagerAdapter;
@@ -34,15 +37,18 @@ import com.shenyu.laikaword.module.home.view.MainView;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
 import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
+import com.zxj.utilslibrary.utils.IntentLauncher;
 import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -108,14 +114,27 @@ public class MainFragment extends IKWordBaseFragment implements MainView {
         });
 
         mRecyHome.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-        mRecyHome.addItemDecoration(new GridSpacingItemDecoration(2,(int) UIUtil.dp2px(10),true));
-        List<String> date=new ArrayList<>();
-        for (int i=0;i<50;i++){
+        mRecyHome.addItemDecoration(new GridSpacingItemDecoration(2, (int) UIUtil.dp2px(10), true));
+        List<String> date = new ArrayList<>();
+        for (int i = 0; i < 100; i++) {
             int x = new Random().nextInt(350) + 100;
-            date.add(x+"");
+            date.add(x + "");
 
         }
-        mRecyHome.setAdapter(new HomeAdapter(R.layout.item_new_goods,date));
+        HomeAdapter homeAdapter = new HomeAdapter(R.layout.item_new_goods, date);
+        mRecyHome.setAdapter(homeAdapter);
+        homeAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+                IntentLauncher.with(getActivity()).launch(GoodsDetailsActivity.class);
+
+            }
+
+            @Override
+            public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
+                return false;
+            }
+        });
     }
 
 

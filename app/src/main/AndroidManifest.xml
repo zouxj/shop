@@ -27,13 +27,11 @@
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    tools:ignore="ProtectedPermissions" />
+
     <permission
         android:name="com.shenyu.laikaword.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature"
-        tools:ignore="UniquePermission" />
-
-    <!-- Required -->
+        tools:ignore="UniquePermission" /> <!-- Required -->
     <uses-permission android:name="com.shenyu.laikaword.permission.JPUSH_MESSAGE" />
 
     <application
@@ -44,6 +42,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".module.home.ui.activity.GoodsDetailsActivity"></activity>
         <activity
             android:name=".module.launch.StartActivity"
             android:screenOrientation="portrait"
@@ -95,8 +94,7 @@
         <receiver
             android:name=".jpush.AppJPushMessageReceiver"
             android:enabled="true"
-            android:exported="true" />
-        <!-- hotfix配置 -->
+            android:exported="true" /> <!-- hotfix配置 -->
         <meta-data
             android:name="com.taobao.android.hotfix.IDSECRET"
             android:value="24659306-1" />
@@ -179,9 +177,7 @@
                 android:resource="@xml/file_provider_paths" />
         </provider>
 
-        <activity android:name=".model.web.GuessActivity" />
-
-        <!-- 注册支付宝网页支付，当手机为安装支付宝的时候自动跳转到网页支付。只需要在这配置文件中加下面配置。 -->
+        <activity android:name=".model.web.GuessActivity" /> <!-- 注册支付宝网页支付，当手机为安装支付宝的时候自动跳转到网页支付。只需要在这配置文件中加下面配置。 -->
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
@@ -211,7 +207,7 @@
         <activity android:name=".module.us.resell.ui.activity.CommitResellActivity" />
         <activity android:name=".module.us.resell.ui.activity.ResellFinshActivity" />
         <activity android:name=".module.us.resell.ui.activity.CDkeyActivity" />
-        <activity android:name=".model.web.MIActivity"></activity>
+        <activity android:name=".model.web.MIActivity" />
     </application>
 
 </manifest>

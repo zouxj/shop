@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#fff"
+   >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/colorWhite"
+        xmlns:tools="http://schemas.android.com/tools">
+        <View
+            android:id="@+id/vBar"
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@color/colorWhite"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            >
+            <ImageView
+                android:id="@+id/tvTitleBack"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@mipmap/arrow_title_back"
+                android:padding="5dp"
+                />
+            <TextView
+                android:id="@+id/tvTitleBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textColor="#212121"
+                android:textSize="17dp"
+                android:maxLength="10"
+                tools:text ="TITLE"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <com.shenyu.laikaword.ui.view.widget.double_layout.DoubleScrollViewLayout
+        android:id="@+id/doubleLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+        <com.shenyu.laikaword.ui.view.widget.double_layout.TopBottomMonitorScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:clipChildren="false"
+                >
+                <com.zhouwei.mzbanner.MZBannerView
+                    android:id="@+id/banner"
+                    app:open_mz_mode="true"
+                    app:canLoop="true"
+                    app:indicatorAlign="center"
+                    app:indicatorPaddingLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="348dp"
+                    tools:ignore="MissingClass" />
+
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/cvp"
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp"
+                    android:visibility="gone"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginRight="60dp"
+                    android:clipChildren="false"
+                    />
+                <TextView
+                    android:text="唐狮牛仔裤女春2019新款韩版显瘦九分裤紧身小脚裤黑色破洞裤子"
+                    android:textColor="#222"
+                    android:layout_marginTop="5dp"
+                    android:textSize="16dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginLeft="@dimen/dp_15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/tvInfo"
+                    android:layout_below="@id/cvp"
+                    android:text="规格：大中小\n\n\n服务：7天无理由退款\n\n\n优惠：满100减10元\n\n\n参数：深蓝、烟灰\n\n\n宝贝评价：好评-衣服不错\n\n\n买家相册：XXXxxxoo\n\n\n问大家：\n\n\n掉色严重不？\n\n\n掉档不？质量怎么样？\n\n\n店铺名称：CB淘宝旗舰店"
+                    android:paddingTop="30dp"
+                    android:paddingBottom="20dp"
+                    android:textSize="16dp"
+                    android:textColor="#555"
+                    android:layout_marginLeft="@dimen/dp_15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="↑↑↑继续上滑前往商品详情"
+                    android:background="#ededed"
+                    android:gravity="center"
+                    />
+            </LinearLayout>
+
+        </com.shenyu.laikaword.ui.view.widget.double_layout.TopBottomMonitorScrollView>
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.shenyu.laikaword.ui.view.widget.double_layout.TopBottomMonitorScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true">
+                <com.shenyu.laikaword.ui.view.widget.double_layout.AllListView
+                    android:id="@+id/alv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.shenyu.laikaword.ui.view.widget.double_layout.TopBottomMonitorScrollView>
+        </RelativeLayout>
+    </com.shenyu.laikaword.ui.view.widget.double_layout.DoubleScrollViewLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="45dp">
+        <TextView
+            android:id="@+id/tvWx"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:background="@color/colorOrange"
+            android:text="WxPay"
+            android:textColor="@color/colorWhite"
+            android:gravity="center"
+            android:textSize="16dp"
+            />
+        <TextView
+            android:id="@+id/tvAli"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:background="@color/mainColor"
+            android:text="AliPay"
+            android:textColor="@color/colorWhite"
+            android:gravity="center"
+            android:textSize="16dp"
+            />
+    </LinearLayout>
+</LinearLayout>

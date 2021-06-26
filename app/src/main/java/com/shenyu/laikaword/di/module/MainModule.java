@@ -8,6 +8,8 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.shenyu.laikaword.model.adapter.MainViewPagerAdapter;
 import com.shenyu.laikaword.helper.BannerHelper;
+import com.shenyu.laikaword.module.home.presenter.GoodsPresenter;
+import com.shenyu.laikaword.module.home.view.GoodsDetailsView;
 import com.shenyu.laikaword.module.home.view.MainView;
 import com.shenyu.laikaword.module.home.ui.fragment.LeftFragment;
 import com.shenyu.laikaword.module.home.presenter.MainPresenter;
@@ -26,6 +28,7 @@ public class MainModule {
     private  FragmentManager manager;
     private MainView mainView;
     private Activity activity;
+    private  GoodsDetailsView mGoodsDetailsView;
     private LifecycleTransformer mlifecycleTransformer;
 //   private final static  String[] mlist  = new String[]{"热卖","移动卡", "京东卡", "联通卡", "电信卡"};
     public MainModule(MainView mainView, Activity activity){
@@ -35,6 +38,10 @@ public class MainModule {
     public MainModule(FragmentManager manager,LifecycleTransformer lifecycleTransformer) {
         this.manager = manager;
         this.mlifecycleTransformer=lifecycleTransformer;
+    }
+    public MainModule(GoodsDetailsView goodsDetailsView, Activity activity){
+        this.mGoodsDetailsView =goodsDetailsView;
+        this.activity=activity;
     }
     public MainModule(){}
     @Provides
@@ -65,6 +72,15 @@ public class MainModule {
     @Provides
     MainPresenter provideMainPresenter(){
         return new MainPresenter(mainView,mlifecycleTransformer);
+    }
+
+    /**
+     * 实例化GoodsPresenter
+     * @return
+     */
+    @Provides
+    GoodsPresenter provideGoodPresenter(){
+        return new GoodsPresenter(mGoodsDetailsView,mlifecycleTransformer);
     }
 
     @Provides

@@ -1,6 +1,7 @@
 package com.shenyu.laikaword.di.component;
 
 import com.shenyu.laikaword.di.module.MainModule;
+import com.shenyu.laikaword.module.home.ui.activity.GoodsDetailsActivity;
 import com.shenyu.laikaword.module.home.ui.activity.MainActivity;
 import com.shenyu.laikaword.module.home.ui.fragment.MainFragment;
 import com.shenyu.laikaword.module.launch.WelcomePageActivity;
@@ -12,7 +13,11 @@ import dagger.Subcomponent;
  */
 @Subcomponent(modules = {MainModule.class})
 public interface MainComponent {
-     MainActivity inject(MainActivity loginActivity);
-     MainFragment inject(MainFragment mainFragment);
+    GoodsDetailsActivity inject(GoodsDetailsActivity loginActivity);
+
+    MainActivity inject(MainActivity loginActivity);
+
+    MainFragment inject(MainFragment mainFragment);
+
     WelcomePageActivity inject(WelcomePageActivity welcomePageActivity);
 }
