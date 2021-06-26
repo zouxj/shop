@@ -1,110 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/white"
-    android:orientation="vertical"
-    android:layout_height="178dp">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="39dp">
-<TextView
-    android:id="@+id/tv_goumai_time"
-   style="@style/tv_car_goumai"
-   />
-    <TextView
-        style="@style/tv_car_jiaoyi"
-        android:id="@+id/tv_goumai_state"
-        android:layout_marginRight="10dp"
-      />
-</RelativeLayout>
-<include layout="@layout/line_view"/>
-    <LinearLayout
-        android:orientation="horizontal"
+    android:orientation="vertical">
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="97dp">
+        android:layout_height="39dp">
+
+        <TextView
+            android:id="@+id/tv_goumai_time"
+            style="@style/tv_car_goumai" />
+
+        <TextView
+            android:id="@+id/tv_goumai_state"
+            style="@style/tv_car_jiaoyi"
+            android:layout_marginRight="10dp" />
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <com.shenyu.laikaword.ui.view.widget.BoderImageView
             android:id="@+id/iv_goumai_img"
-            android:layout_marginLeft="14dp"
             android:layout_width="106dp"
-            android:padding="1dp"
+            android:layout_height="72dp"
+            android:src="@mipmap/defaul_icon"
             android:layout_gravity="center_vertical"
-            android:layout_height="72dp" />
+            android:layout_marginLeft="14dp"
+            android:padding="1dp" />
+
         <RelativeLayout
-            android:layout_marginLeft="18dp"
-            android:layout_gravity="center_vertical"
             android:layout_width="match_parent"
-            android:layout_height="80dp">
+            android:layout_height="80dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="18dp">
+
             <TextView
                 android:id="@+id/tv_goumai_shop_name"
-                android:layout_marginTop="5dp"
-                android:textSize="@dimen/text_size_15sp"
-                android:textColor="@color/color_333"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/color_333"
+                android:textSize="@dimen/text_size_15sp" />
 
             <RelativeLayout
-                android:layout_alignParentBottom="true"
                 android:layout_width="match_parent"
-                android:layout_height="32dp">
+                android:layout_height="32dp"
+                android:layout_alignParentBottom="true">
+
                 <LinearLayout
-                    android:orientation="vertical"
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_height="wrap_content">
+                    android:orientation="vertical">
+
                     <TextView
                         android:id="@+id/tv_goumai_shop_price"
                         android:layout_width="wrap_content"
-                        android:textSize="@dimen/text_size_12sp"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
                         android:text="11"
                         android:textColor="@color/color_333"
-                        android:layout_height="wrap_content" />
+                        android:textSize="@dimen/text_size_12sp" />
+
                     <TextView
                         android:id="@+id/tv_goumai_shop_original_price"
-                        android:textSize="10sp"
-                        android:text="11"
-                        android:gravity="bottom"
-                        android:textColor="@color/color_999"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
                         android:layout_below="@+id/tv_goumai_shop_price"
-                         />
+                        android:gravity="bottom"
+                        android:text="11"
+                        android:textColor="@color/color_999"
+
+                        android:textSize="10sp" />
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/tv_goumai_shop_purchase"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentRight="true"
-                    android:textColor="@color/color_666"
-                    android:textSize="@dimen/text_size_13sp"
-                    android:gravity="center"
-                    android:layout_marginRight="10dp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center"
+                    android:textColor="@color/color_666"
+                    android:textSize="@dimen/text_size_13sp" />
             </RelativeLayout>
 
         </RelativeLayout>
 
     </LinearLayout>
-    <include layout="@layout/line_view"/>
+
+
     <RelativeLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="43dp">
+        android:layout_height="43dp"
+        android:orientation="horizontal">
+
         <TextView
             android:id="@+id/tv_goumai_indent_no"
-            style="@style/tv_car_goumai"
-            />
+            style="@style/tv_car_goumai" />
+
         <TextView
             android:id="@+id/tv_goumai_count"
-            android:layout_marginRight="10dp"
-            android:textSize="@dimen/text_size_12sp"
-            android:layout_centerVertical="true"
-            android:textColor="@color/color_333"
-            android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/color_333"
+            android:textSize="@dimen/text_size_12sp" />
     </RelativeLayout>
 </LinearLayout>

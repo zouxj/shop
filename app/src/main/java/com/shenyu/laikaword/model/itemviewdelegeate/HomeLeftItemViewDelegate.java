@@ -18,6 +18,8 @@ import com.shenyu.laikaword.helper.ImageUitls;
 import com.shenyu.laikaword.model.holder.ViewHolder;
 import com.shenyu.laikaword.model.bean.reponse.LoginReponse;
 import com.shenyu.laikaword.model.bean.reponse.ShopMainReponse;
+import com.shenyu.laikaword.model.web.MIActivity;
+import com.shenyu.laikaword.model.web.ShopDateilActivity;
 import com.shenyu.laikaword.module.goods.BuyGoodsActivity;
 import com.shenyu.laikaword.module.login.ui.activity.LoginActivity;
 import com.shenyu.laikaword.module.us.goodcards.ui.activity.CardPackageActivity;
@@ -80,7 +82,8 @@ public class HomeLeftItemViewDelegate implements ItemViewDelegate<ShopMainRepons
             holder.itemView.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LoginReponse loginReponse = (LoginReponse) SPUtil.readObject(Constants.LOGININFO_KEY);
+//                (LoginReponse) SPUtil.readObject(Constants.LOGININFO_KEY);
+                LoginReponse loginReponse = new LoginReponse();
                 if (entranceListBean.getTitle().equals("我的余额")){
                     //TODO 我的余额
                     if (null==loginReponse) {
@@ -117,10 +120,6 @@ public class HomeLeftItemViewDelegate implements ItemViewDelegate<ShopMainRepons
                     IntentLauncher.with(mActivity).launch(ResellActivity.class);
                 }
                 else if(entranceListBean.getTitle().equals("联系客服")){
-                    if (null==loginReponse) {
-                        IntentLauncher.with(mActivity).launch(LoginActivity.class);
-                        return;
-                    }
                     final ShopMainReponse shopMainReponse= (ShopMainReponse) SPUtil.readObject(Constants.MAIN_SHOP_KEY);
                     if (shopMainReponse!=null) {
                         String qq = shopMainReponse.getPayload().getContacts().getUrl();

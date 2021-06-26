@@ -33,4 +33,10 @@
     <string name="str_resell">*温馨提示\n1、转卖完以后,可在个人中心 ”我的余额“中提现.\n2、设置的转卖折扣越低,转卖速度更快.\n3、转卖手续费为限时免费,之后会收取一定费用.</string>
     <string name="empty_shangping">"暂无购买记录"</string>
 
+    <string name="permission_camera">摄像头</string>
+    <string name="permission_storage">文件</string>
+    <string name="permission_accounts">信息</string>
+    <string name="permission_phone">状态</string>
+    <string name="permission_location">定位</string>
+    <string name="permission_audio">录音</string>
 </resources>

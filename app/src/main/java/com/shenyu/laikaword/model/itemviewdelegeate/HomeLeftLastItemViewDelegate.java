@@ -42,7 +42,8 @@ public class HomeLeftLastItemViewDelegate implements ItemViewDelegate<ShopMainRe
         holder.itemView.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LoginReponse loginReponse = (LoginReponse) SPUtil.readObject(Constants.LOGININFO_KEY);
+                LoginReponse loginReponse = new LoginReponse();
+//                (LoginReponse) SPUtil.readObject(Constants.LOGININFO_KEY);
                 if (null==loginReponse) {
                     IntentLauncher.with(mActivity).launch(LoginActivity.class);
                     return;

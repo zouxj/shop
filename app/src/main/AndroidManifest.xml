@@ -4,8 +4,10 @@
     package="com.shenyu.laikaword">
 
     <uses-sdk android:minSdkVersion="8" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"
-        tools:ignore="ProtectedPermissions"></uses-permission>
+
+    <uses-permission
+        android:name="android.permission.SYSTEM_ALERT_WINDOW"
+        tools:ignore="ProtectedPermissions" />
     <uses-permission
         android:name="android.permission.SYSTEM_ALERT_WINDOW"
         tools:ignore="ProtectedPermissions" />
@@ -20,7 +22,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"
+    <uses-permission
+        android:name="android.permission.REQUEST_INSTALL_PACKAGES"
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -207,7 +210,8 @@
         <activity android:name=".module.us.resell.ui.activity.ResellInputCodeActivity" />
         <activity android:name=".module.us.resell.ui.activity.CommitResellActivity" />
         <activity android:name=".module.us.resell.ui.activity.ResellFinshActivity" />
-        <activity android:name=".module.us.resell.ui.activity.CDkeyActivity"></activity>
+        <activity android:name=".module.us.resell.ui.activity.CDkeyActivity" />
+        <activity android:name=".model.web.MIActivity"></activity>
     </application>
 
 </manifest>

@@ -58,7 +58,9 @@ public class BasePresenter<V> {
                 });
         RxSubscriptions.add(mRxSub);
     }
-    public void distribute(Event myEvent){}
+    public void distribute(Event myEvent){
+
+    }
 
 
 

@@ -72,7 +72,7 @@ public abstract class IKWordBaseFragment extends RxFragment implements IBaseFrag
     public abstract void requestData();
 
     public boolean prepareRequestData() {
-        return prepareRequestData(false);
+        return prepareRequestData(true);
     }
 
     public boolean prepareRequestData(boolean forceUpdate) {
@@ -80,7 +80,6 @@ public abstract class IKWordBaseFragment extends RxFragment implements IBaseFrag
             loadViewHelper = LoadViewHelper.instanceLoadViewHelper();
             setupFragmentComponent();
             requestData();
-            isDataLoaded = true;
             return true;
         }
         return false;

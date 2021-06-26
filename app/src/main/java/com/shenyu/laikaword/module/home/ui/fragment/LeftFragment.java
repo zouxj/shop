@@ -86,18 +86,22 @@ public class LeftFragment extends IKWordBaseFragment {
             case R.id.ly_user_head:
                 LoginReponse loginReponse = Constants.getLoginReponse();
                 if (null!=loginReponse) {
-                    IntentLauncher.with(getActivity()).launch(UserInfoActivity.class);
-                }else{
-                    IntentLauncher.with(getActivity()).launch(LoginActivity.class);
+
                 }
+                IntentLauncher.with(getActivity()).launch(UserInfoActivity.class);
+//                else{
+//                    IntentLauncher.with(getActivity()).launch(LoginActivity.class);
+//                }
 
                 break;
             case R.id.iv_seting:
-                if (null!=  Constants.getLoginReponse()) {
-                    IntentLauncher.with(getActivity()).launch(SettingSystemActivity.class);
-                }else{
-                    IntentLauncher.with(getActivity()).launch(LoginActivity.class);
-                }
+                IntentLauncher.with(getActivity()).launch(SettingSystemActivity.class);
+
+//                if (null!=  Constants.getLoginReponse()) {
+//                    IntentLauncher.with(getActivity()).launch(SettingSystemActivity.class);
+//                }else{
+//                    IntentLauncher.with(getActivity()).launch(LoginActivity.class);
+//                }
                 break;
         }
 
@@ -174,7 +178,7 @@ public class LeftFragment extends IKWordBaseFragment {
         dataList.clear();
         final ShopMainReponse shopMainReponse= (ShopMainReponse) SPUtil.readObject(Constants.MAIN_SHOP_KEY);
         dataList.add(new ShopMainReponse.EntranceListBean("我的余额",leftData[0],null,null,false));
-        dataList.add(new ShopMainReponse.EntranceListBean("我的购买",leftData[1],null,null,false));
+        dataList.add(new ShopMainReponse.EntranceListBean("我的订单",leftData[1],null,null,false));
         String flog = "0";
         if (null!=shopMainReponse)
                 flog=shopMainReponse.getPayload().getFlag().getnewExtractFlag();

@@ -12,81 +12,12 @@
     android:id="@+id/refreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-    <android.support.design.widget.CoordinatorLayout
-    android:id="@+id/main_content"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_alignParentBottom="true"
-        android:background="@color/white"
-        android:layout_height="wrap_content"
-        app:elevation="0dp">
-        <LinearLayout
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recy_home"
+            android:scrollbars="none"
             android:layout_width="match_parent"
-            app:layout_scrollFlags="scroll|enterAlways|snap"
-            android:orientation="vertical"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"/>
 
-
-        <include
-            layout="@layout/layout_banner"
-            android:layout_width="match_parent"
-            android:layout_height="144dp"
-            tools:ignore="IncludeLayoutParam" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="33dp"
-            android:orientation="horizontal"
-           >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="12dp"
-                android:gravity="center"
-                android:text="淘卡公告"
-                android:textColor="@color/app_theme_red" />
-
-            <TextView
-                android:layout_width="1dp"
-                android:layout_height="14dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="9dp"
-                android:background="@color/color_999" />
-
-            <com.shenyu.laikaword.ui.view.widget.UPMarqueeView
-                android:id="@+id/umt_main_gonggao"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="9dp">
-
-            </com.shenyu.laikaword.ui.view.widget.UPMarqueeView>
-
-        </LinearLayout>
-        <include layout="@layout/line_view"/>
-        </LinearLayout>
-
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tabs"
-            android:layout_width="match_parent"
-            android:paddingBottom="0dp"
-            android:layout_height="45dp"
-            app:tabIndicatorColor="@color/app_theme_red"
-            app:tabIndicatorHeight="4dp"
-            app:tabSelectedTextColor="@color/app_theme_red"/>
-
-    </android.support.design.widget.AppBarLayout>
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewpager_bottom"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-
-</android.support.design.widget.CoordinatorLayout>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </LinearLayout>

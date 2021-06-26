@@ -50,6 +50,7 @@ public class UserInfoPresenter extends BasePresenter<UserInfoView> {
     public UserInfoPresenter(Activity activity,UserInfoView userInfoView){
         this.activity=activity;
         this.mvpView=userInfoView;
+        attachView(mvpView);
     }
 
     //点击头像
@@ -262,6 +263,7 @@ public class UserInfoPresenter extends BasePresenter<UserInfoView> {
 
     @Override
     public void distribute(Event myEvent) {
+        super.distribute(myEvent);
         mvpView.subscribeEvent(myEvent);
     }
 }

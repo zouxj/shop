@@ -13,7 +13,7 @@ public class Constants {
      * URL Host
      */
     public static String HOST="http://t.shop.comingcard.com/";
-    public static  int host = 2;
+    public static  int host = 0;
     static {
 
         switch (host){
@@ -34,8 +34,8 @@ public class Constants {
 
     }
     public final static String HOSTDOWN_URL=HOST;
-    public static String API_URL =HOST+ "MApi/";
-    public static String webURL = HOST+"view/detail/detail.html?goodsId=";
+    public final static String API_URL =HOST+ "MApi/";
+    public final static String webURL = HOST+"view/detail/detail.html?goodsId=";
 
     /**
      * xml存在key
@@ -58,7 +58,7 @@ public class Constants {
      * appID
      */
     public static final String QQ_APPID="101425071";
-    public static final String WX_APPID="wx40cd3c9868cf2b92";
+    public static final String WX_APPID="wx421b6f8bc6ec1782";
     public static final String KEY_VALUE="124uj13nejk31h4u3faenfiu3h923jalkd";
     public static final String UMENG_ID="59ffd891aed1797aa8000196";
     public static synchronized String getToken() {
