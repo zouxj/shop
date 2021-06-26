@@ -16,6 +16,7 @@ import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.shenyu.laikaword.helper.GridSpacingItemDecoration;
 import com.shenyu.laikaword.helper.ImageUitls;
 import com.shenyu.laikaword.helper.StatusBarManager;
 import com.shenyu.laikaword.model.adapter.HomeAdapter;
@@ -107,13 +108,14 @@ public class MainFragment extends IKWordBaseFragment implements MainView {
         });
 
         mRecyHome.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        mRecyHome.addItemDecoration(new GridSpacingItemDecoration(2,(int) UIUtil.dp2px(10),true));
         List<String> date=new ArrayList<>();
         for (int i=0;i<50;i++){
-            int x = new Random().nextInt(150) + 100;
+            int x = new Random().nextInt(350) + 100;
             date.add(x+"");
 
         }
-        mRecyHome.setAdapter(new HomeAdapter(R.layout.item_goods,date));
+        mRecyHome.setAdapter(new HomeAdapter(R.layout.item_new_goods,date));
     }
 
 
