@@ -3,13 +3,15 @@ package com.shenyu.laikaword.ui.view.widget;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.annotation.RequiresApi;
+
 import com.shenyu.laikaword.R;
 import com.zxj.utilslibrary.utils.UIUtil;
 
@@ -69,6 +71,7 @@ public class LoadingView extends LinearLayout implements View.OnClickListener  {
 
 
 
+    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
     public LoadingView(Context context, AttributeSet attrs, int defStyleAttr) {
 
         super(context, attrs, defStyleAttr);

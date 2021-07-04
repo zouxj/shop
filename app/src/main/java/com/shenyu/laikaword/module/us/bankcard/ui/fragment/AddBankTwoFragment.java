@@ -2,7 +2,6 @@ package com.shenyu.laikaword.module.us.bankcard.ui.fragment;
 
 
 import android.annotation.SuppressLint;
-import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;

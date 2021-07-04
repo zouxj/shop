@@ -8,12 +8,12 @@
     android:orientation="vertical"
     tools:context=".module.us.bankcard.ui.activity.SelectBankIDActivity">
 <include layout="@layout/toolbar_layout"/>
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/card_cy_list"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </android.support.v7.widget.RecyclerView>
+    </androidx.recyclerview.widget.RecyclerView>
 <TextView
     android:id="@+id/tv_commit_selector"
     android:background="@color/app_theme_red"

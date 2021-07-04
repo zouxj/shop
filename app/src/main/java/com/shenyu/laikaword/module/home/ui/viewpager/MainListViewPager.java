@@ -3,8 +3,9 @@ package com.shenyu.laikaword.module.home.ui.viewpager;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Build;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.Html;
 import android.text.SpannableString;
 import android.text.Spanned;

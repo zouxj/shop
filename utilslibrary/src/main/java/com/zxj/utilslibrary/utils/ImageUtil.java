@@ -20,10 +20,12 @@ import android.media.ExifInterface;
 import android.media.MediaMetadataRetriever;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
-import android.support.annotation.Nullable;
 import android.util.Base64;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+
+import androidx.annotation.Nullable;
 
 import com.zxj.utilslibrary.AndroidUtilsCore;
 import com.zxj.utilslibrary.R;

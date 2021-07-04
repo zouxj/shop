@@ -2,11 +2,11 @@ package com.shenyu.laikaword.module.us.resell.ui.activity;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.Html;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -97,7 +97,7 @@ public class CommitResellActivity extends LKWordBaseActivity implements CommitRe
 
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.addItemDecoration(new RecycleViewDivider(this, LinearLayoutManager.HORIZONTAL,(int) UIUtil.dp2px(1),UIUtil.getColor(R.color.main_bg_gray)));
-        recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
         recyclerView.setAdapter(new CommonAdapter< SellInfoReponse.PayloadBean>(R.layout.resell_goods_item,payloadBeans) {
             @Override
             protected void convert(ViewHolder holder, final SellInfoReponse.PayloadBean payloadBean, int position) {

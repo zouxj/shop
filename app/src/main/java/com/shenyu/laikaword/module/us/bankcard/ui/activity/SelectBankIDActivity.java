@@ -3,8 +3,9 @@ package com.shenyu.laikaword.module.us.bankcard.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -67,7 +68,7 @@ public class SelectBankIDActivity extends LKWordBaseActivity implements SelectBa
             }
         });
 
-        recyclerView.addItemDecoration(new RecycleViewDivider(this,LinearLayoutManager.HORIZONTAL,1, UIUtil.getColor(R.color.divider)));
+        recyclerView.addItemDecoration(new RecycleViewDivider(this, LinearLayoutManager.HORIZONTAL,1, UIUtil.getColor(R.color.divider)));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         CommonAdapter commonAdapter=  new CommonAdapter<BankInfoReponse.PayloadBean>(R.layout.item_card_list,payload) {
             int selectedPosition=-5;

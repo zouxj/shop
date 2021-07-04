@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.shenyu.laikaword">
+    package="com.shenyu.laikaword" >
 
     <uses-sdk android:minSdkVersion="8" />
 
@@ -41,12 +41,15 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".module.home.ui.activity.GoodsDetailsActivity"></activity>
+        android:theme="@style/AppTheme" >
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+        <activity android:name=".module.home.ui.activity.GoodsDetailsActivity" />
         <activity
             android:name=".module.launch.StartActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/LaikaAppTheme">
+            android:theme="@style/LaikaAppTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -55,10 +58,10 @@
         </activity>
 
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name="androidx.core.content.FileProvider"
             android:authorities="com.shenyu.laikaword.fileprovider"
             android:exported="false"
-            android:grantUriPermissions="true">
+            android:grantUriPermissions="true" >
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_provider_paths" />
@@ -74,7 +77,7 @@
 
         <receiver
             android:name=".jpush.TalkReceiver"
-            android:enabled="true">
+            android:enabled="true" >
             <intent-filter>
 
                 <!-- Required 用户注册SDK的intent -->
@@ -127,7 +130,7 @@
         <activity
             android:name="com.tencent.tauth.AuthActivity"
             android:launchMode="singleTask"
-            android:noHistory="true">
+            android:noHistory="true" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -168,10 +171,10 @@
         <activity android:name=".module.us.message.UserMessageActivity" />
 
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name="androidx.core.content.FileProvider"
             android:authorities="com.shenyu.laikaword.fileprovider"
             android:exported="false"
-            android:grantUriPermissions="true">
+            android:grantUriPermissions="true" >
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_provider_paths" />

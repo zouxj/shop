@@ -2,8 +2,9 @@ package com.shenyu.laikaword.module.home.ui.fragment;
 
 
 import android.os.Build;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;

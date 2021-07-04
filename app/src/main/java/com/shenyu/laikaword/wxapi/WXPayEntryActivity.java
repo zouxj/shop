@@ -1,9 +1,10 @@
 package com.shenyu.laikaword.wxapi;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;

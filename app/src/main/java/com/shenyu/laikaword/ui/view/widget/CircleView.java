@@ -8,13 +8,15 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.Gravity;
 
+import androidx.appcompat.widget.AppCompatTextView;
+
 import com.shenyu.laikaword.R;
 
 /**
  * Created by Administrator on 2017/8/14 0014.
  */
 
-public class CircleView extends android.support.v7.widget.AppCompatTextView {
+public class CircleView extends AppCompatTextView {
 
     private float mRadius;
     private int backgroundColor;

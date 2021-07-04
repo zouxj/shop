@@ -48,11 +48,11 @@
 </RelativeLayout
 >
 
-<android.support.v7.widget.RecyclerView
+<androidx.recyclerview.widget.RecyclerView
     android:layout_weight="1"
     android:id="@+id/rc_left_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-</android.support.v7.widget.RecyclerView>
+</androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>

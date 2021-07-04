@@ -2,8 +2,9 @@ package com.shenyu.laikaword.module.us.resell.ui.activity;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -14,7 +15,6 @@ import android.widget.TextView;
 import com.jakewharton.rxbinding.widget.RxTextView;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
-import com.shenyu.laikaword.di.module.mine.BindAccountModule;
 import com.shenyu.laikaword.di.module.mine.MineModule;
 import com.shenyu.laikaword.helper.DialogHelper;
 import com.shenyu.laikaword.helper.RecycleViewDivider;

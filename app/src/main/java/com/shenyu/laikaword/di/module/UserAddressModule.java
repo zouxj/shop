@@ -1,6 +1,5 @@
 package com.shenyu.laikaword.di.module;
 
-import android.support.v7.widget.LinearLayoutManager;
 
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.BaseLoadView;

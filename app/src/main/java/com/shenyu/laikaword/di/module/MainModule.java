@@ -3,8 +3,10 @@ package com.shenyu.laikaword.di.module;
 
 
 import android.app.Activity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+
+
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.shenyu.laikaword.model.adapter.MainViewPagerAdapter;
 import com.shenyu.laikaword.helper.BannerHelper;
@@ -35,7 +37,7 @@ public class MainModule {
         this.mainView =mainView;
         this.activity=activity;
     }
-    public MainModule(FragmentManager manager,LifecycleTransformer lifecycleTransformer) {
+    public MainModule(FragmentManager manager, LifecycleTransformer lifecycleTransformer) {
         this.manager = manager;
         this.mlifecycleTransformer=lifecycleTransformer;
     }

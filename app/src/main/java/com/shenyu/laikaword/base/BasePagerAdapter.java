@@ -1,9 +1,10 @@
 package com.shenyu.laikaword.base;
 
 import android.app.Activity;
-import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.viewpager.widget.PagerAdapter;
 
 /**
  * Created by shenyu_zxjCode on 2017/10/16 0016.

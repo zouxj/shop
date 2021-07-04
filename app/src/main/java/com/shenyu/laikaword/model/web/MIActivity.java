@@ -7,8 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.webkit.ValueCallback;
@@ -16,6 +15,10 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.shenyu.laikaword.R;
 
@@ -51,6 +54,7 @@ public class MIActivity extends AppCompatActivity implements ReWebChomeClient.Op
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != Activity.RESULT_OK) {
             if (mUploadMsg != null) {
                 mUploadMsg.onReceiveValue(null);
@@ -250,6 +254,7 @@ public class MIActivity extends AppCompatActivity implements ReWebChomeClient.Op
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
     public void requestResult(String[] permissions, int[] grantResults) {
         ArrayList<String> needPermissions = new ArrayList<String>();
 

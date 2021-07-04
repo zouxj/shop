@@ -54,7 +54,7 @@ public class AccountSecurityActivity extends LKWordBaseActivity {
 
     @Override
     public void doBusiness(Context context) {
-        tvUpatePhone.setText(Constants.getLoginReponse().getPayload().getBindPhone());
+//        tvUpatePhone.setText(Constants.getLoginReponse().getPayload().getBindPhone());
     }
 
     @Override

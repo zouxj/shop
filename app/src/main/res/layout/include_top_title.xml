@@ -5,25 +5,29 @@
     android:minHeight="50dp"
     android:background="@mipmap/top_bg"
     android:layout_height="50dp">
+
     <RelativeLayout
-        android:layout_centerVertical="true"
-        android:layout_width="35dp"
-        android:layout_marginLeft="13dp"
-        android:layout_height="35dp">
-<ImageView
-    android:id="@+id/bt_top_img"
-    android:layout_width="30dp"
-    android:layout_centerVertical="true"
-    android:src="@mipmap/left_user_icon"
-    android:layout_height="30dp"/>
-    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="23dp"
         android:visibility="gone"
-        android:id="@+id/tv_point"
-        android:layout_margin="3dp"
-        android:background="@drawable/cicle_point"
-        android:layout_width="10dp"
-        android:layout_alignParentRight="true"
-        android:layout_height="10dp" />
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="13dp">
+
+        <ImageView
+            android:id="@+id/bt_top_img"
+            android:layout_width="match_parent"
+            android:layout_height="17dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/left_user_icon" />
+
+        <ImageView
+            android:id="@+id/tv_point"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_margin="3dp"
+            android:background="@drawable/cicle_point"
+            android:visibility="gone" />
     </RelativeLayout>
     <TextView
         android:textSize="18sp"

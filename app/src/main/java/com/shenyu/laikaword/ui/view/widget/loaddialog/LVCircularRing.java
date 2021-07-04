@@ -8,10 +8,13 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import android.support.annotation.ColorInt;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.RequiresApi;
 
 /**
  * Created by Luo on 2016/9/23.
@@ -77,11 +80,13 @@ public class LVCircularRing extends View {
         mPaint2.setColor(color);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
     public void startAnim() {
         stopAnim();
         startViewAnim(0f, 1f, 1000);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
     public void stopAnim() {
         if (valueAnimator != null) {
             clearAnimation();
@@ -93,6 +98,7 @@ public class LVCircularRing extends View {
 
     ValueAnimator valueAnimator;
 
+    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
     private ValueAnimator startViewAnim(float startF, final float endF, long time) {
         valueAnimator = ValueAnimator.ofFloat(startF, endF);
 

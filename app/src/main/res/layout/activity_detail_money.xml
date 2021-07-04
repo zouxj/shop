@@ -11,10 +11,10 @@
     android:orientation="vertical"
     tools:context="com.shenyu.laikaword.module.us.wallet.DetailMoneyActivity">
 <include layout="@layout/toolbar_layout"/>
-<android.support.v7.widget.RecyclerView
+<androidx.recyclerview.widget.RecyclerView
     android:id="@+id/rl_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-</android.support.v7.widget.RecyclerView>
+</androidx.recyclerview.widget.RecyclerView>
 </LinearLayout>
 </com.scwang.smartrefresh.layout.SmartRefreshLayout>

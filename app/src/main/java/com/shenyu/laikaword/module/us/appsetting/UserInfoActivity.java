@@ -5,11 +5,12 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 
 import com.leo618.mpermission.MPermission;
 import com.leo618.mpermission.MPermissionSettingsDialog;
@@ -122,6 +123,7 @@ public class UserInfoActivity extends LKWordBaseActivity implements UserInfoView
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // 回调成功
+        super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             String filePath = null;
             //判断是哪一个的回调

@@ -3,9 +3,10 @@ package com.shenyu.laikaword.ui.view.widget;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.v7.widget.TintTypedArray;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
+
+import androidx.appcompat.widget.TintTypedArray;
 
 import com.shenyu.laikaword.R;
 import com.zxj.utilslibrary.utils.UIUtil;

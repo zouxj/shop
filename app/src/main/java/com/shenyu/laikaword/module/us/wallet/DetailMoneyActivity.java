@@ -1,8 +1,9 @@
 package com.shenyu.laikaword.module.us.wallet;
 
 import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -57,7 +58,7 @@ public class DetailMoneyActivity extends LKWordBaseActivity {
                     ToastUtil.showToastShort("没有更多的数据了!");
             }
         });
-        recyclerView.addItemDecoration(new RecycleViewDivider(this,LinearLayoutManager.HORIZONTAL,2,UIUtil.getColor(R.color.main_bg_gray) ));
+        recyclerView.addItemDecoration(new RecycleViewDivider(this, LinearLayoutManager.HORIZONTAL,2,UIUtil.getColor(R.color.main_bg_gray) ));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
          emptyWrapper = new EmptyWrapper(new CommonAdapter<MoneyDetailReponse.PayloadBean>(R.layout.item_daile_money,payload) {

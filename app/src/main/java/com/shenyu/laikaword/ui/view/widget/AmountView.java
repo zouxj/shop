@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
@@ -16,6 +15,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+
+import androidx.annotation.RequiresApi;
 
 import com.shenyu.laikaword.R;
 import com.zxj.utilslibrary.utils.StringUtil;
@@ -39,6 +40,7 @@ public class AmountView extends LinearLayout implements View.OnClickListener, Te
     private OnDoubleAmountChangeListener onDoubleAmountChangeListener;
     private int flg=0;
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public AmountView(Context context) {
         this(context, null);
 
@@ -236,6 +238,7 @@ public class AmountView extends LinearLayout implements View.OnClickListener, Te
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
     @Override
 
     public void afterTextChanged(Editable s) {

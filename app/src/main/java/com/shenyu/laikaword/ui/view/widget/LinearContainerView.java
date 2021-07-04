@@ -2,10 +2,13 @@ package com.shenyu.laikaword.ui.view.widget;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.support.annotation.Nullable;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.widget.LinearLayout;
+
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
 /**
  * Created by Administrator on 2017/8/14 0014.
@@ -21,6 +24,7 @@ public class LinearContainerView extends LinearLayout{
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
     public LinearContainerView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }

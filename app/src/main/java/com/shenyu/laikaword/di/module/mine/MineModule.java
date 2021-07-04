@@ -2,8 +2,9 @@ package com.shenyu.laikaword.di.module.mine;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.shenyu.laikaword.base.BaseLoadView;
 import com.shenyu.laikaword.model.adapter.CarPackageViewPagerAdapter;

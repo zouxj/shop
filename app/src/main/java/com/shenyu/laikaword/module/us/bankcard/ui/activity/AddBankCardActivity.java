@@ -1,7 +1,8 @@
 package com.shenyu.laikaword.module.us.bankcard.ui.activity;
 
 import android.content.Context;
-import android.support.v4.app.FragmentTransaction;
+
+import androidx.fragment.app.FragmentTransaction;
 
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;

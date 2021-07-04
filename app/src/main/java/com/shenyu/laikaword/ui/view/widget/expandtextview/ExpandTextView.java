@@ -6,8 +6,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.ColorInt;
-import android.support.annotation.DrawableRes;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
@@ -17,6 +16,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.RequiresApi;
 
 import com.shenyu.laikaword.R;
 import com.zxj.utilslibrary.utils.UIUtil;
@@ -80,14 +83,17 @@ public class ExpandTextView extends LinearLayout implements View.OnClickListener
     //      是否已经展开
     private boolean flag;
 
+    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
     public ExpandTextView(Context context) {
         this(context, null);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
     public ExpandTextView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
     public ExpandTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.mContext = context;
@@ -297,6 +303,7 @@ public class ExpandTextView extends LinearLayout implements View.OnClickListener
         this.mListener = mListener;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.rl_show_more) {
@@ -340,6 +347,7 @@ public class ExpandTextView extends LinearLayout implements View.OnClickListener
     /**
      * 折叠和展开
      */
+    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
     private void expand() {
         int startHeight;
         int targetHeight;

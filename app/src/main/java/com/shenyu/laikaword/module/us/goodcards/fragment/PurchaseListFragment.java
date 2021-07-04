@@ -1,8 +1,9 @@
 package com.shenyu.laikaword.module.us.goodcards.fragment;
 
 import android.annotation.SuppressLint;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -58,7 +59,7 @@ public class PurchaseListFragment extends IKWordBaseFragment {
     @Override
     public void initView(View view) {
 
-        recyclerView.addItemDecoration(new RecycleViewDivider(getActivity(),LinearLayoutManager.HORIZONTAL,(int) UIUtil.dp2px(3),UIUtil.getColor(R.color.main_bg_gray)));
+        recyclerView.addItemDecoration(new RecycleViewDivider(getActivity(), LinearLayoutManager.HORIZONTAL,(int) UIUtil.dp2px(3),UIUtil.getColor(R.color.main_bg_gray)));
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
          adapter = new PurchaseItemAdapter(payload);
         emptyWrapper =new EmptyWrapper(adapter);

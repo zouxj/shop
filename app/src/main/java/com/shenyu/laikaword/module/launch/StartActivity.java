@@ -2,11 +2,12 @@ package com.shenyu.laikaword.module.launch;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
 
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.model.bean.reponse.StartBannerGuangKReponse;
@@ -57,83 +58,83 @@ public class StartActivity extends RxActivity {
     }
 
     public void doBusiness(Context context) {
+        IntentLauncher.with(this).launchFinishCpresent(MainActivity.class);
 
 //去掉Activity上面的状态栏
-        if (!StringUtil.validText(SPUtil.getString("start_app_t", ""))) {
-            //TODO 第一次登录
-            IntentLauncher.with(this).launchFinishCpresent(WelcomePageActivity.class);
-        } else {
-            RetrofitUtils.getRetrofitUtils().setLifecycleTransformer(this.bindToLifecycle()).addSubscription(RetrofitUtils.apiStores.appStartUp(), new ApiCallback<StartBannerGuangKReponse>() {
-                @Override
-                public void onSuccess(StartBannerGuangKReponse model) {
-                    if (model.isSuccess()&&null!=model.getPayload()&&StringUtil.validText(model.getPayload().getImageUrl())&&StringUtil.validText(model.getPayload().getImageUrl())) {
-                        payload = model.getPayload();
-                        imageView.setVisibility(View.VISIBLE);
-                        textView.setVisibility(View.VISIBLE);
-                        String url = payload.getImageUrl();
-                        if (StringUtil.validText(url)) {
-                            Picasso.with(UIUtil.getContext()).load(url).placeholder(R.mipmap.start_img).error(R.mipmap.start_img).into(imageView);
-                        }
-                        RxTask.countdown(StartActivity.this.bindToLifecycle(), 3).subscribe(new Observer<Long>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-
-                            }
-
-                            @Override
-                            public void onNext(Long aLong) {
-                                textView.setText("跳过广告 " + aLong + "秒");
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-
-                            }
-
-                            @Override
-                            public void onComplete() {
-
-                            }
-                        });
-
-                    }else {
-//                        IntentLauncher.with(StartActivity.this).launchFinishCpresent(MainActivity.class);
-                    }
-                }
-
-                @Override
-                public void onFailure(String msg) {
-
-                }
-
-                @Override
-                public void onFinish() {
-
-                }
-            });
-
-            Observable.interval(4, TimeUnit.SECONDS).take(1).compose(this.<Long>bindUntilEvent(ActivityEvent.PAUSE)).subscribe(new Observer<Long>() {
-                @Override
-                public void onSubscribe(Disposable d) {
-
-                }
-
-                @Override
-                public void onNext(Long aLong) {
-
-                }
-
-                @Override
-                public void onError(Throwable e) {
-
-                }
-
-                @Override
-                public void onComplete() {
-                    IntentLauncher.with(StartActivity.this).launchFinishCpresent(MainActivity.class);
-                }
-            });
-        }
+//        if (!StringUtil.validText(SPUtil.getString("start_app_t", ""))) {
+//            //TODO 第一次登录
+//        } else {
+//            RetrofitUtils.getRetrofitUtils().setLifecycleTransformer(this.bindToLifecycle()).addSubscription(RetrofitUtils.apiStores.appStartUp(), new ApiCallback<StartBannerGuangKReponse>() {
+//                @Override
+//                public void onSuccess(StartBannerGuangKReponse model) {
+//                    if (model.isSuccess()&&null!=model.getPayload()&&StringUtil.validText(model.getPayload().getImageUrl())&&StringUtil.validText(model.getPayload().getImageUrl())) {
+//                        payload = model.getPayload();
+//                        imageView.setVisibility(View.VISIBLE);
+//                        textView.setVisibility(View.VISIBLE);
+//                        String url = payload.getImageUrl();
+//                        if (StringUtil.validText(url)) {
+//                            Picasso.with(UIUtil.getContext()).load(url).placeholder(R.mipmap.start_img).error(R.mipmap.start_img).into(imageView);
+//                        }
+//                        RxTask.countdown(StartActivity.this.bindToLifecycle(), 3).subscribe(new Observer<Long>() {
+//                            @Override
+//                            public void onSubscribe(Disposable d) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onNext(Long aLong) {
+//                                textView.setText("跳过广告 " + aLong + "秒");
+//                            }
+//
+//                            @Override
+//                            public void onError(Throwable e) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onComplete() {
+//
+//                            }
+//                        });
+//
+//                    }else {
+////                        IntentLauncher.with(StartActivity.this).launchFinishCpresent(MainActivity.class);
+//                    }
+//                }
+//
+//                @Override
+//                public void onFailure(String msg) {
+//
+//                }
+//
+//                @Override
+//                public void onFinish() {
+//
+//                }
+//            });
+//
+//            Observable.interval(4, TimeUnit.SECONDS).take(1).compose(this.<Long>bindUntilEvent(ActivityEvent.PAUSE)).subscribe(new Observer<Long>() {
+//                @Override
+//                public void onSubscribe(Disposable d) {
+//
+//                }
+//
+//                @Override
+//                public void onNext(Long aLong) {
+//
+//                }
+//
+//                @Override
+//                public void onError(Throwable e) {
+//
+//                }
+//
+//                @Override
+//                public void onComplete() {
+//                    IntentLauncher.with(StartActivity.this).launchFinishCpresent(MainActivity.class);
+//                }
+//            });
+//        }
     }
 
     @Nullable

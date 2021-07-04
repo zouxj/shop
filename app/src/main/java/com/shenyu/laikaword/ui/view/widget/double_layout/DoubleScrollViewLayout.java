@@ -1,7 +1,6 @@
 package com.shenyu.laikaword.ui.view.widget.double_layout;
 
 import android.content.Context;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -10,6 +9,8 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.Scroller;
+
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 /**
  * ChenboCui 上下层两个ScrollView

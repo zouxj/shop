@@ -1,8 +1,4 @@
 package com.shenyu.laikaword.model.net.downloadmanager;
-
-import android.Manifest;
-import android.app.Activity;
-import android.app.Dialog;
 import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Context;
@@ -10,25 +6,18 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
-import android.os.Handler;
 import android.os.IBinder;
-import android.os.Looper;
 import android.provider.Settings;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.FileProvider;
-import android.view.WindowManager;
-
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.core.app.NotificationCompat;
+import androidx.core.content.FileProvider;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.common.Constants;
-import com.shenyu.laikaword.helper.DialogHelper;
 import com.shenyu.laikaword.model.net.okhttp.OkHttp3Utils;
 import com.shenyu.laikaword.model.net.retrofit.ApiStores;
 import com.shenyu.laikaword.model.net.callback.FileCallback;
 import com.zxj.utilslibrary.utils.LogUtil;
-import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
 
 import java.io.File;

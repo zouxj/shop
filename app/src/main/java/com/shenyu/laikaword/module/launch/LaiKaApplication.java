@@ -1,8 +1,10 @@
 package com.shenyu.laikaword.module.launch;
 
 import android.content.Context;
-import android.support.multidex.MultiDex;
-import android.support.multidex.MultiDexApplication;
+
+
+import androidx.multidex.MultiDex;
+import androidx.multidex.MultiDexApplication;
 
 import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.di.component.AppComponent;

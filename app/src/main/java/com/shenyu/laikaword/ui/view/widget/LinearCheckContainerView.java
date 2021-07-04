@@ -2,9 +2,12 @@ package com.shenyu.laikaword.ui.view.widget;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.support.annotation.Nullable;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
+
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
 /**
  * Created by Administrator on 2017/8/15 0015.
@@ -14,12 +17,14 @@ public class LinearCheckContainerView extends LinearLayout {
     private int[] mArrays;
     private Context context;
 
+    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
     public LinearCheckContainerView(Context context, @Nullable AttributeSet attrs) {
         this(context,attrs,0);
         this.context = context;
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
     public LinearCheckContainerView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }

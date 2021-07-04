@@ -7,12 +7,12 @@
     android:layout_height="match_parent"
     tools:context=".module.us.address.ui.activity.AddressInfoActivity">
 <include layout="@layout/toolbar_layout"/>
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rl_address_list"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </android.support.v7.widget.RecyclerView>
+    </androidx.recyclerview.widget.RecyclerView>
 <TextView
     android:id="@+id/tv_add_address"
     android:layout_width="match_parent"

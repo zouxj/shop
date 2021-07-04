@@ -1,7 +1,8 @@
 package com.shenyu.laikaword.di.module;
 
 import android.app.Activity;
-import android.support.v7.widget.LinearLayoutManager;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.helper.RecycleViewDivider;

@@ -1,9 +1,10 @@
 package com.shenyu.laikaword.module.goods.pickupgoods.ui.activity;
 
 import android.content.Context;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
 
+import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.tabs.TabLayout;
 import com.shenyu.laikaword.model.bean.reponse.BaseReponse;
 import com.shenyu.laikaword.model.bean.reponse.PickUpGoodsReponse;
 import com.shenyu.laikaword.model.bean.reponse.PurChaseReponse;

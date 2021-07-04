@@ -2,9 +2,7 @@ package com.shenyu.laikaword.helper;
 
 import android.annotation.SuppressLint;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
+
 import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
@@ -13,6 +11,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import com.shenyu.laikaword.R;
 import com.squareup.picasso.Picasso;

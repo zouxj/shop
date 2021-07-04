@@ -1,6 +1,6 @@
 package com.shenyu.laikaword.model.adapter;
 
-import android.support.v4.util.SparseArrayCompat;
+import androidx.collection.SparseArrayCompat;
 
 import com.shenyu.laikaword.model.itemviewdelegeate.ItemViewDelegate;
 import com.shenyu.laikaword.model.holder.ViewHolder;

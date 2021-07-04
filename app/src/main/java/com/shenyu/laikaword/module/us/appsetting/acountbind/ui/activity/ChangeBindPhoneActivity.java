@@ -2,9 +2,10 @@ package com.shenyu.laikaword.module.us.appsetting.acountbind.ui.activity;
 
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import androidx.annotation.RequiresApi;
 
 import com.jakewharton.rxbinding.widget.RxTextView;
 import com.shenyu.laikaword.R;

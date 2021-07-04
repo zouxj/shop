@@ -11,9 +11,7 @@ import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
 import android.provider.MediaStore;
-import android.support.annotation.RequiresApi;
-import android.support.v4.content.FileProvider;
-import android.support.v7.app.AlertDialog;
+
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -29,6 +27,10 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.FileProvider;
 
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.base.LKWordBaseActivity;
@@ -247,6 +249,7 @@ public class GuessActivity extends LKWordBaseActivity implements ReWebChomeClien
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != Activity.RESULT_OK) {
             if (mUploadMsg != null) {
                 mUploadMsg.onReceiveValue(null);
@@ -291,7 +294,7 @@ public class GuessActivity extends LKWordBaseActivity implements ReWebChomeClien
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                        break;
+                break;
 
             case REQUEST_CODE_PICK_IMAGE: {
                 try {

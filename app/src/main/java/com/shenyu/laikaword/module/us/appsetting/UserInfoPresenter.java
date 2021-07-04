@@ -6,7 +6,9 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
-import android.support.v4.content.FileProvider;
+
+import androidx.core.content.FileProvider;
+
 import com.leo618.mpermission.AfterPermissionGranted;
 import com.shenyu.laikaword.base.BasePresenter;
 import com.shenyu.laikaword.model.bean.reponse.BaseReponse;
