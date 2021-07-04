@@ -1,58 +1,7 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:layout_height="match_parent"
-    tools:context="com.shenyu.laikaword.module.home.ui.fragment.LeftFragment">
-
-    <!-- TODO: Update blank fragmitem_cardinfo_listyout -->
-<RelativeLayout
-    android:id="@+id/ly_user_head"
-    android:layout_width="match_parent"
-    android:orientation="horizontal"
-    android:background="@mipmap/left_bg_icon"
-    android:layout_height="100dp">
-
-    <ImageView
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="9dp"
-        android:id="@+id/tv_user_head"
-        android:src="@mipmap/left_user_icon"
-        android:layout_width="48dp"
-        android:layout_height="48dp" />
-
-
-    <TextView
-        android:layout_toRightOf="@+id/tv_user_head"
-        android:id="@+id/tv_user_name"
-        android:layout_gravity="center_vertical"
-        android:text="未登录"
-        android:layout_centerVertical="true"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_size_14sp"
-        android:layout_marginLeft="7dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <ImageView
-        android:visibility="gone"
-        android:id="@+id/iv_seting"
-        android:layout_marginRight="10dp"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_gravity="center_vertical"
-        android:src="@mipmap/lfet_setting_icon"
-        android:layout_width="28dp"
-        android:layout_height="28dp" />
-
-</RelativeLayout
->
-
 <androidx.recyclerview.widget.RecyclerView
-    android:layout_weight="1"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rc_left_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 </androidx.recyclerview.widget.RecyclerView>
-
-</LinearLayout>

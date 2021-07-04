@@ -62,8 +62,6 @@ public class MainFragment extends IKWordBaseFragment implements MainView {
     @BindView(R.id.refreshLayout)
     SmartRefreshLayout smartRefreshLayout;
     @Inject
-    MainViewPagerAdapter mainViewPagerAdapter;
-    @Inject
     MainPresenter mainPresenter;
     List<ShopMainReponse.PayloadBean.NoticeBean> data = new ArrayList<>();
     @BindView(R.id.bt_top_img)

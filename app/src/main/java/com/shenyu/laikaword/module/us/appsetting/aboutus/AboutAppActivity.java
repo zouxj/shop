@@ -53,7 +53,7 @@ public class AboutAppActivity extends LKWordBaseActivity implements MPermission.
     @Override
     public void initView() {
         setToolBarTitle("关于我们");
-        tvVersion.setText("淘卡商城 " + PackageManagerUtil.getVersionName(UIUtil.getContext()));
+        tvVersion.setText("xx商城 " + PackageManagerUtil.getVersionName(UIUtil.getContext()));
 
         final ShopMainReponse shopMainReponse = (ShopMainReponse) SPUtil.readObject(Constants.MAIN_SHOP_KEY);
         if (shopMainReponse != null) {
