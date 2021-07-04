@@ -1,54 +1,32 @@
 package com.shenyu.laikaword.module.home.ui.fragment;
 
-import android.annotation.SuppressLint;
-import android.os.Build;
 
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.shenyu.laikaword.R;
 import com.shenyu.laikaword.helper.GridSpacingItemDecoration;
-import com.shenyu.laikaword.helper.ImageUitls;
 import com.shenyu.laikaword.helper.StatusBarManager;
 import com.shenyu.laikaword.model.adapter.MultiItemTypeAdapter;
 import com.shenyu.laikaword.base.IKWordBaseFragment;
-import com.shenyu.laikaword.model.itemviewdelegeate.HomeLeftItemViewDelegate;
-import com.shenyu.laikaword.model.itemviewdelegeate.HomeLeftLastItemViewDelegate;
 import com.shenyu.laikaword.model.bean.reponse.LoginReponse;
 import com.shenyu.laikaword.common.Constants;
 import com.shenyu.laikaword.model.bean.reponse.ShopMainReponse;
-import com.shenyu.laikaword.module.login.ui.activity.LoginActivity;
 import com.shenyu.laikaword.module.us.appsetting.SettingSystemActivity;
 import com.shenyu.laikaword.module.us.appsetting.UserInfoActivity;
-import com.shenyu.laikaword.model.rxjava.rxbus.RxBusSubscriber;
-import com.shenyu.laikaword.model.rxjava.rxbus.RxSubscriptions;
-import com.shenyu.laikaword.model.rxjava.rxbus.event.Event;
-import com.shenyu.laikaword.model.rxjava.rxbus.event.EventType;
-import com.shenyu.laikaword.model.rxjava.rxbus.RxBus;
 import com.zxj.utilslibrary.utils.IntentLauncher;
-import com.zxj.utilslibrary.utils.LogUtil;
-import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
 import butterknife.BindView;
-import butterknife.OnClick;
-import rx.android.schedulers.AndroidSchedulers;
+
 
 
 public class LeftFragment extends IKWordBaseFragment {
@@ -76,7 +54,7 @@ public class LeftFragment extends IKWordBaseFragment {
 
     @Override
     public void initView(View view) {
-        StatusBarManager statusBarManager = new StatusBarManager(getActivity(), UIUtil.getColor(R.color.app_theme_red));
+//        StatusBarManager statusBarManager = new StatusBarManager(getActivity(), UIUtil.getColor(R.color.app_theme_red));
 //        int statusBarHeight=  statusBarManager.getStatusBarHeight();
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT&&Build.VERSION.SDK_INT <Build.VERSION_CODES.LOLLIPOP) {
 //            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) leftLayout.getLayoutParams();

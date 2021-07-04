@@ -4,13 +4,10 @@ package com.shenyu.laikaword.module.home.ui.fragment;
 import android.os.Build;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
-
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-
-
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
@@ -23,11 +20,9 @@ import com.shenyu.laikaword.helper.StatusBarManager;
 import com.shenyu.laikaword.model.adapter.HomeAdapter;
 import com.shenyu.laikaword.model.adapter.MultiItemTypeAdapter;
 import com.shenyu.laikaword.model.bean.reponse.BaseReponse;
-import com.shenyu.laikaword.module.goods.BuyGoodsActivity;
 import com.shenyu.laikaword.module.home.ui.activity.GoodsDetailsActivity;
 import com.shenyu.laikaword.module.launch.LaiKaApplication;
 import com.shenyu.laikaword.R;
-import com.shenyu.laikaword.model.adapter.MainViewPagerAdapter;
 import com.shenyu.laikaword.base.IKWordBaseFragment;
 import com.shenyu.laikaword.model.bean.reponse.LoginReponse;
 import com.shenyu.laikaword.model.bean.reponse.ShopMainReponse;
@@ -43,13 +38,10 @@ import com.zxj.utilslibrary.utils.SPUtil;
 import com.zxj.utilslibrary.utils.StringUtil;
 import com.zxj.utilslibrary.utils.ToastUtil;
 import com.zxj.utilslibrary.utils.UIUtil;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
 import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 
