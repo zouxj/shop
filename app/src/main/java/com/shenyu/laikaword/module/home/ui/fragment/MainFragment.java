@@ -65,7 +65,7 @@ public class MainFragment extends IKWordBaseFragment implements MainView {
     @BindView(R.id.iv_message)
     ImageView imageMessage;
     @BindView(R.id.recy_home)
-    RecyclerView mRecyHome;
+    RecyclerView mRacyHome;
 
     @Override
     public int bindLayout() {
@@ -104,8 +104,8 @@ public class MainFragment extends IKWordBaseFragment implements MainView {
             }
         });
 
-        mRecyHome.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-        mRecyHome.addItemDecoration(new GridSpacingItemDecoration(2, (int) UIUtil.dp2px(10), true));
+        mRacyHome.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        mRacyHome.addItemDecoration(new GridSpacingItemDecoration(2, (int) UIUtil.dp2px(10), true));
         List<String> date = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
             int x = new Random().nextInt(350) + 100;
@@ -113,7 +113,7 @@ public class MainFragment extends IKWordBaseFragment implements MainView {
 
         }
         HomeAdapter homeAdapter = new HomeAdapter(R.layout.item_new_goods, date);
-        mRecyHome.setAdapter(homeAdapter);
+        mRacyHome.setAdapter(homeAdapter);
         homeAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {

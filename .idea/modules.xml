@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/shenyuproject.iml" filepath="$PROJECT_DIR$/shenyuproject.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/shenyuproject.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/shenyuproject.app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/paylibrary/shenyuproject.paylibrary.iml" filepath="$PROJECT_DIR$/.idea/modules/paylibrary/shenyuproject.paylibrary.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/utilslibrary/shenyuproject.utilslibrary.iml" filepath="$PROJECT_DIR$/.idea/modules/utilslibrary/shenyuproject.utilslibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/shop.iml" filepath="$PROJECT_DIR$/.idea/modules/shop.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/shop.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/shop.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/paylibrary/shop.paylibrary.iml" filepath="$PROJECT_DIR$/.idea/modules/paylibrary/shop.paylibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/utilslibrary/shop.utilslibrary.iml" filepath="$PROJECT_DIR$/.idea/modules/utilslibrary/shop.utilslibrary.iml" />
     </modules>
   </component>
 </project>

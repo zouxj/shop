@@ -9,7 +9,7 @@ android {
         release {
             keyAlias 'laikai'
             keyPassword 'android123'
-            storeFile file('H:/AndroidProject/shenyuproject/kaika_word.jks')
+            storeFile file('E:/AndroidDemo/shop/kaika_word.jks')
             storePassword 'android123'
 
         }

@@ -17,7 +17,7 @@ public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
     private int spanCount;
     private int spacing;
     private boolean includeEdge;
-    private int mHeadCount=-1;
+    private int mHeadCount = -1;
 
     public GridSpacingItemDecoration(int spanCount, int spacing, boolean includeEdge) {
         this.spanCount = spanCount;
@@ -25,18 +25,24 @@ public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
         this.includeEdge = includeEdge;
     }
 
-    public GridSpacingItemDecoration(int spanCount, int spacing, boolean includeEdge,int headCount) {
+    public GridSpacingItemDecoration(int spanCount, int spacing, boolean includeEdge, int headCount) {
         this.spanCount = spanCount;
         this.spacing = spacing;
         this.includeEdge = includeEdge;
-        this.mHeadCount=headCount;
+        this.mHeadCount = headCount;
     }
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         int position = parent.getChildAdapterPosition(view); // item position
-        if (position <=mHeadCount)
+        if (position <= mHeadCount) {
+            outRect.left = 0;
+            outRect.right = 0;
+            outRect.top = 0;
+            outRect.bottom = 0;
             return;
+        }
+
 
         int column = position % spanCount; // item column
 

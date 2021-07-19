@@ -31,10 +31,10 @@ public class PutObjectSamples {
     private OSS oss;
     private static final String endpoint = "https://oss-cn-shanghai.aliyuncs.com";
     private String objectKey;
-    PutObjectRequest put;
+
     private String uploadImgUrl;
     private ImgSTSReponse mImgSTSReponse;
-
+    PutObjectRequest put;
     public PutObjectSamples(ImgSTSReponse imgSTSReponse,String uploadImgUrl,String objectKey){
         this.mImgSTSReponse = imgSTSReponse;
         this.objectKey=objectKey;

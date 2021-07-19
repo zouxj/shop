@@ -5,12 +5,12 @@ android {
         config {
             keyAlias 'laikai'
             keyPassword 'android123'
-            storeFile file('E:/AndroidStudioProjects/LaiKaWord/kaika_word.jks')
+            storeFile file('E:/AndroidDemo/shop/kaika_word.jks')
             storePassword 'android123'
         }
     }
     compileSdkVersion 30
-    buildToolsVersion "30.0.2"
+    buildToolsVersion "30.0.3"
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 30

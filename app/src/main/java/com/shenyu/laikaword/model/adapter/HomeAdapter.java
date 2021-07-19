@@ -1,6 +1,7 @@
 package com.shenyu.laikaword.model.adapter;
 
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shenyu.laikaword.R;
@@ -20,7 +21,7 @@ public class HomeAdapter extends CommonAdapter<String> {
 
     @Override
     protected void convert(ViewHolder viewHolder, String payloadBean, int position) {
-        TextView bgImage = viewHolder.getView(R.id.iv_goumai_img);
+        ImageView bgImage = viewHolder.getView(R.id.iv_goumai_img);
         ViewGroup.LayoutParams layoutParams = bgImage.getLayoutParams();
         layoutParams.height = Integer.parseInt(payloadBean);
         bgImage.setLayoutParams(layoutParams);

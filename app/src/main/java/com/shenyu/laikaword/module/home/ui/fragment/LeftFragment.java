@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -67,7 +68,7 @@ public class LeftFragment extends IKWordBaseFragment {
 //        commonAdapter.addItemViewDelegate(new HomeLeftLastItemViewDelegate(getActivity()));
 //        rcLeftView.setAdapter(commonAdapter);
         List<String> dataList = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 11; i++) {
             int x = new Random().nextInt(350) + 100;
             dataList.add(x + "");
         }
@@ -208,7 +209,7 @@ public class LeftFragment extends IKWordBaseFragment {
 
         @Override
         protected void convert(BaseViewHolder helper, String item) {
-            TextView bgImage = helper.getView(R.id.iv_goumai_img);
+            ImageView bgImage = helper.getView(R.id.iv_goumai_img);
             ViewGroup.LayoutParams layoutParams = bgImage.getLayoutParams();
             layoutParams.height = Integer.parseInt(item);
             bgImage.setLayoutParams(layoutParams);
